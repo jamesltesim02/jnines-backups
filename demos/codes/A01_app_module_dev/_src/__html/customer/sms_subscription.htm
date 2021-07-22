@@ -1,0 +1,352 @@
+<template id="contentTmpl">
+<div class="main_content">
+    <section class="subscriptionservice_content">
+        <div class="layout_form">
+            <form action="" method="post">            
+                <div class="form_field_wrap">
+                    <div class="form_field b-0">
+                        <span class="label">余额变更</span>      
+                        <div class="input_wrap txt_right"> 
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">邮件</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="emailBalanceChanges" v-on:input="emailBalanceChanges=$event.target.value">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">短信</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="smsBalanceChanges" v-on:input="smsBalanceChanges=$event.target.value">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>  
+                <div class="flt-header">
+                    <span>余额变更包括变更：存款,取款,优惠</span>
+                </div>
+                <div class="form_field_wrap padding_tremove">
+                    <div class="form_field b-0">
+                        <span class="label">资料变更</span>      
+                        <div class="input_wrap txt_right"> 
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">邮件</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="emailDataChanges" v-on:input="emailDataChanges=$event.target.value">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">短信</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="smsDataChanges" v-on:input="smsDataChanges=$event.target.value">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="clearfix"></div>
+                </div>  
+                <div class="flt-header">
+                    <span>资料变更包括变更：密码银行卡资料,账户姓名,电话号码</span>
+                </div>
+                <div class="form_field_wrap padding_tremove">
+                    <div class="form_field">
+                        <span class="label">网站域名变更</span>      
+                        <div class="input_wrap txt_right"> 
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">邮件</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="emailDomainChanges" v-on:input="emailDomainChanges=$event.target.value">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">短信</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="smsDomainChanges" v-on:input="smsDomainChanges=$event.target.value">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="clearfix"></div>
+                    <div class="form_field">
+                        <span class="label">网站收款账号变更</span>      
+                        <div class="input_wrap txt_right"> 
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">邮件</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="emailPaymentAccountChanges" v-on:input="emailPaymentAccountChanges=$event.target.value">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">短信</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="smsPaymentAccountChanges" v-on:input="smsPaymentAccountChanges=$event.target.value">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="clearfix"></div>
+                    <div class="form_field">
+                        <span class="label">登录提示</span>      
+                        <div class="input_wrap txt_right"> 
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">邮件</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="emailLoginChanges" v-on:input="emailLoginChanges=$event.target.value">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">短信</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="smsLoginChanges" v-on:input="smsLoginChanges=$event.target.value">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="clearfix"></div>
+                    <div class="form_field">
+                        <span class="label">优惠活动通知</span>      
+                        <div class="input_wrap txt_right"> 
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">邮件</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="emailPromotionsChanges" v-on:input="emailPromotionsChanges=$event.target.value">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">短信</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="smsPromotionsChanges" v-on:input="smsPromotionsChanges=$event.target.value">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="clearfix"></div>
+                    <div class="form_field b-0">
+                        <span class="label"></span>      
+                        <div class="input_wrap txt_right"> 
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">全选</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="emailSelectAll" v-on:click="emailSelectAllHandler">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <span class="checkbox-label">全选</span>
+                                <label class="switch">
+                                    <input type="checkbox" v-model="smsSelectAll" v-on:click="smsSelectAllHandler">
+                                    <div class="slider round"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="clearfix"></div>
+                </div>
+                <div class="form_btn-wrap">
+                    <a v-on:click.stop.prevent="saveChange" href="#" class="btn btn-lg btn-ylw">保存</a>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+</template>
+<script>
+appState.setData({
+    needLogin: true,
+    title: '短信订阅'
+});
+Vue.component("app-content", {
+	template: "#contentTmpl",
+	data: function () {
+		return {
+            emailBalanceChanges: false,
+            smsBalanceChanges: false,
+            emailDataChanges: false,
+            smsDataChanges: false,
+            emailDomainChanges: false,
+            smsDomainChanges: false,
+            emailPaymentAccountChanges: false,
+            smsPaymentAccountChanges: false,
+            emailLoginChanges: false,
+            smsLoginChanges: false,
+            emailPromotionsChanges: false,
+            smsPromotionsChanges: false
+        }
+	},
+    mounted:function(){
+        var _this = this;
+        JSBridge.onReady(function(){
+            JSBridge.net.invoke({
+                url: "subscription/smsList",
+                success: function (result) {
+                    if (result.deposit=='1' && result.withdrawal=='1' && result.promotions=='1') {
+                        _this.smsBalanceChanges = true;
+                    }
+                    if (result.modify_password=='1' && result.modify_phone=='1' && result.modify_banking_data=='1' && result.modify_account_name=='1') {
+                        _this.smsDataChanges = true;
+                    }
+                    if (result.new_website=='1') {
+                        _this.smsDomainChanges = true;
+                    }
+                    if (result.new_payment_account=='1') {
+                        _this.smsPaymentAccountChanges = true;
+                    }
+                    if (result.login=='1' && result.specific_msg=='1' && result.regards=='1') {
+                        _this.smsLoginChanges = true;
+                    }
+                    if (result.notify_promotions=='1') {
+                        _this.smsPromotionsChanges = true;
+                    }
+                },
+                error: function (error) {
+                    $.toast.fail(error.message);
+                }
+            });
+            JSBridge.net.invoke({
+                url: "subscription/emailList",
+                success: function (result) {
+                    if (result.deposit=='1' && result.withdrawal=='1' && result.promotions=='1') {
+                        _this.emailBalanceChanges = true;
+                    }
+                    if (result.modify_password=='1' && result.modify_phone=='1' && result.modify_banking_data=='1' && result.modify_account_name=='1') {
+                        _this.emailDataChanges = true;
+                    }
+                    if (result.new_website=='1') {
+                        _this.emailDomainChanges = true;
+                    }
+                    if (result.new_payment_account=='1') {
+                        _this.emailPaymentAccountChanges = true;
+                    }
+                    if (result.login=='1' && result.specific_msg=='1' && result.regards=='1') {
+                        _this.emailLoginChanges = true;
+                    }
+                    if (result.notify_promotions=='1') {
+                        _this.emailPromotionsChanges = true;
+                    }
+                },
+                error: function (error) {
+                    $.toast.fail(error.message);
+                }
+            });
+        });
+    },
+    methods: {
+        saveChange: function() {
+            var jobFinisheFlag = 0;
+            JSBridge.net.invoke({
+                url: "subscription/emailOrder",
+                data: {
+                    "deposit": this.emailBalanceChanges?1:0,
+                    "withdrawal": this.emailBalanceChanges?1:0,
+                    "promotions": this.emailBalanceChanges?1:0,
+                    "modify_password": this.emailDataChanges?1:0,
+                    "modify_banking_data": this.emailDataChanges?1:0,
+                    "new_website": this.emailDomainChanges?1:0,
+                    "modify_account_name": this.emailDataChanges?1:0,
+                    "new_payment_account": this.emailPaymentAccountChanges?1:0,
+                    "modify_phone": this.emailDataChanges?1:0,
+                    "notify_promotions": this.emailPromotionsChanges?1:0,
+                    "regards": this.emailLoginChanges?1:0,
+                    "login": this.emailLoginChanges?1:0,
+                    "specific_msg": this.emailLoginChanges?1:0,
+                    "noble_metal": 1,
+                    "forex": 1
+                },
+                success: function (result) {
+                    jobFinisheFlag = jobFinisheFlag + 1;
+                    if (jobFinisheFlag >= 2) {
+                        $.toast.success('订阅成功');
+                    }
+                },
+                error: function (error) {
+                    $.toast.fail(error.message);
+                }
+            });
+            JSBridge.net.invoke({
+                url: "subscription/smsOrder",
+                data: {
+                    "deposit": this.smsBalanceChanges?1:0,
+                    "withdrawal": this.smsBalanceChanges?1:0,
+                    "promotions": this.smsBalanceChanges?1:0,
+                    "modify_password": this.smsDataChanges?1:0,
+                    "modify_banking_data": this.smsDataChanges?1:0,
+                    "new_website": this.smsDomainChanges?1:0,
+                    "modify_account_name": this.smsDataChanges?1:0,
+                    "new_payment_account": this.smsPaymentAccountChanges?1:0,
+                    "modify_phone": this.smsDataChanges?1:0,
+                    "notify_promotions": this.smsPromotionsChanges?1:0,
+                    "regards": this.smsLoginChanges?1:0,
+                    "login": this.smsLoginChanges?1:0,
+                    "specific_msg": this.smsLoginChanges?1:0,
+                    "noble_metal": 1,
+                    "forex": 1
+                },
+                success: function (result) {
+                    jobFinisheFlag = jobFinisheFlag + 1;
+                    if (jobFinisheFlag >= 2) {
+                        $.toast.success('订阅成功');
+                    }
+                },
+                error: function (error) {
+                    $.toast.fail(error.message);
+                }
+            });
+        },
+        emailSelectAllHandler: function() {
+            if (this.emailSelectAll) {
+                this.emailBalanceChanges = false;
+                this.emailDataChanges = false;
+                this.emailDomainChanges = false;
+                this.emailPaymentAccountChanges = false;
+                this.emailLoginChanges = false;
+                this.emailPromotionsChanges = false;
+            } else {
+                this.emailBalanceChanges = true;
+                this.emailDataChanges = true;
+                this.emailDomainChanges = true;
+                this.emailPaymentAccountChanges = true;
+                this.emailLoginChanges = true;
+                this.emailPromotionsChanges = true;
+            }
+        },
+        smsSelectAllHandler: function() {
+            if (this.smsSelectAll) {
+                this.smsBalanceChanges = false;
+                this.smsDataChanges = false;
+                this.smsDomainChanges = false;
+                this.smsPaymentAccountChanges = false;
+                this.smsLoginChanges = false;
+                this.smsPromotionsChanges = false;
+            } else {
+                this.smsBalanceChanges = true;
+                this.smsDataChanges = true;
+                this.smsDomainChanges = true;
+                this.smsPaymentAccountChanges = true;
+                this.smsLoginChanges = true;
+                this.smsPromotionsChanges = true;
+            }
+        }
+    },
+    computed: {
+        emailSelectAll: function() {
+            return this.emailBalanceChanges && this.emailDataChanges && this.emailDomainChanges && this.emailPaymentAccountChanges && this.emailLoginChanges  && this.emailPromotionsChanges;
+        },
+        smsSelectAll: function() {
+            return this.smsBalanceChanges && this.smsDataChanges && this.smsDomainChanges && this.smsPaymentAccountChanges && this.smsLoginChanges && this.smsPromotionsChanges;
+        }
+    }
+});
+</script>

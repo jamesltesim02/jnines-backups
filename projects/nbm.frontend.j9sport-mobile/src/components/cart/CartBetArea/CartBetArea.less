@@ -1,0 +1,156 @@
+.cart-bet-area {
+  .bet-balance {
+    display: flex;
+    justify-content: space-between;
+    padding:0 10px;
+    line-height: 25px;
+    color: var(--highlight-color);
+    &-message {
+      font-size: 10px;
+      color: rgb(245,190,80);
+      span {
+        color: #999999;
+      }
+    }
+  }
+
+  .bet-amount {
+    margin: 0 10px 5px 10px;
+    height: 50px;
+    display: flex;
+    border-radius: 4px;
+    overflow: hidden;
+
+    > div, button {
+      flex: 1;
+    }
+    &-clear {
+      position: absolute;
+      background-color: #aaa;
+      border-radius: 50%;
+      color: #fff;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: .4;
+      transition: opacity ease-in .15s;
+      &.hide {
+        opacity: 0;
+      }
+    }
+
+    &-input {
+      position: relative;
+
+      input {
+        height: 100%;
+        width: 100%;
+        border: 2px solid #e2b372;
+        border-right: 0;
+        background-color: var(--amount-input-bgc);
+        border-radius: 4px 0 0 4px;
+        font-size: 20px;
+        font-weight: 500;
+        padding: 10px 0 18% 10px;
+      }
+
+      > div {
+        position: absolute;
+        padding: 0 10px;
+        top: 0;
+
+        p {
+          font-size: 10px;
+          color: #aaaaaa;
+          margin: 0;
+
+          &:first-child {
+            font-size: 15px;
+            margin: 8px 0;
+            color: #999999;
+          }
+        }
+      }
+      .hide {
+        > p:first-child {
+          visibility: hidden;
+        }
+      }
+    }
+
+    &-btn {
+      margin-left: -1px;
+      background-image: linear-gradient(to right, #e2b372, #f5d79b, #f5d79b);
+
+      span {
+        font-size: 12px;
+        color: #242220;
+      }
+
+      span:first-child {
+        font-size: 15px;
+        line-height: 25px;
+      }
+    }
+  }
+
+  .bet-keyboard {
+    padding: 5px;
+    background-color: var(--keyboard-bgc);
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 3px;
+
+    &-num {
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+      background-color: var(--app-background-color);
+      border-radius: 4px;
+      color: var(--keyboard-color);
+
+      &.initNum {
+        position: relative;
+        grid-column-start: span 2;
+        background-color: transparent;
+        &:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          border: 1px solid #242424;
+          border-radius: 8px;
+          box-sizing: border-box;
+          width: 200%;
+          height: 200%;
+          transform: scale(.5);
+          transform-origin: left top;
+        }
+      }
+      &:active {
+        color: var(--key-active-color);
+        background-color: var(--key-active-bgc);
+      }
+
+      img {
+        width: 30px;
+        transform: translateY(5px);
+      }
+    }
+  }
+}
+
+.cart-bet-accept {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 12px;
+  height: 40px;
+  background-color: var(--tour-background-color);
+  .accept-selected {
+    color: var(--highlight-color);
+  }
+  .switch {
+    margin-right: 10px;
+  }
+}

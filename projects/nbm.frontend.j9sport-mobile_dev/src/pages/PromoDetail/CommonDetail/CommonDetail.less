@@ -1,0 +1,73 @@
+.common-promo-detail {
+  padding: 10px;
+  font-size: 12px;
+  img {
+    width: 100%;
+  }
+  .promo-duration {
+    color: #e2b473;
+    width: 200px;
+    border: 1px solid #e2b473;
+    margin: 10px auto;
+    text-align: center;
+    line-height: 28px;
+    border-radius: 15px;
+    white-space: nowrap;
+  }
+  .item-label {
+    margin: 20px 0 10px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .promo-matchs {
+    .sports-tab {
+      button {
+        height: 50px;
+        &:first-child {
+          margin-right: 15px;
+        }
+        &.active {
+          color: var(--highlight-color);
+        }
+      }
+    }
+    table {
+      width: 100%;
+      border: 0;
+      border-collapse: collapse;
+      table-layout:fixed;
+      th {
+        height: 30px;
+        background-color: #444;
+      }
+      td {
+        height: 50px;
+        div {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+      td, th {
+        text-align: left;
+        padding-left: 10px;
+        &:first-child {
+          width:50px;
+        }
+        &:last-child {
+          width: 70px;
+        }
+      }
+      tr:not(:last-child) td {
+        border-bottom: 1px solid #444;
+      }
+      tr.inplay {
+        color: var(--highlight-color);
+      }
+    }
+  }
+}
+
+.en .common-promo-detail .promo-duration {
+  width: 260px;
+}

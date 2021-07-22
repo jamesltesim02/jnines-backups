@@ -1,0 +1,1 @@
+explorer \\nbfs01\NB_external_to_internal

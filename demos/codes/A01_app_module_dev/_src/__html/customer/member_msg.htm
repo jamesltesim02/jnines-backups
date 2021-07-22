@@ -1,0 +1,49 @@
+<style>
+.transitionClass {
+    height: auto;
+}
+.item_list_item a .text{
+    margin: 0;
+}
+</style>
+<template id="contentTmpl">
+    <transition name="slide">
+        <div class="expand-item_list transitionClass">
+            <div class="item_list_item">
+                <a forward="forward" newview="true" href="customer/letter.htm">
+                    <!-- <span class="icon icon_left"></span> -->
+                    <span class="text lblue">收件箱</span>
+                </a>
+            </div>
+            <div class="item_list_item">
+                <a forward="forward" newview="true" href="customer/letter_write.htm">
+                    <!-- <span class="icon icon_left"></span> -->
+                    <span class="text lblue">发信</span>
+                </a>
+            </div>
+            <div class="item_list_item">
+                <a forward="forward" newview="true" href="customer/letter_list.htm">
+                    <!-- <span class="icon icon_left"></span> -->
+                    <span class="text lblue">已发消息</span>
+                </a>
+            </div>
+        </div>
+    </transition>
+</template>
+<script>
+;
+(function() {
+    appState.setData({
+        title: '站内信',
+        needLogin: true,
+    });
+
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function() {
+            return {};
+        },
+        mounted: function() {},
+    })
+})()
+</script>

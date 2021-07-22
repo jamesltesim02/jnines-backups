@@ -1,0 +1,45 @@
+.third-tickets {
+  height: 100%;
+  max-width: 1420px;
+  margin: 0 auto;
+  color: #666666;
+  padding: 0 10px;
+  .header {
+    height: 90px;
+    background-color: var(--block-background-color);
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin: 20px 0;
+  
+    div:first-child {
+      font-size: 28px;
+    }
+  
+    div:last-child {
+      display: flex;
+      justify-content: space-between;
+  
+      span:first-child {
+        color: #cccccc;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .ticket-wrapper {
+    display: grid;
+    height: calc(100vh - 220px);
+    overflow: hidden;
+    grid-template-columns: 280px 1fr;
+    grid-column-gap: 20px;
+    padding: 0 0 20px;
+    .ticket-total {
+      padding-left: 0;
+      margin-right: 0;
+    }
+    .ticket-content {
+      padding: 10px 0;
+      width: auto;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+<style>
+section.login.success {
+	background: none;
+}
+</style>
+<template id="contentTmpl">
+<div>
+	<br /><br />
+	<section class="login success">
+		<div>
+			<h2>您所尝试的网页无法正常打开<br />或者页面不存在</h2>
+			<p>亲爱的客户，我们感到非常抱歉给您带来不便，若有任何疑问，您可通过以下方式联系客服中心</p>
+			<br />
+			<div>
+				<h3>客服部邮箱：&#98;&#116;&#116;&#56;&#56;&#46;&#99;&#115;&#64;&#108;&#105;&#118;&#101;&#46;&#99;&#111;&#109;</h3>
+			</p>
+		</div>
+	</section>
+
+	<section class="login success">
+		<div class="btns">
+			<div class="btn_wrap cols-2">
+				<div class="col col1"><div class="col_inner"><a forward="forward" href="common/index.htm">返回首页</a></div></div>
+				<div class="col col2"><div class="col_inner"><a  @click="openChat">在线客服</a></div></div>
+			</div>
+		</div>
+	</section>
+</div>
+</template>
+<script type="text/javascript">
+Vue.component("app-content", {
+	template: "#contentTmpl",
+	methods: {
+		openChat: function() {
+    		var customerId = this.isLoged ? JSBridge.cache.get("customer").customer_id : 0;
+			JSBridge.driver.live800(customerId);
+			console.log('1.测试增量包...')
+			console.log('2.测试增量包...')
+    	}
+	}
+});
+</script>

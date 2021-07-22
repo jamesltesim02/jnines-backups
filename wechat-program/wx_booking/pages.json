@@ -1,0 +1,61 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index"
+		}, {
+			"path": "pages/user/user"
+		}
+	    ,{
+            "path" : "pages/booking/booking",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/dateTime/dateTime",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/book-success/book-success",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/appointment/appointment",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/appointment-detail/appointment-detail",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/login/login",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/Web-view/Web-view",
+            "style" : {}
+        }
+    ],
+	"globalStyle": {
+		"navigationStyle": "custom",
+		"backgroundColor": "#FFFFFF"
+	},
+	"tabBar": {
+		"selectedColor": "#333333",
+		"color": "#333333",
+		"iconWidth": "30",
+		"backgroundColor":"#FFFFFF",
+		"list": [{
+			"text": "探索",
+			"pagePath": "pages/index/index",
+			"iconPath": "static/image/tab_breeze.png",
+			"selectedIconPath": "static/image/icon_breeze_selected.png"
+		}, {
+			"text": "我的",
+			"pagePath": "pages/user/user",
+			"iconPath": "static/image/icon_user.png",
+			"selectedIconPath": "static/image/tab_user_selected.png"
+		}]
+	}
+}

@@ -1,0 +1,22 @@
+.widget-has-custom-style-home-away .sr-bb .srt-away-1 {
+  background-color: rgb(255, 83, 83);
+  color: rgba(255, 255, 255, 0.87);
+  border-color: rgb(255, 83, 83);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-away-1 {
+  color: rgb(255, 83, 83);
+  border-color: rgb(255, 83, 83);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-away-1 {
+  fill: rgb(255, 83, 83);
+}
+
+.sr-bb .sr-match-header-horizontal__status-wrap {
+  display: none;
+}
+
+.sr-bb.sr-match-header.sr-ltr.sr-small {
+  display: none;
+}

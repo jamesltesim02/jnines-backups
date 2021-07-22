@@ -1,0 +1,43 @@
+.sr-teamcomparison__teams-wrapper.srt-base-1.srm-team-selector {
+  display: none;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-home-1 {
+  stroke: #0495E3;
+}
+.widget-has-custom-style-home-away .sr-bb .srt-fill-home-1 {
+  fill: #0495E3;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-away-1 {
+  stroke: rgb(255, 83, 83);
+}
+.widget-has-custom-style-home-away .sr-bb .srt-fill-away-1 {
+  fill: rgb(255, 83, 83);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-home-1 {
+  background: #0495E3;
+  border-color: #0495E3;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-away-1 {
+  background: rgb(255, 83, 83);
+  border-color: rgb(255, 83, 83);
+  color: rgba(255, 255, 255, 0.87);
+}
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-away-1 {
+  color: rgb(255, 83, 83);
+  border-color: rgb(255, 83, 83);
+}
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-home-1 {
+  color: #0495E3;
+  border-color: #0495E3;
+}
+.sr-bb.sr-teamcomparison.sr-small .sr-teamcomparison__jerseys {
+  margin-top: 5px;
+}
+.sr-bb .sr-teamcomparison__teamversus {
+  padding-top: 10px;
+}

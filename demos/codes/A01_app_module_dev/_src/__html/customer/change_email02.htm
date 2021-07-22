@@ -1,0 +1,119 @@
+<template id="contentTmpl">
+<div class="main_content">
+    <section id="newBind" class="modifymobile_content _03" style="padding-top:20px;">
+        <div class="layout_form p-top-rmv">
+            <form id="infoForm" action="" method="post">
+                <div class="form_field_wrap">
+                    <div class="form_field">
+                        <span class="label">已绑定邮箱地址</span>      
+                        <div class="input_wrap">
+                            <input class="txt_right" type="text" v-model="email" readonly>
+                        </div>
+                    </div>  
+                    <div class="form_field">
+                        <span class="label">验证码</span>      
+                        <div class="input_wrap sm"><input type="text" v-model="codeInput" maxlength="6"></div>
+                        <div id="sendCode" v-bind:class="[disabled ? '' : 'active-btn', 'sendCode']" v-on:click.stop.prevent="sendCode">{{send_btn_text}}</div>
+                    </div>  
+                </div>
+                <p class="notif" v-if="code_sended">验证码已发送，15分钟内输入有效，请勿泄漏</p>
+                <div class="form_btn-wrap">
+                    <a v-on:click.stop.prevent="checkCode" class="btn btn-lg btn-ylw">下一步</a>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+</template>
+<script>
+appState.setData({
+    needLogin: true,
+    title: '更换邮箱'
+});
+Vue.component("app-content", {
+    template: "#contentTmpl",
+    data: function () {
+        return {
+            email: '',
+            time: 0,
+            code_sended: false,
+            codeInput: ''
+        }
+    },
+    mounted:function(){
+        var _this = this;
+        JSBridge.onReady(function(){
+            _this.email = JSBridge.cache.get("customer").email;
+        });
+    },
+    methods: {
+        timer: function() {
+            var _this = this;
+            if (this.time > 0) {
+                this.time--;
+                setTimeout(_this.timer, 1000);
+            }
+        },
+        sendCode: function() {
+            if (this.disabled) return;
+            
+            var _this = this;
+            //发送验证码
+            JSBridge.net.invoke({
+                url: "verify/send",
+                data: {
+                    "type": 2,
+                    "v_type": 4,
+                    "send_to": this.email,
+                    "timestamp": Date.now()
+                },
+                success: function (result) {
+                    _this.time = 60
+                    _this.timer();
+                    _this.code_sended = true;
+                },
+                error: function (error) {
+                    $.toast.fail(error.message);
+                }
+            });
+            
+        },
+        checkCode: function() {
+            if(!this.codeInput) {
+                $.toast.fail("请输入验证码");
+                return;
+            }
+            //验证验证码
+            JSBridge.net.invoke({
+                url: "verify/check",
+                data: {
+                    "type": 2,
+                    "v_type": 4,
+                    "send_to": this.email,
+                    "code": this.codeInput,
+                    "timestamp": Date.now()
+                },
+                success: function (result) {
+                    JSBridge.cache.save("changeEmailVerified", true, 1);
+                    JSBridge.forward.inside({url: "customer/change_email03.htm", newView: true});
+                },
+                error: function (error) {
+                    $.toast.fail(error.message);
+                }
+            });
+        }
+    },
+    computed: {
+        send_btn_text: function () {
+            if (this.code_sended) {
+                return this.time > 0 ? '重新发送（'+this.time+'）' : '重新发送';
+            } else {
+                return '发送验证码'
+            }
+        },
+        disabled: function() {
+            return this.time > 0;
+        }
+    }
+});
+</script>

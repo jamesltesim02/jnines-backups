@@ -1,0 +1,92 @@
+<style>
+.img-loader.loading {
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+}
+</style>
+<template id="contentTmpl">
+    <div class="img-loader loading"></div>
+</template>
+<script>
+;(function() {
+    var posturl, 
+        gameLoged = false,
+        gameUrl = decodeURIComponent(decodeURIComponent($.getParam("gameUrl"))),
+        gameTypeKey = $.getParam("gameTypeKey"),
+        game_type = $.getParam("game_type"),
+        gameCode = $.getParam("gameCode"),
+        istry = $.getParam("istry"),
+        urlDomain = OtherUtils.getDomain();
+
+    appState.setData({
+        needLogin: false
+    });
+    console.log("gameUrl", gameUrl)
+    console.log("gameTypeKey", gameTypeKey)
+    console.log("game_type", game_type)
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        mounted: function() {
+            JSBridge.onReady(function() {
+                if (gameLoged) { //防止重复加载
+                    return;
+                }
+
+                gameLoged = true;
+
+                if (gameUrl != "undefined" && gameUrl != "") {
+                    /*沙巴体育=真钱,PT*/
+                    JSBridge.forward.outside({
+                        url: gameUrl,
+                        newView: true,
+                        gameType: gameTypeKey
+                    });
+                    return
+                }
+
+
+                if (istry === "true") { //试玩
+                    posturl = "game/getLoginUrlByTryPlay"
+                } else { //真钱
+                    posturl = "game/getLoginUrl"
+                }
+
+                
+                JSBridge.net.invoke({
+                    loading: false,
+                    url: posturl,
+                    data: {
+                        "game_id": gameCode,
+                        "game_type": game_type || '2',
+                        "domain": urlDomain
+                    },
+                    success: function(result) {
+                        console.log(result)
+                        if (result && result.url != '') {
+                            JSBridge.forward.outside({
+                                url: result.url,
+                                newView: true,
+                                gameType: gameTypeKey
+                            });
+                        } else {
+                            JSBridge.cache.save("forwardMessage", result.message, 15000);
+                            JSBridge.forward.inside({url: "common/index.htm"});
+                        }
+                    },
+                    error: function(result) {
+                        console.log(result)
+                        JSBridge.cache.save("forwardMessage", result.message, 15000);
+                        JSBridge.forward.inside({
+                            url: "common/index.htm"
+                        });
+                    }
+                });
+            });
+        }
+    });
+})();
+</script>

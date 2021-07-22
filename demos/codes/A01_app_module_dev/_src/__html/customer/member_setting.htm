@@ -1,0 +1,59 @@
+<style>
+.expand-item_list {
+    height: 0;
+    transition: height .3s ease;
+    overflow: hidden;
+}
+
+.expand-item_list.setting.opened {
+    height: 171px;
+}
+.item_list_item a .text{
+    margin: 0;
+}
+</style>
+<template id="contentTmpl">
+    <div class="item_list expand-item_list setting opened">
+        <div class="item_list_item">
+            <a forward="forward" newview="true" href="customer/personal_info.htm">
+                <!-- <span class="icon icon_left"></span> -->
+                <span class="text lblue">个人资料</span>
+            </a>
+        </div>
+        <div class="item_list_item">
+            <a forward="forward" newview="true" href="customer/bank_list.htm">
+                <!-- <span class="icon icon_left"></span> -->
+                <span class="text lblue">银行卡资料</span>
+            </a>
+        </div>
+        <div class="item_list_item">
+            <a forward="forward" newview="true" href="customer/red_adjustment.htm">
+                <!-- <span class="icon icon_left"></span> -->
+                <span class="text lblue">修改限红</span>
+            </a>
+        </div>
+        <div class="item_list_item">
+            <a forward="forward" newview="true" href="customer/sms_subscription.htm">
+                <!-- <span class="icon icon_left"></span> -->
+                <span class="text lblue">短信订阅</span>
+            </a>
+        </div>
+    </div>
+</template>
+<script>
+;
+(function() {
+    appState.setData({
+        title: '设置',
+        needLogin: true,
+    });
+
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function() {
+            return {};
+        },
+        mounted: function() {},
+    })
+})()
+</script>

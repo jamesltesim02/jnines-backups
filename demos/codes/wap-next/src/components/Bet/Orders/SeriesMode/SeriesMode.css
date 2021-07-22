@@ -1,0 +1,54 @@
+.nb-series-form {
+  position: relative;
+  background-image: linear-gradient(90deg, #FFFFFF 0%, #F1F1F1 98%);
+  box-shadow: 0 0.04rem 0.24rem 0 rgba(0,0,0,0.10);
+  border-radius: .2rem;
+  padding: .3rem 0;
+}
+.nb-series-list {
+  border-bottom: 1px solid #eee;
+}
+.nb-series-item {
+  display: flex;
+  line-height: .6rem;
+  margin-bottom: .22rem;
+  padding: 0 .3rem;
+}
+
+.nb-series-item-name {
+  font-size: .34rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.nb-series-item-input {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.nb-series-item-input label {
+  font-size: .26rem;
+  color: #666;
+  margin-right: .2rem;
+}
+
+.nb-series-summary {
+  position: relative;
+  display: flex;
+  color: #666;
+  padding: 0 .2rem;
+}
+
+.nb-series-totalamount {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.nb-series-summary span {
+  color: #53C0FF;
+  margin-left: .2rem;
+}
+
+.nb-series-kb-container {
+  padding: 0 .2rem;
+}

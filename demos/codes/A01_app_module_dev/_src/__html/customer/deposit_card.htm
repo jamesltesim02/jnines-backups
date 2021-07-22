@@ -1,0 +1,239 @@
+<template id="contentTmpl">
+	<div class="main_content" v-show="onready">
+        <section v-show="step==1" class="pointcard_content">
+            <div class="banner">
+                <span class="icon icon91"> </span>
+            </div>
+            <div class="layout_form">
+                <form action="" method="post">            
+                    <div class="form_field_wrap">
+                        <div v-if="!!verify_code" class="form_field">
+                            <span class="label">预留信息</span>      
+                            <div class="input_wrap txt_right">
+                                <div class="reservedInfo">
+                                    <span class="yellow2">{{verify_code}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form_field">
+                            <span class="label">点卡类型</span>      
+                            <div class="input_wrap">
+                                <select v-model.trim="cardIndex">
+                                    <option v-for="(c, index) in cardlist" :value="index">{{c.name}}</option>
+                                </select>
+                            </div>
+                        </div>  
+                        <div class="form_field">
+                            <span class="label">面值</span>      
+                            <div class="input_wrap">
+                                <select v-model.trim="par">
+                                    <option v-for="p in pars" :value="p">{{p}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form_field">
+                            <span class="label">卡号</span>      
+                            <div class="input_wrap"><input v-model.trim="cardno" class="txt_right" type="text" maxlength="20" placeholder="请输入点卡卡号" ></div>
+                        </div>  
+                        <div class="form_field">
+                            <span class="label">密码</span>      
+                            <div class="input_wrap"><input v-model.trim="cardpass" class="txt_right" type="text" placeholder="请输入点卡密码"  maxlength="20"></div>
+                        </div>  
+                    </div>
+                    <div class="form_btn-wrap">
+                        <a @click="nextStep" class="btn btn-lg btn-ylw">下一步</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section v-show="step==2" class="pointcard_content _02">
+            <div class="flt-header">
+                <span>确认支付订单：</span>
+            </div>
+            <div class="layout_form">
+                <form ref="payForm" :action="order.des_url" method="post">
+                    <input type="hidden" name="amount" :value="order.amount">
+                    <input type="hidden" name="billdate" :value="order.billdate">
+                    <input type="hidden" name="keycode" :value="order.keycode">
+                    <input type="hidden" name="memo" :value="order.memo">
+                    <input type="hidden" name="paycode" :value="order.paycode">
+                    <input type="hidden" name="billno" :value="order.billno">
+                    <input type="hidden" name="product" :value="order.product">
+                    <input type="hidden" name="newaccount" :value="order.newaccount">
+                    <input type="hidden" name="method" :value="order.method">
+                    <input type="hidden" name="loginname" :value="loginname">
+                    <div class="form_field_wrap">
+                        <div class="form_field">
+                            <span>订单号：</span>      
+                            <span class="dark_gray">{{order.billno}}</span>
+                        </div>
+                        <div class="form_field">
+                            <span>点卡类型：</span>      
+                            <span class="dark_gray">{{cardText}}</span> 
+                        </div> 
+                        <div class="form_field">
+                            <span>手续费:</span>       
+                            <span class="dark_gray">{{poundage}}元</span>
+                        </div>  
+                        <div class="form_field"> 
+                            <span>面值:</span>       
+                            <span class="lbue2">¥ {{par}}元</span>
+                        </div>  
+                    </div>
+                    <div class="form_btn-wrap">
+                        <a @click="pay" class="btn btn-lg btn-ylw">确认支付</a>
+                    </div>
+                   
+                </form>
+            </div>
+        </section>
+    </div>
+</template>
+<script type="text/javascript">
+;(function () {
+    var data = {
+        onready: false,
+        step: 1,
+        verify_code: "",
+        loginname: "",
+        cardlist: [],
+        cardIndex: 0,
+        cardCode: "",
+        cardText: "",
+        par: 0,
+        mincredit: 0,
+        cardno: "",
+        cardpass: "",
+        enable: false,
+        payid: null,
+        postUrl: "",
+        order: {}
+    };
+    appState.setData({
+        title: "点卡支付",
+        needLogin: true
+    });
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function () {
+            return data;
+        },
+        computed: {
+            pars: function () {
+                if(!this.cardlist || !this.cardlist.length) {
+                    return [];
+                }
+                var card = this.cardlist[this.cardIndex];
+                
+                cls = card.cardValues;
+                this.mincredit = this.par = cls[0];
+                this.cardCode = card.code;
+                this.cardText = card.name;
+
+                return cls;
+            },
+            poundage: function() {
+                if(!this.cardlist || !this.cardlist.length) {
+                    return undefined;
+                }
+
+                var card = this.cardlist[this.cardIndex];
+                return (+this.par * +card.value) / 100;
+            }
+        },
+        methods: {
+            nextStep: function () {
+                if(!this.enable) {
+                    return;
+                }
+
+                if (getexpire()) {
+                    return true;
+                }
+
+                if(!this.cardCode || !this.par) {
+                     $.toast.fail("未获取到点卡列表,请稍后再试或联系在线客服");
+                     return;
+                }
+
+                if(!this.cardno) {
+                    $.toast.fail("请输入点卡卡号");
+                    return;
+                }
+
+                if(!this.cardpass) {
+                    $.toast.fail("请输入点卡密码");
+                    return;
+                }
+
+                var _this = this;
+                setexpire();
+                JSBridge.net.invoke({
+                    url: "payment/cardPay",
+                    data: {
+                        cardNo: _this.cardno,
+                        cardPwd: _this.cardpass,
+                        payId: _this.payid,
+                        amount: _this.par,
+                        cardCode: _this.cardCode,
+                        mincredit: _this.mincredit,
+                        url: _this.postUrl
+                    },
+                    success: function (result) {
+                        _this.order = result;
+                        setTimeout(function () {
+                            _this.step = 2;
+                        }, 1000);
+                    },
+                    error: function (error) {
+                        $.toast.fail(error ? error.message : "创建订单失败,请稍后重试或咨询客服");
+                    }
+                });
+            },
+            pay: function () {
+                if(this.enable && this.step == 2) {
+                    this.$refs.payForm.submit();
+                }
+            }
+        }
+    });
+
+    function bankDisabled() {
+        $.toast.fail("当前支付已关闭,请选用其他支付方式", function () {
+        	JSBridge.cache.delete("paymentStatusByAllData");
+            JSBridge.forward.inside({url: "customer/member_center.htm"});
+        });
+    };
+
+    JSBridge.onReady(function() {
+        if(!CustomerUtils.isLoged()) {
+            return null;
+        }
+        var _this = data;
+        var customer = JSBridge.cache.get("customer");
+        data.verify_code = customer.verify_code;
+        data.loginname = customer.login_name;
+        JSBridge.net.invoke({
+            url: "A01/payment/detail",
+            data: {"type": "point"},
+            success: function (result) {
+                if(!result) {
+                    bankDisabled();
+                    return;
+                } else if (result.gotoLink) {
+                    JSBridge.forward.inside({url: result.gotoLink, newView: true});
+                    return;
+                }
+                _this.enable = true;
+
+                data.cardlist = result.cardList;
+                _this.payid = result.payid;
+                _this.postUrl = result.postUrl;
+
+                _this.onready = true;
+            },
+            error: bankDisabled
+        });
+    });
+})();
+</script>

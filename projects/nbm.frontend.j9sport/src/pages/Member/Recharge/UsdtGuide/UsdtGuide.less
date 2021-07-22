@@ -1,0 +1,246 @@
+.usdt-guide {
+  padding: 28px 25px;
+  .step-names {
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: var(--usdt-guide-background-color);
+    border-radius: 2px;
+    overflow: hidden;
+    border: solid 0.7px var(--usdt-guide-border-color);
+    button {
+      position: relative;
+      height: 34px;
+      color: var(--member-info-sub--color);
+      width: 100%;
+      transition: all .2s linear;
+      &:not(:first-child) {
+        border-right: 1px solid var(--usdt-guide-border-color);
+      }
+      &::before, &::after {
+        content: "";
+        position: absolute;
+        top: 8px;
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 9px solid transparent;
+        border-bottom: 9px solid transparent;
+        border-left: 7px solid transparent;
+      }
+      &::before {
+        right: -8px;
+        border-left-color: var(--usdt-guide-border-color);
+      }
+      &::after {
+        right: -7px;
+        border-left-color: var(--usdt-guide-background-color);
+      }
+      &:hover, &.active {
+        background-image: linear-gradient(261deg, #c19f6f, #785531);
+        &::after {
+          border-left-color: #c19f6f;
+        }
+      }
+    }
+  }
+  .content-block {
+    margin-top: 16px;
+    padding: 16px 26px 24px;
+    background-color: var(--usdt-guide-background-color);
+    text-align: center;
+    h3 {
+      color: var(--member-info-sub--color);
+    }
+    p {
+      margin-top: 5px;
+    }
+  }
+  .tips {
+    margin-top: 16px;
+    border: dashed 1px #685735;
+    color: #a9906e;
+    padding: 8px 26px;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 12px;
+  }
+  .next-button {
+    margin-top: 28px;
+    padding: 0 26px;
+    text-align: center;
+    button {
+      width: 100%;
+      height: 33px;
+      border-radius: 2px;
+      max-width: 300px;
+      color: var(--colorful-color);
+      background-image: var(--colorful-linear-gradient);
+    }
+  }
+  .usdt-step-1 .images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 40px;
+    width: 100%;
+    max-width: 620px;
+    margin: 20px auto 0;
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  }
+  .usdt-step-2 .images {
+    margin-top: 20px;
+    text-align: center;
+    img {
+      width: 100%;
+      max-width: 587px;
+    }
+  }
+  .usdt-step-3 .videos {
+    margin-top: 20px;
+    text-align: center;
+    video {
+      width: 100%;
+      max-width: 510px;
+    }
+  }
+  .usdt-step-4 {
+    .recharge-form {
+      margin: 0 auto;
+      padding: 5px 0 20px;
+      width: 100%;
+      max-width: 300px;
+      label {
+        display: block;
+        text-align: left;
+        color: #b4b4b8;
+        font-size: 12px;
+        margin-top: 15px;
+      }
+      .protocols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px 17px;
+        padding: 0;
+        button {
+          width: unset;
+        }
+      }
+      .amount-list {
+        grid-gap: 10px 17px;
+      }
+      .amount-input {
+        display: flex;
+        align-items: center;
+        height: 35px;
+        margin-top: 5px;
+        padding: 0 10px;
+        border-radius: 2px;
+        border: 1px solid #3b3b42;
+        .input {
+          display: block;
+          flex: 1 1;
+          color: var(--member-info-sub--color);
+          input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+          }
+        }
+      }
+      .exchanged-amount {
+        text-align: right;
+        margin-top: 8px;
+      }
+    }
+    .reseult {
+      max-width: 450px;
+      margin: 28px auto;
+      .content {
+        display: grid;
+        grid-template-columns: 130px 1fr;
+        grid-gap: 20px;
+        img {
+          width: 130px;
+        }
+        & > div {
+          text-align: left;
+          overflow: hidden;
+        }
+        .result-amount {
+          font-size: 14px;
+          span {
+            color: #f3b867;
+            padding-left: 5px;
+          }
+        }
+        .tip1 {
+          margin-top: 10px;
+          color: #a8a8aa;
+          b {
+            color: #f3614b;
+          }
+        }
+        .tip2 {
+          margin-top: 5px;
+          color: #6f6f71;
+        }
+        .address {
+          display: flex;
+          align-items: center;
+          height: 26px;
+          margin-top: 17px;
+          background-color: #3e3e44;
+          overflow: hidden;
+          border-radius: 2px;
+          label {
+            flex: 1 1;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+          }
+          button {
+            width: 40px;
+            height: 26px;
+            background-color: rgba(30, 30, 36, 0.4);
+            color: #0b9cfe;
+          }
+        }
+      }
+      .full-single-submit {
+        width: 80%;
+      }
+    }
+    button {
+      height: 35px;
+      font-size: 12px;
+    }
+    .images {
+      width: 100%;
+      overflow: auto hidden;
+      margin-top: 10px;
+      ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: center;
+        grid-gap: 15px;
+        width: 630px;
+        margin: 0 auto;
+        li {
+          text-align: center;
+          img {
+            width: 100%;
+          }
+          label {
+            display: block;
+            font-size: 12px;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+}

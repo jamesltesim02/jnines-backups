@@ -1,0 +1,447 @@
+<style>
+	.err-msg {
+		font-size: 1.6rem;
+		color: #d13847;
+		padding: 0 16px;
+		margin-top: 15px;
+	}
+
+	.err-msg *{
+		vertical-align: middle;
+	}
+
+	.history-depositor {
+		font-size: 1.2rem;
+		color: #fff;
+		margin-top: 15px;
+		padding: 0 10px;
+	}
+	.history-depositor a{
+		margin-left: 10px;
+		text-decoration: underline;
+	}
+</style>
+<template id="contentTmpl">
+	<div>
+		<div class="main_content" v-show="onready">
+			<section v-show="step==1 || step==2" class="swiftpayment_content">
+			    <div class="banner">
+			        <span class="icon icon92"> </span>
+			        <h3>迅捷支付</h3>
+			    </div>
+			    <div class="layout_form">
+			        <form action="" method="post">            
+			            <div class="form_field_wrap">
+			                <div v-if="!!verify_code" class="form_field">
+			                    <span class="label">预留信息</span>      
+			                    <div class="input_wrap txt_right">
+			                        <div class="reservedInfo">
+			                            <span class="yellow2">{{verify_code}}</span>
+			                        </div>
+			                    </div>
+			                </div>
+			                <div class="form_field">
+			                    <span class="label">金额</span>      
+			                    <div class="input_wrap">
+			                    	<input 
+			                    		v-model.trim="amount" 
+			                    		class="txt_right" 
+			                    		type="number"
+										:placeholder="amountPlaceholder" 
+										style="font-size:14px;">
+			                    </div>
+			                </div>  
+			                <div class="form_field">
+			                    <span class="label">支付宝/网银姓名</span>      
+			                    <div class="input_wrap" v-show="!isDepositor">
+									<input 
+										name="depositor"
+			                    		v-model.trim="depositor"
+			                    		class="txt_right" 
+			                    		type="text" 
+			                    		placeholder="请填写存款的银行卡真实姓名" 
+										maxlength="10"
+										autocomplete="on"
+										style="font-size:14px;">
+			                    </div>
+			                    <div class="input_wrap txt_right" v-show="isDepositor">
+			                        <span class="yellow2">{{depositor}}</span>
+			                    </div>
+			                </div>  
+			                <div class="form_field" v-show="step==2" style="border-bottom:none;">
+			                    <span class="label">收款银行</span>      
+			                    <div class="input_wrap">
+			                    	<select v-model.trim="bankcode" style="font-size:14px;">
+			                    		<option value="">请往以下银行转账</option>
+			                    		<option v-for="bank in banklist" :value="bank.code">{{bank.text}}</option>
+			                    	</select>
+			                    </div>
+			                </div> 
+						</div>
+						<div v-show="historyDepositors && historyDepositors.length" class="history-depositor">
+							常用存款姓名：
+							<a v-for="hd in historyDepositors" @click="depositor=hd">{{hd}}</a>
+						</div>
+			            <div class="err-msg" style="padding:5px 15px 0 15px;">
+			                <i class="icon icon93"> </i>
+			                <span>提交后需在15分钟内完成操作</span>
+			            </div>  
+			            <div class="form_btn-wrap">
+			                <a @click="stepOne" class="btn btn-lg btn-ylw" v-show="step==1">下一步</a>
+			                <a @click="nextStepNew" class="btn btn-lg btn-ylw" v-show="step==2">下一步</a>
+			            </div>
+			        </form>
+			    </div>
+			</section>
+			<section v-show="step==3" class="swiftpayment_content _02">
+                <div class="wrapper">
+                    <div class="flt-header">
+                        <span>确认支付订单(长按卡号复制)：</span>
+                    </div>
+                    <div class="layout_form">          
+                        <div class="form_field_wrap">
+                            <div class="form_field">
+                                <span>支付银行卡：</span>      
+                                <span class="dark_gray">{{bankText}}</span>
+                            </div>
+                            <div class="form_field">
+                                <span>持卡人姓名：</span>      
+                                <span>{{depositor}}</span>
+                            </div>  
+                            <div class="form_field">
+                                <span>支付金额：</span>      
+                                <span class="lbue2">¥ {{amount}}</span>
+                            </div>  
+                        </div>
+                        <div class="flt-header2">
+                            <span>为保障快速到账，实际存款金额和持卡人须与订单一致。 </span>
+                        </div>               
+                    </div>
+                </div>
+                
+                <div class="wrapper2">
+                    <span>请在限定时间内完成：<span><span class="lbue2 timer">{{cdText}}</span>
+                </div>
+
+                <div class="wrapper2 bank_card_content">
+                    <span>收款银行卡信息：</span>
+                    <div class="bank_card _01">
+                        <p class="bank">
+							<img :src="getLogo(bankText)">{{bankText}}
+						</p>
+                        <p class="account_num">{{order.accountnumber}}</p>
+                        <p class="account_name">{{order.accountname}}</p>
+                        <p class="branch_name">{{order.bankprovince}} {{order.bankcity}} {{order.bankaddress}}</p>
+                    </div>  
+                    <div class="form_btn-wrap">            
+                        <a forward="forward" method="outside" newview="true" :href="bankurl" class="btn btn-lg btn-blu3">立即前往网银付款</a>
+                        <a forward="forward" method="outside" newview="true" :href="aliurl" class="btn btn-lg btn-ylw">立即前往支付宝付款</a>
+                    </div>
+                </div>
+            </section> 
+		</div>
+	</div>
+</template>
+<script type="text/javascript">
+;(function () {
+    var data = {
+    	onready: false,
+		amount: "",
+		depositor: "",
+		bankcode: "",
+		amountMin: 100,
+		amountMax: 3000,
+		step: 1,
+		isDepositor: false,
+		enable: false,
+		verify_code: "",
+		banklist: [],
+		order: {},
+		cd: 0,
+        historyDepositors: []
+	};
+
+    var bankMapping = {
+		"SPDB": {
+			"code":"SPDB",
+			"text": "上海浦东银行",
+			"url": "https://wap.spdb.com.cn/"
+		},
+		"ABOC": {
+			"code":"ABOC",
+			"text": "中国农业银行",
+			"url": "http://m.abchina.com/"
+		},
+		"BCM": {
+			"code":"BCM",
+			"text": "交通银行",
+			"url": "https://wap.95559.com.cn/"
+		},
+		"BOC": {
+			"code":"BOC",
+			"text": "中国银行",
+			"url": "https://mbs.boc.cn/BOCWapBank/WEBSPortalMenuNew.do?_locale=zh_CN"
+		},
+		"CCBC": {
+			"code":"CCBC",
+			"text": "中国建设银行",
+			"url": "https://ibsbjstar.ccb.com.cn/app/V5/CN/STY1/login.jsp"
+		},
+		"CCTB": {
+			"code":"CCTB",
+			"text": "中信银行",
+			"url": "https://i.bank.ecitic.com/perbank6/signIn.do"
+		},
+		"CEB": {
+			"code":"CEB",
+			"text": "中国光大银行",
+			"url": "http://wap.cebbank.com/"
+		},
+		"CMB": {
+			"code":"CMB",
+			"text": "招商银行",
+			"url": "https://html.m.cmbchina.com/"
+		},
+		"CMBC": {
+			"code":"CMBC",
+			"text": "中国民生银行",
+			"url": "https://per.cmbc.com.cn/pweb/static/login.html"
+		},
+		"HXB": {
+			"code":"HXB",
+			"text": "华夏银行",
+			"url": "http://wap.hxb.com.cn/" // 不支持手机网页支付
+		},
+		"ICBC": {
+			"code":"ICBC",
+			"text": "中国工商银行",
+			"url": "https://m.icbc.com.cn/" // 不支持手机网页支付
+		},
+		"PSBC": {
+			"code":"PSBC",
+			"text": "邮政储蓄",
+			"url": "http://wap.psbc.com/"
+		},
+		"ALIPAY": {
+			"code":"ALIPAY",
+			"text": "支付宝",
+			"url": "https://auth.alipay.com/login/index.htm"
+		},
+		"IBC": {
+			"code":"IBC",
+			"text": "兴业银行",
+			"url": "https://mobile.cib.com.cn/"
+		},
+		"PAB": {
+			"code": "PAB",
+			"text": "平安银行",
+			"url": "http://m.pingan.com.cn/"
+		}
+	};
+	appState.setData({
+	    title: "迅捷支付",
+	    needLogin: true
+	});
+	Vue.component("app-content", {
+		template: "#contentTmpl",
+		data: function () {
+			return data;
+		},
+		watch: {
+			amount: function (n, o) {
+				this.amount = n.substring(0, 7);
+			}
+		},
+		computed: {
+			bankText: function () {
+				var bank = bankMapping[this.bankcode];
+				return bank ? bank.text : "未知";
+			},
+			bankurl: function () {
+				var bank = bankMapping[this.bankcode];
+				return bank ? bank.url : "未知";
+			},
+			aliurl: function () {
+				return bankMapping["ALIPAY"].url;
+			},
+			cdText: function () {
+				return  ("00"+parseInt(this.cd/60)).substr(-2) + ":" + ("00"+this.cd%60).substr(-2);
+			},
+			amountPlaceholder: function () {
+                return "最低存款金额" + this.amountMin;
+            }
+		},
+		methods: {
+			getLogo: function(name) {
+                return "../../__static/__images/bankinformation/bank_logo" + $.getBankIndex(name) + ".png";
+            },
+			stepOne: function() {
+				var _this = this;
+				if(! (this.amount.match(/^[1-9]+\d+[.\d]{0,3}$/) && this.amount>=Number(this.amountMin) && this.amount<=Number(this.amountMax) )) { 
+					$.toast.fail("存款金额必须是"+ this.amountMin +"~"+ this.amountMax +"之间,最大允许2位小数"); 
+					return false; 
+				}
+				
+				if(!this.depositor) {
+					$.toast.fail("持卡人姓名不可为空");
+					return false;
+				} else if(/\d/gi.test(this.depositor)) {
+					$.toast.fail("请正确填写持卡人姓名");
+					return false;	
+				}
+
+				// 保存自动提示
+
+				_this.enable = true;
+				JSBridge.net.invoke({
+					url: "A01/payment/detail",
+					data: {"type": "xunjie", depositorBy:this.depositor},
+					success: function (result) {
+						if(!result || !result.bankcode) {
+							$.pop.msg(
+					            true,
+					            "请点击联系在线客服存款", [
+					                {
+					                    text: "在线客服",
+					                    event: function() {
+					                        if($.appVersion().isIOS) {
+								                JSBridge.driver.live800ol();
+								            } else {
+								                JSBridge.forward.outside({
+								                    url: "https://www.why918.com/chat/chatClient/chatbox.jsp?companyID=8990&configID=21&k=1&codeType=custom", 
+								                    newView: true
+								                });  
+								            }
+					                    }
+					                }
+					            ]
+					        );
+							return;
+						}
+
+						_this.banklist = result.bankcode.split(";").map(function (v,i) {
+							return bankMapping[v];
+						});
+						_this.bankcode = _this.banklist[0].code;
+
+						_this.onready = true;
+						_this.isDepositor = true;
+						_this.step = 2;
+					},
+					error: bankDisabled
+				});
+			},
+			nextStepNew: function() {
+				if(!this.enable) {
+					$.toast.fail("支付状态未开启");
+					return;
+				}
+
+				if (getexpire()) {
+                    return true;
+                }
+				
+				if(! (this.amount.match(/^[1-9]+\d+[.\d]{0,3}$/) && this.amount>=Number(this.amountMin) && this.amount<=Number(this.amountMax) )) { 
+					$.toast.fail("存款金额必须是"+ this.amountMin +"~"+ this.amountMax +"之间,最大允许2位小数"); 
+					return false; 
+				}
+
+				if(!this.bankcode) {
+					$.toast.fail("请正确选择收款银行");
+					return false;
+				}
+				
+				if(!this.depositor) {
+					$.toast.fail("请填写支付银行卡的持卡人姓名");
+					return false;
+				}
+				if(/\d/gi.test(this.depositor)) {
+					$.toast.fail("请正确填写持卡人姓名");
+					return false;	
+				}
+
+				var _this = this;
+				setexpire();
+
+				JSBridge.net.invoke({
+					url: "payment/quickBankPay?XDEBUG_SESSION_START",
+					data: {
+						depositor: _this.depositor,
+						amount: _this.amount,
+						bankcode: _this.bankcode
+					},
+					success: function (result) {
+						_this.order = result.order
+						_this.countDown();
+						setTimeout(function () {
+                            _this.step = 3;
+                        }, 1000);
+					},
+					error: function (error) {
+						$.toast.fail(error ? error.message : "创建订单失败,请稍后重试或咨询客服");
+					}
+				});
+			},
+			countDown: function () {
+				var _this = this;
+				_this.cd = 900;
+				interval = setInterval(function () {
+					_this.cd --;
+					if(_this.cd <= 0) {
+						clearInterval(interval);
+						$.toast.fail("非常抱歉,已到达限定时限,请重试", function() {
+							JSBridge.forward.inside({url: "customer/member_center.htm"});
+						});
+					}
+				}, 1000);
+			}
+		}
+	});
+
+	function bankDisabled() {
+		$.toast.fail("当前支付已关闭,请选用其他支付方式", function () {
+			JSBridge.cache.delete("paymentStatusByAllData");
+			JSBridge.forward.inside({url: "customer/member_center.htm"});
+		});
+	}
+
+    JSBridge.onReady(function() {
+    	if(!CustomerUtils.isLoged()) {
+			return null;
+		}
+		var _this = data;
+		var customer = JSBridge.cache.get("customer");
+		_this.verify_code = customer.verify_code;
+		JSBridge.net.invoke({
+			url: "A01/payment/detail",
+			data: {"type": "xunjie"},
+			success: function (result) {
+				var depositors;
+
+				if(!result) {
+					bankDisabled();
+					return;
+				} else if (result.gotoLink) {
+					JSBridge.forward.inside({url: result.gotoLink, newView: true});
+                    return;
+				}
+				_this.amountMin = result.minamount;
+				_this.amountMax = result.maxamount;
+				_this.depositor = result.depositorBy ? result.depositorBy : '';
+				if(result.depositor) {
+					depositors = result.depositor.split(";");
+					if(depositors.length > 5) {
+						depositors.length = 5;
+					}
+
+					_this.historyDepositors = depositors;
+            		_this.depositor = depositors[0];
+				}
+				_this.onready = true;
+			},
+			error: bankDisabled
+		});
+    });
+})();
+
+</script>

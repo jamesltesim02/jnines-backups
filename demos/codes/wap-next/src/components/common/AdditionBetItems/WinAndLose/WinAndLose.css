@@ -1,0 +1,39 @@
+.nb_Victorytabeltitbox {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+}
+.nb_Victorytabeltit {
+    width: .7rem;
+    text-align: center;
+    height: .94rem;
+    line-height: .94rem;
+    border-right: 1px solid rgba(46, 47, 52, .5);
+    border-bottom: 1px solid rgba(46, 47, 52, .5);
+    color: rgba(255, 255, 255, .5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nb_VictorytabelItemsbox {
+    width: 6.4rem;
+    display: flex;
+}
+.nb_VictorytabelItems {
+    flex-grow: 1;
+    width: 3.2rem;
+    height: .94rem;
+    text-align: center;
+    border-right: 1px solid rgba(46, 47, 52, .5);
+    border-bottom: 1px solid rgba(46, 47, 52, .5);
+    color: rgba(255, 255, 255, .3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.nb_VictorytabelItems p:nth-of-type(2) {
+    font-size: .26rem;
+    color: #53FFFD;
+    padding-top: 5px;
+}

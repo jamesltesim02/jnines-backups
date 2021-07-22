@@ -1,0 +1,36 @@
+.sginin-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  min-height: 300px;
+  background-color: #0c58ca;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  & > .left {
+    img {
+      width: 80%;
+    }
+  }
+  .right .ant-card {
+    width: 80%;
+    max-width: 300px;
+    border-radius: 8px;
+    text-align: center;
+    header {
+      margin-bottom: 15px;
+    }
+    form {
+      text-align: left;
+    }
+    .login-form-button {
+      margin-bottom: 0;
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

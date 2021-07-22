@@ -1,0 +1,21 @@
+{
+  "name": "jsbridge-shim",
+  "version": "1.0.8",
+  "description": "在浏览器上实现APP功能的垫片，开发模式或web运行模式下需要使用到此模块",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://10.66.72.20:8081/mobile-front-end/jsbridge-shim.git"
+  },
+  "author": "WRD.APP.Mobile",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "jsbridge-core": "^2.0.3",
+    "jsbridge-util": "^1.0.3",
+    "ui-common": "^1.0.4"
+  }
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--[if IE 9]>         <html class="ie9 no-focus"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-focus"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+
+        <title>红彩</title>
+
+        <meta name="description" content="OneUI - Admin Dashboard Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        <meta name="author" content="pixelcave">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+
+        <!-- Stylesheets -->
+        <!-- Web fonts -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+
+        <!-- Bootstrap and OneUI CSS framework -->
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+        <link rel="stylesheet" id="css-main" href="/static/css/oneui.css">
+        <!-- END Stylesheets -->
+    </head>
+    <body>
+        <!-- Login Content -->
+        <div class="bg-white pulldown" id="app_login">
+            <div class="content content-boxed overflow-hidden">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+                        <div class="push-30-t push-50 animated fadeIn">
+                            <!-- Login Title -->
+                            <div class="text-center">
+                                <i class="fa fa-2x fa-circle-o-notch text-primary"></i>
+                                <p class="text-muted push-15-t">欢迎登陆红彩后台管理系统</p>
+                            </div>
+                            <!-- END Login Title -->
+
+                            <!-- Login Form -->
+                            <!-- jQuery Validation (.js-validation-login class is initialized in js/pages/base_pages_login.js) -->
+                            <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
+                            <form class="js-validation-login form-horizontal push-30-t" >
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="form-material form-material-primary floating">
+                                            <input class="form-control" type="text" id="login-username" name="login-username" v-model="userName">
+                                            <label for="login-username">用户名</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="form-material form-material-primary floating">
+                                            <input class="form-control" type="password" id="login-password" name="login-password" v-model="passWord">
+                                            <label for="login-password">密码</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group push-30-t" id="submit_login">
+                                    <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                                        <button class="btn btn-sm btn-block btn-primary" type="button" @click ="login()">登陆</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- END Login Form -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Login Content -->
+
+        <!-- Login Footer -->
+        <div class="pulldown push-30-t text-center animated fadeInUp">
+            <small class="text-muted"><span class="js-year-copy"></span> &copy; 红彩管理系统 1.0</small>
+        </div>
+        <!-- END Login Footer -->
+
+        <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+        <script src="/static/js/core/jquery.min.js" th:src="@{/static/js/core/jquery.min.js}"></script>
+        <script src="/static/js/core/bootstrap.min.js" th:src="@{/static/js/core/bootstrap.min.js}"></script>
+        <script src="/static/js/core/jquery.slimscroll.min.js" th:src="@{/static/js/core/jquery.slimscroll.min.js}"></script>
+        <script src="/static/js/core/jquery.scrollLock.min.js" th:src="@{/static/js/core/jquery.scrollLock.min.js}"></script>
+        <script src="/static/js/core/jquery.appear.min.js" th:src="@{/static/js/core/jquery.appear.min.js}"></script>
+        <script src="/static/js/core/jquery.countTo.min.js" th:src="@{/static/js/core/jquery.countTo.min.js}"></script>
+        <script src="/static/js/core/jquery.placeholder.min.js" th:src="@{/static/js/core/jquery.placeholder.min.js}"></script>
+        <script src="/static/js/core/js.cookie.min.js" th:src="@{/static/js/core/js.cookie.min.js}"></script>
+        <script src="/static/js/app.js" th:src="@{/static/js/app.js}"></script>
+        <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+        <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+        <!-- Page JS Plugins -->
+        <script src="/static/js/plugins/jquery-validation/jquery.validate.min.js" th:src="@{/static/js/plugins/jquery-validation/jquery.validate.min.js}"></script>
+
+        <!-- Page JS Code -->
+        <script src="/static/js/pages/base_pages_login.js" th:src="@{/static/js/pages/base_pages_login.js}"></script>
+    </body>
+</html>

@@ -1,0 +1,96 @@
+<template id="contentTmpl">
+	<div class="display_flex_h bank_info">
+		 <div class="main_content">
+			<div class="newbie_guide_content">
+				<ul class="guide_list">	
+					<li class="guide_item">
+						<div class="header active">
+							<i class="icon icon80">	</i>
+							<span>如何存款</span>
+						</div>
+						<div class="content">
+							<p>
+								第一步： 登录游戏账号后，点击右上方会员中心按钮，选择存款即可进入充值界面。
+							</p>
+							<p>
+								第二步： 进入“手工存款”界面，请填写您汇款成功的信息。温馨提示：此功能只是一个信息提交功能，不具有充值功能，请充值成功后，再提交此存款信息。
+							</p>
+							<p>
+								第三步： 点击提交后，彩金人员将收到您的汇款信息，会马上核实以及添加额度，一般需要5-10分钟，请您耐心等待，如有任何需要，可随时咨询客服人员。			
+							</p>
+						</div>
+					</li>
+					<li class="guide_item">
+						<div class="header ">
+							<i class="icon icon81">	</i>
+							<span>如何取款 </span>
+						</div>
+						<div class="content">
+							<p>
+								<span>第一步：</span>
+								登录游戏账号后，点击右上方会员中心按钮，选择取款即可进入取款界面。<br/><br/>
+								<span>第二步：</span>
+								进入“取款”界面后，请按照界面要求的内容，进行填写。<br/><br/>
+								<span>第三步：</span>
+								点击提交后，彩金人员将在1小时内，将款项汇入您的指定银行卡内。（取款最低100元，单日可取1000万人民币）<br/><br/>
+							</p>
+						</div>
+					</li>
+					<li class="guide_item">
+						<div class="header">
+							<i class="icon icon82">	</i>
+							<span>如何洗码</span>
+						</div>
+						<div class="content">
+							<p>
+								<span>第一步：</span>
+								登录游戏账号后，点击右上方会员中心按钮，然后请选择自助洗码。<br/><br/>
+								<span>第二步：</span>
+								进入到“自助洗码”界面，在“洗码类型”中选择您要结算的大厅，点击“提交”即可完成结算，洗码金额在提交成功后，自动添加到游戏账户中。<br/><br/>
+							</p>
+						</div>
+					</li>
+					<li class="guide_item">
+						<div class="header">
+							<i class="icon icon83">	</i>
+							<span>常见问题</span>
+						</div>
+						<div class="content">
+							<p>
+								<span>可以试玩吗？</span><br/>
+								您好，网站可以随时试玩，请电脑登陆www.518btt.com进行试玩游戏。<br/><br/>
+								<span>如何注册真钱账号？</span><br/>
+								您好，在页面下方点击"免费注册"按钮进行申请；填写相关信息，点击“提交”后即可注册成功。<br/><br/>
+								<span>存款支持哪些银行？</span><br/>
+								网站存款方式多样化，提供中国内地农行、建行、招商、交通等多家银行人民币收款账户（详情请登陆电脑版查阅或联系客服）<br/><br/>
+								<span>忘记密码</span><br/>
+								如忘记密码请点击在线客服图标，提供您开户时绑定的资料，客服可以为您重置密码。<br/><br/>
+								<span>如何完善取款银行信息</span><br/>
+								新开户会员首次取款需要先完善取款银行信息，请登录游戏账号后，点击页面右上方的会员中心按钮，然后选择“完善银行资料”进入相关界面，请按照界面要求的内容进行填写，提交完成后即可（温馨提示：取款银行卡开户名须与会员注册真实姓名保持一致）<br/><br/>
+							</p>
+						</div>
+					</li>
+				</ul>
+			</div>	
+    	</div>
+    </div>
+</template>
+<script>
+appState.setData({
+    title: '新手指南'
+});
+
+Vue.component("app-content", {
+	template: "#contentTmpl",
+	mounted:function(){
+		$(".header").click(function(){
+			var _this=this;
+			for(var i=0,len=$('.content').length;i<len;i++){
+				$('.content').eq(i).css('display')=='block'&&$('.content').eq(i).slideUp(500,function(){
+					$(_this).next().slideDown(500);
+				});
+			};
+		});
+	}
+});
+</script>

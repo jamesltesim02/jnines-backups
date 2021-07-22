@@ -1,0 +1,93 @@
+.nb-myorder-item-title {
+  display: flex;
+  line-height: .64rem;
+  border-bottom: 1px solid #dddddd;
+  font-size: .26rem;
+  padding: 0 .2rem;
+}
+.nb-myorder-item-title > div {
+  width: 100%;
+}
+.nb-myorder-item-title span {
+  display: inline-block;
+  color: #333333;
+}
+.nb-myorder-status {
+  font-size: .24rem;
+  width: .4rem;
+  height: .4rem;
+  border-radius: 50%;
+  text-align: center;
+  line-height: .4rem;
+  margin-right: .18rem;
+}
+.nb-myorder-status.nb-myorder-loss {
+  background: #50A232;
+}
+.nb-myorder-status.nb-myorder-profit {
+  background: #DD4646;
+}
+.nb-myorder-item-content {
+  padding:.2rem;
+  border-top: 1px solid #dddddd;
+}
+ul .nb-myorder-item-content:first-child {
+  border-top: 0;
+}
+.nb-myorder-date {
+  text-align: right;
+  letter-spacing: -.0062rem;
+  color: #666666;
+}
+.nb-myorder-name-state {
+  display: flex;
+  line-height: .48rem;
+  color: #333333;
+}
+.nb-myorder-name {
+  flex-grow: 7;
+  font-size: .34rem;
+  letter-spacing: -.0082rem;
+  font-weight: bold;
+}
+.nb-myorder-state {
+  flex-grow: 3;
+  text-align: right;
+  font-size: .26rem;
+}
+.nb-myorder-detail {
+  padding: .1rem 0;
+  line-height: .46rem;
+  color: #666666;
+}
+.nb-myorder-detail-score {
+  color: #53B6FF;
+  margin-left: .2rem;
+}
+.nb-myorder-item-footer {
+  display: flex;
+  border-top: 1px solid #dddddd;
+}
+.nb-myorder-item-footer li {
+  width: 100%;
+  padding: .2rem;
+  border-right: 1px solid #dddddd;
+}
+.nb-myorder-item-footer li:last-child {
+  border-right: 0;
+}
+.nb-myorder-item-footer li label,
+.nb-myorder-item-footer li span {
+  display: block;
+  text-align: center;
+}
+.nb-myorder-item-footer li label {
+  color: #666666;
+  padding: .06rem 0;
+}
+.nb-myorder-item-footer li span {
+  font-size: .34rem;
+  padding: .14rem 0;
+  color: #333333;
+  font-weight: bold;
+}

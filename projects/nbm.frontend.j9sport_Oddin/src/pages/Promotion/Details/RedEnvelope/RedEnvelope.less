@@ -1,0 +1,192 @@
+.red-envelop-page {
+  background: url(./images/bg.jpg) repeat-x center top,
+            #fac10d;
+  overflow: hidden overlay;
+  background-attachment: local;
+  nav {
+    background: rgba(255, 255, 255, 0.15);
+    & > header {
+      max-width: 1420px;
+      margin: 0 auto;
+    }
+    .anticon,
+    .navs .ant-breadcrumb a,
+    .navs .ant-breadcrumb span {
+      color: #333 !important;
+    }
+  }
+  .promo-slogan {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    font-size: 60px;
+    line-height: 60px;
+    height: 254px;
+    letter-spacing: 3.6px;
+    text-shadow: 0px 5px 0 #9f0800;
+    div:first-child {
+      font-size: 72px;
+      line-height: 72px;
+      margin-bottom: 30px;
+    }
+  }
+  .banner {
+    background: url('images/banner.png');
+    width: 760px;
+    height: 458px;
+    margin: 0 auto 34px;
+    ul {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 310px;
+      height: 60px;
+      margin: 345px auto 0;
+      border-radius: 30px;
+      background-image: linear-gradient(to top, #b81c16, #d5281e);
+      color: #fff;
+      text-align: center;
+      align-items: center;
+      span {
+        font-size: 20px;
+        line-height: 20px;
+      }
+      label {
+        display: block;
+        line-height: 12px;
+        color: #ff8d8d;
+        margin-top: 7px;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        width: 1px;
+        height: 18px;
+        background: #fff;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+  .gradient-block {
+    position: relative;
+    width: 1080px;
+    margin: 0 auto 43px;
+    padding: 40px 55px 53px;
+    border-radius: 9px;
+    background: linear-gradient(to top, #fac608, #ffe900);
+    box-shadow: 0px 3px 0 0 #ef8127;
+    font-family: MicrosoftYaHei;
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
+    & > header {
+      font-size: 16px;
+      color: #e22d42;
+      margin-bottom: 10px;
+    }
+    .ant-table {
+      background: transparent !important;
+      font-size: 15px;
+    }
+    & table {
+      width: 100%;
+      thead th {
+        background: #ecead1 !important;
+        height: 40px;
+        padding: 0 10px;
+        color: #000;
+        font-size: 15px;
+      }
+      tbody td {
+        color: #333;
+        padding: 10px !important;
+        border-bottom: 1px solid #ecead1;
+        a {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+          color: #fff;
+          width: 80px;
+          height: 30px;
+          border-radius: 15px;
+          background: linear-gradient(to right, #ff5027, #bc1b13);
+        }
+      }
+      tbody tr.inplay td {
+        color: #e83326;
+        a {
+          background-image: linear-gradient(to right, #fac10d, #d6a411);
+        }
+      }
+      tbody tr:hover td {
+        background: transparent;
+      }
+    }
+    &::before {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 0;
+      content: "";
+      width: calc(100% - 20px);
+      height: calc(100% - 20px);
+      border-radius: 9px;
+      background-color: #fffcdd;
+    }
+  }
+  .gradient-block.matchs {
+    & > header button {
+      color: #333;
+      margin-right: 15px;
+      transition: all .3s ease-out;
+      &.active {
+        color: #e22d42;
+      }
+    }
+  }
+  .gradient-block.description {
+    font-size: 16px;
+    color: #222;
+    line-height: 24px;
+    label {
+      color: #e22d42;
+      margin-right: 10px;
+    }
+    & > section {
+      margin-bottom: 18px;
+      & > div {
+        margin-top: 10px;
+      }
+    }
+    ol {
+      padding-left: 22px;
+    }
+    li {
+      list-style-type: decimal;
+    }
+  }
+  .need-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 318px;
+    color: #000;
+    font-size: 16px;
+    button {
+      background: linear-gradient(to top, #b81c16, #d5281e);
+      color: #fff;
+      width: 160px;
+      height: 40px;
+      border-radius: 20px;
+      margin-top: 22px;
+    }
+  }
+}

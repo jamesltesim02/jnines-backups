@@ -1,0 +1,9 @@
+<template id="hImageTmpl">
+<a-img :src="src" remote="true"></a-img>
+</template>
+<script type="text/javascript">
+Vue.component("h-img", {
+	template: "#hImageTmpl",
+	props: ["src"]
+});
+</script>

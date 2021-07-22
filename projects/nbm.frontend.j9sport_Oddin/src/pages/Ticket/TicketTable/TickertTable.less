@@ -1,0 +1,91 @@
+.ticket-table {
+  overflow-y: auto;
+  .fw7 {
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  table {
+    width: 100%;
+    table-layout:fixed;
+    tr {
+      td, th {
+        &:first-child{
+          width:180px;
+        }
+        &:nth-child(3) {
+          width: 250px;
+        }
+      }
+    }
+    tr {
+      td {
+        &:first-child {
+          span {
+            color: var(--high-light-color);
+            cursor: pointer;
+            &:hover{
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+    thead {
+      height: 40px;
+      line-height: 40px;
+      background-color: var(--ticket-thead-background-color);
+      width: calc( 100% - 1em)
+    }
+    thead ,
+    tbody tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+    th,tbody{
+      font-weight: 500;
+      color: var(--first-color);
+      text-align: center;
+    }
+    tbody {
+      tr{
+        border-bottom: 1px solid var(--ticket-tr-border-bottom);
+        td {
+          padding: 10px 0;
+        }
+      }
+      .league-info {
+        padding: 10px 5px;
+        transition: all .3s ease-out;
+        .goDetail {
+          cursor: pointer;
+          &:hover {
+            color: #bd2b27;
+          }
+        }
+      }
+      .winOrLose {
+        display: inline-block;
+        width: 35px;
+        height: 20px;
+        line-height: 18px;
+        vertical-align: sub;
+
+        &.lose {
+          color: #52c41a;
+          background-color: #f6ffed;
+          border: 1px solid #b7eb8f;
+        }
+        &.win {
+          color: #fa541c;
+          background-color: #fff2e8;
+          border: 1px solid #ffbb96;
+        }
+        &.normal {
+          color: #666666;
+          border: 1px solid #666666;
+        }
+      }
+    }
+  }
+}

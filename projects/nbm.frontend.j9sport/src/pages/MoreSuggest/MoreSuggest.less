@@ -1,0 +1,39 @@
+.more-suggest {
+  margin-top: 10px;
+  background-color: var(--block-background-color);
+  border-bottom: 1px solid var(--app-background-color);
+  border-radius: 4px;
+  color: var(--first-color);
+  .list a {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
+    border-top: 1px solid var(--app-background-color);
+    height: 110px;
+    align-items: center;
+    text-align: center;
+    transition: all .3s ease-out;
+    label, span {
+      display: block;
+    }
+    label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .team {
+      text-align: center;
+      overflow: hidden;
+      label {
+        margin-top: 2px;
+      }
+    }
+    span {
+      font-size: 24px;
+    }
+    &:hover {
+      z-index: 2;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, .15);
+    }
+  }
+}

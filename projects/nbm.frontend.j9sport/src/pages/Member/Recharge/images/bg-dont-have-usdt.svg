@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="164" height="28" viewBox="0 0 164 28">
+  <defs>
+    <linearGradient id="zuvuswpnfb" x1="97.907%" x2="0%" y1="48.554%" y2="48.543%">
+      <stop offset="0%" stop-color="#8A66AE"/>
+      <stop offset="100%" stop-color="#3C2C6D"/>
+    </linearGradient>
+    <path id="ohv0vznnca" d="M0 0h164c-10.093 0-14.992 28-25.895 28-19.744 0-65.78-.034-138.105-.102V0z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <g>
+      <g transform="translate(-342 -185) translate(342 185)">
+        <use fill="url(#zuvuswpnfb)" xlink:href="#ohv0vznnca"/>
+      </g>
+    </g>
+  </g>
+</svg>

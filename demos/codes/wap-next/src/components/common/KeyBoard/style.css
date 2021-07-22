@@ -1,0 +1,20 @@
+.nb-quick-board, .nb-number-board {
+  transition: all .3s;
+}
+
+.nb-keyboard-quickmode .nb-quick-board {
+  height: 2rem;
+}
+.nb-keyboard-bumbermode .nb-number-board {
+  height: 3.52rem;
+}
+.nb-keyboard-quickmode .nb-number-board {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+.nb-keyboard-bumbermode .nb-quick-board {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+}

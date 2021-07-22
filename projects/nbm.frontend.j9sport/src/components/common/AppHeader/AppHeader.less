@@ -1,0 +1,43 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #121212;
+  position: relative;
+  .tab-menu,.app-logo,.right-menus{
+    flex: 1;
+    display: inline-flex;
+  }
+  .app-logo img {
+    height: 34px;
+  }
+  .tab-menu{
+    justify-content: center;
+  }
+  .right-menus{
+    justify-content: flex-end;
+  }
+  .customer {
+    position: fixed;
+    z-index: 9;
+    right: 100px;
+    bottom: 300px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    height: 50px;
+    opacity: .8;
+    transition: all ease-in-out 200ms;
+    border-radius: 50%;
+    background-color: #2d2d2d;
+    box-shadow: 0 0 10px 3px rgba(0,0,0,.4);
+    &:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+  }
+  .europe-enter {
+    position: absolute;
+    left: 200px;
+  }
+}

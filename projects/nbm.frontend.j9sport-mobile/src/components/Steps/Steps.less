@@ -1,0 +1,45 @@
+.steps {
+  &-process {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    padding: 0 40px 30px 40px;
+    position: relative;
+
+    &-dot {
+      flex: 1;
+      overflow: hidden;
+      background-image: url("./img/step-process-gray.png");
+      background-repeat: repeat-x;
+      background-size: 70px;
+      background-position: 0 10px;
+
+      &.active {
+        background-image: url("./img/step-process-gold.png");
+      }
+    }
+
+    &-icon {
+      img {
+        max-height: 27px;
+      }
+    }
+
+    &-text {
+      position: absolute;
+      bottom: 0px;
+      line-height: 30px;
+    }
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 15px;
+
+      &.active {
+        color: var(--highlight-color);
+      }
+    }
+  }
+}

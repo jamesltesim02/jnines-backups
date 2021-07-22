@@ -1,0 +1,38 @@
+
+	.btn_green,
+	.btn_gray,
+	.btn_red {
+		height: 96rpx;
+		line-height: 96rpx;
+		border-radius: 8rpx;
+		text-align: center;
+		font-size: 32rpx;
+		font-weight: 500;
+	}
+
+	.btn_green {
+		background-color: #88CC00;
+		color: #FFFFFF;
+	}
+
+	.btn_gray {
+		background-color: #F5F5F5;
+		color: #333333;
+	}
+
+	.btn_red {
+		background-color: #FFFFFF;
+		color: #CC3D49;
+	}
+	.gray{
+		color: $uni-bg-color-grey;
+	}
+	.green{
+		color: $uni-bg-color;
+	}
+	.empty{
+		position: fixed;
+		right: 50%;
+		top: 50%;
+		transform: translate(50%,-50%);
+	}

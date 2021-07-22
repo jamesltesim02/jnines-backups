@@ -1,0 +1,43 @@
+{
+  "name": "a01_mobile",
+  "version": "1.0.0",
+  "description": "A01 博天堂 手机APP",
+  "main": "index.js",
+  "repository": {
+    "type": "svn",
+    "url": "svn://10.66.72.114:888/codes/mobile/app/A01/h5/branches_develop/dev_20171213_by_module"
+  },
+  "dependencies": {
+    "business-util": "^1.0.9",
+    "city-dic": "^1.0.1",
+    "clipboard": "^1.7.1",
+    "dropload": "^1.1.0",
+    "es6-shim": "^0.35.3",
+    "es7-shim": "^6.0.0",
+    "gulp-clean-css": "^3.9.2",
+    "hybrid-fastclick": "^1.0.1",
+    "iscroll": "^5.2.0",
+    "jquery": "^3.3.1",
+    "js-cookie": "^2.2.0",
+    "jsbridge-core": "^2.0.5",
+    "jsbridge-shim": "^1.0.8",
+    "jsbridge-util": "^1.1.5",
+    "slick-carousel": "^1.8.1",
+    "store": "^2.0.12",
+    "swiper": "^4.1.6",
+    "ui-common": "^1.0.8",
+    "vue": "^2.5.13",
+    "wms-games": "^1.0.2"
+  },
+  "devDependencies": {
+    "hybrid-gulp-task": "^1.2.1",
+    "minimist": "^1.2.0"
+  },
+  "scripts": {
+    "dev": "set NODE_ENV=dev&&gulp",
+    "pkg_debug": "set NODE_ENV=pkg_debug&&gulp",
+    "pkg_update": "set NODE_ENV=pkg_update&&gulp"
+  },
+  "author": "WRD.APP.Mobile",
+  "license": "UNLICESED"
+}

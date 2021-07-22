@@ -1,0 +1,14 @@
+.nb_notices{
+    height: .64rem;
+    font-size:.24rem;
+    color: #53B6FF;
+    letter-spacing: -0.29px;
+    line-height: .64rem;
+    overflow: auto;
+	overflow-x:scroll;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 .2rem;
+}
+.nb_noticesp {
+    
+}

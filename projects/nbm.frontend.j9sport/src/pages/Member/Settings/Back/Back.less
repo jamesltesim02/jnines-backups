@@ -1,0 +1,36 @@
+.settings-back {
+  font-size: 18px;
+  color: var(--back-btn-color);
+  display: flex;
+  button {
+    &:hover {
+      svg {
+        transform: translateX(-2px);
+      }
+    }
+    svg {
+      width: 24px;
+      margin-right: 10px;
+      transition: all 200ms ease-in-out;
+    }
+  }
+
+  p {
+    position: relative;
+    font-size: 20px;
+    color: var(--back-title-color);
+    margin-left: 30px;
+    display: inline-block;
+    &:after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 1px;
+      height: 32px;
+      border-radius: 32px;
+      top: 0;
+      left: -15px;
+      background: linear-gradient(180deg, hsla(240, 1%, 64%, 0) 2%, hsla(240, 1%, 64%, .5) 50%, hsla(240, 1%, 64%, 0) 98%);
+    }
+  }
+}

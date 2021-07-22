@@ -1,0 +1,53 @@
+.nb_Tabelbox {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+.nb_TabelItems, .nb_Tabeltit {
+    display: table-cell;
+    border-collapse: collapse;    
+}
+.nb_Tabeltit {
+    width: .7rem;
+    border: 1px solid rgba(46, 47, 52, .5);
+    vertical-align: top;
+}
+
+.nb_TabelItems {
+    width: 1.59rem;
+    border: 1px solid rgba(46, 47, 52, .5);
+    vertical-align: top;
+}
+.nb_TabelItemspage, .nb_Tabeltitpage>p{
+    height: .94rem;
+    width: 100%;
+    border-bottom: 1px solid rgba(46, 47, 52, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: rgba(255, 255, 255, .5);
+    font-size: .24rem;
+}
+.nb_Tabeltitpage>p {
+    color: rgba(255, 255, 255, .3);
+}
+.nb_TabelItemspage>p:nth-of-type(2) {
+    font-size: .26rem;
+    color: #53FFFD;
+    padding-top: 10px;
+}
+
+.nb_TabelItems .nb_curret, .nb_curret p:nth-of-type(2) {
+    background: #53C0FF;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+

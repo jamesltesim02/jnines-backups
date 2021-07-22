@@ -1,0 +1,43 @@
+.nb-keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: .2rem .3rem;
+  transition: all .3s;
+}
+
+.nb-keyboard button {
+  background: #a0a0a0;
+  font-size: .34rem;
+  text-align: center;
+  line-height: .8rem;
+  color: #fff;
+  margin-bottom: .1rem;
+  border-radius: 4px;
+  transition: all .1s;
+}
+
+/* .nb-keyboard button:active {
+  background: #777777;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+} */
+
+.nb-keyboard-qk {
+  width: 1.54rem;
+}
+
+.nb-keyboard-nk {
+  width: 1rem;
+}
+
+.nb-keyboard-delete {
+  width: 2.1rem;
+}
+
+/*.nb-keyboard .nb-keyboard-submit:active */
+.nb-keyboard .nb-keyboard-submit{
+  width: 100%;
+  margin-bottom: 0;
+  background: #53C0FF;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+}

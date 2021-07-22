@@ -1,0 +1,468 @@
+<style>
+	div.app-container {
+		height: 100%;
+		background-repeat: no-repeat;
+		background: url(../__static/__images/bg/loginbg.jpg);
+		background-size: 100% 100%;
+	}
+	.form_fields .form_field input {
+		font-size: 12px;
+	}
+
+	div.app-container > div {
+		position: relative;
+		min-height: 100%;
+	}
+	.register-promo-link {
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+	}
+</style>
+<template  id="contentTmpl">
+	<div>
+		<section class="login">
+			<img @click="showParentId" class="logo" src="../../__static/__images/icons/logo_dropshadow.png" alt="">
+			<div class="login_type">
+				<div class="cols-2">
+					<div class="col col1 txt_center">
+						<a forward="forward" newview="true" href="common/login.htm">登录</a>
+					</div>
+					<div class="col col2 txt_center">
+					<a class="active">开户</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="form_fields relative">
+				<div class="triangle triangle-right"></div>
+				<div class="register-type">
+					<div class="cols-2">
+						<div class="col col1 txt_center"><a @click="registerType = 1" :class="{active: registerType == 1}">普通开户</a></div>
+						<div class="col col2 txt_center"><a @click="registerType = 2" :class="{active: registerType == 2}">极速开户</a></div>
+					</div>
+				</div>
+
+				<div v-show="registerType == 1" >
+					<div class="form_field username">
+						<span class="icon icon16"></span>
+						<span class="pre">g</span>
+						<input 
+							v-model.trim='username' 
+							class="wpre removable_margin" 
+							type="text" 
+							name="loginName" 
+							value="" 
+							maxlength="9"
+							placeholder="账号(4~9位数字或字母)">
+					</div>
+					<div class="form_field password form_field_password">
+						<span class="icon icon17"></span>
+						<input v-model.trim='password' type="password" name="passwd" id="passwd" maxlength="10" value="" placeholder="密码(8~10位数字和字母)">
+						<span class="icon_e icon_ceye" id="password_toggle"></span>
+					</div>
+					<div class="form_field password form_field_password" v-if='cellphone'>
+						<span class="icon icon18"></span>
+						<input v-model.trim='phone_number' type="text" maxlength="11" placeholder="请填写手机号">
+					</div>
+					<div class="form_field password form_field_password" >
+						<span class="icon icon19"></span>
+						<input v-model.trim='verify_img_val' maxlength="4" type="text" name="captcha" value="" placeholder="请输入验证码">
+						<span class="icon_c icon_captcha" v-bind:style='{backgroundImage:urlImg}' @click='refreshCaptcha'></span>
+					</div>
+				</div>
+				<div v-show="registerType == 2">
+					<div class="form_field password form_field_password" v-if='cellphone'>
+						<span class="icon icon18"></span>
+						<input v-model.trim='phone_number' type="text" maxlength="11" placeholder="请填写手机号">
+					</div>
+
+					<div class="form_field username-type-choocer">
+						<div class="cols-2">
+							<div class="col col1 txt_center">
+								<label><input type="radio" v-model="autoUsername" value="1"><i></i>自动生成游戏账号</label>
+							</div>
+							<div class="col col2 txt_center">
+								<label><input type="radio" v-model="autoUsername" value="2"><i></i>设置游戏账号</label>
+							</div>
+						</div>
+					</div>
+					<div v-show="autoUsername == 2" class="form_field username">
+						<span class="icon icon16"></span>
+						<span class="pre">g</span>
+						<input 
+							v-model.trim='username' 
+							class="wpre removable_margin" 
+							type="text" 
+							name="loginName" 
+							value="" 
+							maxlength="9"
+							placeholder="账号(4~9位数字或字母)">
+					</div>
+
+					<div class="verify-code" >
+						<div class="form_field">
+							<span class="icon icon19"></span>
+							<input v-model.trim='verifyCode' maxlength="6" type="text" name="captcha" value="" placeholder="请输入验证码">
+						</div>
+						<button @click="sendVerify" :class="{disabled: verifyCD > 0}">{{verifyText}}</button>
+					</div>
+
+				</div>
+			</div>
+			<a @click='submit' class="btn btn-lg login">立即开户</a>
+		</section>
+		<!--
+		<div :style="{'height': promoPlageHolderHeight + 'px'}"></div>
+		<img 
+			@click="toPromo('promo_account_gift.htm')" 
+			class="register-promo-link" 
+			src="../../__static/__images/sign/register-promo-39.jpg">
+		-->
+	</div>
+</template>
+
+<script type="text/javascript">
+if(CustomerUtils.isLoged()) {
+	JSBridge.onReady(function () {
+		JSBridge.forward.inside({url: "common/register_success.htm", newView: true});
+	})
+} else {
+	appState.setData({
+		title: '立即开户'
+	});
+	Vue.component("app-content", {
+		template: "#contentTmpl",
+		data:function(){
+			return {
+				registrying:false,
+				verifyInterval: 60,
+				verifyCD: 0,
+				username:'',
+				login_name: '',
+				password:'',
+				phone_number:'',
+				verify_img_val:'',
+				cellphone:true,
+				verifyCode: "",
+				urlImg:'',
+				uuid:true,
+				registerType: 1,
+				autoUsername: 1/*,
+				promoPlageHolderHeight: 50*/
+			}
+		},
+		computed: {
+			verifyText: function () {
+				return this.verifyCD > 0 ? "已发送(" + this.verifyCD + ")" : "获取验证码";
+			}
+		},
+		watch: {
+			username: function (val) {
+				this.login_name = val ? "g" + val.toLowerCase() : "";
+			}
+		},
+		mounted:function(){
+			var _this = this;
+
+			/*
+			$(window).on("resize", _this.resetPromoPlaceHoderHeight.bind(_this));
+			_this.resetPromoPlaceHoderHeight();
+			*/
+
+			$('#password_toggle').on('click', function() {
+		        var $this = $(this);
+		        if ($this.hasClass('icon_eye')) {
+		            $this.removeClass('icon_eye');
+		            $('#passwd').attr('type','password');
+		        } else {
+		            $this.addClass('icon_eye');
+		            $('#passwd').attr('type','text');
+		        }
+		    });
+
+		    JSBridge.onReady(function() {
+				var verifyTime;
+				_this.refreshCaptcha();
+				verifyTime = JSBridge.cache.get("verifySendTime");
+				if(verifyTime) {
+					_this.verifyCD = _this.verifyInterval - parseInt((Date.now() - verifyTime)/1000);
+					_this.countdown();
+					return ;
+				}
+		    });
+		},
+		methods:{
+			/**
+			 *  设置底部占位高度，用于正常显示底部banner
+			
+			resetPromoPlaceHoderHeight: function () {
+				this.promoPlageHolderHeight = (window.document.body.offsetWidth/750)*168 - 60;
+			},
+			 */
+			/**
+			 * 跳转到活动详情
+			 */
+			toPromo: function (url) {
+				JSBridge.forward.outside({
+					url: OtherUtils.getDomain() + url,
+					newView: true
+				})
+			},
+			/**
+			 * 发送验证码倒计时
+			 */
+			countdown: function () {
+				var _this = this,
+					timer;
+				timer = setInterval(function () {
+					_this.verifyCD --;
+					if(_this.verifyCD <= 0) {
+						clearInterval(timer);
+					}
+				}, 1000);
+			},
+			/**
+			 * 发送验证码
+			 */
+			sendVerify: function () {
+				var _this = this,
+					verifyTime;
+
+				// 两次发送必须间隔一分钟
+				if(_this.verifyCD > 0) {
+					return;
+				}
+
+				// 验证手机号
+				if(!/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(_this.phone_number)){
+					return $.toast.fail('请填写正确的手机号');
+				}
+
+				JSBridge.net.invokeSync(
+					"otherVerify/send",
+					{
+						"type": 1,
+						"v_type": 6,
+						"send_to": _this.phone_number,
+						"timestamp": Date.now()
+					}
+				).then(function () {
+					_this.verifyCD = _this.verifyInterval;
+					_this.countdown();
+					$.toast.success("验证码发送成功，请注意查收");
+					JSBridge.cache.save("verifySendTime", Date.now(), _this.verifyInterval * 1000);
+				}).catch(function (error) {
+					$.toast.fail(error.message);
+				});
+			},
+			/**
+			 * 自动登录
+			 */
+			autoLogin: function () {
+				var _this = this,
+					// 获取设备信息
+					deviceInfo = JSBridge.driver.deviceInfo() || {};
+				
+				// 登录
+				JSBridge.net.invokeSync(
+					"users/login",
+					{
+						"login_name": _this.login_name,
+						"password": _this.password,
+						"drice_id": deviceInfo.drice_id || "",
+						"drice_type": deviceInfo.drice_type || "",
+						"phone_board": deviceInfo.phone_board || "",
+						"phone_model": deviceInfo.phone_model || "",
+						"phone_version": deviceInfo.phone_version || "",
+						"timestamp": Date.now()
+					}
+				).then(function (logResult) {
+					// 保存登录信息
+					CustomerUtils.save(logResult.WSCustomers);
+					// 跳转到登录成功
+					JSBridge.forward.inside({url: "common/register_success.htm", newView: true});
+				}).catch(function (error) {
+					$.toast.fail(error.message);
+				});
+			},
+			getPalinfo: function () {
+				// 获取渠道id
+				var parentId = "",
+					cookiedPalCode,
+					isFullAgent = false;
+				
+				parentId = (JSBridge.driver.getParentId() || {}).parentId || "";
+				if(parentId && parentId == "fullAgent") {
+					parentId = "";
+					// 针对ios获取
+					if($.appVersion().isIOS) {
+						cookiedPalCode = (JSBridge.driver.getCookiedPalCode() || {}).cookiedPalCode || "";
+						if(cookiedPalCode) {
+							parentId = cookiedPalCode;
+						}
+					}
+					if(!parentId) {
+						parentId = (JSBridge.driver.getPalCode() || {}).palCode || "";
+					}
+					isFullAgent = true;
+				}
+
+				return {
+					parentId: parentId,
+					isFullAgent: isFullAgent
+				}
+			},
+			/**
+			 *  极速开户
+			 */
+			quickRegister: function () {
+				var _this = this;
+				return new Promise(function (resolve, reject) {
+
+					// 手机号
+					if(!/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(_this.phone_number)){
+						return reject('请填写正确的手机号');
+					}
+
+					// 验证码
+					if(!_this.verifyCode){
+						return reject('请输入验证码');
+					}
+
+					// 用户名
+					if(_this.autoUsername == "2") {
+						if(!/^[a-zA-Z0-9]{4,9}$/.test(_this.username)){
+							return reject('用户名为4-9位的数字或字母');
+						}
+					} else {
+						_this.username = "";
+					}
+
+					var palinfo = _this.getPalinfo();
+					JSBridge.net.invokeSync(
+						"A01/users/quickRegister",
+						{
+							"login_name": _this.login_name || "",
+							"phone": _this.phone_number,
+							"verify_code": _this.verifyCode,
+							"parent_id": palinfo.parentId,
+							"is_full_agent": palinfo.isFullAgent
+						}
+					).then(function (result) {
+						// 记录账号密码 用于自动登录
+						_this.login_name = result.login_name;
+						_this.password = result.password;
+						JSBridge.cache.save("normal_password", _this.password, 10000);
+						resolve();
+					}).catch(function (error) {
+						reject(error.message);
+					});
+				});
+			},
+			// 普通开户
+			normalRegister: function () {
+				var _this = this;
+
+				return new Promise(function (resolve, reject) {
+					// 用户名
+					if(!/^[a-zA-Z0-9]{4,9}$/.test(_this.username)){
+						return reject('用户名为4-9位的数字或字母');
+					}
+
+					// 密码
+					if(!/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9a-zA-Z]{8,10}$/.test(_this.password)){
+						return reject('密码为8~10位的数字和字母');
+					} 
+
+					// 手机号
+					if(!/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(_this.phone_number)){
+						return reject('请填写正确的手机号');
+					} 
+
+					// 验证码
+					if(!_this.verify_img_val){
+						return reject('请输入验证码');
+					}
+
+					var palinfo = _this.getPalinfo();
+					// 注册
+					JSBridge.net.invokeSync(
+						"A01/users/create",
+						{
+							"login_name": _this.login_name,
+							"password":_this.password,
+							"phone":_this.phone_number,
+							"currency":"CNY",
+							"customer_type":1,
+							"parent_id": palinfo.parentId,
+							"is_full_agent": palinfo.isFullAgent,
+							"catpcha": _this.verify_img_val,
+							"uuid": _this.uuid
+						}
+					).then(resolve)
+					.catch(function (error) {
+						reject(error.message);
+						_this.refreshCaptcha();
+					})
+				});
+			},
+			/**
+			 * 刷新验证码
+			 */
+			refreshCaptcha: function () {
+				var _this = this;
+				_this.verify_img_val = "";
+				JSBridge.net.invokeSync(
+					"otherVerify/captcha"
+				).then(function (result) {
+					_this.urlImg='url(data:image/png;base64,'+result.src+')';
+					_this.uuid=result.uuid;
+				}).catch(function (error) {
+					$.toast.fail(error.message);
+				})
+			},
+			/**
+			 * 提交注册
+			 */
+			submit: function () {
+				var _this = this,
+					// 将要调用的注册方法
+					registerFunction;
+
+				if(_this.registrying) {
+					return;
+				}
+				_this.registrying = true;
+
+				// 根据注册类型调用对应的注册方法，1： 普通注册，2：极速开户
+				registerFunction = ["","normalRegister","quickRegister"][_this.registerType];				
+
+				// 调用注册方法进行注册
+				_this[registerFunction]().then(function (regResult) {
+					// 注册成功, 提示后自动登录
+					$.toast.success(
+						'恭喜您，注册成功..正在为您登录', 
+						_this.autoLogin.bind(_this) // 自动登录回调
+					);
+				}).catch(function (error) {
+					// 注册失败
+					$.toast.fail(error);
+					_this.registrying = false;
+				})
+			},
+			showParentId: (function () {
+                var clickcount = 0;
+                return  function () {
+                    clickcount ++;
+                    if(clickcount >= 6) {
+                        clickcount = 0;
+                        $.pop.alert("parentId：" + ((JSBridge.driver.getParentId()||{}).parentId || "0"));
+                    }
+                };
+            })()
+		}
+	});
+}
+
+</script>

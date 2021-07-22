@@ -1,0 +1,89 @@
+<style>
+.expand-item_list {
+    height: 0;
+    transition: height .3s ease;
+    overflow: hidden;
+}
+
+.expand-item_list.safe.opened {
+    height: 128px;
+}
+.item_list_item a .text{
+    margin: 0;
+}
+</style>
+<template id="contentTmpl">
+    <transition name="slide">
+        <div class="item_list expand-item_list safe opened">
+            <div class="item_list_item">
+                <a forward="forward" newview="true" href="customer/change_password.htm">
+                    <!-- <span class="icon icon_left"></span> -->
+                    <span class="text lblue">修改密码</span>
+                </a>
+            </div>
+            <div class="item_list_item" @click="bindMobile">
+                <a>
+                    <!-- <span class="icon icon_left"></span> -->
+                    <span class="text lblue">绑定手机</span>
+                </a>
+            </div>
+            <div class="item_list_item" @click="bindEmail">
+                <a>
+                    <!-- <span class="icon icon_left"></span> -->
+                    <span class="text lblue">绑定邮箱</span>
+                </a>
+            </div>
+        </div>
+    </transition>
+</template>
+<script>
+;
+(function() {
+    appState.setData({
+        title: '账号安全',
+        needLogin: true,
+    });
+    var contentData = {
+        mobileBinded: false,
+        emailBinded: false
+    };
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function() {
+            return contentData;
+        },
+        mounted: function() {},
+        methods: {
+            bindMobile: function() {
+                if (this.mobileBinded) {
+                    JSBridge.forward.inside({ url: "customer/change_mobile.htm", newView: "true" });
+                } else {
+                    JSBridge.forward.inside({ url: "customer/bind_mobile.htm", newView: "true" });
+                }
+            },
+            bindEmail: function() {
+                if (this.emailBinded) {
+                    JSBridge.forward.inside({ url: "customer/change_email.htm", newView: "true" });
+                } else {
+                    JSBridge.forward.inside({ url: "customer/bind_email.htm", newView: "true" });
+                }
+            }
+        }
+    })
+    JSBridge.onReady(function() {
+        if (!CustomerUtils.isLoged()) {
+            return;
+        }
+        CheckUtil.mobileBinded(function() {
+            contentData.mobileBinded = true;
+        }, function() {
+            contentData.mobileBinded = false;
+        });
+        CheckUtil.emailBinded(function() {
+            contentData.emailBinded = true;
+        }, function() {
+            contentData.emailBinded = false;
+        });
+    });
+})()
+</script>

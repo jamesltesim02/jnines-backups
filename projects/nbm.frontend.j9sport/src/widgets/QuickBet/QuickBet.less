@@ -1,0 +1,204 @@
+@import '../../assets/styles/theme.dark.less';
+
+.j9s {
+  color: #a8a8aa;
+  ul, ol {
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    list-style-type: none;
+  }
+  button {
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    background: transparent;
+    box-shadow: none;
+  }
+  input {
+    border: 0;
+    outline: none;
+    background: transparent;
+  }
+}
+.j9s-quick-bet-container {
+  position: relative;
+  height: 420px;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #2a2a32;
+  background-image: url(../../components/member/Dialog/images/dialog-bg@2x.png);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 11px 0 rgba(255, 253, 253, 0.05);
+  & > header {
+    font-size: 24px;
+    color: #f4f4f4;
+  }
+  & > .j9s-balance {
+    display: flex;
+    align-items: center;
+    color: #e2b271;
+    font-size: 13px;
+    line-height: 30px;
+    margin-bottom: 10px;
+    span {
+      flex: 1 1;
+    }
+    button {
+      margin-left: 10px;
+      padding: 0 10px;
+      font-size: 12px;
+      line-height: 20px;
+      border-radius: 14px;
+      height: 20px;
+      background-color: #fcd892;
+      color: #4c1515;
+      transition: all .2s linear;
+      box-shadow: 0 0 0px 0 rgba(255, 253, 253, 0);
+      &:hover {
+        box-shadow: 0 0 6px 0 #fcd892;
+      }
+    }
+  }
+  .ant-message {
+    position: absolute;
+  }
+  .j9s-quickbet-matchs {
+    height: 300px;
+    margin: 0 -16px;
+    .ant-carousel {
+      .slick-prev, .slick-next {
+        z-index: 2;
+        font-size: 18px;
+        opacity: .2;
+        height: auto;
+        top: 48px;
+        &, &:hover, &:focus {
+          color: #fff;
+        }
+        &:hover {
+          opacity: .8;
+          transform: scale(1.2);
+        }
+      }
+      .slick-prev {
+        left: 16px;
+      }
+      .slick-next {
+        right: 16px;
+      }
+    }
+  }
+  .to-j9s {
+    text-align: center;
+    a {
+      color: #6f6f6f;
+      font-size: 13px;
+      var {
+        color: #e3b574;
+        font-style: normal;
+        text-decoration: underline;
+      }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .forbbiden, .mainting {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.ant-popover {
+  z-index: 99999999;
+  .ant-popover-content {
+    width: 318px;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    overflow: hidden;
+    .ant-popover-arrow {
+      border-left-color: #2a2a32;
+      border-top-color: #2a2a32;
+    }
+    .ant-popover-inner {
+      background-color: #2a2a32;
+      .ant-popover-title {
+        color: #f4f4f4;
+        border-bottom: none;
+        font-size: 20px;
+        padding-top: 16px;
+        font-weight: normal;
+      }
+      .ant-popover-inner-content {
+        padding-top: 0;
+      }
+    }
+  }
+  .j9s-transfer-popover {
+    color: #f4f4f4;
+    header {
+      font-size: 12px;
+      color: #6f6f71;
+      var {
+        color: #ffb656;
+        font-style: normal;
+        margin-left: 5px;
+      }
+      .loading-bar {
+        font-size: 12px;
+        width: auto;
+        display: inline-block;
+        margin: 0 5px;
+      }
+      .btn-reload {
+        padding: 10px;
+        margin: -10px 0;
+      }
+    }
+    section {
+      display: flex;
+      height: 40px;
+      margin: 16px 0;
+      border-radius: 3px;
+      border: solid 1px #515157;
+      input {
+        padding: 0 16px;
+        width: 100%;
+        font-size: 14px;
+      }
+      button {
+        width: 126px;
+        font-size: 16px;
+        color: #0b9cfe;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    footer {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      grid-column-gap: 14px;
+      button {
+        height: 40px;
+        border-radius: 4px;
+        border: 1px solid #e2b271;
+        color: #e2b271;
+        &.submit {
+          background-color: #32323c;
+          color: #6f6f71;
+          border-color: #32323c;
+          &.available {
+            background-image: linear-gradient(to left, #e2b271 0%, #f6d99d);;
+            color: #5c3301;
+          }
+        }
+      }
+    }
+  }
+}

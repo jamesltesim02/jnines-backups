@@ -1,0 +1,165 @@
+.match-item {
+  display: grid;
+  padding: 10px 0;
+  grid-template-columns: 3fr 4fr;
+  color: var(--first-color);
+  font-size: 12px;
+  &:nth-child(even) {
+    background-color: var(--match-even-background-color);
+  }
+  &:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+}
+
+.match-info {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr 60px;
+  line-height: 30px;
+  color: var(--secondary-color);
+  &.tinified {
+    display: block;
+    overflow: hidden;
+  }
+  .favorite-toggle {
+    position: absolute;
+    top: 0;
+    right: -10px;
+    z-index: 3;
+  }
+  & > section,
+  & > footer {
+    overflow: hidden;
+    & > div {
+      padding-left: 30px;
+      height: 30px;
+      overflow: hidden;
+    }
+    .more {
+      color: #999999;
+      var {
+        color: var(--highlight-color);
+        margin-left: 5px;
+      }
+    }
+  }
+  & > footer .icons {
+    display: flex;
+    align-items: center;
+    i {
+      margin-right: 5px;
+      width: 13px;
+      height: 13px;
+    }
+  }
+  .time {
+    display: grid;
+    grid-template-columns: 1fr 30px;
+    align-items: center;
+    color: var(--matchinfo-time-color);
+  }
+  .team {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    color: var(--match-team-color);
+    .icon-team-logo {
+      margin-right: 6px;
+    }
+    label {
+      flex: 1 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .red-card {
+      background-color: #f00;
+      color: #fff;
+      display: inline-block;
+      font-size: 10px;
+      height: 12px;
+      line-height: 12px;
+      padding: 0 1px;
+      margin: 0 2px;
+      border-radius: 2px;
+    }
+    .score {
+      display: inline-block;
+      padding-right: 1px;
+      width: 20px;
+      text-align: right;
+      color: var(--highlight-color);
+      letter-spacing: -1px;
+    }
+  }
+}
+
+.match-markets {
+  overflow: hidden;
+  .am-carousel {
+    transition: all 0.3s ease-out;
+  }
+  .slider-frame, .slider-list {
+    height: 100% !important;
+  }
+  .market-slide-item {
+    min-height: 120px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .slider-decorator-0 {
+    width: 50px !important;
+    right: 0;
+    bottom: -25px !important;
+    .am-carousel-wrap-dot {
+      & > span {
+        width: 5px;
+        height: 5px;
+        margin: 0 3px;
+      }
+    }
+  }
+  .btn-expand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 100px;
+    color: #999999;
+    white-space: nowrap;
+    & > .am-icon {
+      transition: all 0.3s ease-out;
+    }
+    &.expanded > .am-icon {
+      transform: rotate(-180deg);
+    }
+  }
+
+  .match-market-item {
+    header {
+      height: 30px;
+      text-align: right;
+      line-height: 30px;
+      padding: 0 10px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    & > button,
+    & > div {
+      height: 30px;
+      width: 100%;
+      padding: 0 10px;
+    }
+    & > button {
+      text-align: right;
+      label {
+        margin-right: 5px;
+      }
+      .loading-bar {
+        padding-right: 30px;
+      }
+    }
+  }
+}

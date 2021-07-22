@@ -1,0 +1,86 @@
+.detail-markets-tab {
+  border-top: 2px solid #121212;
+  top: 45px;
+}
+.detail-market-list {
+  padding: 0 10px;
+  .am-accordion-item {
+    .am-accordion-header {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      padding: 15px !important;
+      label {
+        flex: 1 1;
+        color: #888888;
+      }
+      .am-icon {
+        color: var(--arrow-color);
+        transition: all 0.3s ease-out;
+        transform: rotate(0deg);
+      }
+    }
+    &.am-accordion-item-active {
+      .am-accordion-header {
+        .am-icon {
+          transform: rotate(-180deg);
+        }
+      }
+    }
+  }
+}
+.btn-collapse-all {
+  position: fixed;
+  bottom: 80px;
+  right: 50px;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--arrow-color);
+  opacity: .8;
+  color: #fff;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2),
+              0px 6px 10px 0px rgba(0, 0, 0, .14),
+              0px 1px 18px 0px rgba(0, 0, 0, .12);
+}
+
+.ticket-table {
+  padding: 0 10px;
+}
+
+.detail-markets {
+  &.drawer-slider.drawer-slider-enter-done,
+  &.drawer-slider-enter-active,
+  &.drawer-slider-exit {
+    .drawer-content {
+      opacity: .8;
+    }
+  }
+  .drawer-content {
+    overflow: hidden auto;
+    .detail-markets-tab {
+      border-top: 0;
+      top: 0;
+    }
+  }
+  .btn-collapse-all {
+    position: sticky;
+    left: calc(100% - 80px);
+    bottom: 30px;
+  }
+}
+.detail-btn-expand {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  z-index: 8;
+  width: 25px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, .4);
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  .am-icon-left {
+    transform: translate(3px, 2px);
+  }
+}

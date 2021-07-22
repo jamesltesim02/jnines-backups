@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="63" height="19" viewBox="0 0 63 19">
+  <defs>
+    <linearGradient id="enyk58vs7b" x1="50%" x2="50%" y1="4.455%" y2="97.072%">
+      <stop offset="0%" stop-color="#E3AD79"/>
+      <stop offset="100%" stop-color="#9E6832"/>
+    </linearGradient>
+    <linearGradient id="do6h82bmkc" x1="50%" x2="50%" y1="98.967%" y2="0%">
+      <stop offset="0%" stop-color="#D49C65"/>
+      <stop offset="100%" stop-color="#B07738"/>
+    </linearGradient>
+    <linearGradient id="i6ddf40ajd" x1="50%" x2="50%" y1="100%" y2=".249%">
+      <stop offset="0%" stop-color="#ECBB8C"/>
+      <stop offset="100%" stop-color="#D19C6A"/>
+    </linearGradient>
+    <linearGradient id="fvnhpoz96e" x1="46.537%" x2="68.536%" y1="18.127%" y2="100%">
+      <stop offset="0%" stop-color="#D09B64"/>
+      <stop offset="100%" stop-color="#FFD3A4"/>
+    </linearGradient>
+    <filter id="z8az9s1dqa" width="133.3%" height="216.7%" x="-16.7%" y="-58.3%" filterUnits="objectBoundingBox">
+      <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1.5"/>
+      <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.16 0"/>
+      <feMerge>
+        <feMergeNode in="shadowMatrixOuter1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <g>
+      <g filter="url(#z8az9s1dqa)" transform="translate(-31 -197) translate(31 197.25)">
+        <g>
+          <g>
+            <path fill="url(#enyk58vs7b)" d="M10.995 2.571H59.86c.828 0 1.5.672 1.5 1.5v6.215c0 4.26-3.454 7.714-7.715 7.714H10.995V2.571z"/>
+            <g>
+              <path fill="url(#do6h82bmkc)" d="M4.359 0L17.149 0 21.508 8.313 10.754 17.662 0 8.313z"/>
+              <path fill="url(#i6ddf40ajd)" d="M4.359 0L10.655 6.345 17.149 0z"/>
+              <path fill="url(#fvnhpoz96e)" d="M10.754 6.345L10.754 17.662 0 8.313 4.359 0z"/>
+            </g>
+          </g>
+          <path fill="#FFE7CD" fill-rule="nonzero" d="M34.714 12.6V8.955h-3.56v-.502h3.56v-.81h-1.018v-.81h.514v-.81h-.514v-.51h-1.019v.51h-4.074v-.51h-1.019v.51h-.505v.81h.505v.81h-1.019v.81h3.561v.502h-3.56v2.43c0 .335.119.62.358.858.24.238.527.357.864.357h6.926zm-2.037-4.957h-4.074v-.81h4.074v.81zm1.019 4.147h-2.551v-.607h2.064l.478-.81h-2.542v-.608h2.55v2.025zm-3.57-1.417h-2.542v-.608h2.542v.607zm0 1.417h-2.542v-.607h2.542v.607zm-2.498 2.835l.496-1.514h-1.071l-.488 1.514h1.063zm7.086 0l-.496-1.514h-1.062l.487 1.514h1.071zm10.187-6.066l-.983-3.038H39.48v.81h3.632l.726 2.228H44.9zm-7.077 0l.983-3.038h-1.072l-.983 3.038h1.072zm7.077 6.066v-.801H41.34V11.79h3.56v-.81h-3.56V9.87h3.56v-.81h-8.148v.81h3.56v1.11h-3.56v.81h3.56v2.034h-3.56v.801H44.9zm-.46-1.11l.46-1.417h-1.063l-.47 1.418h1.072zm-6.157 0l-.47-1.417h-1.062l.46 1.418h1.072zm12.241 1.11V9.976h4.562v-.81h-4.562V7.141h4.057v-.81h-4.057v-.81h-1.018v3.645h-2.569v.81h2.569v4.649h1.018zm4.04-.493c-.23-.346-.346-.737-.346-1.171v-2.175h-1.018v2.175c0 .428.109.819.327 1.171h1.037z"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

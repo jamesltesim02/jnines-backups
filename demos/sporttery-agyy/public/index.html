@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover"> -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="format-detection" content="telephone=no, email=no">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="yes"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="apple-touch-fullscreen" content="YES" />
+    <meta name="google" value="notranslate"/>
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title></title>
+    <script>
+      (function () {
+        var isMobile = /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|MQQBrowser)/i.test(navigator.userAgent);
+        var de = document.documentElement;
+        function setRootFontSize () {
+          var deWidth = de.clientWidth;
+          if (!isMobile) {
+            deWidth = Math.min(deWidth, 480);
+          }
+          de.style.fontSize = 100 * (deWidth / 375) + 'px';
+        };
+        window.addEventListener('resize', setRootFontSize);
+        document.addEventListener('DOMContentLoaded', setRootFontSize);
+        setRootFontSize();
+      })();
+    </script>
+    <style>
+      html, body{height: 100%;height: 100%;}
+      body {margin: 0;padding: 0;}
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but JC doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app">
+    </div>
+    <script>
+      document.write('<script src="system.config.js?v=' + Date.now() + '"><\/script>');
+    </script>
+    <% if (process.env.NODE_ENV === 'production') {%>
+      <script>
+        var cdn = window.NBConfig.STATIC_URL;
+        var body = document.body;
+        var head = document.head;
+
+        if (cdn.charAt(cdn.length - 1) !== '/') {
+          cdn = cdn + '/';
+        }
+
+        function fillUrl(url) {
+          if (url.charAt(0) === '/') {
+            url = url.substring(1);
+          }
+
+          return cdn + url;
+        }
+
+        function addStyle(href) {
+          var el = document.createElement('link');
+          el.rel = 'stylesheet';
+          el.href = fillUrl(href);
+          head.appendChild(el);
+        }
+  
+        function addScript(src) {
+          var el = document.createElement('script');
+          el.src = fillUrl(src);
+          body.appendChild(el);
+        }
+        
+        <% for (var css in htmlWebpackPlugin.files.css) { %>
+        addStyle('<%= htmlWebpackPlugin.files.css[css] %>');
+        <% } %>
+        <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+        addScript('<%= htmlWebpackPlugin.files.chunks[chunk].entry %>');
+        <% } %>
+      </script>
+      <% } %>
+  </body>
+</html>

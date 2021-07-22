@@ -1,0 +1,1 @@
+export const userInfo = uni.getStorageSync('userInfo')

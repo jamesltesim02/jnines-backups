@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no,maximum-scale=1,minimum-scale=1" >
+<title>凯发娱乐</title>
+<external-style></external-style>
+<page-style></page-style>
+</head>
+<body onclick="toggleSupport()">
+<component src="_template/component/App.htm"></component>
+<page-content></page-content>
+
+<div id="container"></div>
+<script>
+;(function (w) {
+	w.ENV_MODEL = "dev";
+	w.appState = (function () {
+		var data = {};
+		return {
+			getData: function () {
+				return data;
+			},
+			setData: function (newData) {
+				data = Object.assign(data, newData);
+			}
+		};
+	})();
+
+	w.appInstance = null;
+	w.bus = null;
+})(window);
+</script>
+<external-script></external-script>
+<script src="@module/store/dist/store.legacy.min.js"></script>
+<script src="@module/clipboard/dist/clipboard.min.js"></script>
+<script src="@module/js-cookie/src/js.cookie.js"></script>
+<script src="@module/jsbridge-shim/dist/jsbridge-web-shim.min.js"></script>
+
+<page-script></page-script>
+<script>
+var data = appState.getData();
+bus = new Vue();
+if(data.needLogin && !CustomerUtils.isLoged()) {
+	JSBridge.onReady(function() {
+		JSBridge.forward.inside({url: "common/login.htm?from="+OtherUtils.getPath(), newView: "true"});
+	});
+} else {
+	appInstance = new App({
+		el: "#container",
+		data: data
+	});
+}
+
+window.toggleSupport = function (){
+	var id = $(".header_index .pop_support");
+    if (!id.hasClass("hide")&&id.attr("is_show")==0) {
+        id.addClass('hide');
+    }
+}
+</script>
+</body>
+</html>

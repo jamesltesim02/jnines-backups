@@ -1,0 +1,279 @@
+<template id="contentTmpl">
+<div>
+    <div class="main_content" v-show="step==1">
+        <section id="newBind" class="modifymobile_content _03">
+            <div class="layout_form p-top-rmv">
+                <form id="infoForm" action="" method="post">  
+                    <input type="hidden" name="operate" id="operate" value="0"/>
+                    <input name="act" type="hidden" value="bindPhone"/>          
+                    <div class="form_field_wrap">
+                        <div class="form_field" v-show="bindPhone==0">
+                            <span class="label">手机号码</span>      
+                            <div class="input_wrap">
+                                <input class="txt_right" type="text" v-model.trim="telephone" maxlength="11" placeholder="请输入待绑定手机号码" style="font-size:1.2rem;" @input="phonechage">
+                            </div>
+                        </div>  
+                        <div class="form_field" v-show="bindPhone==0">
+                            <span class="label">验证码</span>      
+                            <div class="input_wrap sm"><input type="text" v-model="codeInput" name="code" maxlength="6"></div>
+                            <div id="sendCode" v-bind:class="[disabled ? '' : 'active-btn', 'sendCode']" @click="sendCode">{{send_btn_text}}</div>
+                        </div>
+
+                        <div class="form_field" v-show="bindRealname==0">
+                            <span class="label">真实姓名</span>      
+                            <div class="input_wrap">
+                                <input class="txt_right" type="text" v-model.trim="realname" maxlength="20" placeholder="请填写您即将绑定的银行卡开户名" style="font-size:1.2rem;">
+                            </div>
+                        </div>
+                        <div class="form_field" v-show="bindVerifycode==0">
+                            <span class="label">预留信息</span>      
+                            <div class="input_wrap">
+                                <input class="txt_right" type="text" v-model.trim="verifycode" maxlength="10" placeholder="请填写您预留信息" style="font-size:1.2rem;">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="notif" v-if="code_sended">验证码已发送，15分钟内输入有效，请勿泄漏</p>
+                    <div class="form_btn-wrap">
+                        <a v-on:click.stop.prevent="saveVerify" class="btn btn-lg btn-ylw">确定</a>
+                        <!-- <a id="bindPhone" v-on:click.stop.prevent="checkCode" class="btn btn-lg btn-ylw">确定</a> -->
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <section id="bindMobileSuccess" class="modifymobile_content _06" v-show="step==2">
+        <div class="success-msg">
+            <div class="icon-content">
+                <img src="../../__static/__images/icons/icon07.png">
+            </div>
+            <div class="text-content">
+                <span class="title">已绑定手机号码：{{telephone}}</span>
+            </div>
+            
+            <div class="button-content">
+                <div class="form_btn-wrap"><a forward="forward" href="customer/member_center.htm" class="btn btn-lg btn-ylw">会员中心</a></div>
+            </div>
+            
+        </div>
+    </section>
+</div>
+</template>
+<script>
+;(function () {
+var data = {
+    time: 0,
+    code_sended: false,
+    telephone: '',
+    tmpInputPhone: "",
+    codeInput: '',
+    realname: "",
+    verifycode: "",
+    step: 0,
+    bindPhone: 0,
+    bindRealname: 0,
+    bindVerifycode: 0
+};
+appState.setData({
+    needLogin: true,
+    title: '存款安全验证'
+});
+Vue.component("app-content", {
+    template: "#contentTmpl",
+    data: function () {
+        return data;
+    },
+    mounted:function (){
+
+    },
+    methods: {
+        phonechage: function() {
+            if (this.telephone!=1 && this.telephone.length==1) {
+                this.telephone = "";
+                return false;
+            } else if (!this.telephone.match(/^[0-9]*$/)) {
+                this.telephone = this.tmpInputPhone;
+                return false;
+            }
+            
+            if (this.telephone.length>11) {
+                this.telephone = this.tmpInputPhone;
+                return false;
+            } else {
+                this.tmpInputPhone = this.telephone;
+            }
+        },
+        saveVerify: function() {
+            var _this = this;
+            var phone = _this.telephone, code = _this.codeInput, realname = _this.realname, verifycode = _this.verifycode;
+
+            if (getexpire()) {
+                return true;
+            }
+            if (!_this.bindPhone) {
+                if (!phone) {
+                    $.toast.fail("手机号码不可为空");
+                    return;
+                } else if (!phone.match(/^1[0-9]{10}$/)) {
+                    $.toast.fail("请正确输入待绑定手机号码");
+                    return;
+                }
+
+                if (!code) {
+                    $.toast.fail("验证码可不为空");
+                    return;
+                } else if (!code.match(/^[\w]{5,6}$/)) {
+                    $.toast.fail("请输入您手机收到的验证码");
+                    return;
+                }
+            }
+
+            if (!_this.bindRealname) {
+                if (!realname) {
+                    $.toast.fail("真实姓名不可为空");
+                    return;
+                } else if (!realname.match(/^[^\d\'\"\;\:\@\(\)\*\^\%\!\$]{2,20}$/)) {
+                    $.toast.fail("请正确输入您的真实姓名");
+                    return;
+                }
+            }
+
+            if (!_this.bindVerifycode) {
+                if (verifycode && !verifycode.match(/^[^\'\"\;\:\@\(\)\*\^\%\!\$]{1,10}$/)) {
+                    $.toast.fail("请正确输入您的预留信息");
+                    return;
+                }
+            }
+
+            setexpire();
+            JSBridge.net.invoke({
+                url: "verify/depositBind",
+                data: {
+                    "phone": phone,
+                    "code": code,
+                    "realname": realname,
+                    "verifycode": verifycode
+                },
+                success: function (result) {
+                    var customer = JSBridge.cache.get("customer");
+                    customer.phone = phone;
+                    customer.real_name = realname;
+                    customer.verify_code = verifycode;
+                    JSBridge.cache.save("customer", customer);
+
+                    var gotourl = $.getParam("from");
+                    JSBridge.forward.inside({url: decodeURIComponent(gotourl), newView: true});
+                },
+                error: function (error) {
+                    $.toast.fail(error.message);
+                }
+            });
+        },
+        timer: function() {
+            var _this = this;
+            if (this.time > 0) {
+                this.time--;
+                setTimeout(_this.timer, 1000);
+            }
+        },
+        sendCode: function() {
+            if (this.disabled) return;
+            var telephone_num = this.telephone;
+            if(!telephone_num) {
+                $.toast.fail("请输入手机号码");
+                return;
+            }
+            if(!(/^1[34578]\d{9}$/.test(telephone_num))) {
+                $.toast.fail("请输入正确的手机号码格式");
+                return;
+            }
+            //发送验证码
+            var _this = this;
+            JSBridge.net.invoke({
+                url: "verify/send",
+                data: {
+                    "type": 1,
+                    "v_type": 1,
+                    "send_to": telephone_num,
+                    "timestamp": Date.now()
+                },
+                success: function (result) {
+                    _this.time = 60
+                    _this.timer();
+                    _this.code_sended = true;
+                },
+                error: function (error) {
+                    $.toast.fail(error.message);
+                }
+            });
+        },
+        checkCode: function() {
+            var _this = this;
+            if(!_this.codeInput) {
+                $.toast.fail("请输入验证码");
+                return;
+            }
+            //验证验证码
+            JSBridge.net.invoke({
+                url: "verify/check",
+                data: {
+                    "type": 1,
+                    "v_type": 1,
+                    "send_to": _this.telephone,
+                    "code": _this.codeInput
+                },
+                success: function (result) {
+                    JSBridge.net.invoke({
+                        url: "verify/bind",
+                        data: {
+                            "type": 1,
+                            "send_to": _this.telephone,
+                            "request_id": result
+                        },
+                        success:function(result){
+                            var customer = JSBridge.cache.get("customer");
+                            customer.phone = _this.telephone;
+                            JSBridge.cache.save("customer", customer);
+
+                            var gotourl = $.getParam("from");
+                            if (!gotourl) {
+                                _this.step = 2;
+                            } else {
+                                JSBridge.forward.inside({url: decodeURIComponent(gotourl), newView: true});
+                            }
+                        },
+                        error:function(error){
+                            $.toast.fail(error ? error.message : '手机号绑定失败');
+                        }
+                    });
+                    
+                },
+                error: function (error) {
+                    $.toast.fail(error.message);
+                }
+            });
+        }
+    },
+    computed: {
+        send_btn_text: function () {
+            if (this.code_sended) {
+                return this.time > 0 ? '重新发送（'+this.time+'）' : '重新发送';
+            } else {
+                return '发送验证码'
+            }
+        },
+        disabled: function() {
+            return this.time > 0;
+        }
+    }
+});
+
+    JSBridge.onReady(function() {
+        var _this = data;
+        _this.step = 1;
+        _this.bindRealname = parseInt($.getParam("realname"));
+        _this.bindPhone = parseInt($.getParam("phone"));
+        _this.bindVerifycode = parseInt($.getParam("verifyCode"));
+    });
+})();
+</script>

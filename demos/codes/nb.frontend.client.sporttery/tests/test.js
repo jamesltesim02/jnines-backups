@@ -1,0 +1,52 @@
+{  
+  "sportID":11,
+  "matchID":"8824122331365376",
+
+  "optionID":"8862325111521280",
+
+
+  "tournamentName":"菲律宾超级杯",
+  "competitor1Name":"UP战斗马",
+  "competitor2Name":"MIT红雀",
+  "matchScore":"27:29",
+  "matchState":1,
+  "fromList":false,
+  "games":[  
+     {  
+        "sportID":11,
+        "groupType":1,
+        "betStage":0,
+        "gameType":18,
+        "gameNo":13,
+        "options":[  
+           [  
+              {  
+                 "optionID":"8862317046136832",
+                 "betOption":"Over",
+                 "betStatus":7,
+                 "odds":0.84,
+                 "optionNo":2,
+                 "betBar":"142.5",
+                 "oddsLower":false,
+                 "oddsUpper":false
+              }
+           ],
+           [  
+              {  
+                 "optionID":"8862317041942528",
+                 "betOption":"Under",
+                 "betStatus":7,
+                 "odds":0.84,
+                 "optionNo":1,
+                 "betBar":"142.5",
+                 "oddsLower":false,
+                 "oddsUpper":false
+              }
+           ]
+        ],
+        "optionSorted":true,
+        "expanded":true
+     }
+  ],
+  "fastFlag":false
+}

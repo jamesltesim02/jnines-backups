@@ -1,0 +1,33 @@
+.scrollable-match-list {
+  padding: 0 10px;
+  .record-item {
+    display: grid;
+    grid-template-columns: 1fr 80px 70px;
+    height: 70px;
+    padding: 0 10px;
+    overflow: hidden;
+    text-align: center;
+    align-items: center;
+    background-color: var(--tour-background-color);
+    margin-bottom: 10px;
+    font-size: 12px;
+    div {
+      overflow: hidden;
+    }
+    label, span {
+      display: block;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    label {
+      color: var(--option-label-color);
+      margin-bottom: 10px;
+    }
+    var,
+    time {
+      color: var(--tab-menu-color);
+    }
+  }
+}

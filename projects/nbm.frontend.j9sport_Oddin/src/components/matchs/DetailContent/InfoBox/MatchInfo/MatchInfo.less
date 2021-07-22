@@ -1,0 +1,87 @@
+.detail-match-info {
+  position: relative;
+  color: var(--first-color);
+  height: 100%;
+  .favorite-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    height: 28px;
+    background-color: var(--favorite-button-color);
+    padding: 0 10px;
+    border-radius: 14px;
+    .icon-favorite {
+      margin-left: 6px;
+    }
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+  .tour {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    img {
+      margin-right: 10px;
+    }
+  }
+  .versus {
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
+    width: 100%;
+    text-align: center;
+    height: 50%;
+    li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .team {
+      font-size: 14px;
+      .icon-team-logo {
+        &:first-child {
+          margin-right: 10px;
+        }
+        &:last-child {
+          margin-left: 10px;
+        }
+      }
+      label {
+        margin-top: 10px;
+      }
+    }
+    .score {
+      display: flex;
+      align-items: center;
+      font-size: 30px;
+      line-height: 30px;
+      color: var(--deep-light-color);
+      span {
+        font-size: 28px;
+        margin: 0 10px;
+        animation: blink 1.5s linear infinite;
+      }
+    }
+    .time {
+      line-height: 12px;
+      margin-top: 15px;
+    }
+  }
+  &.live .container .time {
+    color: var(--high-light-color);
+  }
+  &.sport-11 .versus{
+    height: 45%;
+  }
+}

@@ -1,0 +1,33 @@
+.nb_OrderSuccessbox {
+    flex-grow: 1;
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: .2rem;
+}
+.nb_OrderSuccesspage {
+  width: 100%;
+}
+.nb_OrderSuccess {
+  width: 100%;
+  text-align: center;
+  padding: .8rem 0;
+}
+.nb_OrderSuccessicon {
+  width: 2.44rem;
+  height: 1.76rem;
+  margin: 0 auto;
+  text-align: center;
+}
+.nb_OrderSuccessicon  img {
+  width: 100%;
+}
+.nb_OrderSuccess>p {
+  font-size: .3rem;
+  color: rgba(255, 255, 255, .7);
+  text-align: center;
+  margin-top: .24rem; 
+}
+.nb_OrderSuccessiconipt {
+  width: 100%;
+}

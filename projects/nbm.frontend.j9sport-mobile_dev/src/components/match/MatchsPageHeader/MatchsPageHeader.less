@@ -1,0 +1,44 @@
+.matchs-page-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  height: 45px;
+  padding: 0 10px 2px;
+  background-color: var(--header-bgc);
+  box-shadow: var(--header-box-shadow);
+  color: #bbbbbb;
+  .back-button {
+    margin-left: -10px;
+  }
+  .sport-swither {
+    font-size: 18px;
+    height: 45px;
+    padding: 0 5px 0 10px;
+    & > svg {
+      margin-left: 3px;
+      transform: translateY(5px);
+      color: var(--arrow-color);
+    }
+  }
+  .opers {
+    flex: 1 1;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: -10px;
+    button {
+      width: 45px;
+      height: 45px;
+      padding: 0;
+    }
+    button.filter-button {
+      width: 0;
+      transition: all 0.3s ease-out;
+      overflow: hidden;
+      &.active {
+        width: 45px;
+      }
+    }
+  }
+}

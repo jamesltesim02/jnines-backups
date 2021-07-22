@@ -1,0 +1,41 @@
+.tour-matchs {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  padding: 0 10px 10px;
+  .match-panel {
+    flex: 1 1;
+  }
+  .list-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    header {
+      background-color: var(--block-background-color);
+      border-bottom: 1px solid var(--app-background-color);
+      .list-title {
+        display: flex;
+        padding: 0 10px;
+        height: 30px;
+        align-items: center;
+      }
+      section {
+        border-bottom: 1px solid var(--app-background-color);
+      }
+    }
+    .list {
+      flex: 1 1;
+      overflow: hidden;
+      &:hover {
+        overflow: hidden overlay;
+      }
+    }
+    .loading-bar {
+      height: 60px;
+      font-size: 24px;
+    }
+  }
+}

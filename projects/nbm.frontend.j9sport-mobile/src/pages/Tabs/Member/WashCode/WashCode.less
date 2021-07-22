@@ -1,0 +1,215 @@
+.wash-code {
+  .back-button {
+    display: inline-flex;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+
+    a {
+      padding-right: 10px;
+    }
+
+    span {
+      flex: 1;
+      font-size: 18px;
+      text-align: center;
+    }
+  }
+
+  section {
+    padding: 10px 16px;
+  }
+
+  &-info {
+    font-size: 15px;
+    color: #a8a8aa;
+  }
+
+  &-rule {
+    > div {
+      position: relative;
+      font-size: 16px;
+      color: #e1e1e1;
+      margin-bottom: 16px;
+      padding-left: 10px;
+      &:before {
+        content: "";
+        position: absolute;
+        height: 80%;
+        width: 3px;
+        background-color: #f3b867;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 2px;
+      }
+    }
+
+    ul {
+      padding-left: 16px;
+      li {
+        list-style: decimal outside;
+      }
+      line-height: 24px;
+      color: #a8a8aa;
+      font-size: 14px;
+    }
+  }
+
+  &-list {
+    padding: 20px 0;
+  }
+  &-wash {
+    position: sticky;
+    bottom: 20px;
+    width: 100%;
+    height: 48px;
+    border-radius: 24px;
+    font-size: 18px;
+    margin-top: 60px;
+    color: #9f9f9f;
+    background-image: linear-gradient(to right, #727272 0%, #727272);
+
+    &.settleble {
+      color: #5c3301;
+      background-image: linear-gradient(to right, #e2b271 0%, #f6d99d);
+    }
+  }
+
+  &-item {
+    border-radius: 8px;
+    background-color: #2d2d2d;
+    height: 80px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    transition: all 150ms linear;
+
+    .expanded-img {
+      transition: all 150ms ease-in-out;
+    }
+
+    &.expanded {
+      height: 161px;
+
+      .details {
+        opacity: 1;
+      }
+
+      .expanded-img {
+        transform: rotate(-180deg);
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .rebate {
+      padding: 16px 0 0 16px;
+      display: grid;
+      grid-template-columns: 48px 1fr 1fr 60px;
+
+      > img {
+        width: 48px;
+        height: 48px;
+      }
+
+      > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        text-align: center;
+
+        &:not(:last-child):after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          right: 0;
+          display: block;
+          height: 100%;
+          width: 1px;
+          opacity: 1;
+          -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+          transition: all .2s linear;
+          background-image: linear-gradient(180deg, rgba(162, 162, 163, 0) 2%, rgba(162, 162, 163, .8) 50%, rgba(162, 162, 163, 0) 99%);
+        }
+
+        p {
+          color: #e1e1e1;
+        }
+
+        p:first-child {
+          color: #a8a8aa;
+          font-size: 12px;
+
+          span {
+            margin-left: 5px;
+            color: #f3b867;
+          }
+        }
+      }
+    }
+
+    .details {
+      opacity: 0;
+      margin: 16px;
+      padding: 16px 0;
+      line-height: 24px;
+      border-top: 1px solid #25252b;
+      font-size: 12px;
+      color: #a8a8aa;
+    }
+  }
+
+  &-dialog {
+    img {
+      width: 60px;
+    }
+    p {
+      font-size: 18px;
+      color: #FFFFFF;
+    }
+    span {
+      color: #f2d195;
+    }
+    .operate {
+      height: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 20px;
+      button {
+        border-radius: 4px;
+        &:first-child {
+          color: #e3b574;
+          border: 1px solid #e3b574;
+        }
+        &:last-child {
+          color: #5c3301;
+          background-image: linear-gradient(to bottom, #f4d699, #e3b574);
+        }
+      }
+    }
+  }
+
+  .rebate-amount {
+    font-size: 32px;
+    color: #e1e1e1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      height: 28px;
+      font-size: 12px;
+      padding: 0 15px;
+      border-radius: 14px;
+      background-color: #32323c;
+      color: #a8a8aa;
+    }
+  }
+
+}

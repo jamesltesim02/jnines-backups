@@ -1,0 +1,287 @@
+<style type="text/css">
+    .dropload-up,.dropload-down{
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    font-size: 12px;
+    /* 开启硬件加速 */
+    -webkit-transform:translateZ(0);
+    transform:translateZ(0);
+}
+.dropload-down{
+    height: 50px;
+}
+.dropload-refresh,.dropload-update,.dropload-load,.dropload-noData{
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+.dropload-load .loading{
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    border-radius: 100%;
+    margin: 6px;
+    border: 2px solid #666;
+    border-bottom-color: transparent;
+    vertical-align: middle;
+    -webkit-animation: rotate 0.75s linear infinite;
+    animation: rotate 0.75s linear infinite;
+}
+@-webkit-keyframes rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    50% {
+        -webkit-transform: rotate(180deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+</style>
+<template id="contentTmpl">
+    <div class="main_content">
+        <section class="record_content">
+            <table id="container">
+                <thead v-if="list && list.length">
+                    <tr>
+                        <td colspan="2">时间</td>
+                        <td>优惠类型</td>
+                        <td>金额</td>
+                        <td>状态</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in list">
+                        <td @click="itemSelect($event)">
+                            <input type="checkbox" v-bind:value="item.request_id"><label></label>
+                        </td>
+                        <td>
+                            {{Date.format(Date.parse(item.created_date), 'MM-dd')}}<br/>
+                            {{Date.format(Date.parse(item.created_date), 'HH:mm')}}
+                        </td>
+                        <td>
+                            {{getTypeName(item.promotion_type)}}
+                        </td>
+                        <td align="left">
+                            <span class="yellow2">{{item.amount}}元</span><br/>
+                            <span>{{item.request_id}}</span>
+                        </td>
+                        <td>
+                            <span class="lbue2">{{status(item.flag)}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="delete-bx" v-if='list.length!=0'>
+                <div class="item">
+                    <div class="item-select-all">
+                        <input class="select-item-cb" type="checkbox" name="" value=""/>
+                        <label @click='allSelect'></label>
+                    </div>
+                    <div class="sub-item txt-bx">
+                        <h3 v-if="list && list.length">总计: {{totalAmount}} 元</h3>
+                    </div>
+                    <div id="deleteAllButton" @click="del" class="sub-item txt2-bx button">
+                        <h3>删除</h3>
+                    </div>
+                </div>
+            </div>       
+        </section>
+    </div>
+</template>
+<script type="text/javascript">
+appState.setData({
+    title: '优惠记录',
+    needLogin: true
+});
+Vue.component("app-content", {
+    template: "#contentTmpl",
+    data: function () {
+
+        return {
+            list: [],
+            date_start:'',
+            date_end: '',
+            page_num: '1',
+            page_size: '5',
+            total:0,
+            days:''
+        };
+    },
+    computed: {
+        totalAmount: function () {
+            if(!this.list && !this.list.length) {
+                return 0;
+            }
+            if(this.list.length == 1) {
+                return this.list[0].amount;
+            }
+            return this.list.reduce(function (preItem, currItem) {
+                return {amount: +preItem.amount + +currItem.amount}
+            }).amount.toFixed(2);
+        }
+    },
+    beforeMount: function () {
+        var _this = this;
+        _this.days = $.getParam('days', 1);
+        _this.days = parseInt( _this.days) || 1;
+        var between = dateTool.getBetweenByDays(_this.days);
+        _this.date_start = between[0];
+        _this.date_end = between[1];
+    },
+    mounted:function(){
+        var _this=this;
+        JSBridge.onReady(function(){
+            $.once(function(){
+                $('#container').dropload({
+                    scrollArea : window,
+                    domDown:{},
+                    loadDownFn : function(me){
+                        JSBridge.net.invoke({
+                            url: "logs/promotion",
+                            data: {
+                                'date_start':_this.date_start,
+                                'date_end':_this.date_end,
+                                'page_num':_this.page_num,
+                                'page_size':_this.page_size
+                            },
+                            success: function (result) {
+                                console.log(result.list);
+                                if (result.list.length>0) {
+                                    for (var i in result.list){
+                                        _this.list.push(result.list[i]);
+                                    };
+                                     $('.dropload-down').hide();
+                                    _this.page_num++;
+                                } else {
+                                    me.lock();
+                                    me.noData();
+                                }
+                                me.resetload();
+                            },
+                            error:function(){
+                                me.resetload();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    },
+    methods: {
+        status: function(flag) {
+            switch (flag) {
+            case '1':
+                return "已批准";
+                break;
+            case '0':
+                return "受理中";
+                break;
+            case '9':
+                return "待审核";
+                break;
+            default:
+                return "拒绝";
+                break;
+            }
+        },
+        getTypeName: function(type) {
+            var list = {
+                'BACYH': '百家乐大赛',
+                'CKYH': '存款优惠',
+                'CPCKHL': '彩票存款红利 ',
+                'CPMFJ' : '彩票免费金 ',
+                'DXYH': '电销优惠 ',
+                'DZYH': '电子优惠 ',
+                'HYHB': '好友红包 ',
+                'HYTJ' : '好友推荐(首存) ',
+                'JC' : '竞猜',
+                'KYLJ': '开运礼金',
+                'LED' : 'LED公测礼金',
+                'OTHER': '其他优惠',
+                'MARKETSC': '市场首存',
+                'MARKETYH' : '市场优惠',
+                'HBYH': '红包优惠',
+                'KYLJ ': '开户礼金',
+                'LY' : '连赢优惠 ',
+                'MARKETYH': '市场优惠 ',
+                'SC': '首存优惠 ',
+                'SJCXGWJS': '手机尝鲜额外加送 ',
+                'TYOG': '体育欧冠 ',
+                'VIPAC' : 'VIP沉默优惠 ',
+                'VIPCL': 'VIP蝉联 ',
+                'VIPJJ' : 'VIP普级 ',
+                'VIPSC': 'VIP首存',
+                'XY9': '幸运9 ',
+                'TJLJ' : '推荐礼金',
+                'XNHB' : '新年红包',
+                'ZYJF': '自由经费',
+                //'CJ' => '抽奖',
+                'CJ': '五福临门',
+            };
+            return list[type];
+        },
+        itemSelect:function(e) {
+            if($(e.currentTarget).hasClass("item-select")){
+                $(e.currentTarget).removeClass("item-select");
+                $(e.currentTarget).find("input[type='checkbox']").prop("checked",false);
+            }else{
+                $(e.currentTarget).addClass("item-select");
+                $(e.currentTarget).find("input[type='checkbox']").prop("checked",true);
+            }
+        },
+        allSelect:function(e) {
+            var $obj=$(e.currentTarget);
+        	if($obj.prev().prop('checked')){
+        		$obj.prev().prop('checked',false);
+        		$('#container td input').prop('checked',false);
+        	}else{
+        		$obj.prev().prop('checked',true);
+        		$('#container td input').prop('checked',true);
+        	}
+        },
+        del:function() {
+            var ids = [];
+            var _this = this;
+            $("input[type='checkbox']:checked").each(function(){
+                ids.push($(this).val());
+            })
+            if(ids.length ==0){
+                $.toast.fail("没有可删除的选项");
+                return 
+            }
+            JSBridge.net.invoke({
+                url: "logs/del",
+                data: {
+                    'ids':ids.join(','),
+                    'type':'03'
+                },
+                success: function (result) {
+                    if (result) {
+                        $.toast.success("删除成功", function(){
+                            JSBridge.forward.inside({url:'customer/log_withdrawal.htm?days='+_this.days, newView: true});
+                        });
+                    }
+                },
+                error:function(){
+                    $.toast.fail("删除失败");
+                }
+            });
+        }
+    }
+});
+
+</script>

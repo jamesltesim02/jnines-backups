@@ -1,0 +1,304 @@
+.cny-recharges {
+  .vip-genre {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 25px;
+  }
+  label {
+    display: block;
+    font-size: 16px;
+    padding: 24px 0 18px;
+  }
+  .genres {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      font-size: 15px;
+      border: solid 1px #aaaaaa;
+      svg {
+        margin-right: 5px;
+      }
+    }
+  }
+  .channels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    button {
+      height: 35px;
+      color: #aaa;
+      border: solid 1px #707070;
+    }
+  }
+  .amount {
+    position: relative;
+    span {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: #aaa;
+    }
+  }
+  .exchanged-amount var {
+    flex: 1 1;
+    text-align: right;
+    color: #e0c28d;
+    font-size: 16px;
+    padding-right: 6px;
+  }
+  .bankcard-tips {
+    padding: 0 3px;
+    font-size: 12px;
+    line-height: 20px;
+    color: #aaa;
+    margin-bottom: -5px;
+  }
+
+  .amount-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    button {
+      height: 48px;
+      background-color: #1f1f1f;
+      border-radius: 4px;
+      border: 1px solid #1f1f1f;
+      font-size: 16px;
+      color: #aaa;
+    }
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    height: 50px;
+    background-color: #1f1f1f;
+    border: none;
+    border-radius: 4px;
+    padding-left: 15px;
+    color: #fff;
+    font-size: 16px;
+  }
+  .genres, .channels, .amount-list {
+    button {
+      border-radius: 4px;
+      transition: all 0.3s linear;
+      &.active {
+        color: #e0c28d;
+        border: 1px solid #e0c28d;
+      }
+    }
+  }
+  .submit-container {
+    padding: 12px;
+  }
+  // .submit-container {
+  //   padding: 12px;
+  //   button {
+  //     font-size: 16px;
+  //     width: 100%;
+  //     height: 50px;
+  //     border-radius: 3px;
+  //     color: #181818;
+  //     background-image: linear-gradient(to left, #f4d699, #e3b574);
+  //     filter: grayscale(1);
+  //     &.valid {
+  //       filter: grayscale(0);
+  //     }
+  //   }
+  // }
+}
+.tips-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid #707070;
+  height: 40px;
+  padding: 0 12px 0 15px;
+  border-radius: 4px;
+  margin-top: 20px;
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -12px;
+    transform: translateX(-50%);
+    display: block;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 12px solid #707070;
+  }
+  &::after {
+    border-bottom-color: #2d2d2d;
+    top: -10px;
+  }
+}
+
+.bankcard-result {
+  padding: 15px 12px;
+  .deposit {
+    background-color: #2d2d2d;
+    border-radius: 4px;
+    & > div {
+      padding-left: 13px;
+      padding-right: 13px;
+    }
+  }
+  .amount {
+    line-height: 40px;
+    padding-top: 10px;
+    label var {
+      font-size: 12px;
+      color: #71717b;
+      font-style: normal;
+    }
+  }
+  .amount-tip {
+    font-size: 12px;
+    padding-bottom: 15px;
+    color: #d4d4d4;
+  }
+  .receiver {
+    border-top: 1px solid #181818;
+    line-height: 50px;
+  }
+  .amount, .receiver {
+    display: flex;
+    color: #e0c28d;
+    font-size: 18px;
+    label {
+      flex: 1 1;
+      color: #ededed;
+      font-size: 16px;
+    }
+  }
+  .card {
+    color: #ededed;
+    margin-top: 20px;
+    padding: 15px 15px 20px 13px;
+    font-weight: 400;
+    border-radius: 4px;
+    background-image: linear-gradient(126deg, #540e38 -2%, #3a376b 69%, #244e7f 112%, #0b1a2b 112%);
+    header {
+      font-size: 26px;
+      line-height: 37px;
+    }
+    & > div {
+      display: flex;
+      span {
+        flex: 1 1;
+      }
+      button {
+        color: #e0c28d;
+        border-radius: 2px;
+        border: 1px solid #e0c28d;
+        font-size: 14px;
+        height: 22px;
+        padding: 0 3px;
+      }
+    }
+    .account-number {
+      line-height: 30px;
+      font-size: 21px;
+      margin-top: 2px;
+      margin-bottom: 10px;
+    }
+    .account-name,
+    .bank-name {
+      font-size: 16px;
+      line-height: 22px;
+      color: #d4d4d4;
+    }
+    p {
+      font-size: 13px;
+      color: #e0c28d;
+    }
+  }
+  .tips {
+    justify-content: center;
+  }
+  .oprs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 50px;
+    margin-top: 50px;
+    button {
+      height: 50px;
+      border-radius: 3px;
+      &.cancel {
+        color: #e0c28d;
+        border: 1px solid #e3b574;
+      }
+      &.submit {
+        color: #181818;
+        border-radius: 3px;
+        background-image: linear-gradient(to left, #f4d699, #e3b574);
+      }
+    }
+  }
+}
+
+.qr-confirm-dialog .am-modal-body {
+  text-align: left;
+  header {
+    font-size: 18px;
+    color: #fff;
+    line-height: 18px;
+  }
+  section {
+    margin-top: 25px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 15px;
+    div {
+      display: flex;
+      align-items: center;
+      line-height: 40px;
+    }
+    label {
+      color: #aaa;
+      font-size: 15px;
+      flex: 1 1;
+    }
+    span {
+      font-size: 18px;
+      color: #e0c28d;
+    }
+  }
+  .qr-result-item {
+    label, span {
+      display: block;
+    }
+    span {
+      margin-top: 5px;
+    }
+    & + .qr-result-item {
+      margin-top: 10px;
+    }
+  }
+  footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+    margin-top: 35px;
+    button {
+      height: 40px;
+      border-radius: 3px;
+      &.btn-cancel {
+        border: 1px solid #e3b574;
+        color: #e0c28d;
+      }
+      &.btn-submit {
+        color: #181818;
+        background-image: linear-gradient(to left, #f4d699, #e3b574);
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+.error-page {
+  height: 100%;
+  background: var(--app-background-color);
+  background-repeat: no-repeat;
+  background-position: calc(50% - 229px) center;
+  .content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-left: 100px;
+    width: 480px;
+    header {
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      label {
+        position: relative;
+        margin-left: 22px;
+        padding-left: 22px;
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          display: block;
+          height: 20px;
+          width: 2px;
+          background-color: #e5c6a3;
+        }
+      }
+    }
+    section {
+      margin-top: 30px;
+      p {
+        line-height: 26px;
+        font-weight: 500;
+        &:not(:last-child) {
+          margin-bottom: 16px;
+        }
+      }
+    }
+    .button {
+      display: inline-block;
+      background: #bd2b27;
+      color: #fff;
+      line-height: 30px;
+      padding: 0 38px;
+      border-radius: 4px;
+    }
+  }
+}
+
+.error-403 {
+  background-image: url(./images/403.png);
+}
+.error-404 {
+  background-image: url(./images/404.png);
+}
+.error-503 {
+  background-image: url(./images/503.png);
+}

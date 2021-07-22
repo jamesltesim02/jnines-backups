@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>touzhu card/closecard-icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="4-投注单" stroke="none" stroke-width="1" fill="none" fillRule="evenodd" opacity="0.300000012">
+        <g id="弹窗投注单/不同卡片状态" transform="translate(-335.000000, -164.000000)" fill="#FFFFFF" fillRule="nonzero">
+            <g id="touzhu-card/folded" transform="translate(10.000000, 154.000000)">
+                <g id="touzhu-card">
+                    <path d="M335,28 C339.418278,28 343,24.418278 343,20 C343,15.581722 339.418278,12 335,12 C330.581722,12 327,15.581722 327,20 C327,24.418278 330.581722,28 335,28 Z M335,30 C329.477153,30 325,25.5228475 325,20 C325,14.4771525 329.477153,10 335,10 C340.522847,10 345,14.4771525 345,20 C345,25.5228475 340.522847,30 335,30 Z M331,19 C330.447715,19 330,19.4477153 330,20 C330,20.5522847 330.447715,21 331,21 L339,21 C339.552285,21 340,20.5522847 340,20 C340,19.4477153 339.552285,19 339,19 L331,19 Z" id="touzhu-card/closecard-icon"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

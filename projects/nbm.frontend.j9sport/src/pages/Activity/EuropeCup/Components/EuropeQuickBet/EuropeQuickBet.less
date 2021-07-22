@@ -1,0 +1,211 @@
+.eucup-quick-bet {
+  position: fixed;
+  z-index: 16;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  padding: 0 33px;
+
+  &-mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    background-color: rgba(0, 0, 0, .6);
+  }
+
+  &-container {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
+    width: 520px;
+
+    header {
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+
+      .eu-tit {
+        position: relative;
+        width: 80%;
+        z-index: 1;
+        overflow: hidden;
+        border-radius: 20px 0 0 0;
+        text-align: center;
+
+        img {
+          position: absolute;
+          top: 50%;
+          left: 10%;
+          transform: translateY(-50%);
+          width: 70%;
+          max-width: 200px;
+        }
+
+        &:after {
+          position: absolute;
+          left: 0;
+          top: 0;
+          z-index: -1;
+          content: '';
+          width: 100%;
+          height: 100%;
+          background-color: #27445a;
+          border-radius: 0 6px 0 0;
+          transform: skew(20deg) translateX(-10%);
+        }
+      }
+
+      button {
+        width: 50px;
+
+        svg {
+          opacity: .8;
+          width: 26px;
+          height: 26px;
+        }
+      }
+    }
+
+    section {
+      border-radius: 0 5px 5px 5px;
+      background-color: #1d2b37;
+    }
+  }
+
+  section {
+    padding: 30px 10px;
+  }
+
+  &-team {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    font-size: 15px;
+    color: #c9c9c9;
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 13px;
+
+    .icon-team-for-ec21 {
+      box-sizing: content-box;
+      border: 4px solid #535d66;
+    }
+  }
+
+  &-area {
+    padding: 0 30px;
+    ul {
+      padding: 20px 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-column-gap: 20px;
+
+      li {
+        cursor: pointer;
+        text-align: center;
+        padding-top: 5px;
+        font-size: 16px;
+        height: 50px;
+        line-height: 20px;
+        border-radius: 4px;
+        color: #dcdcdc;
+        border: solid 1px #d7d7d7;
+        &.active {
+          color: #661512;
+          background-image: linear-gradient(to right, #e2b271 0%, #f6d99d);
+        }
+      }
+    }
+    .quick-amount-input {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.7fr 1fr;
+      height: 50px;
+      line-height: 50px;
+      background-color: #27445a;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      border-radius: 4px;
+      margin: 10px 0 23px 0;
+
+      input {
+        height: 30px;
+        width: 100%;
+        color: #e1e1e1 ;
+        font-size: 18px;
+        padding-left: 15px;
+        border: 0;
+        background-color: transparent;
+        outline: none;
+      }
+      button {
+        cursor: unset;
+        color: #e1e1e1;
+        font-size: 16px;
+        background-image: linear-gradient(to right, #b1b1b1 0%, #b1b1b1 100%);
+        &.betble {
+          cursor: pointer;
+          color: #661512;
+          background-image: linear-gradient(to right, #e2b271 0%, #f6d99d 100%);
+        }
+      }
+
+      &-limit {
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        font-size: 12px;
+        color: #aaaaaa;
+      }
+
+    }
+    .quick-amount-return {
+      font-size: 12px;
+      color: #e0c28d;
+      display: flex;
+      justify-content: space-between;
+      a {
+        text-decoration-line: underline;
+        font-size: 14px;
+      }
+    }
+  }
+
+  &-change {
+    margin-top: 20px;
+    color: #e0c28d;
+    text-align: center;
+    img {
+      vertical-align: sub;
+      margin-right: 5px;
+    }
+  }
+  &-note {
+    color: #7d7d7d;
+    padding-left: 30px;
+    font-size: 13px;
+    margin-top: 10px;
+  }
+}
+.europe-quick-success-dialog {
+  width: 300px!important;
+  .ant-modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+    img {
+      margin-bottom: 20px;
+      width: 60px;
+    }
+    button {
+      margin-top: 20px;
+      color: #e3b574;
+    }
+  }
+}

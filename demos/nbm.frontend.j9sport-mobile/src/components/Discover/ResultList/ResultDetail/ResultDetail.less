@@ -1,0 +1,46 @@
+.soccer-result,
+.basketball-result,
+.tennis-result,
+.other-result {
+  display: grid;
+  & > li {
+    display: grid;
+    grid-template-rows: repeat(3, 30px);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    label {
+      position: relative;
+      i {
+        position: absolute;
+        display: inline-block;
+        white-space: nowrap;
+        top: -5px;
+        right: -22px;
+        width: 20px;
+        color: #777;
+        font-size: 8px;
+        font-style: normal;
+        text-align: left;
+      }
+    }
+  }
+}
+
+.soccer-result {
+  grid-template-columns: repeat(4, 1fr);
+}
+.basketball-result {
+  grid-template-columns: repeat(6, 1fr);
+  min-width: 210px;
+  font-size: 10px;
+  padding: 10px;
+}
+.tennis-result {
+  grid-template-columns: repeat(7, 1fr);
+  min-width: 230px;
+  padding: 0 10px;
+}
+.other-result {
+  grid-template-columns: 1fr;
+}

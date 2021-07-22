@@ -1,0 +1,46 @@
+.nb-number-board {
+  left: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+.nb-number-board .nb-nb-numbers {
+  width: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.nb-number-board .nb-nb-numbers a {
+  width: 1.5rem;
+  height: .68rem;
+  background: #777;
+}
+.nb-number-board a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: .08rem;
+  margin-bottom: .2rem;
+  font-size: .33rem;
+  color: #fff;
+}
+.nb-number-board .nb-nb-numbers a.nb-nb-blank {
+  visibility: hidden;
+}
+.nb-number-board .nb-nb-numbers a.nb-nb-close {
+  background: transparent;
+}
+.nb-number-board .nb-nb-operations {
+  width: 1.5rem;
+}
+.nb-nb-operations .nb-nb-backspace, .nb-nb-operations .nb-nb-submit {
+  width: 1.5rem;
+  height: 1.54rem;
+  background: #777;
+}
+.nb-nb-operations .nb-nb-submit {
+  background: #53C0FF;
+  line-height: .55rem;
+  letter-spacing: 0.04rem;
+}

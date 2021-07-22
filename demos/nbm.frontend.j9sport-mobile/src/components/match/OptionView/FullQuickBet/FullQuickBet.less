@@ -1,0 +1,95 @@
+.fullscreen-quickBet {
+  position: fixed;
+  top: 50%;
+  left: 2px;
+  width: 305px;
+  height: auto;
+  z-index: 1000;
+  padding: 10px;
+  background-color: var(--cartitemtotal-bgc);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, .8);
+  border-radius: 4px;
+  .bet-amount {
+    height: 50px;
+    display: flex;
+    border-radius: 4px;
+    overflow: hidden;
+
+    > div, button {
+      flex: 1;
+      height: 50px;
+    }
+
+    &-input {
+      position: relative;
+
+      input {
+        height: 100%;
+        width: 100%;
+        border: 2px solid #e2b372;
+        border-right: 0;
+        background-color: #dddddd;
+        border-radius: 4px 0 0 4px;
+        font-size: 20px;
+        font-weight: 500;
+        padding: 10px 0 18% 10px;
+      }
+
+      > div {
+        position: absolute;
+        padding: 0 10px;
+        bottom: 5px;
+
+        p {
+          font-size: 10px;
+          color: #aaaaaa;
+          margin: 0;
+          text-align: left;
+        }
+      }
+    }
+
+    &-btn {
+      margin-left: -1px;
+      background-image: linear-gradient(to right, #e2b372, #f5d79b, #f5d79b);
+
+      span {
+        font-size: 12px;
+        color: #242220;
+      }
+
+      span:first-child {
+        font-size: 15px;
+        line-height: 25px;
+      }
+    }
+  }
+
+
+  .quick-quota {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    &-item {
+      width: 50px;
+      line-height: 24px;
+      text-align: center;
+      color: var(--high-light-color)!important;
+      border-radius: 2px;
+      border: 1px solid #ddd;
+      &:active {
+        border: 0;
+        background-color: var(--secondary-color);
+        color: #FFFFFF!important;
+      }
+    }
+  }
+}
+.fullscreen-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}

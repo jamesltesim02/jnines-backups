@@ -1,0 +1,204 @@
+@font-face{
+  font-family: "DIN";
+  src: url("../fonts/DIN-Medium.ttf");
+}
+
+body {
+  font-size: 16px;
+  font-family: "DIN", "PingFang SC", "Roboto", "HelveticaNeue", "Helvetica", "Arial", sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-font-smoothing: antialiased;
+  color: #909090;
+  letter-spacing: -0.4px;
+}
+
+body, html {
+  height: 100%;
+}
+
+a {
+  color: #909090;
+}
+
+*:not(input) {
+  user-select: none;
+  box-sizing: border-box;
+}
+svg, svg * {
+  transition: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+
+@keyframes blink {
+  from, 50%, to {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+@keyframes roll {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rolling {
+  animation: roll linear 1s infinite;
+}
+
+.fade-container {
+  position: relative;
+}
+.fade-enter-active,
+.fade-leave-active {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  transition: opacity .75s ease-out;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+[class*="flex-"]:not(input) {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+[class*="flex-"][class*="-top"] {
+  align-items: flex-start;
+}
+[class*="flex-"][class*="-bottom"] {
+  align-items: flex-end;
+}
+[class*="flex-"][class*="-col"] {
+  flex-direction: column;
+}
+[class*="flex-"][class*="-wrap"] {
+  flex-wrap: wrap;
+}
+[class*="flex-center"] {
+  justify-content: center;
+}
+[class*="flex-start"] {
+  justify-content: flex-start;
+}
+[class*="flex-end"] {
+  justify-content: flex-end;
+}
+[class*="flex-between"] {
+  justify-content: space-between;
+}
+[class*="flex-around"] {
+  justify-content: space-around;
+}
+.lx-toast { z-index: 9999999999; }
+
+.no-more,
+.loading-bar {
+  padding: 16px 0 6px;
+  text-align: center;
+  color: #909090;
+  &.full {
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+input.focus {
+  transition: border-color .35s ease-out;
+  border-color: #ff5353 !important;
+}
+
+@keyframes boder-blink-animate {
+  from, 50%, to {
+    border-color: rgba(255, 83, 83, .5);
+  }
+  25%, 75% {
+    border-color: rgba(255, 83, 83, 1);
+  }
+}
+
+@keyframes dark-boder-blink-animate {
+  from, 50%, to {
+    border-color: rgba(0, 181, 179, .5);
+  }
+  25%, 75% {
+    border-color: rgba(83, 255, 253, 1);
+  }
+}
+
+.ps {
+  overflow-x: hidden;
+  height: 100%;
+  .ps__rail-y {
+    z-index: 2;
+  }
+  .ps__rail-x {
+    display: none !important;
+  }
+}
+
+.dark {
+  input.focus {
+    transition: border-color .35s ease-out;
+    border-color: #00b5b3 !important;
+  }
+}
+
+// 篮球世界杯活动, 赛完后删除 start
+// 左侧菜单篮球图标放大
+// .x-left-bar .logo {
+//   position: relative;
+//   padding-right: 94px;
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     display: block;
+//     background-image: url(../images/basketcup/basketball-promo-logo.png);
+//     width: 78px;
+//     height: 52px;
+//     right: 8px;
+//     top: 8px;
+//   }
+// }
+// .dark .x-left-bar .logo::before {
+//   background-image: url(../images/basketcup/basketball-promo-logo-dark.png);
+// }
+// .icon-xsports.icon-xsport-11 {
+//   background: #fff;
+//   border-radius: 50%;
+// }
+// .icon-container.icon-11 .icon-xsports.icon-xsport-11 {
+//   width: 38px;
+//   height: 38px;
+// }
+// .x-sports-list .sports .sports-item .icon-11 + .name {
+//   span,
+//   marquee {
+//     position: relative;
+//     &:before {
+//       content: "";
+//       display: block;
+//       width: 32px;
+//       height: 22px;
+//       position: absolute;
+//       top: -20px;
+//       right: -30px;
+//       background: url(../images/basketcup/basketcup-promo-icon.png);
+//     }
+//   }
+// }
+// 篮球世界杯活动, 赛完后删除 end

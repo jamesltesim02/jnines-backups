@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+    .msg {
+      color: red;
+    }
+    fieldset {
+      width: 305px;
+    }
+    fieldset div {
+      line-height: 40px;
+    }
+    fieldset div label {
+      margin-right: 20px;
+    }
+    </style>
+  </head>
+  <body>
+    <fieldset>
+      <legend>文件上传:</legend>
+      <div>
+        <label>文件:</label><input name="docfile" type="file">
+      </div>
+      <div>
+        <label>描述:</label><input name="remark" type="text">
+      </div>
+      <div>
+        <button id="uploadSubmitButton">提交</button>
+      </div>
+      <div id="uploadMsgText" class="msg">
+        等待上传...
+      </div>
+    </fieldset>
+    <br><br>
+    <fieldset>
+      <legend>AES加密:</legend>
+      <div>
+        <label>手机号:</label><input name="mobile" type="text">
+      </div>
+      <div>
+        <label>验证码:</label><input name="captcha" type="text">
+      </div>
+      <div>
+        <button id="aesSubmitButton">提交</button>
+      </div>
+      <div id="aesMsgText" class="msg">
+        等待提交...
+      </div>
+    </fieldset>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- 需要引入的加密文件(已经放到public/javascripts目录下) -->
+    <script src="/javascripts/crypto-js.min.js"></script>
+    <script>
+      // 上传文件
+      jQuery(function ($) {
+        var docfileInput,
+          remarkInput,
+          formData,
+          uploadMsgText;
+
+        docfileInput = $('[name="docfile"]');
+        remarkInput = $('[name="remark"]');
+        uploadMsgText = $('#uploadMsgText');
+
+        $('#uploadSubmitButton').click(function () {
+          uploadMsgText.html('准备上传');
+
+          if (!docfileInput[0].files.length) {
+            uploadMsgText.html('!!!请先选择文件...');
+          }
+
+          // 创建表单对象(用于封装提交的文件及文本内容)
+          formData = new FormData();
+
+          // 添加选中的文件到表单中(file可以多选,所以单文件从files中获取第一个即可)
+          formData.append('docfile', docfileInput[0].files[0]);
+          // 添加文本信息(如果不需要则可以不添加)
+          formData.append('remark', remarkInput.val());
+
+          // 提交到指定url
+          $.ajax({
+            type: 'post', 
+            url: '/fileupload',
+            // 提交内容为上面创建的formData
+            data: formData,
+            // 必须为false,告诉jQuery无需对数据进行额外处理
+            processData: false,
+            // 告诉jQuery无需设置content-type头
+            contentType: false,
+            beforeSend: function () {
+              uploadMsgText.html('正在上传......');
+            },
+            success: function (result) {
+              console.log(result);
+              uploadMsgText.html('上传成功:' + JSON.stringify(result));
+            },
+            error: function (e) {
+              console.log(e);
+              uploadMsgText.html('上传失败' + e);
+            }
+          });
+        });
+      });
+
+      // 加密
+      jQuery(function ($) {
+        var mobileInput = $('[name="mobile"]'),
+        captchaInput = $('[name="captcha"]'),
+        aesMsgText = $('#aesMsgText');
+        /**
+         * 加密函数
+         *
+         * @param source 将要加密的字符串
+         * @return 加密后的内容
+         */
+        function aesEncrypt(source) {
+          return CryptoJS.AES.encrypt(
+            CryptoJS.enc.Utf8.parse(source),
+            CryptoJS.enc.Utf8.parse('GZZS123456000000'),
+            {
+              mode: CryptoJS.mode.ECB,
+              padding: CryptoJS.pad.Pkcs7,
+            }
+          ).toString();
+        }
+
+        $('#aesSubmitButton').click(function () {
+          var mobile = mobileInput.val(),
+          captcha = captchaInput.val();
+
+          if (!mobile) {
+            aesMsgText.html('!!!请输入手机号...');
+            return;
+          }
+          if (!captcha) {
+            aesMsgText.html('!!!请输入验证码...');
+            return;
+          }
+
+          $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/auth/checkValidateCode',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify({
+              bizInfo: {
+                // 提交之前调用加密
+                mobile: aesEncrypt(mobile),
+                validateCode: aesEncrypt(captcha),
+                clientSystemCode: 'aaa'
+              }
+            })
+          }).then(function (result) {
+            console.log(result);
+            aesMsgText.html('加密成功!解密后的内容:' + JSON.stringify(result));
+          }, function (e) {
+            console.log(e);
+            aesMsgText.html('加密出错!', e);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+.transaction {
+  .pages-bar {
+    position: sticky;
+    top: 0;
+    height: 45px;
+    line-height: 45px;
+    z-index: 3;
+    font-size: 18px;
+    background-color: var(--header-bgc);
+    color: #bbbbbb;
+    border-bottom: 2px solid var(--border-color);
+    display: flex;
+    > div {
+      flex: 1;
+      padding-right: 50px;
+      text-align: center;
+    }
+    button {
+      width: 50px;
+      height: 100%;
+
+      svg {
+        vertical-align: middle;
+        width: 28px;
+        height: 30px;
+      }
+    }
+  }
+
+  .transaction-type {
+    padding: 0 10px;
+    font-size: 14px;
+    background-color: var(--app-background-color);
+    color: var(--tab-menu-color);
+
+    > span {
+      display: inline-block;
+      height: 50px;
+      line-height: 40px;
+      margin-right: 20px;
+      transition: all 200ms ease-in;
+
+      &.selected {
+        font-size: 18px;
+        color: #f2d195;
+      }
+    }
+
+    var {
+      color: var(--tip-color);
+      padding-left: 5px;
+      font-size: 9px;
+      vertical-align: super;
+    }
+  }
+  .condition-timepicker {
+    margin: 0 12.5px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--rule-color);
+    height: 35px;
+    line-height: 35px;
+    padding: 0 10px;
+    border-radius: 4px;
+    background-color: var(--block-background-color);
+    img {
+      margin-left: 8px;
+      transform: translateY(1px);
+    }
+  }
+  .transaction-record {
+    font-size: 15px;
+    height: 25px;
+    line-height: 35px;
+    margin-left: 12.5px;
+  }
+}

@@ -1,0 +1,426 @@
+<template id="contentTmpl">
+    <div class="main_content">
+        <section class="selfhelp_content">
+	     <div class="menu_tab">
+	        <ol v-if="lastWeekPageVisible">
+	            <li class="active" @click="lastWeek"><a>上一周</a></li>
+	            <li @click="thisWeek"><a>本周</a></li>
+	        </ol>
+	        <ol v-if="thisWeekPageVisible">
+                <li @click="lastWeek"><a>上一周</a></li>
+                <li class="active" @click="thisWeek"><a>本周</a></li>
+            </ol>
+            <ol v-if="otherWeekPageVisible">
+                <li @click="thisWeek"><a>本周</a></li>
+                <li class="active" @click="otherWeek"><a>其它游戏厅</a></li>
+            </ol>
+            <ol v-if="doneVisible">
+                <li @click="otherWeek"><a>其它游戏厅</a></li>
+                <li class="active" @click="thisWeek"><a>本周</a></li>
+            </ol>
+	     </div>
+	
+	     <div v-show="thisWeekPageVisible">
+	        <div class="row" v-if="!currentList || !currentList.list || !currentList.list.length" style="width:100%;padding:20px 0;">
+	            <div class="col center">{{defaultData}}</div>
+	        </div>
+	        <div class="table_style result" v-else>
+	            <div class="row" v-for="h in currentList.list">
+                    <div class="col wradio">
+                        <input type="checkbox" v-bind:id="h.xm_type" checked="checked" v-bind:value="h.xm_type" class="xm_type" />
+                        <label class="bullet" v-bind:for="h.xm_type"></label>
+                    </div>
+                    <div class="col">
+                        <h2>{{getNameByType(h.xm_type)}}</h2>
+                        <p>总有效投注额：<b>{{h.totalBet}}</b></p>
+                        <p>本次结算有效投注额：<b>{{h.currBet}}</b></p>
+                        <p>比率：<b>{{h.rate}}</b></p>
+                    </div>
+                    <div class="col right">
+                        <h2>{{h.validAmount}}元</h2>
+                    </div>
+                </div>
+	            <div class="row">
+	                <div class="col wradio">总计：</div><div class="col"></div>
+	                <div class="col right"><h2>{{currentList.totalAmount}}元</h2></div>
+	            </div>
+	        </div>
+	        <div class="bbtn-con">
+	            <a class="btn gold" @click="done" v-if="currentList.list && currentList.list.length>0">一键洗码</a>
+	            <a class="btn grey" @click="otherWeek">查看其他游戏厅</a>
+	        </div>
+         </div>
+	    
+	    <div v-show="otherWeekPageVisible">
+            <div class="row" v-if="!otherList || !otherList.list || !otherList.list.length" style="width:100%;padding:20px 0;">
+                <div class="col center">{{defaultData}}</div>
+            </div>
+            <div class="table_style" v-else>
+                <div class="row" v-for="h in otherList.list">
+	                <div class="col wradio">
+	                    <input type="checkbox" disabled="">
+	                    <label class="bullet"></label>
+	                </div>
+                    <div class="col" v-if="h.xm_type=='XM744'">
+                        <h2>{{getNameByType(h.xm_type)}}</h2>
+                        <p>总积分：<b>{{h.totalBet}}</b></p>
+                        <p>比率：<b>{{!h.rate ? 15 : h.rate}}</b></p>
+                        <p style="font-size: 1.2rem;">*每周一自动结算上一周的返利</p>
+                    </div>
+                    <div class="col" v-else>
+                        <h2>{{getNameByType(h.xm_type)}}</h2>
+                        <p>总有效投注额：<b>{{h.totalBet}}</b></p>
+                        <p>本次结算有效投注额：<b>{{h.currBet}}</b></p>
+                        <p>比率：<b>{{h.rate}}</b></p>
+                    </div>
+                    <div class="col right">
+                        <h2>{{h.validAmount}}元</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col wradio">总计：</div><div class="col"></div>
+                    <div class="col right"><h2>{{otherList.totalAmount}}元</h2></div>
+                </div>
+            </div>
+         </div>
+         
+	    <div v-show="lastWeekPageVisible">
+	      <div v-if="!hisoryList || !hisoryList.list || !hisoryList.list.length">
+	        <div class="row">
+               <div class="col center" style="width:100%;padding:20px 0;">{{defaultData}}</div>
+            </div>
+	      </div>
+          <div v-else>
+            <div class="table_style">
+                <div class="row" v-for="h in hisoryList.list">
+                    <div class="col">
+                        <h2>{{getNameByType(h.xm_type)}}</h2>
+                        <p>总有效投注额：<b>{{h.totalBet}}</b></p>
+                        <p>比率：<b>{{h.rate}}</b></p>
+                    </div>
+                    <div class="col right">
+                        <h2>{{h.validAmount}}元</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col wradio">总计：</div>
+                    <div class="col right"><h2>{{hisoryList.totalAmount}}元</h2></div>
+                </div>
+            </div>
+          </div>  
+        </div>
+        
+        <div class="tab-body" v-show="doneVisible">
+          <div class="result">
+	            <div class="record-item" style="padding:10px 0px 10px 0px; min-height:50px;" v-for="item in doneData">
+	                <div class="item-select" style="float:left;padding:0 10px;">
+	                <span class="icon" v-bind:class="{icon75:!item.err, icon76:item.err}"> </span>
+	                </div>
+	                <div class="item-detail">
+	                    <p v-bind:class="{yellow2:!item.err}">{{item.name}}</p>
+                        <p v-bind:class="{yellow2:!item.err}">{{item.err ? item.err : '成功！洗码金额已添加至您账户'}}</p>
+	                </div>
+	            </div>
+            <div class="clearfix"></div>
+            <div class="form_btn-wrap btn-xm-wrap" v-show="doneBtnVisible">
+                <a class="btn btn-ylw" @click="reset">继续洗码</a>
+                <a class="btn btn-blu3" forward="forward" newview="true" href="customer/log_xm.htm?days=1">查看洗码记录</a>
+            </div>
+          </div>
+        </div>
+	    <div class="list_text" v-if="lastWeekPageVisible || thisWeekPageVisible || otherWeekPageVisible">
+	        <h2>活动规则：</h2>
+	        <ol>
+	            <li>1、所有游戏厅可随时结算洗码，返水金额≥￥1元可自助提交自助执行添加；</li>
+	            <li>2、真人娱乐（AG旗舰厅、波音厅、AG国际厅等）、电子游艺、 体育投注和彩票投注有效投注额统计时间为北京时间每周一的 00：00至每周日23：59为一周期进行统计；</li>
+	            <li>3、周洗码结算时间：每周一17:00之前结算完毕并添加到游戏账号；</li>
+	            <li>4、有效投注额是指有输赢结果的投注额累积，所有退还本金的投 注或者无风险、最小风险的投注不能作为有效投注，如同时下 注百家乐游戏的庄和闲，在体育投注中，对冲或对打投注、任 何取消注单的赛事均不计有效投注额；</li>
+	            <li>5、洗码礼金无上限（低于1元的礼金将不予派送），多投多得，可 随时申请提款，无任何限制，也可以选择继续投注游戏；</li>
+	            <li>5、洗码礼金无上限（低于1元的礼金将不予派送），多投多得，可 随时申请提款，无任何限制，也可以选择继续投注游戏；</li>
+	            <li>6、真人娱乐（AG旗舰厅、波音厅、AG国际厅等）、电子游艺、 体育投注和彩票投注各厅独立计算有效投注额；</li>
+	            <li>7、首存礼金和洗码礼金不能同时享受；</li>
+	            <li>8、电子游艺特惠游戏不享受洗码优惠 ，博天堂秉承公平公正的 原则，将特惠游戏（即超高返奖率游戏）集中展示给玩家，供 玩家盈利。同时我们也会定时的更新列表，确保每位玩家的利 益得到最大化。特惠游戏含：各种桌面和卡牌游戏、视频扑克、轮盘、Pontoon游戏、各种花旗骰游戏、赌场战争游戏、 Hold’em游戏、牌九游戏；查看特惠游戏</li>
+	            <li>9、任何人／团体／组织若以不诚实的手段获取返水，将会永久冻 结账户且没收所有资金；</li>
+	            <li>10、本优惠至2016年7月4日起执行，有效期截至2017年12月31日止；</li>
+	        </ol>
+	    </div>
+	</section>
+    </div>
+</template>
+<script>
+;(function() {
+    var contentData = {
+    	lastWeekPageVisible: false,
+    	thisWeekPageVisible: true,
+    	otherWeekPageVisible: false,
+    	doneVisible: false,
+    	doneBtnVisible: false,
+    	nameType: {
+    		'XM33':'AG旗舰厅',
+            'XM336':'AG电投厅',
+            'XM326':'AG国际真人厅',
+            'XM826':'AG国际捕鱼',
+            'XM526':'AG国际电游厅',
+            'XM44':'AG快乐彩',
+            'XM364':'AS厅',
+            'XM335':'MG真人厅',
+            'XM535':'MG电游厅',
+            'XM339':'PT真人厅',
+            'XM539':'PT电游厅',
+            'XM527':'TTG电游厅',
+            'XM343':'OPUS真人厅',
+            'XM543':'OPUS电游厅',
+            //'XM551':'BSG电游厅',
+            'XM162':'SBT体育',
+            'XM38':'HG厅',
+            'XM39':'EA厅',
+            'XM36':'波音真人厅',
+            'XM56':'波音电游厅',
+            'XM46':'波音彩票',
+            'XM131':'沙巴体育',
+            'XM744':'棋牌室'
+    	},
+    	currentList: {
+    		"list": [],
+    		"totalAmount": '0.00'
+    	},
+    	otherList: {
+            "list": [],
+            "totalAmount": '0.00'
+        },
+        hisoryList: {
+            "list": [],
+            "totalAmount": '0.00'
+        },
+        defaultData: '暂无洗码数据',
+        doneData: [],
+        loginName: ''
+    };
+    appState.setData({
+        needLogin: true,
+        title: '自助洗码',
+    });
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function() {
+            return contentData;
+        },
+        watch: {
+        },
+        methods: {
+        	lastWeek: function() {
+        		this.lastWeekPageVisible = true;
+        		this.thisWeekPageVisible = false;
+        		this.otherWeekPageVisible = false;
+        		this.doneVisible = false;
+        		xmHistoryList(xmType());
+        	},
+            thisWeek: function() {
+            	this.lastWeekPageVisible = false;
+                this.thisWeekPageVisible = true;
+                this.otherWeekPageVisible = false;
+                this.doneVisible = false;
+                
+                var dataCache = JSBridge.cache.get(this.loginName+ "xmCurrentData");
+                if (dataCache && new Date().getTime() < dataCache.outtime) {
+                    this.currentList = dataCache.data;
+                } else {
+                    currentList(xmType());
+                }
+            },
+            otherWeek: function() {
+            	this.lastWeekPageVisible = false;
+                this.thisWeekPageVisible = false;
+                this.otherWeekPageVisible = true;
+                this.doneVisible = false;
+                
+                var dataCache = JSBridge.cache.get(this.loginName+  "xmOtherData");
+                if (dataCache && new Date().getTime() < dataCache.outtime) {
+                    this.otherList = dataCache.data;
+                } else {
+                    currentList(xmType());
+                }
+            },
+            getCheckedList: function() {
+                var type_list = [];
+
+                $('.result').find(".xm_type:checked").each(function(){
+                    type_list.push($(this).val());
+                })
+                return type_list;
+            },
+            reset: function() {
+            	this.lastWeekPageVisible = false;
+                this.thisWeekPageVisible = true;
+                this.otherWeekPageVisible = false;
+                this.doneVisible = false;
+                currentList(xmType());
+            },
+            done:function() {
+                var type_list = this.getCheckedList();
+
+                if (type_list.length <= 0) {
+                    $.toast.fail("请先选择结算的游戏");
+                    return false;
+                }
+
+                var customer = JSBridge.cache.get('customer');
+                if (customer.xm_flag == '0') {
+                    $.toast.fail("您的洗码状态未开启，请联系客服");
+                    return false;
+                }
+                
+                this.lastWeekPageVisible = false;
+                this.thisWeekPageVisible = false;
+                this.otherWeekPageVisible = false;
+                this.doneVisible = true;
+                this.doneBtnVisible = false;
+                
+                /**this.doneData = [{'status':true, 'name':'AS厅', 'err':''}];
+                console.log(type_list, type_list.join(';'));
+                return false;**/
+                
+                JSBridge.net.invoke({
+                    url: "xm/billout",
+                    data: {
+                        'xm_list':type_list.join(';')
+                    },
+                    success: function (result) {
+                        if (result.length>0) {
+                        	contentData.doneData = result;
+                        	contentData.doneBtnVisible = true;
+                        }
+                    },
+                    error: function (error) {
+                        $.toast.fail("结算失败:" + error.message);
+                    }
+                });
+            },
+            getNameByType: function(type) {
+            	return this.nameType[type]==undefined || !this.nameType[type] ? '未知' : this.nameType[type];
+            }
+        }
+    });
+    
+    function xmType(ap){
+    	var type = '',
+            ap = ap ||false,
+    	    data = contentData.nameType;
+
+    	for (i in data) {
+    		if (ap == true && i=='XM744') {
+    		} else {
+    			type += !type ? i : ';'+i;
+    		}
+    	}
+    	return type;
+    }
+    
+    function getPreviousWeek(){
+        //获取当前时间  
+        var currentDate= new Date(); 
+        //返回date是一周中的某一天  
+        var week=currentDate.getDay(); 
+        //返回date是一个月中的某一天  
+        var month=currentDate.getDate(); 
+        //一天的毫秒数  
+        var millisecond=1000*60*60*24; 
+        //减去的天数  
+        var minusDay=week!=0?week-1:6; 
+        //获得当前周的第一天  
+        var currentWeekDayOne=new Date(currentDate.getTime()-(millisecond*minusDay)); 
+        //上周最后一天即本周开始的前一天  
+        var priorWeekLastDay=new Date(currentWeekDayOne.getTime()-millisecond); 
+        //上周的第一天  
+        var priorWeekFirstDay=new Date(priorWeekLastDay.getTime()-(millisecond*6));
+
+        var firstMonth = (priorWeekFirstDay.getMonth() + 1).toString();
+        var lastMonth = (priorWeekLastDay.getMonth() + 1).toString();
+        var weekFirstDay = priorWeekFirstDay.getDate().toString();
+        var weekLastDay = priorWeekLastDay.getDate().toString();
+        
+        priorWeekFirstDay = priorWeekFirstDay.getFullYear()+"-"+ (firstMonth.length>1 ? firstMonth : '0'+ firstMonth) +"-"+ (weekFirstDay.length>1 ? weekFirstDay : '0'+ weekFirstDay) + ' 00:00:00';
+        priorWeekLastDay = priorWeekLastDay.getFullYear()+"-"+ (lastMonth.length>1 ? lastMonth : '0'+ lastMonth) +"-"+ (weekLastDay.length>1 ? weekLastDay : '0'+weekLastDay) + ' 23:59:59';
+
+        return {'start':priorWeekFirstDay, 'end':priorWeekLastDay}; 
+    }; 
+    
+    function xmHistoryList(xmType)
+    {
+    	var _this = contentData;
+        
+        var dataCache = JSBridge.cache.get(_this.loginName+ "xmHistoryData");
+        if (dataCache && new Date().getTime() < dataCache.outtime) {
+        	_this.hisoryList = dataCache.data;
+        } else {
+        	var w = getPreviousWeek();
+            JSBridge.net.invoke({
+                url: "A01/xm/historyList",
+                data: {
+                    'xm_type': xmType,
+                    'delete_flag': 0,
+                    'flag': 2,
+                    'start_date_begin': w.start,
+                    'start_date_end': w.end,
+                    'end_date_begin': w.start,
+                    'end_date_end': w.end,
+                    'pageSize': 2000
+                },
+                success: function (result) {
+                    var expireAt = 600;
+                    _this.hisoryList = result;
+                    JSBridge.cache.save(_this.loginName+ "xmHistoryData", {
+                        data: result,
+                        outtime: new Date().getTime() + expireAt*1000
+                    }, 1);
+                },
+                error: function (error) {
+                    $.toast.fail(error.message);
+                }
+            });
+        }
+    }
+    
+    function currentList(xmType)
+    {
+       var _this = contentData;
+       JSBridge.net.invoke({
+           url: "A01/xm/currentList",
+           data: {
+               'xm_type': xmType
+           },
+           success: function (result) {
+               _this.currentList = result.valid;
+               _this.otherList = result.other;
+               JSBridge.cache.save(_this.loginName+ "xmCurrentData", {
+                   data: result.valid,
+                   outtime: new Date().getTime() + 60*1000
+               }, 1);
+               JSBridge.cache.save(_this.loginName+ "xmOtherData", {
+                   data: result.other,
+                   outtime: new Date().getTime() + 120*1000
+               }, 1);
+           },
+           error: function (error) {
+               $.toast.fail(error.message);
+           }
+       });
+    }
+
+    JSBridge.onReady(function() {
+    	var _this = contentData,
+    	   customer = JSBridge.cache.get('customer');
+    	if (!customer || !customer.login_name) {
+    		JSBridge.forward.inside({url: "common/login.htm", newView: true});
+    	}
+    	
+    	_this.loginName = customer.login_name;
+    	var dataCache = JSBridge.cache.get(_this.loginName + "xmCurrentData");
+        if (dataCache && new Date().getTime() < dataCache.outtime) {
+        	_this.currentList = dataCache.data;
+        } else {
+        	currentList(xmType());
+        }
+    });
+})();
+</script>

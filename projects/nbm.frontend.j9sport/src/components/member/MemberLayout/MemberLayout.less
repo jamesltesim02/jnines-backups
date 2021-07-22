@@ -1,0 +1,78 @@
+.member-layout {
+  display: grid;
+  grid-template-rows: 90px 1fr;
+  grid-gap: 20px;
+  height: 100%;
+  & > header {
+    background-color: var(--block-background-color);
+    padding: 10px 25px;
+    border-radius: 4px;
+    .main-title {
+      color: var(--member-info-color);
+      font-size: 30px;
+    }
+    .sub-title {
+      color: var(--member-info-sub--color);
+    }
+  }
+
+  & > section {
+    background-color: var(--block-background-color);
+    padding: 25px 17px;
+    border-radius: 4px;
+  }
+
+  &.seperated > section {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    grid-column-gap: 32px;
+    padding: 0;
+    background-color: transparent;
+    .right-bar {
+      border-radius: 4px;
+      background-color: var(--block-background-color);
+    }
+  }
+  .form-input {
+    box-sizing: border-box;
+    height: 40px;
+    border: 1px solid var(--border-color);
+    outline: 0;
+    color: #e1e1e1;
+    font-size: 16px;
+    background-color: var(--amount-list-background-color);
+
+    &:focus {
+      box-shadow: 0 0 3px rgb(150, 150, 150);
+    }
+    .ant-input::placeholder {
+      font-size: 14px;
+      color: #6f6f71;
+    }
+  }
+  .ant-input-group-addon, .ant-input {
+    background-color: transparent;
+    border: 0;
+    color: var(--member-info-sub--color);
+    font-size: 16px;
+  }
+
+  .btn-submit {
+    width: 340px;
+    font-size: 16px;
+    color: var(--colorful-color);
+    height: 48px;
+    line-height: 48px;
+    background-image: var(--colorful-linear-gradient);
+    border-radius: 2px;
+    margin-top: 10px;
+
+    &:hover {
+      background-image: linear-gradient(to left, #e2b271 0%, #f6d99d);
+    }
+  }
+
+  .ant-form-item-has-error .ant-input, .ant-form-item-has-error .ant-input-affix-wrapper, .ant-form-item-has-error .ant-input:hover, .ant-form-item-has-error .ant-input-affix-wrapper:hover {
+    background-color: transparent !important;
+  }
+}

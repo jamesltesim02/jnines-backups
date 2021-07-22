@@ -1,0 +1,240 @@
+<style>
+    .layout_form .form_field_wrap {
+        border-bottom: none;
+    }
+    .layout_form .form_field_wrap.deposit-info {
+        border-top: 4px solid #479dc1;
+        margin-bottom: 15px;
+        border-bottom: none;
+    }
+
+    .layout_form .form_field_wrap.deposit-info .form_field .input_wrap{
+        color: #379efb;
+    }
+
+    .layout_form .form_field_wrap.deposit-info .form_field.withdrawal-reject {
+        height: auto;
+        line-height: 1.5rem;
+        padding: 15px 0;
+    }
+
+    .layout_form .form_field_wrap.deposit-info .form_field.withdrawal-reject .input_wrap{
+        color: #818791;
+    }
+
+    .layout_form .form_field_wrap.deposit-info .form_field.withdrawal-resolve *{
+        color: #f2da0f;
+    }
+
+    .layout_form .form_field_wrap.deposit-info .form_field.withdrawal-reject span.label {
+        margin-top: 16px;
+    }
+
+    .layout_form .form_field_wrap.deposit-info .form_field.withdrawal-reject .input_wrap > div {
+        display: inline-block;
+        text-align: left;
+    }
+    .layout_form .form_field_wrap.deposit-info .form_field.withdrawal-reject b{
+        color: #f2da0f;
+    }
+</style>
+<template id="contentTmpl">
+    <div class="main_content" autocomplete="off">
+        <section class="withdrawal_content">
+            <div class="banner">
+                <span>可取金额（元）</span>
+                <h2>{{balance}}</h2>
+                <span>单日取款限额10元-1000万，未享受优惠全额投注即可取款</span>
+                <div class="form_btn-wrap">
+                    <a style="margin: auto;" forward="forward" newview="true" href="customer/account_balance.htm" class="btn">余额详情</a>
+                </div>
+            </div>
+
+            <div class="layout_form">
+                <div v-show="betInfo.show" class="form_field_wrap deposit-info">
+                    <div class="form_field">
+                        <span class="label">本次存款金额</span>      
+                        <div class="input_wrap">{{betInfo.depositTotal}}</div>
+                    </div>
+                    <div class="form_field">
+                        <span class="label">需要达到的投注额</span>      
+                        <div class="input_wrap">{{betInfo.betTotal}}</div>
+                    </div>
+                    <div class="form_field">
+                        <span class="label">已经达成的投注额</span>      
+                        <div class="input_wrap">{{betInfo.currentBet}}</div>
+                    </div>
+                    <div v-if="betInfo.differenceBet == 0" class="form_field withdrawal-resolve">
+                        <span class="label">可取款</span>      
+                        <div class="input_wrap">
+                            <i>√</i>
+                        </div>
+                    </div>
+                    <div v-else class="form_field withdrawal-reject">
+                        <span class="label">尚不可取款</span>      
+                        <div class="input_wrap">
+                            <div>
+                                请再投注<b>{{betInfo.differenceBet}}</b>即可取款；<br>
+                                如已完成投注额，请等待10 <br>
+                                分钟系统调取投注额数据。
+                            </div>                                
+                        </div>
+                    </div>
+                </div>
+
+                <form action="" method="post">            
+                    <div class="form_field_wrap">
+                        <div class="form_field">
+                            <span class="label">金额（元）</span>      
+                            <div class="input_wrap">
+                                <input 
+                                    class="txt_right" 
+                                    v-model="amount" 
+                                    type="number"
+                                    placeholder="最少10元" value="" maxlength="10"></div>
+                        </div>  
+                        <div class="form_field">
+                            <span class="label">取款至</span>      
+                            <div class="input_wrap txt_right">
+                                <select v-model="bankId">
+                                    <option value="-1">请选择银行卡</option>
+                                    <option 
+                                        v-for="item in bankList" 
+                                        v-bind:value="item.customer_bank_id" 
+                                        >{{item.bank_name}} - 尾号**{{item.bank_account_no.substr(-4)}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form_field">
+                            <span class="label">登录密码</span>      
+                            <div class="input_wrap"><input class="txt_right" v-model="password" type="password" maxlength="10" value="" placeholder="请输入游戏账号的登录密码"></div>
+                        </div>  
+                    </div>
+                    <div class="form_btn-wrap">
+                        <a @click="submit" class="btn btn-lg btn-ylw">确定</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</template>
+
+<script>
+(function(){
+    var mdata = {
+        balance: '加载中',
+        password:'',
+        amount: '',
+        bankId: '-1',
+        bankList: '',
+        betInfo: {
+            show: false,
+			depositTotal: 0,	// 本次存款金额
+			betTotal: 0,		// 需要达到投注额
+			currentBet: 0,		// 已达成投注
+			differenceBet: 0,	// 投注达成差额 （0 表示可以取款）
+        }
+    };
+    appState.setData({
+        needLogin: true,
+        title: '取款',
+    });
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function () {
+            return mdata;
+        },
+        methods: {
+            submit: function () {
+                var _this = this;
+                if (getexpire()) {
+                    return true;
+                }
+
+                if (!_this.password) {
+                    $.toast.fail('请输入密码');
+                    return;
+                }
+                
+                if (_this.password.length < 8) {
+                    $.toast.fail('请输入密码');
+                    return;
+                }
+
+                var localAmount = _this.balance;
+        
+                var test = _this.amount.split(".");
+                if(test.length > 2 || $.trim(_this.amount) == ""){
+                    $.toast.fail('每个帐户单笔取款限额是10-1000万RMB');
+                    return;
+                } else if(test.length == 2){
+                    if(test[1].length != 2 && test[1].length != 1) {
+                        $.toast.fail('金额的格式只能为整数或者带两位小数以内');
+                        return false;
+                    }
+                } else if(isNaN(_this.amount)){
+                    $.toast.fail('请输入对应的正确金额');
+                    return false;
+                } else if(test.length == 1){
+                    _this.amount += ".00";
+                }
+                
+                var amount = 0;
+                try {
+                    amount = parseInt(_this.amount);
+                } catch (e) { }
+                if (amount < 10 || amount > 10000000) {
+                    $.toast.fail('每个帐户单笔取款限额是10-1000万RMB');
+                    return false;
+                }
+                
+                if (amount > localAmount) {
+                    $.toast.fail('非常抱歉，您的取款金额大于可取额度，请重新输入');
+                    return false;
+                }
+
+                setexpire();
+                JSBridge.net.invoke({
+                    url: "withdraws/create",
+                    data: {
+                        'amount':_this.amount,
+                        'password':_this.password,
+                        'customer_bank_id':_this.bankId
+                    },
+                    success: function (result) {
+                        if (result) {
+                           $.toast.success("取款成功", function(){
+                                JSBridge.forward.inside({url:'customer/withdrawal_success.htm?reqId='+result.request_id+'&amount='+result.amount, newView: true});
+                            }); 
+                        }  
+                    },
+                    error: function (error) {
+                        $.toast.fail("取款失败:" + error.message);
+                    }
+                });
+            }
+        }
+    });
+
+    JSBridge.onReady(function() {
+        var _this = mdata;
+        Request.totalBalance(_this);
+        CheckUtil.cardBinded(function(list){
+            _this.bankList = list;
+            list.forEach(function (v, i) {
+                if(v.is_default) {
+                    _this.bankId = v.customer_bank_id;
+                }
+            })
+            
+        });
+        JSBridge.net.invokeSync("withdraws/betInfo")
+        .then(function (result) {
+            _this.betInfo = Object.assign({show: true}, result);
+        }).catch(function (e) {
+            console.log(e);
+        })
+    });
+})();
+
+</script>

@@ -1,0 +1,113 @@
+version: '3'
+
+services:
+  redis1:
+    image: publicisworldwide/redis-cluster
+    restart: always
+    ports:
+      - "26379:26379"
+      - "36379:36379"
+    volumes:
+      - /Users/hank/docker-compose/redis-cluster/data/26379:/data
+    environment:
+      - REDIS_PORT=26379
+
+  redis2:
+    image: publicisworldwide/redis-cluster
+    restart: always
+    ports:
+      - "26378:26378"
+      - "36378:36378"
+    volumes:
+      - /Users/hank/docker-compose/redis-cluster/data/26378:/data
+    environment:
+      - REDIS_PORT=26378
+
+  redis3:
+    image: publicisworldwide/redis-cluster
+    restart: always
+    ports:
+      - "26377:26377"
+      - "36377:36377"
+    volumes:
+      - /Users/hank/docker-compose/redis-cluster/data/26377:/data
+    environment:
+      - REDIS_PORT=26377
+
+  redis4:
+    image: publicisworldwide/redis-cluster
+    restart: always
+    ports:
+      - "26376:26376"
+      - "36376:36376"
+    volumes:
+      - /Users/hank/docker-compose/redis-cluster/data/26376:/data
+    environment:
+      - REDIS_PORT=26376
+
+  redis5:
+    image: publicisworldwide/redis-cluster
+    restart: always
+    ports:
+      - "26375:26375"
+      - "36375:36375"
+    volumes:
+      - /Users/hank/docker-compose/redis-cluster/data/26375:/data
+    environment:
+      - REDIS_PORT=26375
+
+  redis6:
+    image: publicisworldwide/redis-cluster
+    restart: always
+    ports:
+      - "26374:26374"
+      - "36374:36374"
+    volumes:
+      - /Users/hank/docker-compose/redis-cluster/data/26374:/data
+    environment:
+      - REDIS_PORT=26374
+
+  # redistrib:
+  #   image: inem0o/redis-trib
+  #   # restart: always
+  #   # -i
+  #   stdin_open: true
+  #   # -t
+  #   tty: true
+  #   volumes:
+  #     - /Users/hank/docker-compose/redis-cluster/data/trib:/data
+  #   depends_on:
+  #       - redis1
+  #       - redis2
+  #       - redis3
+  #       - redis4
+  #       - redis5
+  #       - redis6
+  #   # links:
+  #   #     - 'redis1:redis1'
+  #   #     - 'redis2:redis2'
+  #   #     - 'redis3:redis3'
+  #   #     - 'redis4:redis4'
+  #   #     - 'redis5:redis5'
+  #   #     - 'redis6:redis6'
+  #   command: create --replicas 1 192.168.254.101:26379 192.168.254.101:26378 192.168.254.101:26377 192.168.254.101:26376 192.168.254.101:26375 192.168.254.101:26374
+  #   # environment:
+  #     # - "--rm"
+  #     # - create
+  #     # - 127.0.0.1:36379
+  #     # - 127.0.0.1:36378
+  #     # - 127.0.0.1:36377
+  #     # - 127.0.0.1:36376
+  #     # - 127.0.0.1:36375
+  #     # - 127.0.0.1:36374
+
+
+# docker rm redis-cluster3rd-images_redis1_1 redis-cluster3rd-images_redis2_1 redis-cluster3rd-images_redis3_1 redis-cluster3rd-images_redis4_1 redis-cluster3rd-images_redis5_1 redis-cluster3rd-images_redis6_1 redis-cluster3rd-images_redistrib_1 -f
+
+
+# docker rm redis-cluster3rd-images_redis1_1 redis-cluster3rd-images_redis2_1 redis-cluster3rd-images_redis3_1 redis-cluster3rd-images_redis4_1 redis-cluster3rd-images_redis5_1 redis-cluster3rd-images_redis6_1 -f
+# docker run --rm -it inem0o/redis-trib create --replicas 1 127.0.0.1:26379 127.0.0.1:26378 127.0.0.1:26377 127.0.0.1:26376 127.0.0.1:26375 127.0.0.1:26374
+
+# docker run --rm -it inem0o/redis-trib create --replicas 1 192.168.254.101:26379 192.168.254.101:26378 192.168.254.101:26377 192.168.254.101:26376 192.168.254.101:26375 192.168.254.101:26374
+
+# docker run --rm inem0o/redis-trib help

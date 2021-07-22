@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+  redis1:
+    image: publicisworldwide/redis-cluster
+    restart: always
+    volumes:
+    - /Users/connor/workspaces/demos/docker-compose/redis-cluster/data/8001/data:/data
+    environment:
+    - REDIS_PORT=8001
+    ports:
+      - '8001:8001'
+      - '18001:18001'
+  
+  redis2:
+    image: publicisworldwide/redis-cluster
+    restart: always
+    volumes:
+    - /Users/connor/workspaces/demos/docker-compose/redis-cluster/data/8002/data:/data
+    environment:
+    - REDIS_PORT=8002
+    ports:
+      - '8002:8002'
+      - '18002:18002'
+  
+  redis3:
+    image: publicisworldwide/redis-cluster
+    restart: always
+    volumes:
+    - /Users/connor/workspaces/demos/docker-compose/redis-cluster/data/8003/data:/data
+    environment:
+    - REDIS_PORT=8003
+    ports:
+      - '8003:8003'
+      - '18003:18003'
+  
+  redis4:
+    image: publicisworldwide/redis-cluster
+    restart: always
+    volumes:
+    - /Users/connor/workspaces/demos/docker-compose/redis-cluster/data/8004/data:/data
+    environment:
+    - REDIS_PORT=8004
+    ports:
+      - '8004:8004'
+      - '18004:18004'
+  
+  redis5:
+    image: publicisworldwide/redis-cluster
+    restart: always
+    volumes:
+    - /Users/connor/workspaces/demos/docker-compose/redis-cluster/data/8005/data:/data
+    environment:
+    - REDIS_PORT=8005
+    ports:
+      - '8005:8005'
+      - '18005:18005'
+  
+  redis6:
+    image: publicisworldwide/redis-cluster
+    restart: always
+    volumes:
+      - /Users/connor/workspaces/demos/docker-compose/redis-cluster/data/8006/data:/data
+    environment:
+      - REDIS_PORT=8006
+    ports:
+      - '8006:8006'
+      - '18006:18006'
+
+  redistrib:
+    image: inem0o/redis-trib
+    volumes:
+      - /Users/connor/workspaces/demos/docker-compose/redis-cluster/data/666/data:/data
+    command: create --replicas 1 127.0.0.1:8001 127.0.0.1:8002 127.0.0.1:8003 127.0.0.1:8004 127.0.0.1:8005 127.0.0.1:8006  && sleep 10000s
+
+    docker run --rm -it inem0o/redis-trib create --replicas 1 172.19.165.222:8001 172.19.165.222:8002 172.19.165.222:8003 172.19.165.222:8004 172.19.165.222:8005 172.19.165.222:8006

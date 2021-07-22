@@ -1,0 +1,88 @@
+<style type="text/css">
+    .letter-read .letter-closing span#author{
+        top: 0px;
+    }
+    .letter-body p{
+        text-indent:2em;
+        word-break: break-all;
+    }
+    .letter-read{
+        width: 100%;
+    }
+</style>
+<template id="contentTmpl">
+<div id="page_content" class="flex_1">
+    <div class="sent">
+	    <div class="header">
+	        <h3 class="recipient">收件人：{{letterInfo.receiver}}</h3>
+	        <h3 class="type">类型：{{letterInfo.typeName}}</h3>
+	    </div>
+	    <div class="content" style="word-wrap: break-word;">
+	        {{letterInfo.content}}
+	    </div>
+	</div>  
+</div>
+</template>
+<script>
+;(function(){
+appState.setData({
+    title: '已发消息',
+    needLogin: true
+});
+var data = {
+	letterInfo: {},
+ };
+Vue.component("app-content", {
+    template: "#contentTmpl",
+    data:function(){
+        return data;
+    },
+    methods: {
+
+    }
+});
+
+function getInfo(letter_id)
+{
+    JSBridge.net.invoke({
+        url: "A01/letter/info",
+        data: {
+            'id': letter_id
+        },
+        success: function (result) {
+            var expireAt = 300;
+            data.letterInfo = result;
+            JSBridge.cache.save("letterInfoData"+ letter_id, {
+                data: result,
+                outtime: new Date().getTime() + expireAt*1000
+            }, 1);
+        },
+        error: function (error) {
+        	$.toast.fail(error ? error.message : "页面加载失败");
+        }
+    });
+}
+
+JSBridge.onReady(function () {
+    var searchUrl = location.search;
+    var letter_id = $.getParam("id");
+    if(typeof(letter_id)=='undefined' || !letter_id){
+        $.toast.fail("数据传输出错");
+        return false;
+    }
+    
+    // 获取数据
+    var d = new Date();
+    var dataCache = JSBridge.cache.get("letterInfoData"+ letter_id);
+    if (dataCache && d.getTime() < dataCache.outtime) {
+    	data.letterInfo = dataCache.data;
+    } else {
+    	getInfo(letter_id);
+    }
+});
+
+})();
+</script>
+
+
+

@@ -1,0 +1,192 @@
+<component src="_template/component/Header.htm"></component>
+<component src="_template/component/Nav.htm"></component>
+
+<template id="contentTmpl">
+    <div class="display_flex_h bank_info">
+        <div class="main_content">
+            <app-header title="博天堂风采"></app-header>
+            <section class="history">
+                <div class="layout_form">
+                    <div class="form_field_wrap standard_bg">
+                        <div class="form_field with_arrow_icon">
+                            <div class="input_wrap">
+                                <select v-model="year">
+                                    <option value="All">全部</option>
+                                    <option value="2017">2017年</option>
+                                    <option value="2016">2016年</option>
+                                    <option value="2015">2015年</option>
+                                    <option value="2014">2014年</option>
+                                    <option value="2013">2013年</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="history_list">
+                    <ul>
+                        <li v-for="n in news" :class="['yr-' + n.year]">
+                            <div>
+                                <a-img :src="n.pic"></a-img>
+                                <div class="more">
+                                    <div class="text_before relative">
+                                        <p :style="n.style">{{n.title}}</p>
+                                        <span class="sub">{{n.date}}</span>
+                                        <a v-if="n.href&&n.btntxt" @click='toDetail(n.href)' class="sm_standard_dbtn">{{n.btntxt}}</a>
+                                        <a class="toggle_down">展开<i class="icon icon38"></i></a>
+                                    </div>
+                                    <div class="more-details relative">
+                                        {{n.content}}
+                                        <a class="toggle_up">收起<i class="icon icon39"></i></a>
+                                        <b class="clear"></b>
+                                    </div>
+                                </div>  
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <app-nav index="2"></app-nav>
+            </section>
+        </div>
+    </div>
+</template>
+<script type="text/javascript">
+;(function () {
+    /*var news = [{
+      title: "新增AS电玩城",
+      pic: "../../__static/__images/history/new/img_as.jpg",
+      content: "AS厅首创实时实体赌场数据开牌，社交化在线博彩。",
+      date: "2017年 │ 6月27日",
+      year: "2017",
+      detail: ""
+    },
+    {
+      title: "首创六张牌先发",
+      pic: "../../__static/__images/history/new/img33.jpg",
+      content: "将在线博彩的公平性展现到极致",
+      date: "2013年 | 02月05日",
+      year: "2013",
+      detail: ""
+    }];**/
+
+    var data = {
+      news: [],
+      refreshed: false,
+      year: "All"
+    };
+
+    appState.setData({
+      title: '博天堂风采',
+    });
+
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function () {
+            return data;
+        },
+        watch: {
+          year: function (newVal, oldVal) {
+            var _this = this;
+            _this.news.length = 0;
+            _this.refreshed = true;
+            
+            if(newVal == "All") {
+              _this.news = news.slice(0);
+              return;
+            }
+
+            news.forEach(function (v, i) {
+              if(v.year == newVal) {
+                _this.news.push(v);
+              }
+            });
+          }
+        },
+        mounted:function(){
+          var _this = this;
+          $(".history_list").on("click", ".toggle_down",function(){
+            $(this).toggleClass('active');
+            $(this).parent().next().slideToggle('fast');
+            $(this).fadeOut('fast');
+          });
+          $(".history_list").on("click", ".toggle_up",function(){
+            $(this).toggleClass('active');
+            $(this).parent().slideToggle('fast');
+            $('.toggle_down').fadeIn('fast');
+          });
+          $("#select_hist_year").change(function(){
+            var hist_year = $(this).val();
+            if(hist_year != 'ALL'){
+             $(".history_list li").each(function(){
+                if($(this).hasClass("yr-"+hist_year)){$(this).show();}else{$(this).hide();}
+              }); 
+            }else{
+              $(".history_list li").each(function(){$(this).show();}); 
+            }
+          });
+
+          $(".history_list ul > li:last-child").upIn(function () {
+            if(_this.refreshed) {
+              return;
+            }
+
+            data.news = news.slice(0);
+            _this.refreshed = true;
+          });
+        },
+        methods:{
+            toDetail: function (url) {
+                JSBridge.forward.outside({url: OtherUtils.getDomain() + url,newView:'true'});
+                return false;
+            }
+        }
+    });
+    
+    function strRemove(str)
+    {
+    	return str.replace(/\<[\s]*[bB]{1}[rR\s]+[\/\s]*\>/, "");
+    }
+    
+    function initScript(s=0)
+    {
+    	var _this = data,
+    	    staticurl = 'http://www.a01mobile.com/';
+    	
+    	if (s == 0) {
+    		// OtherUtils.getStaticurl() 
+            
+            var scripturl = staticurl +'script/A01M/_default/__js/json/history.js?20170920';
+            $.ajax({type:"GET", url:scripturl, dataType:"jsonp"});
+    	}
+        
+    	
+    	setTimeout(function(){
+    		if (!histroyList || histroyList.length<1) {
+    			s++;
+    			initScript(s);
+    			return;
+    		}
+    		
+    		for (i in histroyList) {
+    			var v = histroyList[i];
+    			_this.news.push({
+                    'title': strRemove(v.title),
+                    'pic': staticurl + 'static/A01M/' + v.imgurl,
+                    'content': strRemove(v.description),
+                    'date': v.datesub,
+                    'year': i.substr(3, 4),
+                    'btntxt': v.btntxt,
+                    'href': v.href,
+                    'style': v.href&&v.btntxt ? '': 'width:100%'
+                });
+    		}
+        }, 500);
+    }
+    
+    JSBridge.onReady(function () {
+    	// 加载信息
+    	initScript(0);
+    }); 
+})();
+</script>
+

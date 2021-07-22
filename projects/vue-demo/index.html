@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  
+</head>
+<body>
+  <div id="root">
+    <div>
+      <input
+        placeholder="姓名"
+        v-model="form.name"
+      />
+      <input
+        placeholder="性别"
+        v-model="form.gender"
+      />
+      <input
+        placeholder="年龄"
+        v-model="form.age"
+      />
+      <button @click="add">新增</button>
+    </div>
+    <table>
+      <tr v-for="item in list">
+        <td>{{item.name}}</td>
+        <td>
+          <span v-if="item.gender === '女'">美女</span>
+          <span v-else>帅哥</span>
+        </td>
+        <td>{{item.age}}</td>
+        <td>
+          <div v-if="item.num > 0">
+            <div v-if="item.show">这是被隐藏的描述</div>
+            <button @click="item.show = !item.show">展开</button>
+          </div>
+        </td>
+        <td>
+          <button @click="deleteItem(item.id)">删除</button>
+          <button>修改</button>
+        </td>
+      </tr>
+    </table>
+    {{message}}
+  </div>
+  <script src='vendors/vue.js'></script>
+  <script>
+    new Vue({
+      el: '#root',
+      data: {
+        message: 'hello',
+        form: {
+          name: '',
+          gender: '男',
+          age: 18
+        },
+        list: []
+      },
+      methods: {
+        add() {
+          console.log(this.form)
+          this.list.push(this.form)
+        },
+        deleteItem(id) {
+          // this.list.
+          console.log(id)
+        }
+      },
+      // 监听数据变化
+      watch: {},
+      // 创建对象
+      created () {
+        const tempData = [
+          {
+            id: 1,
+            name: '张三',
+            gender: '男',
+            age: 18,
+            num: 3
+          },
+          {
+            id: 2,
+            name: '王五',
+            gender: '女',
+            age: 18
+          },
+          {
+            id: 3,
+            name: '张三',
+            gender: '男',
+            age: 18,
+            num: 5
+          },
+          {
+            id: 4,
+            name: '张三',
+            gender: '男',
+            age: 18
+          },
+        ]
+        // 查询接口
+        // map js的语法..
+        this.list = tempData.map(function (item) {
+          if (item.num > 0) {
+            item.show = false
+          }
+          return item
+        })
+      },
+      // 挂载到页面之前
+      beforeMount () {},
+      // 挂载到页面之后
+      mounted () {},
+      // 更新前
+      beforeUpdate  () {},
+      // 更新后
+      updated () {}
+    })
+  </script>
+</body>
+</html>

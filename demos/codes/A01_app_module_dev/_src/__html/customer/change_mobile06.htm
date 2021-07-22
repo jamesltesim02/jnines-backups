@@ -1,0 +1,63 @@
+<template id="contentTmpl">
+<div class="main_content">
+    <section class="modifymobile_content _03" style="padding-top:20px;">
+        <div class="layout_form p-top-rmv">
+            <form id="infoForm" action="" method="post">  
+                <div class="form_field_wrap">
+                    <div class="form_field">
+                        <span class="label">新手机号码</span>      
+                        <div class="input_wrap"><input class="txt_right" type="text" maxlength="11" v-model="phoneInput"></div>
+                    </div>
+                    <div class="form_field">
+                        <span class="label">备注</span>      
+                        <div class="input_wrap"><input class="txt_right" type="text" placeholder="选填" v-model="remarkInput"></div>
+                    </div>
+                </div>
+                <div class="form_btn-wrap">
+                    <a v-on:click.stop.prevent="go_change" href="#" class="btn btn-lg btn-ylw">确定</a>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+</template>
+<script>
+appState.setData({
+    needLogin: true,
+    title: '重新绑定'
+});
+Vue.component("app-content", {
+    template: "#contentTmpl",
+    data: function () {
+        return {
+            phoneInput: '',
+            remarkInput: ''
+        }
+    },
+    methods: {
+        go_change: function() {
+            if(!this.phoneInput) {
+                $.toast.fail("请输入手机号码");
+                return;
+            }
+            if(!(/[\d]+\*/.test(phoneInput)) && !(/^1[34578]\d{9}$/.test(this.phoneInput))) {
+                $.toast.fail("请输入正确的手机号码格式");
+                return;
+            }
+            JSBridge.net.invoke({
+                url: "users/updatePhone",
+                data: {
+                    "phone": this.phoneInput,
+                    "remark": this.remarkInput
+                },
+                success: function (result) {
+                    JSBridge.forward.inside({url: "customer/change_mobile07.htm", newView: true});
+                },
+                error: function (error) {
+                    $.toast.fail(error.message ? error.message : '修改失败');
+                }
+            });
+        }
+    }
+});
+</script>

@@ -1,0 +1,64 @@
+<template id="contentTmpl">
+    <div class="main_content">
+		<section class="records_content">
+		    <div class="layout_form">         
+	            <div class="form_field_wrap">
+	                <div class="form_field">
+	                    <span class="label">记录类型</span>      
+	                    <div class="input_wrap txt_right">
+							<select name="type" v-model="type">
+								<option value="">请选择记录类型</option>
+								<option value="log_payment">存款</option>
+								<option value="log_withdrawal">取款</option>
+								<option value="log_promotion">优惠</option>
+								<option value="log_transfer">额度</option>
+								<option value="log_xm">洗码</option>
+							</select>
+	                    </div>
+	                </div>  
+	                <div class="form_field">
+	                    <span class="label">时间</span>      
+	                    <div class="input_wrap txt_right">
+							<select name="time" v-model="days">
+								<option value="">请选择时间范围</option>
+								<option value="1">近一天</option>
+								<option value="3">近三天</option>
+								<option value="7">近七天</option>
+								<option value="15">近十五天</option>
+							</select>
+	                    </div>
+	                </div>  
+	            </div>
+	            <div class="form_btn-wrap">
+	                <a id="submitButton" @click="submit" class="btn btn-lg btn-ylw">查询</a>
+	            </div>
+		    </div>
+		</section>
+	</div>
+</template>
+<script>
+appState.setData({
+    title: '财务报表',
+	needLogin: true
+});
+Vue.component("app-content", {
+    template: "#contentTmpl",
+    data: function () {
+        return {
+        	type:"",
+        	days:""
+        };
+    },
+    methods: {
+        submit: function () {
+        	if(!this.type){
+        		$.toast.fail("请选择查询的记录类型");
+        	}else if(!this.days){
+        		$.toast.fail("请选择查询的时间");
+        	}else{
+                JSBridge.forward.inside({url:'customer/'+this.type+'.htm?days='+this.days, newView: true});
+        	};
+        }
+    }
+});
+</script>

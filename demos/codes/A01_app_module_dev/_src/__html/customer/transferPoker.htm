@@ -1,0 +1,165 @@
+<template id="contentTmpl">
+	<div class="transfer_content">
+		<div class="nav-tab">
+			<a class="tab-item active">棋牌转账 <span class="icon icon88"></span></a>
+			<a forward="forward" newview="true" href="customer/transferPT.htm" class="tab-item">PT转账 <span class="icon icon88"></span></a>
+		</div>	
+		<div class="transfer_box box1">
+			<div class="box" v-bind:class="reverse?'box1' : ''">
+				<p class="value"><span class="amount">{{canUse}}</span> 元</p>
+				<p class="label">主账户 </p>
+			</div>
+			<div class="transfer_btn">
+				<a @click="reverse = !reverse"><i class="icon icon89"></i></a>
+			</div>
+			<div class="box" v-bind:class="!reverse?'box1': ''">
+				<p class="value"><span class="amount amount-game">{{apCredit}}</span> 元</p>
+				<p class="label">棋牌游戏 </p>
+			</div>
+			<div class="extraimg">
+	            <img v-show="!reverse" src="../../__static/__images/transfer/img1.png" class="arrow-in">
+	            <img v-show="reverse" src="../../__static/__images/transfer/img2.png" class="arrow-out">
+			</div>	
+		</div>	
+		<div class="layout_form">
+	        <form action="" method="post">            
+	            <div class="form_field_wrap">
+	                <div class="form_field">
+	                    <span class="label">转账金额</span>      
+	                    <div class="input_wrap txt_right">
+							<input type="text" v-model="amount" placeholder="最少转移1元">
+	                    </div>
+	                </div>  
+	            </div>
+	            <div class="form_btn-wrap">
+	                <a  @click="transfer" href="javascript: void(0);" class="btn btn-lg btn-ylw">确定</a>
+	            </div>
+	        </form>
+	    </div>
+	</div>
+</template>
+<script type="text/javascript">
+;(function () {
+	var pokerData = {
+		localCredit: 0.00,
+		couponCredit: 0.00,
+		apCredit: 0.00,
+		loadCount: 0.00,
+		amount: "",
+		reverse: false
+	};
+	appState.setData({
+	    title: '棋牌转账',
+	    needLogin: true
+	});
+	Vue.component("app-content", {
+	    template: "#contentTmpl",
+	    data: function () {
+	        return pokerData;
+	    },
+	    computed: {
+	    	canUse: function () {
+	    		return pokerData.loadCount >= 3 ? 
+	    			Math.max(parseInt(+this.localCredit*100 - (+this.couponCredit*100) - (+this.apCredit*100))/100, 0).toFixed(2)
+	    				: "加载中...";
+	    	}
+	    },
+	    methods: {
+	    	transfer: function() {
+	    		var _this = this;
+
+	    		if (pokerData.loadCount < 3) {
+	    			$.toast.fail("正在初始化余额");
+	    			return;
+	    		}
+				
+				var amount = parseInt(this.amount);
+	    		if(amount != this.amount || this.amount < 1) {
+	    			$.toast.fail("请输入正确的金额");
+	    			return;
+	    		}
+
+	    		if(this.reverse) {
+	    			if(parseFloat(this.amount) > this.apCredit) {
+	    				$.toast.fail("转账额度超出棋牌厅余额");
+	    				return;
+	    			}
+	    		} else {
+	    			if(parseFloat(this.amount) > this.canUse) {
+	    				$.toast.fail("转账额度超出可转余额");
+	    				return;
+	    			}
+	    		}
+
+	    		if(!this.amount.match(/^[1-9][0-9]*[\.]{0,1}[\d]{0,2}$/)){
+		            $.toast.fail('转账金额最少金额为1元,且最大允许2位小数');
+		            return;
+		        }
+
+	    		JSBridge.net.invoke({
+					url: "credits/transfer",
+					data: {
+						game_name: "AP",
+						amount: _this.amount,
+						type: this.reverse ? 1 : 0
+					},
+		            success: function (result) {
+		            	$.toast.success("转账成功", function () {
+		            		JSBridge.forward.inside({url: "customer/member_center.htm"});
+		            	});
+		            },
+		            error: function (error) {
+		            	if (error && error.message=='非常抱歉，您的转账功能尚未开启') {
+		            		$.toast.fail(error.message);
+		            	} else {
+		            		$.toast.fail("转账出错,请联系客服");
+		            	}
+		            }
+				});
+	    	}
+	    }
+	});
+
+	JSBridge.onReady(function() {
+		JSBridge.net.invoke({
+			url: "credits/total",
+            success: function (localCredit) {
+            	pokerData.localCredit = (+localCredit || 0).toFixed(2);
+            	pokerData.loadCount ++;
+            },
+            error: function (error) {
+            	$.toast.fail("查询额度出错,请联系客服", function () {
+            		JSBridge.forward.inside({url: "customer/member_center.htm"});
+            	});
+            }
+		});
+		JSBridge.net.invoke({
+			url: "credits/getCouponAmount",
+            success: function (couponAmount) {
+            	pokerData.couponCredit = (+couponAmount || 0).toFixed(2);
+            	pokerData.loadCount ++;
+            },
+            error: function (error) {
+            	$.toast.fail("查询额度出错,请联系客服", function () {
+            		JSBridge.forward.inside({url: "customer/member_center.htm"});
+            	});
+            }
+		});
+		JSBridge.net.invoke({
+            url: "credits/game",
+            data: {
+                game_name: "AP"
+            },
+            success: function (result) {
+            	pokerData.apCredit = (+result || 0).toFixed(2);
+            	pokerData.loadCount ++;
+            },
+            error: function (error) {
+            	$.toast.fail("查询额度出错,请联系客服", function () {
+            		JSBridge.forward.inside({url: "customer/member_center.htm"});
+            	});
+            }
+        });
+	});
+})();
+</script>

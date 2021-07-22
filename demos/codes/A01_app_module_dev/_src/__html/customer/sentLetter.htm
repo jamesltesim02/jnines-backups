@@ -1,0 +1,44 @@
+<template id="contentTmpl">
+	<div class="sent">
+		<ul class="sent-msg-list">
+			<li class="item">
+				<a href="sentMsgDetail.htm?id={{request_id}}" class="header">
+					<h3 class="recipient">收件人：客服 <span class="date">4月21日<i class="icon icon100"></i></span></h3>
+					<h3 class="type white">类型：表扬</h3>
+					<h3 class="type" style="padding-right: 10px;">内容：内容：T新版上限，很满意，希望以后多多努力T新版上限，很满意，希望以后多多努力...</h3>
+				</a>
+			</li>
+			<li class="item">
+				<a href="sentMsgDetail.htm?id={{request_id}}" class="header">
+					<h3 class="recipient">收件人：客服 <span class="date"></h3>
+					<h3 class="type white">类型：投诉</h3>
+					<h3 class="type" style="padding-right: 10px;">(暂无内容)</h3>
+				</a>
+			</li>
+		</ul>
+	</div>	
+</template>
+<script>
+;(function(){
+var vueData={
+	login_name:'',
+	property2:'',
+	created_date:'',
+	created_by:''
+};
+appState.setData({
+    title: '站内信',
+	needLogin: true
+});
+Vue.component("app-content", {
+	template: "#contentTmpl",
+	data:function(){
+		return vueData;
+	},
+    mounted: function () {
+    	
+    }
+});
+})();
+</script>
+

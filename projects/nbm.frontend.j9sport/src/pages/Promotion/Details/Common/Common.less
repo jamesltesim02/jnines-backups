@@ -1,0 +1,93 @@
+.promo-common {
+  max-width: 1420px;
+  width: 100%;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  height: 100%;
+}
+.promo-container {
+  background-color: var(--block-background-color);
+  height: calc(100vh - 150px);
+  padding: 0 110px 70px;
+  color: var(--promo-detail-color);
+  overflow: hidden auto;
+  header {
+    font-size: 26px;
+    text-align: center;
+    font-weight: 500;
+    line-height: 100px;
+  }
+  .banner {
+    width: 100%;
+  }
+  .promo-duration {
+    width: 240px;
+    margin: 20px auto;
+    color: var(--promo-time-color);
+    height: 40px;
+    border: 1px solid var(--promo-time-color);
+    line-height: 38px;
+    text-align: center;
+    border-radius: 20px;
+    background-color: var(--promo-time-background-color);
+  }
+  .item-label {
+    font-weight: 600;
+    padding: 10px 0;
+  }
+  .promo-content {
+    line-height: 22px;
+  }
+  .promo-matchs {
+    .sports-tab {
+      margin: 10px 0;
+      button {
+        font-weight: 500;
+        transition: all .3s ease-out;
+        &:first-child {
+          margin-right: 20px;
+        }
+        &.active {
+          color: var(--high-light-color);
+        }
+      }
+    }
+    .ant-table {
+      font-size: 12px;
+    }
+    .ant-table-tbody > tr {
+      & td {
+        padding: 5px 16px;
+      }
+      a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: #fff;
+        width: 80px;
+        height: 30px;
+        border-radius: 15px;
+        background-image: linear-gradient(to right, #e3b575, #f5d79b);
+      }
+      &.inplay {
+        color: var(--high-light-color);
+        a {
+          background: linear-gradient(to right, #ff5027, #bc1b13);
+        }
+      }
+    }
+  }
+}
+
+.dark .promo-container .promo-matchs .ant-table {
+  background: transparent;
+  .ant-table-tbody > tr > td,
+  .ant-table-thead > tr > th {
+    color: #999;
+    border-bottom-color: #444;
+  }
+  .ant-table-thead > tr > th {
+    background: #444;
+  }
+}

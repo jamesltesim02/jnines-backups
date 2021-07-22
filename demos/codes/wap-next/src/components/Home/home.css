@@ -1,0 +1,39 @@
+/*.nb_home{*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*!*background: #2C2D32;*!*/
+/*}*/
+.nb_fixed_header_wrap{
+    position: absolute;
+    height: 1.76rem;
+    z-index: 2;
+    top: 0;
+    left: 0;
+}
+
+.nb_banner_racePannel{
+    /* padding: 15px; */
+}
+
+
+.nb_homeMatch_wrap{
+    position: relative;
+    top:0;
+    left:0;
+    padding: .2rem;
+
+}
+
+.nb_home_match_wrap{
+    width: 7.5rem;
+    bottom: 1.04rem;
+    position: absolute;
+    top: 1.76rem;
+    overflow: hidden;
+    z-index: 1;
+}
+.nb_home_scroll{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}

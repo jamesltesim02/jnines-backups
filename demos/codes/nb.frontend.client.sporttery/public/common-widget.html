@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="format-detection" content="telephone=no, email=no">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+  <meta name="google" value="notranslate" />
+  <style>
+    body {
+      margin: 0;
+      padding: 5px 15px;
+    }
+    body.mobile.black {
+      background: #28272d;
+    }
+    body.mobile.white {
+      background: #f5f5f5;
+      padding: 15px;
+    }
+
+    body.pc {
+      padding: 20px 10px;
+      background: #1e1d23;
+    }
+
+    /*滚动条整体样式*/
+
+    body.pc::-webkit-scrollbar {
+      /*高宽分别对应横竖滚动条的尺寸*/
+      width: 6px;
+      height: 1px;
+    }
+
+    /*滚动条里面小方块*/
+    body.pc::-webkit-scrollbar-thumb {
+      border-radius: 6px;
+      background: #727274;
+    }
+
+    /*滚动条里面轨道*/
+
+    body.pc::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sr-poweredby__wrapper.srt-base-1 {
+      display: none;
+    }
+
+    @keyframes roll {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    #sr-widget .loading {
+      margin-top: 80px;
+      color: #bababa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #sr-widget .loading::before {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 40px;
+      border: 3px solid #bababa;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: roll linear 1s infinite;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    var params = {
+      setTheme: 'black',
+      clientType: 'mobile',
+    };
+    var customStyles = [
+      'team.comparison',
+      'match.headToHead',
+      'match.scoringProbabilityPerPeriod',
+      'match.statistics',
+      'match.ballPosession',
+      'match.generalStatistics',
+      'match.lineups',
+    ];
+    var widgetProps = {
+      'match.headToHead': {
+        disableNextMatches: true,
+      },
+      'team.comparison': {
+        disableTeamSelector: true,
+      },
+      'match.statistics': {
+        showFactsAndFigures: true,
+        disableScoreboardTable: true,
+        // disableBallPossession: true,
+      },
+    };
+
+    location.search.replace(/^\?/, '').split('&').forEach(function (p) {
+      var kv = p.split('=');
+      params[kv[0]] = kv[1];
+    });
+
+    document.body.className = params.clientType + ' ' + params.setTheme;
+    document.write('<link rel="stylesheet" href="sirs/styles/sirs.weight.' + params.setTheme + '.css" />');
+    if (customStyles.indexOf(params.widget) > -1) {
+      document.write('<link rel="stylesheet" href="sirs/styles/' + params.widget + '.css" />');
+    }
+
+    (function (a, b, c, d, e, f, g, h, i) {
+      a[e] || (i = a[e] = function () {
+        (a[e].q = a[e].q || []).push(arguments)
+      }, i.l = 1 * new Date, i.o = f,
+        g = b.createElement(c), h = b.getElementsByTagName(c)[0], g.async = 1, g.src = d, g.setAttribute("n", e), h.parentNode.insertBefore(g, h)
+      )
+    })(window, document, 'script', 'https://widgets.sir.sportradar.com/713ad42ed654599df32c28e1f95b871b/widgetloader', 'SIR', {
+      language: params.lang || 'zh'
+    });
+    SIR(
+      'addWidget',
+      '#sr-widget',
+      params.widget,
+      Object.assign(
+        widgetProps[params.widget] || {}, {
+          matchId: params.matchId,
+          disableWidgetHeader: true,
+          onTrack: function (p1, p2) {
+            setTimeout(function () {
+              window.top.postMessage({
+                action: params.widget + '-loaded',
+                data: document.documentElement.offsetHeight,
+              },
+                params.origin,
+              );
+            }, 500);
+          },
+        }
+      ),
+    );
+  </script>
+  <div id="sr-widget" class="widget-has-custom-style-home-away">
+    <div class="loading"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<style type="text/css">
+	.account_balance_content .other_balances .bal h3{
+		overflow: auto;
+		text-overflow: initial;
+	}
+</style>
+<template id="contentTmpl">
+	<div class="display_flex_h bank_info">
+		<div class="main_content">
+			<div class="account_balance_content">
+				<div class="header">
+					<span>总余额（元）</span>
+					<h2 id="totalBalance">{{total_balance || '加载中'}}</h2>
+					<span>账户总余额=本地额度+棋牌额度+各厅额度</span>
+					<a class="transfertolocal" @click="transferAll"><img src="../../__static/__images/account_balance/allbtn.png"></a>
+				</div>
+				<div class="other_balances">
+					<div class="bal bal_tp tp1">
+						<p><i class="icon icon84"></i><span>本地额度(元)<span></p>
+						<h3>{{local_balance || '加载中'}}</h3>
+					</div>
+					<div class="bal bal_tp">
+						<p><i class="icon icon85"></i><span>棋牌额度(元)<span></p>
+						<h3 id="poker">{{card_balance || '加载中'}}</h3>
+					</div>
+					<div class="bal bal_btm">
+						<p><i class="icon icon86"></i><span>各厅额度(元)</span><i class="icon icon87 arw"></i></p>
+						<h3 id="gameBal">{{hall_balance || '加载中'}}</h3>
+					</div>
+					<div class="clearfix"></div>
+					<ul class="game_bal">
+						<li><span class="label">AG旗舰厅</span><span id="agqj" class="value">加载中</span></li>
+						<li><span class="label">AG国际厅</span><span id="agin" class="value">加载中</span></li>
+						<li><span class="label">波音（视讯/电子/彩票）</span><span id="bbin" class="value">加载中</span></li>
+						<!-- <li><span class="label">HG厅</span><span id="hg" class="value">加载中</span></li> -->
+						<li><span class="label">AG电投厅</span><span id="agdt" class="value">加载中</span></li>
+						<li><span class="label">TTG电子游艺</span><span id="ttg" class="value">加载中</span></li>
+						<li><span class="label">PT电子游艺</span><span id="pt" class="value">加载中</span></li>
+						<li><span class="label">MG电子游艺</span><span id="mg" class="value">加载中</span></li>
+						<!-- <li><span class="label">BSG电子游艺</span><span id="bsg" class="value">加载中</span></li> -->
+						<li><span class="label">AG快乐彩</span><span id="klc" class="value">加载中</span></li>
+						<li><span class="label">沙巴体育厅</span><span id="shaba" class="value">加载中</span></li>
+						<li><span class="label">AS厅</span><span id="as" class="value">加载中</span></li>
+						<li><span class="label">SBT厅</span><span id="sbt" class="value">加载中</span></li>
+					</ul>
+				</div>	
+			</div>	
+		</div>
+	</div>
+</template>
+<script>
+;(function(){
+	var vueData={
+		total_balance:'',
+		local_balance:'',
+		card_balance:'',
+		hall_balance:''
+	};	
+	appState.setData({
+	    title: '账户余额',
+		needLogin: true
+	});
+	Vue.component("app-content", {
+		template: "#contentTmpl",
+		data: function () {
+			return vueData;
+		},
+		mounted:function(){
+			$(".bal_btm").click(function(){
+				$(".game_bal").slideToggle();
+				$(".arw").toggleClass("active");
+			});
+		},
+		methods: {
+			transferAll: function () {
+				var total_balance = this.total_balance.match(/[\d.]+/)[0],
+					hall_balance = this.hall_balance.match(/[\d.]+/)[0];
+			 
+				total_balance = parseFloat(total_balance);
+				hall_balance = parseFloat(hall_balance);
+				
+				if (hall_balance < 1) {
+					$.toast.fail("没有可用的游戏厅额度");
+					return false;
+				} else if (total_balance < hall_balance) {
+					$.toast.fail("游戏厅额度载入中，请等载入完毕再试!");
+                    return false;
+				}
+				console.log(total_balance, hall_balance);
+
+				JSBridge.net.invoke({
+                    url: "credits/transferAllMoneyToLocal",
+                    data: {},
+                    success: function (result) {
+                        $.toast.success("全额转账成功", 2500, function(){
+                            JSBridge.forward.inside({url:'customer/account_balance.htm', newView: true});
+                        });
+                    },
+                    error: function (error) {console.log(error);
+                        var message = error && error.message ? error.message : "全额转账失败";
+                        if(!message || message == "The request timed out.") {
+                            message = "当前网络不稳定,请稍后再试";
+                        }
+                        $.toast.fail(message);
+                    }
+                });
+            }
+		}
+	});
+
+	JSBridge.onReady(function() {
+		$.once(function () {
+			var _this=vueData;
+			//德州扑克
+			ajaxrequest('AP', "poker", 1);
+			// 	//AG国际厅
+			ajaxrequest("AGIN","agin",1);
+			// 	//AG旗舰厅
+			ajaxrequest('AG(AGQJ)',"agqj",1);
+			// 	//AG贵宾厅
+			//ajaxrequest('A01_AGGB',"aggb",1);
+			// 	//AG电投厅
+			ajaxrequest('TLB',"agdt",1);
+			// 	//HG厅
+			// ajaxrequest('HG',"hg",1);
+			// 	//波音厅余额查询
+			ajaxrequest("BBIN", "bbin",1);
+			// 	//沙巴厅
+			ajaxrequest("SHABA","shaba",1);
+			// 	//PT
+			ajaxrequest('PT',"pt",1);
+			// 	//MG
+			ajaxrequest('MG',"mg",1);
+			// 	//TTG
+			ajaxrequest("TTG","ttg",1);
+			// 	//快乐彩
+			ajaxrequest("K8","klc",1);
+			// 	//BSG
+			// ajaxrequest("BSG","bsg",1);
+			ajaxrequest("AS","as",1);
+			ajaxrequest("SBT","sbt",1);
+				
+			//本地余额
+			local_balance1();
+
+			var total_account=0;
+			function ajaxrequest(game_name,id,status){
+				var dom = document.getElementById(id);
+				JSBridge.net.invoke({ //检查游戏类型或者大厅列表
+					url: "credits/game",
+					data: {
+						game_name:game_name
+					},
+					success: function (result) {
+						if(id!='poker'){
+							dom.innerText=parseFloat(result).toFixed(2);
+							add_account(result);
+						}else{
+							_this.card_balance=(+result).toFixed(2);
+							//dom.innerText = '维护中';
+						};
+					},
+					error: function (error) {
+						//$.toast.fail("查询异常，请联系客服");
+						dom.innerText = '维护中';
+					}				
+				});	
+			};
+	        function add_account(balance){
+	        	total_account = parseInt(total_account*100 + balance*100)/100;
+	        	_this.hall_balance=total_account.toFixed(2);
+	           add();
+	        }
+	        function local_balance1(){
+	        	JSBridge.net.invoke({ //本地额度
+					url: "credits/local",
+					data: {
+					},
+					success: function (result) {
+						_this.local_balance='￥'+parseFloat(result).toFixed(2);
+						add();
+					},
+					error: function (error) {
+						$.toast.fail("查询异常，请联系客服");
+					}				
+				});	
+	        };
+	        function add(){
+	        	_this.total_balance='￥'+parseFloat(Number(_this.local_balance.replace(/￥/,''))+Number(_this.card_balance)+Number(_this.hall_balance)).toFixed(2);
+	        }
+		});
+	});
+})();
+</script>

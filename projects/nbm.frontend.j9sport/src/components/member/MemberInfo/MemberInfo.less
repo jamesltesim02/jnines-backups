@@ -1,0 +1,133 @@
+.member-info {
+  .info {
+    height: 360px;
+    border-radius: 6px;
+    background: var(--member-info-bg);
+    box-shadow: 0 0 10px 1px rgba(0,0,0,.2);
+    .username {
+      padding: 10px 22px 16px;
+      border-bottom: 1px solid var(--ticket-tr-border-bottom);
+      div {
+        color: var(--member-info-color);
+        font-size: 24px;
+        line-height: 24px;
+        img {
+          margin-left: 5px;
+        }
+      }
+      label {
+        display: block;
+        padding-top: 5px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+    .credit {
+      display: grid;
+      grid-template-columns: 1fr 80px;
+      align-items: center;
+      padding: 35px 16px 0;
+      white-space: nowrap;
+      color: #a8a8aa;
+      .balance-field {
+        font-size: 14px;
+        padding-bottom: 22px;
+        label img {
+          margin-right: 5px;
+        }
+        & > div {
+          padding: 8px 0;
+          span, var {
+            display: block;
+          }
+          span {
+            padding: 0 7px;
+            color: var(--member-balance-color);
+            font-size: 24px;
+            line-height: 24px;
+          }
+          var {
+            font-style: normal;
+            margin-top: 3px;
+          }
+        }
+      }
+      .btns {
+        display: flex;
+        flex-direction: column;
+        .btn-reload {
+          display: block;
+          width: 50px;
+          height: 50px;
+          margin: 0 auto;
+          svg {
+            transition: all .2s linear;
+            width: 15px;
+            height: 15px;
+          }
+          &.available:hover svg {
+            color: #ebba73;
+            transform: scale(1.5);
+          }
+        }
+        .btn-transfer {
+          color: #e1e1e1;
+          margin-top: 5px;
+          height: 28px;
+          border-radius: 14px;
+          box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+          background-image: var(--transfer-btn-background);
+          &:hover {
+            color: var(--colorful-color);
+            background-image: linear-gradient(to bottom, #e2b271, #f6d99d);
+          }
+        }
+      }
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 28px;
+      padding: 0 16px;
+      margin-top: 10px;
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        border-radius: 2px;
+        font-size: 16px;
+      }
+      .btn-recharge {
+        color: var(--colorful-color);
+        background-image: var(--colorful-linear-gradient);
+      }
+      .btn-withdrawal {
+        color: var(--member-highlight-color);
+        box-shadow: inset 1px 1px 1px 0 rgba(255, 255, 255, 0.03), inset -1px -1px 0 0 rgba(0, 0, 0, 0.05);
+        border: solid 1px var(--member-highlight-color);
+      }
+    }
+  }
+  .menus {
+    display: grid;
+    grid-template-columns: repeat(4, 50px);
+    justify-content: space-between;
+    padding: 8px 0;
+    a {
+      display: block;
+      padding: 15px 0;
+      transition: all .2s linear;
+      label {
+        display: block;
+      }
+      svg stop {
+        transition: all .25s linear;
+      }
+      &.active {
+        color: var(--member-highlight-color);
+      }
+    }
+  }
+}
+

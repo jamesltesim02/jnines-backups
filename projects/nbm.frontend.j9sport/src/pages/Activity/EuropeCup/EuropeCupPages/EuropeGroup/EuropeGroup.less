@@ -1,0 +1,46 @@
+.europe-group {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-column-gap: 38px;
+  padding: 20px 30px;
+
+  .group-list {
+    .group-list-header {
+      margin-bottom: 14px;
+    }
+
+    ul {
+      border-radius: 4px;
+      overflow: hidden;
+
+      li {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        text-align: center;
+
+        &:not(:first-child) {
+          > div:nth-child(n+2) {
+            color: #f9f9f9;
+          }
+        }
+
+      }
+    }
+  }
+
+  &-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: minmax(100px, 380px);
+    grid-column-gap: 38px;
+    grid-row-gap: 20px;
+  }
+
+  .group-team-name {
+    display: flex;
+    padding-left: 30%;
+    .icon-team-for-ec21 {
+      margin-right: 20px;
+    }
+  }
+}

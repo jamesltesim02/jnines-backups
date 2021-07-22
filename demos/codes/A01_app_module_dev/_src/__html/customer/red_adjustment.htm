@@ -1,0 +1,144 @@
+<style type="text/css">
+	.form_this_only select{
+		width: 60%;
+	}
+	.nochecked_selected{
+		background: #cbcbcb;
+	}
+	.btn_area a{
+		color: #212229 !important;
+	}
+</style>
+<template id="contentTmpl">
+	<div class="display_flex_h bank_info">
+		<div class="main_content">
+	        <section class="personaldata_content">
+	            <div class="layout_form">
+	                <form action="" method="post" class="form_this_only">            
+	                    <div class="form_field_wrap">
+	                        <div class="form_field">
+	                            <span class="label">AG国际厅</span>      
+	                            <div class="input_wrap txt_right">
+	                                <select class="spn_value" v-model='agin' @change="aginChange">
+	                                	<option value="">请选择金额</option>
+	                                    <option>20-50000</option>
+	                                    <option>1000-100000</option>
+	                                    <option>2000-200000</option>
+	                                    <option>10000-500000</option>
+	                                    <option>20000-1000000</option>
+	                                </select>
+	                            </div>
+	                        </div>    
+	                        <div class="form_field">
+	                            <span class="label">波音厅</span>      
+	                            <div class="input_wrap txt_right">
+	                                <select class="spn_value" v-model='bbin'>
+	                                    <option value="">请选择金额</option>
+	                                    <option>20-10000</option>
+	                                    <option>200-20000</option>
+	                                    <option>300-30000</option> 
+	                                    <option>400-40000</option>
+	                                    <option>500-50000</option>
+	                                    <option>1000-100000</option>
+	                                    <option>2000-200000</option>
+	                                    <option>3000-300000</option>
+	                                </select>
+	                            </div>
+	                        </div>                 
+	                    </div>
+	                    <div class="form_btn-wrap btn_area">
+	                        <!-- <a id="submitButton" href="javascript: void(0);" class="btn btn-lg btn-gry">确定</a> -->
+	                        <a id="submitButton" href="javascript: void(0);" class="btn btn-lg btn-ylw" @click='submit_red' v-bind:class='{nochecked_selected:nochecked}'>确定</a>
+	                    </div>
+	                </form>
+	            </div>
+	        </section>
+	    </div>
+    </div>
+</template>
+<script type="text/javascript">
+appState.setData({
+    title: '修改限红',
+	needLogin: true
+});
+Vue.component("app-content", {
+	template: "#contentTmpl",
+	data:function(){
+		return {
+			agin:'',
+			bbin:'',
+			oldAgin: '',
+			nochecked:true
+		};
+	},
+	watch: {
+		agin: function (n, o) {
+			console.log(n);
+		}
+	},
+	methods:{
+		aginChange: function () {
+			var _this = this;
+
+			if(_this.agin == "20000-1000000") {
+				$.pop.confirm(
+					"温馨提示", 
+					"弹珠最高100万的限额需账户内余额达上限的5倍,请问是否确认修改?",
+					function () {
+						_this.oldAgin = _this.agin;
+					},
+					function () {
+						_this.agin = _this.oldAgin;
+					}
+				);
+				return;
+			}
+
+			_this.oldAgin = _this.agin;
+		},
+		submit_red:function(){
+			var _this=this;
+			if(!(_this.agin||_this.bbin)){
+				$.toast.fail("请选择对应限红选项");
+				return false;
+			};
+			JSBridge.net.invoke({ //检查是否有提案
+				url: "apply/isOtherApplied",
+				data: {
+				},
+				success: function (result) {
+					result?$.toast.fail("您有提案尚未处理，请联系客服"):next();
+				},
+				error: function (error) {
+					$.toast.fail("数据请求出错");
+				}				
+	        }); 
+	        
+			function next(){
+				JSBridge.net.invoke({ //提交限红
+					url: "apply/betLimit",
+					data: {
+						content:'AGIN：'+_this.agin+';BBIN：'+_this.bbin
+					},
+					success: function (result) {
+						$.toast.success("提交成功！",function(){
+						    JSBridge.forward.inside({url:'customer/member_center.htm'});
+						});
+					},
+					error: function (error) {
+						console.log(error.message);
+					}				
+		        }); 
+			};
+		}
+	},
+	watch:{
+		bbin:function(){
+			this.nochecked=(this.bbin||this.agin)?false:true;
+		},
+		agin:function(){
+			this.nochecked=(this.bbin||this.agin)?false:true;
+		}
+	}
+});
+</script>

@@ -1,0 +1,30 @@
+.nb-titletab {
+  display: flex;
+  height: .88rem;
+  line-height: .88rem;
+  background: #3F4045;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+}
+.nb-titletab-item {
+  display: block;
+  width: 100%;
+  text-align: center;
+  border-bottom: 2px solid transparent;
+  font-size: .3rem;
+}
+.nb-titletab-item.nb-active {
+  color: #53FFFD;
+  position: relative;
+}
+.nb-titletab-item.nb-active::after {
+  content: '';
+  position: absolute;
+  width: 0.6rem;
+  height: 2px;
+  left: 50%;
+  margin-left: -0.3rem;
+  bottom: -2px;
+  background: #53FFFD;
+  border-radius: 100px;
+}
+

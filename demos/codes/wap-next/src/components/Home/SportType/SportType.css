@@ -1,0 +1,7 @@
+.nb_home_sportsType{
+    font-size: .34rem;
+    color: #fff;
+}
+.nb_home_sportsType span:nth-of-type(1){
+    margin-right: .2rem;
+}

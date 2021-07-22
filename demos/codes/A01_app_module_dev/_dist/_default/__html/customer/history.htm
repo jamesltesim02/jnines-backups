@@ -1,0 +1,449 @@
+<!DOCTYPE html><html><head><title>博天堂娱乐-娱乐航母,博彩天堂</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,minimum-scale=1,maximum-scale=1"><meta name="format-detection" content="telephone=no"></head><body onclick="toggleSupport()"><link rel="stylesheet" href="../../__modules/ui-common/dist/ui-common.min.css"><link rel="stylesheet" href="../../__css/main.css"><style>.header-fixed>section{position:fixed;top:0;width:100%;z-index:98}div.pop_support ul li{text-align:right}</style><template id="hImageTmpl"><a-img :src="src" remote="true"></a-img></template><template id="aImageTmpl"><div class="img-loader loading"><img ref="imgComp" :data-src="src"></div></template><template id="appTmpl"><div class="app-container"><div style="display:none" id="proTitle">{{title}}</div><app-content></app-content></div></template><template id="phonecallTmpl"><div @click.self="hide" v-show="show" class="modal index_phonereg"><div v-show="step==1" class="modal-content"><span class="close icon_close"></span><p class="callback"><span class="spn1">您的绑定电话为:</span> <span class="spn2">{{customerPhone}}</span></p><a @click="call('memberphone')" class="submit submitBtn">确认</a> <a @click="step=2" class="submit submitBtn2">其他电话</a></div><div v-show="step==2" class="modal-content"><span class="close icon_close"></span><p class="callback">请输入您当前联系电话号码</p><input v-model="phonenumber" type="text" class="phone_number" placeholder="输入电话号码" maxlength="12"><div class="captcha-cont" style="display:none"><input type="text" class="phone_number" placeholder="验证码" maxlength="4"><br><br><div class="captcha"><img width="100%" height="100%" alt=""></div></div><span id="callbackfxn-num-msg" class="err-msg" style="display:none"></span> <a @click="call()" class="submit submitBtn">申请回拨</a></div><div v-show="step==3" class="modal-content"><span class="close icon_close"></span><p class="callback">申请成功，1分钟内给您回电，如客服满线，3分钟未联系您，请重提回拨申请</p><a @click="hide" class="submit submitBtn enter">确定</a></div></div></template><template id="headerTmpl"><div><div v-show="show" ref="header" :class="{'header-fixed': needFixed}" style="height:auto"><section class="header_index"><div class="wrap normal_padding relative"><div class="mid" v-if="!index"><div class="icon icon_logo_index" @click="showlog"></div></div><div class="mid" v-if="index"><div class="icon icon_center" style="background:0 0;width:0"></div><span class="icon-title">会员中心</span></div><div v-if="!isNotLoged" @click="toLatter" class="contact"><div class="icon icon_msg"><span class="msg_notif" v-if="messageUnReadCount>0">{{messageUnReadCount}}</span></div><div class="contact_text">消息</div></div><div @click="toggleService" class="support"><div class="icon icon_headset"></div><div class="support_text">咨询客服</div></div><div class="pop_support hide" is_show="0"><div class="relative"><div class="triangle" style="border-bottom:none"><img src="../../__static/__images/icons/close_g.png" style="width:25px;margin-left:25px;margin-top:-5px"></div><ul><li><a @click="openOnlineChat"><i class="icon icon_bubblechat"></i><span>在线客服</span></a></li><li><a @click="openChat"><i class="icon icon_microphone"></i><span style="margin-left:15px">语音聊天</span></a></li><li><a @click="showCallback"><i class="icon icon_fone"></i><span>电话回拨</span></a></li></ul></div></div><div v-if="isNotLoged && loginbar" class="header_btns btn_wrap cols-2"><div class="col col1"><div class="col_inner"><a forward="forward" newview="true" href="common/login.htm" class="btn btn-lg">用户登录</a></div></div><div class="col col2"><div class="col_inner"><a forward="forward" newview="true" href="common/register.htm" class="btn btn-lg">极速开户</a></div></div></div></div></section></div><phone-callback :show.sync="callShow"></phone-callback></div></template><template id="navTmpl"><div v-show="show" class="menu_wrapper"><ul class="menu flexed"><li v-for="nav in navs" :class="{active: nav.index == current}"><a forward="forward" :href="nav.url"><i class="icon"></i>{{nav.text}}</a></li></ul></div></template><template id="contentTmpl"><div class="display_flex_h bank_info"><div class="main_content"><app-header title="博天堂风采"></app-header><section class="history"><div class="layout_form"><div class="form_field_wrap standard_bg"><div class="form_field with_arrow_icon"><div class="input_wrap"><select v-model="year"><option value="All">全部</option><option value="2017">2017年</option><option value="2016">2016年</option><option value="2015">2015年</option><option value="2014">2014年</option><option value="2013">2013年</option></select></div></div></div></div><div class="history_list"><ul><li v-for="n in news" :class="['yr-' + n.year]"><div><a-img :src="n.pic"></a-img><div class="more"><div class="text_before relative"><p :style="n.style">{{n.title}}</p><span class="sub">{{n.date}}</span> <a v-if="n.href&&n.btntxt" @click="toDetail(n.href)" class="sm_standard_dbtn">{{n.btntxt}}</a> <a class="toggle_down">展开<i class="icon icon38"></i></a></div><div class="more-details relative">{{n.content}} <a class="toggle_up">收起<i class="icon icon39"></i></a> <b class="clear"></b></div></div></div></li></ul></div><app-nav index="2"></app-nav></section></div></div></template><div id="container"></div><script>!function(n){var t;n.ENV_MODEL="app",n.appState=(t={},{getData:function(){return t},setData:function(n){t=Object.assign(t,n)}}),n.appInstance=null,n.bus=null}(window)</script><script src="../../__js/common/constant.js"></script><script src="../../__modules/es6-shim/es6-shim.min.js"></script><script src="../../__modules/es7-shim/dist/es7-shim.min.js"></script><script src="../../__modules/hybrid-fastclick/dist/hybrid-fastclick.min.js"></script><script src="../../__modules/jquery/dist/jquery.min.js"></script><script src="../../__modules/jsbridge-core/dist/jsbridge-core.min.js"></script><script src="../../__modules/jsbridge-util/dist/jsbridge-util.min.js"></script><script src="../../__modules/vue/dist/vue.min.js"></script><script src="../../__modules/ui-common/dist/ui-common.min.js"></script><script src="../../__modules/business-util/dist/business-util.min.js"></script><script src="../../__js/modules/dropload.min.js"></script><script src="../../__modules/iscroll/build/iscroll.js"></script><script src="../../__js/common/utils.js"></script><script>Vue.component("h-img", {
+	template: "#hImageTmpl",
+	props: ["src"]
+});
+
+;(function () {
+
+	function ImageQuee(type) {
+		this.quee = [];
+		this.loaded = false;
+		this.type = type;
+	}
+
+	ImageQuee.prototype = {
+		loadImage: function (img) {
+			var src = img.dataset.src;
+			if(this.type == "remote") {
+				src = OtherUtils.getStaticurl() + src;
+			}
+			img.src = src;
+		},
+		add: function (imgComp) {
+			if(this.loaded) {
+				return this.loadImage(imgComp);
+			}
+
+			this.quee.push(imgComp);
+		},
+		load: function () {
+			while(this.quee && this.quee.length) {
+				this.loadImage(this.quee.shift());
+			}
+			this.loaded = true;
+		}
+	};
+
+	var localQuee = new ImageQuee("local"),
+		remoteQuee = new ImageQuee("remote");
+
+	Vue.component("a-img", {
+		template: "#aImageTmpl",
+		props: ["src","remote"],
+		watch: {
+			src: function (newVal, oldVal) {
+				var img = this.$refs.imgComp;
+
+				if(this.remote) {
+					newVal = OtherUtils.getStaticurl() + newVal;
+				}
+
+				img.src = "";
+				img.src = newVal;
+				img.parentNode.className = "img-loader loading";
+			}
+		},
+		mounted: function () {
+			var imgComp = this.$refs.imgComp;
+
+			imgComp.onload = function (){this.parentNode.className = "img-loader";};
+			imgComp.onerror = function (e) {
+				this.onload();
+				// TODO 加载失败时 从域名下获取图片
+			};
+
+			this.loadImage();
+		},
+		methods: {
+			loadImage: function () {
+				var quee = this.remote ? remoteQuee : localQuee;
+				quee.add(this.$refs.imgComp);
+			}
+		}
+	});
+	window.addEventListener("load", localQuee.load.bind(localQuee));
+	JSBridge.onReady(remoteQuee.load.bind(remoteQuee));
+})();
+
+window.App = Vue.extend({
+    template: "#appTmpl",
+    data: function() {
+        return {
+            title: ""
+        };
+    }
+});
+FastClick.attach(document.body, { tapDelay: 100 });
+
+;(function () {
+	var pcData = {
+		phonenumber: "",
+		customerPhone: null,
+		step: 1
+	};
+	Vue.component("phone-callback", {
+		template: "#phonecallTmpl",
+		props: ["show"],
+		data: function () {
+			return pcData;
+		},
+		watch: {
+			show: function (n, o) {
+				this.customerPhone = this.getCustomerPhone();
+				this.step = this.customerPhone ? 1 : 2;
+			}
+		},
+		methods: {
+			hide: function () {
+				this.$emit("update:show", false);
+			},
+			getCustomerPhone: function () {
+				if(!CustomerUtils.isLoged()) {
+					return null;
+				}
+
+				var customer = JSBridge.cache.get("customer");
+
+				if(customer && customer.phone) {
+					return OtherUtils.mixPhone(customer.phone);
+				}
+				return null;
+			},
+			call: function (type) {
+				if("memberphone" !== type && !(/[\d]+\*/.test(this.phonenumber)) && !/^1\d{10,11}$/.test(this.phonenumber)) {
+					$.toast.fail("请输入正确的电话号码");
+					return;
+				}
+
+                var dataCache = JSBridge.cache.get("phoneCallbackData");
+                if (dataCache && new Date().getTime() < dataCache.outtime) {
+                    $.toast.fail("请勿频繁提交，等待1分钟后再试");
+                    return;
+                }
+                
+				var _this = this;
+				var url = CustomerUtils.isLoged() ? "phones/memberCall" : "phones/customCall"
+				JSBridge.net.invoke({
+					url: url,
+					data: {
+						phone_number: _this.phonenumber,
+						phone_type: type
+					},
+					success: function (result) {
+						_this.step = 3;
+						
+					    JSBridge.cache.save("phoneCallbackData", {
+                            data: {"status": true},
+                            outtime: new Date().getTime() + 60*1000
+                        }, 1);
+					},
+					error: function (error) {
+						$.toast.fail(error ? error.message : "回拨失败,请联系在线客服");
+					}
+				});
+			}
+		}
+	});
+
+	
+
+})();
+
+Vue.component("app-header", {
+    template: "#headerTmpl",
+    props: ["loginbar","index"],
+    data: function (){ 
+        return {
+            isNotLoged: true,
+            callShow: false,
+            messageUnReadCount: 0,
+            height: "auto",
+            needFixed: false,
+            show: true
+        };
+    },
+    mounted: function () {
+        var _this = this,
+        headerHeight = _this.$refs.header.offsetHeight,
+        top = _this.$refs.header.offsetTop;
+
+        // window.onscroll = function() {
+        //     var scrollOver = window.scrollY >= top;
+        //     _this.height = scrollOver ? headerHeight + "px" : "auto";
+        //     _this.needFixed = scrollOver;
+        // };
+
+        JSBridge.onReady(function() {
+            _this.isNotLoged = !CustomerUtils.isLoged();
+            if(!_this.isNotLoged) {
+                var unviewed = JSBridge.cache.get("unviewed");
+                if(!unviewed || new Date().getTime() > unviewed.outtime) {
+                    JSBridge.net.invoke({
+                        loading: false,
+                        url: "letter/isUnviewed",
+                        success: function (result) {
+                            _this.messageUnReadCount = result;
+                            JSBridge.cache.save("unviewed", {
+                                count: result,
+                                outtime: new Date().getTime() + 120000
+                            }, 1);
+                        }
+                    });
+                } else {
+                    _this.messageUnReadCount = unviewed.count;
+                }
+            }
+        });
+
+        JSBridge.registerFunction("showCallback", function () {
+            _this.callShow = true;
+        });
+    },
+    methods: {
+        showlog: function () {
+
+            // 运营环境,不显示日志
+            return false;
+
+            this.logClickCount ++;
+            if(this.logTimer) {
+                clearTimeout(this.logTimer);
+            }
+            this.logTimer = setTimeout(function () {
+                this.logClickCount = 0;
+            }.bind(this), 500);
+
+            if(this.logClickCount > 5) {
+                return;
+            }
+            if(this.logClickCount == 5) {
+                JSBridge.driver.log();
+            }
+            if(this.logClickCount >= 2) {
+                $.toast.success("再点击" + Math.max(5 - this.logClickCount, 0) + "次打开日志");
+            }
+        },
+        toLatter: function () {
+            JSBridge.forward.inside({url: "customer/letter.htm", newView: true});
+        },
+        toggleService: function () {
+            var id = $(".header_index .pop_support");
+            if (id.hasClass('hide')) {
+                id.removeClass('hide').attr("is_show", 1);
+                setTimeout(function() {
+                    id.attr("is_show", 0);
+                    
+                    setTimeout(function () {
+                    	id.addClass('hide').attr("is_show", 0);
+                    }, 15000);
+                }, 200);
+            }
+
+            this.callShow = false;
+        },
+        showCallback: function () {
+            this.callShow = true;
+        },
+        openChat: function() {
+            var customerId = this.isLoged ? JSBridge.cache.get("customer").customer_id : 0;
+            JSBridge.driver.live800(customerId);
+        },
+        openOnlineChat: function() {
+            if($.appVersion().isIOS) {
+                JSBridge.driver.live800ol();
+            } else {
+                JSBridge.forward.outside({
+                    url: "https://www.why918.com/chat/chatClient/chatbox.jsp?companyID=8990&configID=21&k=1&codeType=custom", 
+                    newView: true
+                });  
+            }
+        }
+    }
+});
+
+Vue.component("app-nav", {
+	template: "#navTmpl",
+	props: ["index"],
+	data: function (){
+		return {
+			show: window.ENV_MODEL === "dev",
+			current: this.index || 0,
+			navs: [
+				{
+					index: 0,
+					text: "首页", 
+					url: "common/index.htm"
+				},
+				{
+					index: 1,
+					text: "优惠", 
+					url: "common/promotion_list.htm"
+				},
+				{
+					index: 2,
+					text: "风采", 
+					url: "customer/history.htm"
+				},
+				{
+					index: 3,
+					text: "会员中心", 
+					url: "customer/member_center.htm"
+				}
+			]
+		};
+	},
+});
+
+JSBridge.onReady(function () {
+	$(".app-container").css({
+		"padding-bottom": window.ENV_MODEL === "dev" ? "45px" : "5px"
+	});
+})
+
+;(function () {
+    /*var news = [{
+      title: "新增AS电玩城",
+      pic: "../../__static/__images/history/new/img_as.jpg",
+      content: "AS厅首创实时实体赌场数据开牌，社交化在线博彩。",
+      date: "2017年 │ 6月27日",
+      year: "2017",
+      detail: ""
+    },
+    {
+      title: "首创六张牌先发",
+      pic: "../../__static/__images/history/new/img33.jpg",
+      content: "将在线博彩的公平性展现到极致",
+      date: "2013年 | 02月05日",
+      year: "2013",
+      detail: ""
+    }];**/
+
+    var data = {
+      news: [],
+      refreshed: false,
+      year: "All"
+    };
+
+    appState.setData({
+      title: '博天堂风采',
+    });
+
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function () {
+            return data;
+        },
+        watch: {
+          year: function (newVal, oldVal) {
+            var _this = this;
+            _this.news.length = 0;
+            _this.refreshed = true;
+            
+            if(newVal == "All") {
+              _this.news = news.slice(0);
+              return;
+            }
+
+            news.forEach(function (v, i) {
+              if(v.year == newVal) {
+                _this.news.push(v);
+              }
+            });
+          }
+        },
+        mounted:function(){
+          var _this = this;
+          $(".history_list").on("click", ".toggle_down",function(){
+            $(this).toggleClass('active');
+            $(this).parent().next().slideToggle('fast');
+            $(this).fadeOut('fast');
+          });
+          $(".history_list").on("click", ".toggle_up",function(){
+            $(this).toggleClass('active');
+            $(this).parent().slideToggle('fast');
+            $('.toggle_down').fadeIn('fast');
+          });
+          $("#select_hist_year").change(function(){
+            var hist_year = $(this).val();
+            if(hist_year != 'ALL'){
+             $(".history_list li").each(function(){
+                if($(this).hasClass("yr-"+hist_year)){$(this).show();}else{$(this).hide();}
+              }); 
+            }else{
+              $(".history_list li").each(function(){$(this).show();}); 
+            }
+          });
+
+          $(".history_list ul > li:last-child").upIn(function () {
+            if(_this.refreshed) {
+              return;
+            }
+
+            data.news = news.slice(0);
+            _this.refreshed = true;
+          });
+        },
+        methods:{
+            toDetail: function (url) {
+                JSBridge.forward.outside({url: OtherUtils.getDomain() + url,newView:'true'});
+                return false;
+            }
+        }
+    });
+    
+    function strRemove(str)
+    {
+    	return str.replace(/\<[\s]*[bB]{1}[rR\s]+[\/\s]*\>/, "");
+    }
+    
+    function initScript(s=0)
+    {
+    	var _this = data,
+    	    staticurl = 'http://www.a01mobile.com/';
+    	
+    	if (s == 0) {
+    		// OtherUtils.getStaticurl() 
+            
+            var scripturl = staticurl +'script/A01M/_default/__js/json/history.js?20170920';
+            $.ajax({type:"GET", url:scripturl, dataType:"jsonp"});
+    	}
+        
+    	
+    	setTimeout(function(){
+    		if (!histroyList || histroyList.length<1) {
+    			s++;
+    			initScript(s);
+    			return;
+    		}
+    		
+    		for (i in histroyList) {
+    			var v = histroyList[i];
+    			_this.news.push({
+                    'title': strRemove(v.title),
+                    'pic': staticurl + 'static/A01M/' + v.imgurl,
+                    'content': strRemove(v.description),
+                    'date': v.datesub,
+                    'year': i.substr(3, 4),
+                    'btntxt': v.btntxt,
+                    'href': v.href,
+                    'style': v.href&&v.btntxt ? '': 'width:100%'
+                });
+    		}
+        }, 500);
+    }
+    
+    JSBridge.onReady(function () {
+    	// 加载信息
+    	initScript(0);
+    }); 
+})();</script><script>var e=appState.getData();function a(){var e=$(".header_index .pop_support");e.hasClass("hide")||0!=e.attr("is_show")||e.addClass("hide")}bus=new Vue,e.needLogin&&!CustomerUtils.isLoged()?JSBridge.onReady(function(){JSBridge.forward.inside({url:"common/login.htm?from="+OtherUtils.getPath(),newView:"true"})}):appInstance=new App({el:"#container",data:e})</script></body></html>

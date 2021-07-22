@@ -1,0 +1,11 @@
+.nb_ConcedeScoretit{
+  width: 100%;
+  text-align: center;
+  height: .76rem;
+  display: flex;
+  flex-direction:column;
+  justify-content:center;
+  font-size: .24rem;
+  border-bottom: 1px solid rgba(46, 47, 52, .5);
+}
+

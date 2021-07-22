@@ -1,0 +1,122 @@
+<template id="contentTmpl">
+	<div class="write">
+		<div class="controls">
+			<a class="cancel-btn" @click="letter_cancel">取消</a>
+			<a class="send-btn" @click="letter_send">发送</a>
+		</div>	
+		<div class="letter-options">
+			<div class="item">
+				<div class="label">收件人：</div>
+				<div class="input">
+					<div class="letter-item-select active receiver-select">
+						<input class="" type="checkbox" name="receiver" value="0" checked="checked" />	
+						<label>客服</label>	
+					</div>
+					<div class="letter-item-select receiver-select">
+						<input class="" type="checkbox" name="receiver" value="1"/>
+						<label>网站负责人</label>		
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="label">类型：</div>
+				<div class="input">
+	                <div class="letter-item-select active type-select">
+						<input class="" type="checkbox" name="type" value="8" checked="checked"/>	
+						<label>表扬</label>	
+					</div>
+					<div class="letter-item-select type-select">
+						<input class="" type="checkbox" name="type" value="7"/>
+						<label>建议</label>		
+					</div>
+					<div class="letter-item-select type-select">
+						<input class="" type="checkbox" name="type" value="4"/>
+						<label>投诉</label>		
+					</div>
+					<div class="letter-item-select type-select">
+						<input class="" type="checkbox" name="type" value="6"/>
+						<label>强烈投诉</label>		
+					</div>
+					<div class="letter-item-select type-select">
+						<input class="" type="checkbox" name="type" value="5"/>
+						<label>其他</label>		
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="label">内容：</div>
+				<div class="input">
+					<textarea placeholder="只能发送文字上限1000字" rows="6" name="content" style="background:rgb(71,71,71);"></textarea>
+				</div>
+			</div>
+		</div>	
+	</div>	
+</template>
+<script>
+;(function(){
+appState.setData({
+    title: '写信',
+	needLogin: true
+});
+Vue.component("app-content", {
+	template: "#contentTmpl",
+	data:function(){
+		return {};
+	},
+    mounted: function () {
+    	$(".receiver-select").click(function(){
+            $(".receiver-select").removeClass("active").find("input[type='checkbox']").prop("checked", false);
+            $(this).addClass("active").find("input[type='checkbox']").prop("checked", true);
+        });
+    	
+    	$(".type-select").click(function(){
+            $(".type-select").removeClass("active").find("input[type='checkbox']").prop("checked", false);
+            $(this).addClass("active").find("input[type='checkbox']").prop("checked", true);
+        });
+    },
+    methods: {
+    	letter_cancel: function() {
+    		JSBridge.forward.inside({url: 'customer/letter_write.htm', newView: true});
+     	},
+     	letter_send: function() {
+     		var receiver = $("input[name='receiver']:checked").val();
+            var type = $("input[name='type']:checked").val();
+            var content = $("textarea[name='content']").val();
+            if (!(receiver==0 || receiver==1)) {
+            	$.toast.fail("请正确选择收件人!");
+                return false;
+            }
+            if (!(type==4 || type==5 || type==6 || type==7 || type==8 )) {
+                $.toast.fail("请正确选择类型!");
+                return false;
+            }
+            if (!content.match(/^[^\'\"\`\\]{4,1000}$/)) {
+                $.toast.fail("请正确填写内容信息!");
+                return false;
+            }
+            
+            JSBridge.net.invoke({
+                url: 'A01/letter/send',
+                data: {
+                	receiver: receiver,
+                	type: type,
+                	content: content
+                },
+                success: function (result) {
+                	$.toast.success("发送成功", function(){
+                        JSBridge.forward.inside({url:'customer/letter_write.htm', newView: true});
+                    });
+                },
+                error: function (error) {
+                	if (error.errorCode=='301509') {
+                		error.message = '会员有未处理的提案';
+                	}
+                    $.toast.fail(error ? error.message : "发送失败");
+                }
+            });
+     	}
+    }
+});
+})();
+</script>
+

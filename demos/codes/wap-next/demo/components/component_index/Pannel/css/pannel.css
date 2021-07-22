@@ -1,0 +1,109 @@
+.nb_index_pannel{
+    position: relative;
+    top: 1rem;
+    /*background: linear-gradient(135deg,#601fff,#35b9df)*/
+}
+
+#nb_search_wrap{
+    position: relative;
+    height: 0.74rem;
+    padding: 0.2rem;
+}
+#nb_search_wrap:before{
+    font-family: 'myfontfamily';
+    content: "\e921";
+    color: white;
+    position: absolute;
+    left: .13rem;
+    top: .13rem;
+    font-size: .88rem;
+
+}
+.nb_search_input{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: .37rem;
+    border: transparent;
+    color: white;
+    font-size: 0.28rem;
+    background: #6F87F2;
+    line-height: 0.74rem;
+    box-sizing: border-box;
+    padding-left: 0.77rem;
+}
+#nb_pannelTypes_wrap{
+    box-sizing: border-box;
+    padding-bottom: 0.45rem;
+
+}
+.nb_pannel_row a{
+    display: inline-block;
+    width: 20%;
+    /*height: 1.3rem;*/
+    text-align: center;
+    color: white;
+    /*height: 1.3rem;*/
+    text-align: center;
+    /*line-height: 1.3rem;*/
+}
+.nb_pannel_row a{
+    font-size: .28rem;
+}
+.nb_pannel_row p{
+    margin-top: -22px;
+}
+.nb_pannel_row .nb_link_live:before{
+    content: "\e997";
+}
+.nb_pannel_row .nb_link_today:before{
+    content: "\e9b3";
+}
+.nb_pannel_row .nb_link_early:before{
+     content: "\e9d3";
+ }
+.nb_pannel_row .nb_link_football:before{
+    content: "\e961";
+}
+/*.nb_pannel_row .nb_link_basketball:before{*/
+    /*content: "\e96d";*/
+/*}*/
+.nb_pannel_row .nb_link_tennis:before{
+    content: "\e960";
+}
+
+.nb_pannel_row .nb_link_live:before,.nb_pannel_row .nb_link_today:before,.nb_pannel_row .nb_link_early:before,.nb_pannel_row .nb_link_football:before,.nb_pannel_row .nb_link_tennis:before{
+    font-family: 'myfontfamily';
+    color: #45dfff;
+    font-size: 1.3rem;
+}
+.nb_link_basketball i{
+    position: relative;
+    /*height: 1.36rem;*/
+}
+.nb_link_basketball span{
+    position: absolute;
+    top:-1.3rem;
+    left:-0.82rem;
+
+}
+.nb_link_basketball span:before{
+    font-family: 'myfontfamily';
+    color: #45dfff;
+    font-size: 1.3rem;
+}
+.nb_link_basketball .nb_basket_01:before{
+    content:"\e968"
+}
+.nb_link_basketball .nb_basket_02:before{
+    content:"\e96a"
+}
+.nb_link_basketball .nb_basket_03:before{
+    content:"\e96b"
+}
+.nb_link_basketball .nb_basket_04:before{
+    content:"\e96c"
+}
+.nb_link_basketball .nb_basket_05:before{
+    content:"\e96d"
+}

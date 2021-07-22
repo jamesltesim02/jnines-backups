@@ -1,0 +1,183 @@
+.withdrawal-page {
+  padding: 0 13px;
+  .balance {
+    padding: 23px 0;
+    font-size: 18px;
+    span {
+      padding-left: 13px;
+      color: #e0c28d;
+    }
+  }
+
+  .wallet-list,
+  .withdrawal-amount {
+    border-radius: 4px;
+    background-color: #2d2d2d;
+    color: #d4d4d4;
+    header {
+      display: flex;
+      line-height: 40px;
+      padding: 0 12px;
+      label {
+        flex: 1 1;
+        font-size: 18px;
+      }
+      a, span {
+        color: #e0c28d;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .wallet-list button {
+    display: flex;
+    align-items: center;
+    padding: 0 12px 0 16px;
+    line-height: 50px;
+    border-top: 1px solid #181818;
+    width: 100%;
+    font-size: 15px;
+    svg {
+      width: 20px;
+      margin-right: 6px;
+    }
+    label {
+      margin-right: 7px;
+    }
+    span {
+      font-size: 12px;
+      color: #aaa;
+    }
+    .dcbox-tip {
+      position: relative;
+      display: block;
+      height: 18px;
+      line-height: 18px;
+      margin-left: 20px;
+      padding: 0 5px;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+      font-size: 10px;
+      font-style: normal;
+      color: #fff;
+      background: #fc5c4b;
+      &::before {
+        content: "";
+        position: absolute;
+        left: -10px;
+        top: 0;
+        display: block;
+        border-top: 9px solid transparent;
+        border-bottom: 9px solid transparent;
+        border-right: 10px solid #fc5c4b;
+      }
+    }
+    .radio {
+      flex: 1 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 50px;
+      i {
+        position: relative;
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 1px solid #aaa;
+        transition: all .25s linear;
+        &::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #e3b574;
+          transition: all .25s linear;
+          transform: translate(-50%, -50%) scale(0);
+        }
+      }
+    }
+    &.active {
+      .radio i {
+        border-color: #e3b574;
+        &::after {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+    }
+  }
+
+  .withdrawal-amount {
+    padding-bottom: 20px;
+    section {
+      border-radius: 4px;
+      margin: 0 15px;
+      padding: 20px 15px 15px;
+      background-color: #1f1f1f;
+      input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        height: 55px;
+        font-size: 18px;
+        text-align: center;
+        color: #fff;
+      }
+      .amount-tip {
+        text-align: center;
+        color: #707070;
+      }
+    }
+  }
+
+  .withdrawal-amount {
+    margin-top: 10px;
+  }
+
+  .tips {
+    font-size: 14px;
+    color: #aaa;
+    padding-top: 10px;
+  }
+}
+
+.total-bet-undone{
+  table {
+    width: 100%;
+    margin: 10px 0;
+    font-size: 12px;
+    border: 1px solid #aaa;
+    border-collapse: collapse;
+    th {
+      line-height: 30px;
+    }
+    td, th {
+      border: 1px solid #aaa;
+    }
+  }
+  p {
+    font-size: 13px;
+  }
+}
+
+.promo-bet-undone {
+  header, p {
+    font-size: 14px;
+  }
+  section {
+    font-size: 13px;
+    padding-top: 20px;
+  }
+}
+
+.channel-upgrade {
+  font-size: 14px;
+  b {
+    color: #e0c28d;
+    font-weight: normal;
+  }
+}

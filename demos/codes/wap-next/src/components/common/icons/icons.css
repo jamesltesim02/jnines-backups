@@ -1,0 +1,259 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('./fontIcon/icomoon.eot?azwjz6');
+  src:  url('./fontIcon/icomoon.eot?azwjz6#iefix') format('embedded-opentype'),
+    url('./fontIcon/icomoon.ttf?azwjz6') format('truetype'),
+    url('./fontIcon/icomoon.woff?azwjz6') format('woff'),
+    url('./fontIcon/icomoon.svg?azwjz6#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* 首页底部图标 */
+
+.icon-tab-home-nor:before {
+  content: "\e91b";
+  color: #7D7E81;
+}
+
+.active .icon-tab-home-nor:before {
+  content: "\e91a";
+  color: #02ffff;
+}
+
+.icon-tab-today-normal:before {
+  content: "\e91f";
+  color: #7D7E81;
+}
+
+.active .icon-tab-today-normal:before {
+  content: "\e91e";
+  color: #53fffd;
+}
+
+.icon-tab-rolling-nor:before {
+  content: "\e91d";
+  color: #7D7E81;
+}
+.active .icon-tab-rolling-nor:before {
+  content: "\e91c";
+  color: #02ffff;
+}
+.icon-tab-early-nor:before {
+  content: "\e919";
+  color: #7D7E81;
+}
+.active .icon-tab-early-nor:before {
+  content: "\e918";
+  color: #53fffd;
+}
+.icon-tab-dingdan-nor:before {
+  content: "\e917";
+  color: #7D7E81;
+}
+.active .icon-tab-dingdan-nor:before {
+  content: "\e916";
+  color: #53fffd;
+}
+/* 首页底部图标-end */
+.icon-nav-choose-icon:before {
+  content: "\e910";
+}
+
+
+
+
+
+
+.icon-all-icon:before {
+  content: "\e900";
+  color: #fff;
+}
+.icon-arrowdown-icon:before {
+  content: "\e901";
+  color: #c8c8ca;
+}
+.icon-arrow-icon:before {
+  content: "\e902";
+  color: #fff;
+}
+.icon-arrow-icon2:before {
+  content: "\e903";
+  color: #fff;
+}
+.icon-arrowup-icon:before {
+  content: "\e904";
+  color: #c8c8ca;
+}
+.icon-change-match-icon:before {
+  content: "\e905";
+}
+.icon-chosen-icon:before {
+  content: "\e906";
+  color: #fff;
+}
+.icon-closecard-icon:before {
+  content: "\e907";
+  color: #fff;
+}
+.icon-close-icon:before {
+  content: "\e908";
+}
+.icon-close-icon2:before {
+  content: "\e909";
+  color: #fff;
+}
+.icon-fold-icon:before {
+  content: "\e90a";
+  color: #fff;
+}
+.icon-keyboard-delete-icon:before {
+  content: "\e90b";
+  color: #ccc;
+}
+.icon-keyboard-fold-icon:before {
+  content: "\e90c";
+  color: #ccc;
+}
+.icon-minus-icon:before {
+  content: "\e90d";
+  color: #fff;
+}
+.icon-more-icon:before {
+  content: "\e90e";
+  color: #fff;
+}
+.icon-nav-back-icon:before {
+  content: "\e90f";
+  color: #fff;
+}
+
+.icon-none:before {
+  content: "\e911";
+  color: #55565a;
+}
+.icon-open-icon{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.icon-open-icon:before {
+  width: .24rem;
+  height: .24rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -.12rem;
+  margin-left: -.12rem;
+  content: "\e912";
+  color: #fff;
+}
+.icon-pankou-icon:before {
+  content: "\e913";
+  color: #fff;
+}
+.icon-plus-icon:before {
+  content: "\e914";
+  color: #fff;
+}
+.icon-setting-icon:before {
+  content: "\e915";
+}
+
+
+
+
+
+.icon-touzhu-open-icon:before {
+  content: "\e920";
+  color: #fff;
+}
+.icon-touzhu-zhudan-icon:before {
+  content: "\e921";
+}
+
+/* 球类icon */
+.icon-variety-badminton:before {
+  content: "\e922";
+  color: #fff;
+}
+.icon-variety-basketball:before {
+  content: "\e923";
+  color: #fff;
+}
+.icon-variety-billiard:before {
+  content: "\e924";
+  color: #fff;
+}
+.icon-variety-black8:before {
+  content: "\e925";
+  color: #fff;
+}
+.icon-variety-football:before {
+  content: "\e926";
+  color: #fff;
+}
+.icon-variety-golf:before {
+  content: "\e927";
+  color: #fff;
+}
+.icon-variety-handball:before {
+  content: "\e928";
+  color: #fff;
+}
+.icon-variety-iceball:before {
+  content: "\e929";
+  color: #fff;
+}
+.icon-variety-tennis:before {
+  content: "\e92a";
+  color: #fff;
+}
+.icon-variety-volleyball:before {
+  content: "\e92b";
+  color: #fff;
+}
+
+.nb-btn-icon-delete {
+  position: relative;
+  display: inline-block;
+  width: .4rem;
+  height: .4rem;
+  border-radius: 50%;
+  border: 2px solid  #C0C0C0;
+  font-size: 0;
+  transform: rotate(45deg);
+}
+
+.nb-btn-icon-delete::before,.nb-btn-icon-delete::after {
+  position: absolute;
+  content: "";
+  display: block;
+  height: 2px;
+  width: .2rem;
+  background: #C0C0C0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.nb-btn-icon-delete::before {
+  height: .2rem;
+  width: 2px;
+}

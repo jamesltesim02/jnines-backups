@@ -1,0 +1,56 @@
+.Announcement-wrapper {
+  margin: 0 auto;
+  padding: 0 0 20px 0;
+  height: 100%;
+  max-width: 1420px;
+
+  .Announcement {
+    background-color: var(--block-background-color);
+    padding: 45px 80px 0 80px;
+    font-weight: 700;
+    height: calc(100vh - 150px);
+    overflow-y: auto;
+    .title,
+    .detail-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .title {
+      margin-top: 10px;
+      height: 30px;
+      line-height: 30px;
+      background-color: var(--ticket-thead-background-color);
+      color: var(--first-color);
+      font-weight: normal;
+    }
+
+    .detail-list {
+      font-weight: normal;
+      color: #333333;
+
+      li {
+        line-height: 40px;
+        border-bottom: 1px solid var(--ticket-thead-background-color);
+        cursor: pointer;
+        transition: color .2s ease-in-out;
+        span:first-child {
+          letter-spacing: 1px;
+        }
+
+        span{
+          color: var(--first-color);
+          &:hover {
+            color: var(--high-light-color);
+          }
+        }
+      }
+    }
+    .pagination {
+      font-weight: normal;
+      text-align: center;
+      padding: 10px 0;
+    }
+  }
+}

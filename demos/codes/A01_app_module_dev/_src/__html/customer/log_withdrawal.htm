@@ -1,0 +1,401 @@
+<style type="text/css">
+#container {
+    white-space: nowrap;    
+}
+.dropload-up,
+.dropload-down {
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    font-size: 12px;
+    /* 开启硬件加速 */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.dropload-down {
+    height: 50px;
+}
+
+.dropload-refresh,
+.dropload-update,
+.dropload-load,
+.dropload-noData {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.dropload-load .loading {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    border-radius: 100%;
+    margin: 6px;
+    border: 2px solid #666;
+    border-bottom-color: transparent;
+    vertical-align: middle;
+    -webkit-animation: rotate 0.75s linear infinite;
+    animation: rotate 0.75s linear infinite;
+}
+
+@-webkit-keyframes rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    50% {
+        -webkit-transform: rotate(180deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+select.status-select {
+    position: relative;
+    width: 100%;
+    line-height: 2.5rem;
+    height: 50px;
+    font-size: 1.6rem;
+    background: transparent;
+    border: none;
+    color: #fff;
+    text-align: center;
+    padding: 0 15px;
+    /*很关键：将默认的select选择框样式清除*/
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    z-index: 2;
+}
+
+select.status-select option{
+    color: #fff!important;
+    padding-left: 20px;
+    background: #292d36;
+}
+
+.status-select-wrapper {
+    position: relative;
+    background: #292d36;
+    margin: 0 0 15px 0;
+}
+
+.status-select-wrapper::before {
+    content: "";
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    height: 15px;
+    width: 15px;
+    background: #fff;
+    transform: rotate(45deg);
+    z-index: 1;
+}
+.status-select-wrapper::after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 20px;
+    background: #292d36;
+    right: 0;
+    z-index: 1;
+}
+
+.no-data {
+	margin-top: 20px;
+    line-height: 3rem;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+</style>
+<template id="contentTmpl">
+    <div class="main_content">
+        <section class="record_content">
+            <div class="status-select-wrapper">
+                <select v-model="statusFilter" class="status-select">
+                    <option v-for="k in statusItems" :value="k">{{statusMap[k]}}</option>
+                </select>
+            </div>
+            <table v-if="!norecords" id="container">
+                <thead v-if="list && list.length">
+                    <tr>
+                        <td colspan="2">时间</td>
+                        <td>优惠类型</td>
+                        <td>金额</td>
+                        <td>状态</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in list">
+                        <td @click="itemSelect($event)">
+                            <input type="checkbox" v-bind:value="item.request_id"><label></label>
+                        </td>
+                        <td>
+                            {{Date.format(Date.parse(item.created_date), 'MM-dd')}}<br/>
+                            {{Date.format(Date.parse(item.created_date), 'HH:mm')}}
+                        </td>
+                        <td align="left">
+                            {{item.bank_name}}<br/>
+                            尾号(**{{item.bank_account_no.substr(-2)}})
+                        </td>
+                        <td>
+                            <span class="yellow2">{{item.amount}}元</span><br/>
+                            <span>{{item.request_id}}</span>
+                        </td>
+                        <td>
+                            <div class="cell">{{status(item.flag)}}</div>
+                        </td>
+                        <td>
+                            <span
+                                v-show="['0','9'].includes(item.flag)"
+                                @click="cancel(item.request_id,item.flag)"
+                                class="cancel lbue2">取消</span>
+                            <span
+                                v-show="['2','-1','-2','-3'].includes(item.flag)"
+                                @click="del(item.request_id)"
+                                class="cancel lbue2">删除</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div v-else class="no-data">没有相关数据</div>
+            <div v-show="hasMore" class="load-more"> 
+                <br>
+            </div>
+            <div v-if="!norecords" class="delete-bx">
+                <div class="item">
+                    <div class="item-select-all">
+                        <input class="select-item-cb" type="checkbox" name="" value="" />
+                        <label @click='allSelect'></label>
+                    </div>
+                    <div class="sub-item txt-bx">
+                        <h3 v-if="list && list.length">总计: {{totalAmount}} 元</h3>
+                    </div>
+                    <div id="deleteAllButton" @click="del" class="sub-item txt2-bx button">
+                        <h3>删除</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</template>
+<script type="text/javascript">
+appState.setData({
+    title: '取款记录',
+    needLogin: true
+});
+
+Vue.component("app-content", {
+    template: "#contentTmpl",
+    data: function() {
+        return {
+            list: [],
+            date_start: '',
+            date_end: '',
+            page_num: '1',
+            page_size: '5',
+            pageLoaded: false,
+            pageInfo: {
+                loadTimes: 0,
+                pageNum: 0,
+                totalRecord: 0,
+                loadedRecord: 0
+            },
+            total: 0,
+            days: '1',
+            statusFilter: 'all',
+            statusMap: {
+                'all': '全部',
+                '1': '支付中',
+                '-1': '取消',
+                '-2': '取消',
+                '-1;-2': '取消',
+                '2': '完成',
+                '0': '待审核',
+                '9': '受理中',
+                '-3': '拒绝'
+            },
+            statusItems: ['all', '9', '0', '1', '2', '-3', '-1;-2']
+        };
+    },
+    computed: {
+    	hasMore: function () {
+    		if(this.pageInfo.loadTimes == 0) {
+    			return true;
+            }
+            if(this.list.length == 1) {
+                return this.list[0].amount;
+            }
+			return this.pageInfo.loadedRecord < this.pageInfo.totalRecord;
+		},
+		norecords: function () {
+			return !this.hasMore && !this.pageInfo.totalRecord;
+        },
+        totalAmount: function () {
+            if(!this.list && !this.list.length) {
+                return 0;
+            }
+            if(this.list.length == 1) {
+                return this.list[0].amount;
+            }
+            return this.list.reduce(function (preItem, currItem) {
+                return {amount: +preItem.amount + +currItem.amount}
+            }).amount.toFixed(2);
+        }
+    },
+    watch: {
+        statusFilter: function (newValue, oldValue) {
+            this.list = [];
+            this.pageInfo = Object.assign(this.pageInfo, {
+                loadTimes: 0,
+                pageNum: 0,
+                totalRecord: 0,
+                loadedRecord: 0
+            });
+            this.loadMore();
+        }
+    },
+    beforeMount: function() {
+        var _this = this;
+        _this.days = $.getParam('days', 1);
+        _this.days = parseInt(_this.days) || 1;
+        var between = dateTool.getBetweenByDays(_this.days);
+        _this.date_start = between[0];
+        _this.date_end = between[1];
+    },
+    mounted: function() {
+        var _this = this;
+        $(".load-more").upIn(function () {
+            _this.loadMore();
+        });
+        JSBridge.onReady(function() {
+            _this.pageLoaded = true;
+            _this.loadMore();
+        });
+    },
+    methods: {
+        loadMore: function () {
+			if(!this.pageLoaded || !this.hasMore) {
+				return ;
+            }
+            var _this = this;
+
+            _this.pageInfo.loadTimes ++;
+            JSBridge.net.invoke({
+                url: "logs/withdraw",
+                data: {
+                    'flag': _this.statusFilter == 'all' ? '' : _this.statusFilter,
+                    'date_start': _this.date_start,
+                    'date_end': _this.date_end,
+                    'page_num': _this.page_num,
+                    'page_size': _this.page_size
+                },
+                success: function(result) {
+                    if(!result || !result.list || !result.list.length) {
+                		return ;
+                    }
+                    _this.pageInfo.loadedRecord += result.list.length;
+                	_this.pageInfo.totalRecord = +result.totalRecords;
+
+                    _this.list = _this.list.concat(result.list);
+                },
+                error:function(){
+                	$.toast.fail("数据加载失败");
+                }
+            });
+        },
+        status: function(flag) {
+            return this.statusMap[flag];
+        },
+        cancel: function(reqId, oldflag) {
+            var _this = this;
+            JSBridge.net.invoke({
+                url: "logs/cancel",
+                data: {
+                    'request_id': reqId,
+                    'oldflag': oldflag,
+                    'request_type': '02',
+                },
+                success: function(result) {
+                    $.toast.success("取消成功", function() {
+                        JSBridge.forward.inside({ url: 'customer/log_withdrawal.htm?days=' + _this.days, newView: true });
+                    });
+                },
+                error: function() {
+                    $.toast.fail("取消失败", function() {
+                        JSBridge.forward.inside({ url: 'customer/log_withdrawal.htm?days=' + _this.days, newView: true });
+                    });
+                }
+            });
+        },
+        itemSelect: function(e) {
+            if ($(e.currentTarget).hasClass("item-select")) {
+                $(e.currentTarget).removeClass("item-select");
+                $(e.currentTarget).find("input[type='checkbox']").prop("checked", false);
+            } else {
+                $(e.currentTarget).addClass("item-select");
+                $(e.currentTarget).find("input[type='checkbox']").prop("checked", true);
+            }
+        },
+        allSelect: function(e) {
+            var $obj = $(e.currentTarget);
+            if ($obj.prev().prop('checked')) {
+                $obj.prev().prop('checked', false);
+                $('.record_content td input').prop('checked', false);
+            } else {
+                $obj.prev().prop('checked', true);
+                $('.record_content td input').prop('checked', true);
+            }
+        },
+        del: function(id) {
+            var ids = [];
+            var _this = this;
+            if(id) {
+                ids.push(id);
+            } else {
+                $("input[type='checkbox']:checked").each(function() {
+                    ids.push($(this).val());
+                });
+            }
+            if (ids.length == 0) {
+                $.toast.fail("没有可删除的选项");
+                return
+            }
+            JSBridge.net.invoke({
+                url: "logs/del",
+                data: {
+                    'ids': ids.join(','),
+                    'type': '01'
+                },
+                success: function(result) {
+                    if (result) {
+                        $.toast.success("删除成功", function() {
+                            JSBridge.forward.inside({ url: 'customer/log_withdrawal.htm?days=' + _this.days, newView: true });
+                        });
+                    }
+                },
+                error: function() {
+                    $.toast.fail("删除失败", function() {
+                        JSBridge.forward.inside({ url: 'customer/log_withdrawal.htm?days=' + _this.days, newView: true });
+                    });
+                }
+            });
+        }
+    }
+});
+</script>

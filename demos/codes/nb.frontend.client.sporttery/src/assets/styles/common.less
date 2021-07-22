@@ -1,0 +1,116 @@
+@font-face{
+  font-family: "DIN";
+  src: url(../fonts/DIN-Medium.ttf);
+}
+@font-face{
+  font-family: "AlternateGothicNo2BT";
+  src: url(../fonts/AlternateGothic2BT.ttf);
+}
+
+body {
+  font-size: .13rem;
+  font-family: "DIN", "PingFang SC", "Roboto", "HelveticaNeue", "Helvetica", "Arial", sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-font-smoothing: antialiased;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .25s ease-out;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+.lx-toast {
+  z-index: 95999999;
+}
+
+[class*="flex-"] {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+[class*="flex-"][class*="-top"] {
+  align-items: flex-start;
+}
+[class*="flex-"][class*="-bottom"] {
+  align-items: flex-end;
+}
+[class*="flex-"][class*="-col"] {
+  flex-direction: column;
+}
+[class*="flex-"][class*="-wrap"] {
+  flex-wrap: wrap;
+}
+[class*="flex-center"] {
+  justify-content: center;
+}
+[class*="flex-start"] {
+  justify-content: flex-start;
+}
+[class*="flex-end"] {
+  justify-content: flex-end;
+}
+[class*="flex-between"] {
+  justify-content: space-between;
+}
+[class*="flex-around"] {
+  justify-content: space-around;
+}
+
+@keyframes roll {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rolling {
+  animation: roll linear 1s infinite;
+}
+
+.no-more, .loading-bar {
+  padding: .16rem 0 .06rem;
+  text-align: center;
+  color: #909090;
+}
+
+.img-bg-page {
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+body.white {
+  background: #f5f5f5;
+}
+body.black {
+  background: #28272d;
+}
+body.blue {
+  background: #28272d;
+}
+body.dark.black {
+  background: #161619;
+}
+
+.nav-single-icon {
+  display: flex;
+  width: .44rem;
+  height: .44rem;
+  color: #2e2f34 !important;
+  align-items: center;
+  justify-content: center;
+}
+
+#__vconsole .vc-switch {
+  width: 1em;
+  height: 1em;
+  border-radius: 100%;
+  padding: 0 .23em;
+  overflow: hidden;
+  bottom: 10em;
+  letter-spacing: 1em;
+}
+
+// @import "./portals/102061011cYgTGB2.less";

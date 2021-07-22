@@ -1,0 +1,282 @@
+@charset "utf-8";
+
+/* 初始化标签在所有浏览器中的margin、padding值 */
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+textarea,
+p,
+blockquote,
+th,
+td,
+input,
+select,
+textarea,
+button {
+  margin: 0;
+  padding: 0;
+  user-select: none
+}
+
+/* 重置fieldset（表单分组）、图片的边框为0*/
+fieldset,
+img {
+  border: 0 none
+}
+
+/* 重置类表前导符号为onne,menu在HTML5中有效 */
+dl,
+ul,
+ol,
+menu,
+li {
+  list-style: none
+}
+
+/* 重置嵌套引用的引号类型 */
+blockquote,
+q {
+  quotes: none
+}
+
+/* 重置嵌套引用*/
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none
+}
+
+input,
+textarea {
+  -webkit-user-select: auto;
+  user-select: auto
+}
+
+/* 重置表单控件垂直居中*/
+input,
+select,
+textarea,
+button {
+  vertical-align: middle;
+  outline: none;
+}
+
+/* 重置表单button按钮效果 */
+button {
+  border: 0 none;
+  background-color: transparent;
+  cursor: pointer
+}
+
+/* 重置链接a标签 */
+a {
+  /* 取消a标签点击后的虚线框 */
+  outline: none;
+  color: #666;
+  text-decoration: none
+}
+
+/* 重置链接a标签的鼠标滑动效果 */
+a:active,
+a:hover {
+  text-decoration: none
+}
+
+/* 图片在当前行内的垂直位置 */
+img {
+  vertical-align: top
+}
+
+i,
+var {
+  font-style: normal;
+}
+
+:root {
+  --scrollbar: 0px;
+}
+html, body {
+  min-height: 100%;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  padding: 0 130px;
+  background-color: #eee !important;
+  position: relative;
+  overflow: overlay;
+}
+
+/* 设置为边框盒模型 */
+* {
+  text-transform: none !important;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+#root .MuiContainer-root {
+  padding: 0;
+}
+
+#root .MuiContainer-root > div {
+  width: 100%;
+}
+
+@keyframes blink {
+  from,
+  50%,
+  to {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+
+@keyframes swing {
+  20% {
+    transform: rotate3d(0, 0, 1, 15deg);
+  }
+
+  40% {
+    transform: rotate3d(0, 0, 1, -10deg);
+  }
+
+  60% {
+    transform: rotate3d(0, 0, 1, 5deg);
+  }
+
+  80% {
+    transform: rotate3d(0, 0, 1, -5deg);
+  }
+
+  to {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+}
+
+.white-bounds::before, .white-bounds::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 90px;
+  height: 100%;
+  background: #fff;
+}
+.white-bounds::after {
+  left: unset;
+  right: 0;
+}
+.bounds-radius::before, .bounds-radius::after {
+  opacity: 0;
+}
+.white-bounds .bounds-radius::before,
+.white-bounds .bounds-radius::after {
+  opacity: 1;
+}
+#root {
+  padding-bottom: 320px;
+}
+body {
+  scrollbar-color: rgba(114, 114, 116, 1);
+  scrollbar-width: 6px;
+}
+
+/*滚动条整体样式*/
+.windows *::-webkit-scrollbar {
+  /*高宽分别对应横竖滚动条的尺寸*/
+  width: 6px;
+  height: 6px;
+  background: transparent;
+}
+/*滚动条里面小方块*/
+.windows *::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: #727274;
+}
+
+body.pure,
+body.pure #root,
+body.error-page.pure #root {
+  padding: 0;
+  height: 100%;
+  background-color: transparent !important;
+}
+
+body.error-page.pure #root {
+  background-color: #eee !important;
+}
+
+body.error-page > #root {
+  height: 100vh;
+  padding-bottom: 200px;
+  min-height: 780px;
+}
+body.error-page > #root > footer {
+  border-top: 0;
+  margin-top: 0;
+}
+
+body.error-page.error-unuseable.quickbet #root {
+  position: relative;
+  min-height: unset;
+  background-color: #16161a !important;
+}
+body.error-unuseable #root > div {
+  height: 100% !important;
+}
+
+body.error-unuseable > #root > header > section > div:first-child > button,
+body.error-unuseable > #root > header > section > div:first-child > div:last-child,
+body.error-unuseable > #root > header > section > footer,
+body.error-unuseable > #root > header > section > div:last-child {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  body {
+    padding: 0;
+    background-color: #1d1d1d !important;
+  }
+  .white-bounds::before, .white-bounds::after {
+    display: none;
+  }
+  #root,
+  body.error-page > #root {
+    padding-bottom: 0;
+    min-height: unset;
+  }
+  .block-header {
+    background: #262626;
+    color: #e5c6a3;
+  }
+}
+
+.unscrollable {
+  overflow: hidden;
+}

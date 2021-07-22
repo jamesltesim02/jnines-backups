@@ -1,0 +1,7 @@
+.nb-myorder-list {
+  flex-grow: 1;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: .2rem;
+}

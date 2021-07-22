@@ -1,0 +1,70 @@
+.j9s-quickbet-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  overflow: hidden;
+
+  .j9s-dialog-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(100% - 60px);
+    max-width: 350px;
+    border-radius: 8px;
+    padding: 43px 24px 64px;
+    background-image: linear-gradient(151deg, #540e38 -15%, #3a376b 65%, #244e7f 114%, #0b1a2b 114%);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.6);
+    transform: translate(-50%, -45%) scale(.96);
+    opacity: 0;
+    margin-top: 20px;
+    .j9s-btn-close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 2;
+      width: 50px;
+      height: 50px;
+      background: transparent;
+    }
+  }
+  &.j9s-quickbet-dialog-enter-active {
+    z-index: 99999;
+    transition: background-color .2s linear;
+    background-color: rgba(0, 0, 0, .3);
+    .j9s-dialog-content {
+      transition: all .2s linear;
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+  &.j9s-quickbet-dialog-exit {
+    z-index: 99999;
+    background-color: rgba(0, 0, 0, .3);
+    .j9s-dialog-content {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+  &.j9s-quickbet-dialog-exit-active {
+    z-index: 99999;
+    transition: background-color .2s linear;
+    background-color: rgba(0, 0, 0, 0);
+    .j9s-dialog-content {
+      transition: all .2s linear;
+      transform: translate(-50%, -45%) scale(.96);
+      opacity: 0;
+    }
+  }
+  &.j9s-quickbet-dialog-enter-done {
+    z-index: 99999;
+    background-color: rgba(0, 0, 0, .3);
+    .j9s-dialog-content {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+
+.nb-quick-board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.nb-quick-board a {
+  display: block;
+  background: #A0A0A0;
+  border-radius: 4px;
+  line-height: .8rem;
+  width: 1.48rem;
+  text-align: center;
+  margin-bottom: .2rem;
+  color: #fff;
+}
+.nb-quick-board a.nb-quick-submit {
+  width: 3.24rem;
+  background: #53C0FF;
+}
+.nb-quick-board a.nb-bet-active {
+  background: #505050;
+}
+.nb-order-boards {
+  position: relative;
+}

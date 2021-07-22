@@ -1,0 +1,36 @@
+
+
+.nb_gtp16_Wrap,.nb_gtp18_Wrap{
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+}
+.nb_gtp16,.nb_gtp18{
+    width: 100%;
+    height: 100%;
+}
+
+.nb_gtp16_Wrap{
+    left: 0;
+    border-top: 1px solid #ededed;
+}
+.nb_gtp18_Wrap{
+    left: 2.25rem;
+}
+.nb_gtp16_htn,.nb_gtp16_atn,.nb_gtp18_htn,.nb_gtp18_atn{
+    width: 100%;
+    box-sizing: border-box;
+    height: 50%;
+    border: 1px solid #ededed;
+    padding-top: .18rem;
+}
+.nb_gtp16_htn,.nb_gtp16_atn,.nb_gtp18_htn,.nb_gtp18_atn.div{
+    border-top: none;
+}
+.nb_gtp16_htn p,.nb_gtp16_atn p,.nb_gtp18_htn p,.nb_gtp18_atn p{
+    line-height: .42rem;
+    height: .42rem;
+    text-align: center;
+    font-size: .28rem;
+}

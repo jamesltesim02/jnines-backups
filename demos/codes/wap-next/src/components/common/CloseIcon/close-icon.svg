@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>touzhu card/close-icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="4-投注单" stroke="none" stroke-width="1" fill="none" fillRule="evenodd" opacity="0.300000012">
+        <g id="弹窗投注单/单式" transform="translate(-347.000000, -38.000000)" fill="#FFFFFF">
+            <path d="M354.313708,43.3137085 L361.313708,43.3137085 L361.313708,45.3137085 L354.313708,45.3137085 L354.313708,52.3137085 L352.313708,52.3137085 L352.313708,45.3137085 L345.313708,45.3137085 L345.313708,43.3137085 L352.313708,43.3137085 L352.313708,36.3137085 L354.313708,36.3137085 L354.313708,43.3137085 Z" id="touzhu-card/close-icon" transform="translate(353.313708, 44.313708) rotate(-315.000000) translate(-353.313708, -44.313708) "></path>
+        </g>
+    </g>
+</svg>

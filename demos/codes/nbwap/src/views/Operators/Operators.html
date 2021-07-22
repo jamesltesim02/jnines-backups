@@ -1,0 +1,32 @@
+<div>
+    <router-link to="/">go back</router-link>
+  <div>
+    获取本地化文本: <span class="hello-text">{{$t('hello')}}</span>
+    <select v-model="language">
+      <option value="zh-cn">中文简体</option>
+      <option value="en-us">English</option>
+    </select>
+    <br>
+    js中通过 this.$t('hello') 来获取
+  </div>
+  <br>
+  <v-touch tag="button" v-on:tap="checkLogin">call client unlogin</v-touch>
+  <v-touch tag="button" v-on:tap="betting">call client betSuccess</v-touch>
+  <br><br>
+  <router-link to="/detail">go detail show cdn image</router-link>
+  <br><br>
+  <div>
+    <v-touch tag="button" v-on:tap="toastMessage">toast default message</v-touch>
+    <v-touch tag="button" v-on:tap="toastTopMessage">toast top message</v-touch>
+    <v-touch tag="button" v-on:tap="toastCenterMessage">toast center message</v-touch>
+    <v-touch tag="button" v-on:tap="toastBottomMessage">toast bottom message</v-touch>
+    <v-touch tag="button" v-on:tap="toastLoading">toast loading</v-touch>
+  </div>
+  <br>
+  <router-link to="/football">使用vuex实现数据查询及数据间的交互</router-link>
+  <br>
+  <h3>直接调用接口</h3>
+  <ul>
+    <li v-for="l in leagues" :key="l.groupNo">{{l.groupName}}</li>
+  </ul>
+</div>

@@ -1,0 +1,67 @@
+.match-detail {
+  display: grid;
+  grid-template-rows: 40px 1fr;
+  height: 100%;
+  overflow: hidden;
+  padding: 0 10px 10px;
+  .match-panel {
+    grid-template-columns: 280px 1fr 350px;
+  }
+}
+
+.deleting-confrim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, .2);
+  dialog {
+    background-color: var(--block-background-color);
+    display: block;
+    border: 0;
+    border-radius: 4px;
+    padding: 32px 32px 24px;
+    color: var(--deep-light-color);
+    section {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      .anticon-exclamation-circle {
+        color: #faad14;
+        font-size: 22px;
+      }
+      & > div {
+        font-size: 16px;
+      }
+      p {
+        margin-top: 8px;
+        font-size: 18px;
+        line-height: 22px;
+        margin-top: 15px;
+        color: var(--high-light-color);
+      }
+    }
+    footer {
+      margin-top: 24px;
+      text-align: right;
+      button {
+        height: 30px;
+        padding: 0 15px;
+        border-radius: 3px;
+      }
+      .btn-cancel {
+        color: var(--first-color);
+        border: 1px solid var(--app-background-color);
+      }
+      .btn-next {
+        background: #bd2b27;
+        color: #fff;
+        margin-left: 20px;
+      }
+    }
+  }
+}

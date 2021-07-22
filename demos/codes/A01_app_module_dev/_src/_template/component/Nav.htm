@@ -1,0 +1,49 @@
+<template id="navTmpl">
+	<div v-show="show" class="menu_wrapper">
+		<ul class="menu flexed">
+			<li v-for="nav in navs" :class="{active: nav.index == current}">
+				<a forward="forward" :href="nav.url"><i class="icon"></i>{{nav.text}}</a>
+			</li>
+		</ul>
+	</div>
+</template>
+<script type="text/javascript">
+Vue.component("app-nav", {
+	template: "#navTmpl",
+	props: ["index"],
+	data: function (){
+		return {
+			show: window.ENV_MODEL === "dev",
+			current: this.index || 0,
+			navs: [
+				{
+					index: 0,
+					text: "首页", 
+					url: "common/index.htm"
+				},
+				{
+					index: 1,
+					text: "优惠", 
+					url: "common/promotion_list.htm"
+				},
+				{
+					index: 2,
+					text: "风采", 
+					url: "customer/history.htm"
+				},
+				{
+					index: 3,
+					text: "会员中心", 
+					url: "customer/member_center.htm"
+				}
+			]
+		};
+	},
+});
+
+JSBridge.onReady(function () {
+	$(".app-container").css({
+		"padding-bottom": window.ENV_MODEL === "dev" ? "45px" : "5px"
+	});
+})
+</script>

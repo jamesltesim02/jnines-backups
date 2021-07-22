@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>
+      Live Match Tracker Demo
+    </title>
+    <link rel="stylesheet" type="text/css" href="./theme.css">
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        background-color: #eee;
+      }
+      .widgets {
+        max-width: 620px;
+        width: 100%;
+      }
+      .sr-widget {
+        border: rgba(0,0,0,0.12) solid 1px;
+        margin-bottom: 24px;
+      }
+      .sr-widget-title {
+        font-weight: bold;
+        padding-bottom: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      (function(a,b,c,d,e,f,g,h,i){a[e]||(i=a[e]=function(){(a[e].q=a[e].q||[]).push(arguments)},i.l=1*new Date,i.o=f,
+      g=b.createElement(c),h=b.getElementsByTagName(c)[0],g.async=1,g.src=d,g.setAttribute("n",e),h.parentNode.insertBefore(g,h)
+      )})(window,document,'script', 'https://widgets.sir.sportradar.com/713ad42ed654599df32c28e1f95b871b/widgetloader', 'SIR', {
+        theme: false,
+        language: 'zh'
+      })
+
+      const params = new URLSearchParams(location.search)
+      SIR(
+        'addWidget',
+        '.sr-widget-1',
+        'match.lmtPlus',
+        {
+          // layout: "topdown",
+          // scoreboard: "disable",
+          // detailedScoreboard: "disable",
+          matchId: +params.get('id') || 22439311
+        }
+      )
+    </script>
+    <div class="widgets">
+      <div><div class="sr-widget sr-widget-1"></div></div>
+
+    </div>
+  </body>
+</html>

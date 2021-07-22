@@ -1,0 +1,153 @@
+<template id="contentTmpl">
+<div>
+	<div class="main_content">
+        <section id="newBind" class="modifymobile_content _03" style="padding-top: 20px;">
+            <div class="layout_form p-top-rmv">
+                <form id="infoForm" action="" method="post">  
+                    <input type="hidden" name="operate" id="operate" value="0"/>
+                    <input name="act" type="hidden" value="bindPhone"/>          
+                    <div class="form_field_wrap">
+                        <div class="form_field">
+                            <span class="label">绑定邮箱</span>      
+                            <div class="input_wrap">
+                            	<input class="txt_right" type="text" v-model="email">
+                            </div>
+                        </div>  
+                        <div class="form_field">
+                            <span class="label">验证码</span>      
+                            <div class="input_wrap sm"><input type="text" v-model="codeInput" name="code" maxlength="6"></div>
+                            <div id="sendCode" v-bind:class="[disabled ? '' : 'active-btn', 'sendCode']" @click="sendCode">{{send_btn_text}}</div>
+                        </div>  
+                    </div>
+                    <p class="notif" v-if="code_sended">验证码已发送，15分钟内输入有效，请勿泄漏</p>
+                    <div class="form_btn-wrap">
+                        <a id="bindPhone" v-on:click.stop.prevent="checkCode" class="btn btn-lg btn-ylw">确定</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+</template>
+<script>
+appState.setData({
+    needLogin: true,
+    title: '绑定邮箱'
+});
+Vue.component("app-content", {
+	template: "#contentTmpl",
+	data: function () {
+		return {
+			time: 0,
+			code_sended: false,
+			email: '',
+			codeInput: '',
+			isRead: false
+		}
+	},
+	mounted:function(){
+		var _this = this;
+		JSBridge.onReady(function(){
+			Request.userInfo(function(customer){
+				_this.email = customer.email;
+				if (customer.email) _this.isRead = true;
+			},function(){});
+		});
+	},
+	methods: {
+		timer: function() {
+			var _this = this;
+			if (this.time > 0) {
+				this.time--;
+				setTimeout(_this.timer, 1000);
+			}
+		},
+		sendCode: function() {
+			if (this.disabled) return;
+			var email_address = this.email;
+			if(!email_address) {
+				$.toast.fail("请输入邮箱地址");
+				return;
+			}
+			var re_email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			if(!(/\*\*/.test(email_address)) && !(re_email.test(email_address))) {
+				$.toast.fail("请输入正确的邮箱格式");
+				return;
+			}
+			//发送验证码
+			var _this = this;
+			JSBridge.net.invoke({
+				url: "verify/send",
+				data: {
+					"type": 2,
+					"v_type": 2,
+					"send_to": email_address,
+					"timestamp": Date.now()
+				},
+				success: function (result) {
+					_this.time = 60
+					_this.timer();
+					_this.code_sended = true;
+				},
+				error: function (error) {
+					$.toast.fail(error.message);
+				}
+			});
+		},
+		checkCode: function() {
+			var _this = this;
+			if(!_this.codeInput) {
+				$.toast.fail("请输入验证码");
+				return;
+			}
+			//验证验证码
+			JSBridge.net.invoke({
+				url: "verify/check",
+				data: {
+					"type": 2,
+					"v_type": 2,
+					"send_to": _this.email,
+					"code": _this.codeInput,
+					"timestamp": Date.now()
+				},
+				success: function (result) {
+					JSBridge.net.invoke({
+						url: "verify/bind",
+						data: {
+							"type": 2,
+							"send_to": _this.email,
+							"request_id": result
+						},
+						success:function(result){
+							var customer = JSBridge.cache.get("customer");
+							customer.email = _this.email;
+							JSBridge.cache.save("customer", customer);
+							$.toast.success('邮箱绑定成功', function() {
+								JSBridge.forward.inside({url: "customer/member_center.htm"});
+							});
+						},
+						error:function(error){
+							$.toast.fail(error.message);
+						}
+					});		
+				},
+				error: function (error) {
+					$.toast.fail(error.message);
+				}
+			});
+		}
+	},
+	computed: {
+		send_btn_text: function () {
+			if (this.code_sended) {
+				return this.time > 0 ? '重新发送（'+this.time+'）' : '重新发送';
+			} else {
+				return '发送验证码'
+			}
+		},
+		disabled: function() {
+			return this.time > 0;
+		}
+	}
+});
+</script>

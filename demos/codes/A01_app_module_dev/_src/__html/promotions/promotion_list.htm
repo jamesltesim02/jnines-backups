@@ -1,0 +1,89 @@
+<component src="_template/component/Header.htm"></component>
+<component src="_template/component/Nav.htm"></component>
+<template id="contentTmpl">
+    <div class="main_content">
+        <app-header title="最新优惠"></app-header>
+        <section class="promotion">
+            <ul class="promotions_cont">
+                <li v-if="!isGet" style="border:none">
+                    <div class="img-loader loading" style="min-height: 100px"></div>
+                </li>
+                <li v-if="isGet && !promoList.length" class="center">
+                    <div>暂无数据</div>
+                </li>
+                <li v-if="isGet && promoList.length" v-for="promo in promoList">
+                    <div class="flexed">
+                        <div class="img_container">
+                            <h-img :src="promo.imgurl"></h-img>
+                        </div>
+                        <div class="content">
+                            <p class="title">{{promo.name}}</p>
+                            <p class="subs">{{promo.desc}}</p>
+                            <a @click="toPromotion(promo.href)" class="sm_standard_dbtn">查看详情</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <app-nav index="1"></app-nav>
+    </div>
+</template>
+<script>
+;
+(function() {
+	appState.setData({
+        title: '最新优惠'
+    });
+	
+    
+    var promoData = {
+        isLoged: false,
+        isGet: false,
+        promoList: []
+    };
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function() {
+            return promoData;
+        },
+        methods: {
+            toPromotion: function(url) {
+                JSBridge.forward.outside({ url: OtherUtils.formatOutsideUrl(url), newView: 'true' });
+            }
+        }
+    });
+
+    function getPromoList() {
+        var _this = promoData,
+            expireAt = 600,
+            cacheKey = 'promoNewData',
+            promoDataCache = JSBridge.cache.get(cacheKey);
+
+        if (promoDataCache) {
+            _this.promoList = promoDataCache;
+            _this.isGet = true;
+        } else {
+            JSBridge.net.invoke({
+                loading:false,
+                url: "A01/promotion/newList",
+                data: {},
+                success: function(result) {
+                    _this.promoList = result;
+                    _this.isGet = true;
+                    JSBridge.cache.save(cacheKey, result, expireAt * 1000);
+                },
+                error: function() {
+                    _this.isGet = true;
+                }
+            });
+        }
+    }
+
+    JSBridge.onReady(function() {
+		if($.getParam('index')){
+			$(".header_index").hide();
+		}
+        getPromoList();
+    });
+})();
+</script>

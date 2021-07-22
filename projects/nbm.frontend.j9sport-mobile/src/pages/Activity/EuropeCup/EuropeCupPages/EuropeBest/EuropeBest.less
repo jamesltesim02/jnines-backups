@@ -1,0 +1,31 @@
+.europe-best {
+  background-color: #1e232e;
+
+  .group-list.ante {
+    grid-column-gap: 3px;
+    ul {
+      li {
+        line-height: 42px;
+        text-align: center;
+        &:nth-child(even) {
+          background-image: linear-gradient(to right, #3d424d, #3d424d);
+        }
+        &:nth-child(odd) {
+          background-image: linear-gradient(to right, #1e232e, #1e232e);
+        }
+      }
+      .group-team-name {
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        i {
+          border-radius: 50%;
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}

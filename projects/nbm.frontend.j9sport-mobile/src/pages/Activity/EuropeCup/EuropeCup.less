@@ -1,0 +1,165 @@
+.setZIndex(@n, @i:1) when (@i <= @n) {
+  &:nth-child(@{i}) {
+    & {
+      z-index: (@n - @i);
+      animation-delay: (@i - 1)*50ms;
+    }
+
+    &.active {
+      z-index: ((@n + 1) - @i);
+    }
+  }
+  .setZIndex(@n, (@i + 1));
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(200%, 0, 0);
+    transform: translate3d(200%, 0, 0)
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0)
+  }
+}
+
+.europe-cup {
+  background: top/contain no-repeat url("./img/europe-bgc.png");
+  background-color: #373737;
+  padding-top: 30%;
+
+  .empty-list {
+    height: 60vh;
+    .msg {
+      font-size: 16px;
+    }
+  }
+
+  .europe-rule {
+    height: 50vh;
+    padding: 0 20px;
+    line-height: 25px;
+    background-image: linear-gradient(90deg, #2B313D 14%, #111520 85%);
+  }
+
+  .europe-nav {
+    position: sticky;
+    top: 44px;
+    height: 40px;
+    display: flex;
+    z-index: 2;
+    align-items: flex-end;
+    background-image: linear-gradient(to right, #2b313d 14%, #111520 85%);
+    overflow: auto hidden;
+
+    a, button {
+      position: relative;
+      z-index: 1;
+      padding-left: 20px;
+      min-width: 95px;
+      flex: 1;
+      height: 40px;
+      line-height: 40px;
+      color: #f9f9f9;
+      font-size: 14px;
+      text-align: center;
+      border-radius: 6px;
+      animation: fadeInRight 500ms forwards;
+      opacity: 0;
+      .setZIndex(6);
+
+      &::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transform-origin: bottom left;
+        transform: skew(-25deg);
+        width: 100%;
+        height: 100%;
+        opacity: .6;
+        border-radius: 0 4px 4px 0;
+      }
+
+      &.active {
+        height: 40px;
+        line-height: 40px;
+        color: #653302;
+        font-size: 14px;
+
+        &::after {
+          z-index: -1;
+          background-image: linear-gradient(to right, #e2b271 0%, #f6d99d);
+          opacity: 1;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+
+  .group-list {
+
+    &.deep-color {
+      ul li {
+        &:nth-child(even) {
+          background-image: linear-gradient(to right, #2b313d 14%, #111520 85%);
+        }
+
+        &:nth-child(odd) {
+          background-image: linear-gradient(to right, #111520 14%, #2b313d 85%);
+        }
+      }
+    }
+
+    ul {
+      li {
+        font-size: 13px;
+        color: #b1b1b1;
+
+        button {
+          span {
+            color: #e5c6a3;
+            margin-left: 5px;
+          }
+        }
+
+        time {
+          padding-left: 15px;
+        }
+
+        &:nth-child(even) {
+          background-image: linear-gradient(to right, #3f4550 14%, #282b35 85%);
+        }
+
+        &:nth-child(odd) {
+          background-image: linear-gradient(to right, #2b313d 14%, #111520 85%);
+        }
+      }
+    }
+  }
+
+  .col-3 li {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .col-2 li {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .col-1 li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+
+  p {
+    margin: 0;
+  }
+}

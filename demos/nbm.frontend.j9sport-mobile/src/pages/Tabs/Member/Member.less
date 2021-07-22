@@ -1,0 +1,120 @@
+.tabs-member {
+  height: auto;
+  &-username {
+    font-size: 18px;
+    height: 80px;
+    line-height: 80px;
+    img {
+      vertical-align: middle;
+      width: 50px;
+      margin: 0 10px;
+    }
+  }
+  > div:first-child {
+    background-color: var(--app-background-color);
+    padding-bottom: 10px;
+    color: var(--first-color);
+  }
+
+  &-balance {
+    background-image: linear-gradient(to top, #1e1e1e, #252525);
+    margin: 10px 10px 0 10px;
+    padding: 10px;
+    border-radius: 4px;
+    .tit {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      line-height: 20px;
+      font-size: 13px;
+      color: #888888;
+      button {
+        width: 50px;
+        height: 100%;
+        >img {
+          width: 20px;
+        }
+      }
+    }
+    .balance {
+      line-height: 50px;
+      font-size: 25px;
+    }
+    .topUp {
+      display: flex;
+      justify-content: space-between;
+      button {
+        position: relative;
+        flex-basis: 48%;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 4px;
+        overflow: hidden;
+        &:first-child {
+          color: #dddddd;
+          border: 1px solid #e2b372;
+          &::after {
+            position: absolute;
+            content: '';
+            display: inline-block;
+            left: 0;
+            height: 40px;
+            width: 0;
+            background-color: rgba(100,100,100,.3);
+            transition: width 250ms;
+            transition-timing-function: cubic-bezier(.65,.7,.87,.53);
+          }
+          &:active {
+            &::after {
+              width: 100%;
+            }
+          }
+        }
+        &:last-child {
+          color: #242220;
+          background-image: linear-gradient(to top, #e2b372, #f5d79b, #f5d79b);
+          &:active {
+            background-image: linear-gradient(to right, #e2b372, #f5d79b, #f5d79b);
+          }
+        }
+      }
+    }
+  }
+
+  &-option {
+    padding: 10px;
+    >li {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      overflow: hidden;
+      >a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 15px;
+        height: 50px;
+        line-height: 50px;
+        background-color: var(--tour-background-color);
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--border-color);
+        }
+      }
+    }
+    .tips {
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #f00;
+        top: 15px;
+        box-shadow: 0 0 8px #ff0000;
+        opacity: .9;
+      }
+    }
+  }
+}

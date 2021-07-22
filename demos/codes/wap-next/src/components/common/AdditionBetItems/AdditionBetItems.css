@@ -1,0 +1,84 @@
+.nb_Tabelbox {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+.nb_TabelItems, .nb_Tabeltit {
+    display: table-cell;
+    border-collapse: collapse;
+}
+.nb_Tabeltit {
+    width: .7rem;
+    border: 1px solid rgba(46, 47, 52, .5);
+    border-top: none;
+    vertical-align: top;
+}
+
+.nb_TabelItems {
+    width: 1.6rem;
+    border: 1px solid rgba(46, 47, 52, .5);
+    border-top: none;
+    vertical-align: top;
+}
+.nb_TabelItemspage, .nb_Tabeltitpage p{
+    height: .94rem;
+    width: 100%;
+    border-top: 1px solid rgba(46, 47, 52, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: rgba(255, 255, 255, .5);
+    font-size: .24rem;
+}
+.nb_Tabeltitpage p {
+    color: rgba(255, 255, 255, .3);
+}
+.nb_TabelItemspage p:nth-of-type(2) {
+    font-size: .26rem;
+    padding-top: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.nb_AdditionBetItemsft {
+    border-top: 1px solid rgba(46, 47, 52, .5);
+}
+.nb_AdditionBetItems {
+    display: table;
+}
+
+.nb_ConcedeScoreitem {
+    display: flex;
+    justify-content: center;
+    height: .76rem;
+    border-bottom: 1px solid rgba(46, 47, 52, .5);
+}
+
+.nb_ConcedeScoreitem p {
+    font-size: .24rem;
+    text-align: center;
+    height: .34rem;
+    line-height: .34rem;
+}
+.nb_ConcedeScoreitem p:nth-of-type(2){
+    color: #53FFFD;
+}
+.nb_player_wrap{
+    width: .72rem;
+    border-right: 1px solid rgba(46, 47, 52, .5);
+    display: table-cell;
+}
+

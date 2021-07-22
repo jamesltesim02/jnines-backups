@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="148" height="28" viewBox="0 0 148 28">
+    <defs>
+        <linearGradient id="e85h3bmovb" x1="97.907%" x2="0%" y1="48.225%" y2="48.21%">
+            <stop offset="0%" stop-color="#4269AF"/>
+            <stop offset="100%" stop-color="#003674"/>
+        </linearGradient>
+        <path id="opezcyw89a" d="M0 0h148c-10.093 0-14.992 28-25.895 28C102.361 28 61.66 27.966 0 27.898V0z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g transform="translate(-342 -442) translate(342 442)">
+                <use fill="url(#e85h3bmovb)" xlink:href="#opezcyw89a"/>
+            </g>
+        </g>
+    </g>
+</svg>

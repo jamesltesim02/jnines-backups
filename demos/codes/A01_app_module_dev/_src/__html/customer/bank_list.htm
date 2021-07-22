@@ -1,0 +1,208 @@
+<style>
+.add_bank_card_content .card.default::before {}
+</style>
+<template id="contentTmpl">
+    <div class="add_bank_card_content">
+        <div v-for="(item, key) in list" class="bank_card_item">
+            <div class="tools">
+                <span class="title">绑定银行卡（{{key+1}}）</span>
+                <a v-show="isThanDelete && noPengding" @click="deleteBank(item)" class="delete"><i class="icon icon99"></i>删除</a>
+                <a v-show="item.flag == 9 || item.flag == 0" class="delete">审核中</a>
+                <a v-show="isThanDelete && noPengding" @click="editBank(item)" class="edit"><i class="icon icon98"></i>修改</a>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="card" @click="setDefault(item)">
+                <img class="bank_logo" v-bind:src="'../../__static/__images/bankinformation/'+bankLogo(item.bank_name)+'.png'">
+                <a v-if="item.is_default == 1" class="def">
+	                <img  src="../../__static/__images/add_bank_card/btn1.png">
+	            </a>
+	            <a v-if="item.is_default != 1" class="def">
+	                <img  src="../../__static/__images/add_bank_card/dbtn2.png">
+	            </a>
+                <p class="type">{{item.bank_account_type}}|{{item.branch_name}}</p>
+                <p class="account_num">{{mixed(item.bank_account_no)}}</p>
+                <p class="branch">{{item.bank_city}}{{item.bank_name}}</p>
+            </div>
+        </div>
+        <div v-show="isThanAdd && noPengding" class="bank_card_item">
+            <a forward="forward" newview="true" href="customer/bank_add.htm">
+                <div class="add_bank_card_item">
+                    <img src="../../__static/__images/add_bank_card/icon3.png">
+                    <p>添加银行卡</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</template>
+<script>
+(function() {
+    var contentData = {
+        list: [],
+        noPengding: false,
+        isThanDelete: false,
+        isThanAdd: false
+    };
+    appState.setData({
+        needLogin: true,
+        title: '银行卡资料',
+    });
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function() {
+            return contentData;
+        },
+        mounted: function() {
+
+        },
+        methods: {
+            deleteBank: function(bank) {
+                var _this = this;
+                $.pop.confirm('要删除银行卡?', '若以后继续使用该卡需重新添加并审核', function() {
+                    JSBridge.cache.delete("bankCardDeleteData");
+                    JSBridge.cache.save("bankCardDeleteData", {
+                        data: bank,
+                        outtime: new Date().getTime() + 600 * 1000
+                    }, 1);
+                    JSBridge.forward.inside({ url: 'customer/bank_delete_verify.htm', newView: true });
+                });
+            },
+            editBank: function(bank) {
+                if (!bank || !bank.login_name || !bank.customer_bank_id) {
+                    $.toast.fail("修改银行卡异常错误");
+                    return;
+                }
+
+                var cacheKey = bank.login_name +"bankCardEditData";
+                JSBridge.cache.delete(cacheKey);
+                JSBridge.cache.save(cacheKey, {
+                    data: bank,
+                    outtime: new Date().getTime() + 120*60*1000
+                }, 1);
+                JSBridge.forward.inside({ url: 'customer/bank_edit_verify.htm', newView: true });
+            },
+            setDefault: function(item) {
+                if (item.is_default == 1) {
+                    return
+                }
+                JSBridge.net.invoke({
+                    url: "bankcard/update",
+                    data: {
+                        // 'bank_flag':9,
+                        'flag': 1,
+                        'save_default': 1,
+                        'bank_flag': 1,
+                        'customer_bank_id': item.customer_bank_id
+                    },
+                    success: function(result) {
+                        Request.approve(result.request_id, '06', function() {
+                            $.toast.success("设置成功", 1, function() {
+                                // JSBridge.forward.inside({url:'customer/bank_list.htm', newView: true});
+                                var _this = contentData;
+                                init(_this);
+                            });
+                        }, function() {
+                            $.toast.fail("设置失败");
+                        });
+                    },
+                    error: function(error) {
+                        $.toast.fail("设置失败:" + error.message);
+                    }
+                });
+            },
+
+            bankLogo: function(name) {
+                var logos = {
+                    '招商银行': 'bank_logo1',
+                    '交通银行': 'bank_logo18',
+                    '农业银行': 'bank_logo3',
+                    '工商银行': 'bank_logo5',
+                    '建设银行': 'bank_logo4',
+                    '中国银行': 'bank_logo22',
+                    '邮政银行': 'bank_logo27',
+                    '平安银行': 'bank_logo13',
+                    '民生银行': 'bank_logo10',
+                    '光大银行': 'bank_logo29',
+                    '兴业银行': 'bank_logo24',
+                    '平安银行': 'bank_logo13',
+                    '中信银行': 'bank_logo6',
+                    '浦发银行': 'bank_logo17',
+                    '广发银行': 'bank_logo2',
+                    '华夏银行': 'bank_logo28',
+                    '中国邮政银行': 'bank_logo27',
+                    '深圳发展银行': 'bank_logo26',
+                    '邮政储蓄': 'bank_logo27',
+                    '邮政银行': 'bank_logo27',
+                    '邮政储蓄银行': 'bank_logo27',
+                    '农村信用合作社': 'bank_logo25'
+                }
+                return logos[name];
+            },
+            mixed: function(no) {
+                return no.slice(0, 1) + '*'.repeat(no.length - 5) + no.slice(no.length - 4, no.length);
+            }
+        }
+    });
+
+    function init(_this) {
+        JSBridge.net.invoke({
+            url: "bankcard/getList",
+            data: {
+                "flag": "9;1",
+                'order': 'PRIORITY_ORDER',
+                'delete_flag': '0'
+            },
+            success: function(result) {
+                JSBridge.cache.save("bindingBankCardCountData", {
+                    data: result.length,
+                    outtime: new Date().getTime() + 600000
+                }, 1);
+
+                if (!result) {
+                    _this.noPengding = true;
+                    _this.isThanAdd = true;
+                    return;
+                }
+                if (result && result.length > 1) {
+                    _this.isThanDelete = true;
+                }
+                if (result && result.length >= 0 && result.length < 3) {
+                    _this.isThanAdd = true;
+                }
+
+                _this.list = result;
+            },
+            error: function(error) {
+                $.toast.fail(error.message);
+            }
+        });
+    }
+
+    JSBridge.onReady(function() {
+        if (!CustomerUtils.isLoged()) {
+            JSBridge.forward.inside({ url: 'customer/member_center.htm', newView: true });
+            return;
+        }
+
+        var _this = contentData;
+
+        init(_this);
+
+        CheckUtil.isPendingBankApply(function() {
+            _this.noPengding = true;
+        }, function() {
+            var max = 0,
+                index = 0;
+            _this.list.forEach(function(value, i) {
+                var order = parseInt(value.priority_order);
+                if (order > max) {
+                    max = order;
+                    index = i;
+                }
+            });
+            _this.list[index].flag = '0';
+            _this.noPengding = false;
+        });
+    });
+})();
+</script>

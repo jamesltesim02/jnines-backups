@@ -1,0 +1,43 @@
+<template id="annoumentTmpl">
+	<div v-html="annouments" @click="goanments()"></div>
+</template>
+<script>
+;(function () {
+	var data = {
+		annouments: ""
+	};
+	Vue.component("annoument", {
+		template: "#annoumentTmpl",
+		data: function () {
+			return data;
+		},
+		methods: {
+			goanments:function(){
+				JSBridge.forward.inside({url: "common/ancement.htm", newView: true});
+			}
+		}
+	});
+
+	JSBridge.onReady(function() {
+		var annoumentData = JSBridge.cache.get("annoutData");
+		if(annoumentData && new Date().getTime() < annoumentData.outtime) {
+			data.annouments = annoumentData.data.map(function (v,i) {return v.content;}).join("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+			return;
+		}
+		JSBridge.net.invoke({
+			loading: false,
+			url: "app/getAnnouments",
+			success: function (result) {
+				if(!result) {return;}
+				data.annouments = result.map(function (v,i) {return v.content;}).join("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+				JSBridge.cache.save("annoutData", {
+                	data: result,
+                	outtime: new Date().getTime() + 300000
+                }, 1);
+			}
+		});
+	});
+	
+})();
+
+</script>

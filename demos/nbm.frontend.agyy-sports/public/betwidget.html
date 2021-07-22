@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+    <title>快速投注</title>
+  </head>
+  <body>
+    <div id="betContainer"></div>
+    <script>
+      // 引入组件入口加载器
+      (function(w,d,r,n) {w[n]||(w[n]=function(m,o){w[n].q||(w[n].q=[]),o.t=Date.now(),w[n].q.push([m,o])});var e=d.createElement("script");e.async=!0,e.src=new URL("widgetloader.js",r).href,e.setAttribute("entry",n),d.querySelector("head").appendChild(e)})(
+        window,
+        document,
+        "http://localhost:8600/",
+        "BetWidget"
+      )
+
+      // addWidget 添加组建到页面, 使用的函数名需要和上面的入口函数名一致
+      BetWidget(
+        'addWidget',
+        {
+          // 组件名称: quickBet为快速投注
+          widget: 'quickBet',
+          // 将要渲染到的组件
+          target: document.getElementById('betContainer'),
+          // 商户id
+          frontId: '10077100werw564wesfx',
+          // 语言
+          locale: 'zh',
+          // 用户token
+          token: '3a52319172174dd0bca8736df1e7df78',
+          // 相关事件
+          events: {
+            // 需要登录事件, 可先完成登录操作后通过updateToken完成登录状态更新操作
+            needLogin: function () {
+              location.href = 'login.html'
+            },
+            // 投注完成事件, 主要用于更新页面余额等操作, 会传入注单信息
+            betCompleted: function (order) {
+              console.log(order)
+            }
+          }
+        }
+      )
+
+      // updateBalance 更新用户余额
+      // BetWidget(
+      //   'updateBalance',
+      //   { balance: 100 }
+      // )
+
+      // updateToken 更新用户token, null表示退出
+      // BetWidget(
+      //   'updateBalance',
+      //   { token: null }
+      // )
+    </script>
+  </body>
+</html>

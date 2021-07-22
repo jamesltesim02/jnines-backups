@@ -1,0 +1,37 @@
+.promotion-wrapper {
+  height: 100%;
+  max-width: 1420px;
+  margin: 0 auto;
+  color: #666666;
+  .header {
+    height: 90px;
+    background-color: var(--block-background-color);
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin: 20px 0;
+
+    div:first-child {
+      font-size: 28px;
+    }
+
+    div:last-child {
+      display: flex;
+      justify-content: space-between;
+
+      span:first-child {
+        color: #cccccc;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .card-wrapper {
+    height: calc(100vh - 210px);
+    overflow: hidden overlay;
+    .ant-card {
+      color: var(--first-color);
+      background-color: var(--block-background-color);
+      margin-bottom: 20px;
+    }
+  }
+}

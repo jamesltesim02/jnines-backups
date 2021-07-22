@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#161616" />
+    <meta name=”apple-mobile-web-app-status-bar-style” content=”#161616″>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="format-detection" content="telephone=no, email=no">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="full-screen" content="yes"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="google" value="notranslate"/>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <link rel="icon" href="%PUBLIC_URL%/assets/icons/favicon.ico" />
+    <link rel="apple-touch-icon" size="96x96" href="%PUBLIC_URL%/assets/icons/favicon.ico" />
+    <link rel="apple-touch-startup-image" size="96x96" href="%PUBLIC_URL%/assets/icons/appicon.ico" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>J9 SPORT</title>
+    <script>
+      // if (
+      //   /Android|iPhone|iPad/i.test(navigator.userAgent)
+      //   &&
+      //   !/localhost|nbmm\.co|127\.0\.0\.1/i.test(location.origin)
+      // ) {
+      //   location.href = location.origin.replace('//www.', '//m.').replace('//spt.', '//sptm.');
+      // }
+
+      // smartm10077.
+      // smart10077
+      // var INDEPENDENT_FID = '10077';
+      var fid = (
+        /(localhost|(\.?\d{1,3}){4})/i.test(location.hostname)
+        ? '10120'
+        : 'default'
+      );
+      // 获取域名的第一段
+      var domainName = window.location.hostname.split('.')[0];
+      // 判断是否是第三方商户
+      if (/^(smart|10077)m?\d{5}$/i.test(domainName)) {
+        fid = domainName.substr(-5);
+      }
+      
+      // 加载对应的配置文件
+      document.write('<script src="%PUBLIC_URL%/configs/config.' + fid + '.js"><\/script>')
+    </script>
+    <script>
+      // vconsole 调试器
+      var vconsoleUrl = '%PUBLIC_URL%/assets/js/vconsole.min.js';
+      if (location.search.indexOf('openDebugConsole=true') > -1) {
+        document.write('<script src="' +  vconsoleUrl + '"><\/script>');
+        document.write('<script>window.__vconsole__ = new VConsole()<\/script>');
+      }
+      addEventListener('openDebugConsole', function () {
+        if (window.__vconsole__) {
+          return;
+        }
+        if (window.VConsole) {
+          window.__vconsole__ = new VConsole();
+          return;
+        }
+        var el = document.createElement('script');
+        el.addEventListener('load', function () {
+          window.__vconsole__ = new VConsole();
+        });
+        el.src = vconsoleUrl;
+        document.querySelector('head').appendChild(el);
+      })
+
+      // intl polyfill支持
+      if (!Intl) {
+        document.write('<script src="%PUBLIC_URL%/assets/js/Intl.min.js"><\/script>');
+        document.write('<script src="%PUBLIC_URL%/assets/js/Intl.locale-data.zh.js"><\/script>');
+      }
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+@import './theme.dark.less';
+@import './theme.light.less';
+@import './reset';
+@import "~simplebar-react/dist/simplebar.min.css";
+
+body.pc {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  ::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+  }
+}
+#root {
+  color: var(--first-color);
+  font-size: 12px;
+}
+
+@keyframes blink {
+  from,
+  50%,
+  to {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+
+* {
+  transition: background-color .3s ease-out,
+              color .3s ease-out,
+              border-color .3s ease-out,
+              box-shadow .3s ease-out;
+}
+
+.cancel {
+  height: 48px;
+  color: #f3b867;
+  border: 1px solid #f6d99d;
+}
+.submit {
+  border-radius: 2px;
+  font-size: 16px;
+  height: 50px;
+  color: #a8a8aa;
+  background-image: linear-gradient(to right, #3b3b43 0%, #515262 100%);
+  &.available {
+    color: var(--colorful-color);
+    background-image: var(--colorful-linear-gradient);
+  }
+}
+.single-submit {
+  width: 160px;
+  margin: 0 auto;
+}
+.full-single-submit {
+  width: 100%;
+  margin-top: 28px;
+}

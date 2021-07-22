@@ -1,0 +1,226 @@
+.withdrawal-page > section {
+  .left-bar {
+    & > a {
+      display: flex;
+      align-items: center;
+      height: 55px;
+      padding: 0 20px 0 25px;
+      font-size: 16px;
+      background-color: var(--block-background-color);
+      margin-bottom: 4px;
+      border-left: 4px solid #333;
+      transition: all .2s linear;
+      label {
+        flex: 1 1;
+      }
+      img {
+        filter: grayscale(1);
+      }
+      &.active {
+        border-left-color: var(--colorful-border-color);
+        color: var(--member-info-sub--color);
+        img {
+          filter: grayscale(0);
+        }
+      }
+    }
+  }
+  .withdrawal-content {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-gap: 80px;
+    padding: 40px 100px;
+    .form {
+      color: #a8a8aa;
+      .dcbox-button {
+        display: block;
+        width: 100%;
+        img {
+          width: 100%;
+          border-radius: 4px;
+        }
+      }
+      & > div > label {
+        display: block;
+        font-size: 14px;
+        margin-top: 20px;
+        margin-bottom: 8px;
+        font-weight: 600;
+        span {
+          font-size: 12px;
+          font-weight: 400;
+          color: #6f6f71;
+        }
+      }
+      .balance span {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        button {
+          margin-left: 5px;
+          padding: 5px;
+        }
+        .loading-bar {
+          display: inline-flex;
+          width: auto;
+        }
+      }
+      .wallet {
+        button {
+          position: relative;
+          display: flex;
+          padding: 0 15px;
+          border-radius: 2px;
+          width: 100%;
+          height: 50px;
+          margin-bottom: 8px;
+          border: 1px solid #71717b;
+          color: #71717b;
+          &::before, &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: block;
+            opacity: 0;
+            transition: all .2s linear;
+          }
+          &::before {
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, var(--colorful-border-color) 50%, var(--colorful-border-color));
+          }
+          &::after {
+            top: 4px;
+            right: 2px;
+            transform: rotate(-45deg);
+            width: 8px;
+            height: 4px;
+            border-left: 1px solid var(--colorful-color);
+            border-bottom: 1px solid var(--colorful-color);
+          }
+          label {
+            text-align: left;
+            margin-right: 5px;
+          }
+          var {
+            flex: 1 1;
+            font-style: normal;
+            text-align: right;
+            i {
+              font-style: normal;
+            }
+          }
+          &:hover, &.active {
+            border-color: var(--colorful-border-color);
+            color: var(--colorful-border-color);
+            &::before, &::after {
+              opacity: 1;
+            }
+          }
+          .dcbox-tip i {
+            position: relative;
+            display: inline-block;
+            border-radius: 1px;
+            padding: 0 8px;
+            margin-right: 20px;
+            color: #fff;
+            font-weight: 500;
+            letter-spacing: 1px;
+            font-size: 14px;
+            line-height: 24px;
+            background: #FC4809;
+            &::before {
+              content: "";
+              position: absolute;
+              left: -10px;
+              top: 50%;
+              transform: translateY(-50%);
+              display: block;
+              width: 0;
+              height: 0;
+              border: 5px solid transparent;
+              border-right-color: #FC4809;
+            }
+          }
+        }
+        .withdrawal-add-wallet {
+          display: block;
+          padding: 0 15px;
+          width: max-content;
+          line-height: 32px;
+          border-radius: 2px;
+          border: solid 1px #a8a8aa;
+          &:hover {
+            color: #ebba73;
+            border-color: #ebba73;
+          }
+        }
+      }
+      .amount > div {
+        display: flex;
+        align-items: center;
+        height: 48px;
+        padding: 0 15px;
+        border-radius: 2px;
+        border: solid 1px #3b3b42;
+        .input {
+          flex: 1 1;
+          input {
+            font-size: 16px;
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 0 10px;
+            color: #ebba73;
+            &::placeholder {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+      .tips {
+        margin-top: 32px;
+        color: #ebba73;
+      }
+    }
+    .image a {
+      display: block;
+      width: 100%;
+      img {
+        width: 100%;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .withdrawal-page > section .withdrawal-content {
+    display: block;
+    .image {
+      display: none;
+    }
+  }
+}
+.withdrawal-content {
+  .wallet-item {
+    background-image: none;
+  }
+}
+.total-bet-undone {
+  table {
+    font-size: 12px;
+    letter-spacing: -1px;
+    width: 100%;
+    margin: 10px 0;
+    td, th {
+      border: 1px solid #ccc;
+    }
+    td:first-child,
+    td:last-child {
+      text-align: center
+    }
+  }
+}

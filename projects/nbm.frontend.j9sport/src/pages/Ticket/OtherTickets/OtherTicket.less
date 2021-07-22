@@ -1,0 +1,30 @@
+.winOrLose {
+  display: inline-block;
+  text-align: center;
+  border-radius: 2px;
+  width: 35px;
+  height: 20px;
+  line-height: 18px;
+  vertical-align: sub;
+
+  &.lose {
+    color: #52c41a;
+    background-color: #f6ffed;
+    border: 1px solid #b7eb8f;
+  }
+  &.win {
+    color: #fa541c;
+    background-color: #fff2e8;
+    border: 1px solid #ffbb96;
+  }
+  &.normal {
+    color: #666666;
+    border: 1px solid #666666;
+  }
+}
+.copy {
+  color: var(--high-light-color);
+  &:hover {
+    text-decoration: underline var(--high-light-color) ;
+  }
+}

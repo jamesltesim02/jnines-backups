@@ -1,0 +1,78 @@
+<template id="contentTmpl">
+    <div id="page_content" class="flex_1">
+	    <div class="sent">
+	    <ul class="sent-msg-list">
+	       <div v-if="!letterList || !letterList.length" class="center" style="padding:40px 10px;">
+	             暂无数据
+	       </div>
+	       <div v-else>
+	        <li class="item" v-for="l in letterList">
+	            <a newview="true" forward="forward" :href="l.url" class="header">
+	                <h3 class="recipient">收件人：{{l.receiver}}<span class="date">{{l.created_date.substr(0, 7)}} <i class="icon icon100"></i></span></h3>
+	                <h3 class="type white">类型：{{l.typeName}}</h3>
+	                <h3 class="type" style="padding-right: 10px;">内容：{{l.content}}</h3>
+	            </a>
+	        </li>
+	        </div>
+	    </ul>
+	</div>
+</template>
+<script>
+;(function(){
+appState.setData({
+    title: '已发消息',
+    needLogin: true
+});
+var data = {
+     letterList: []
+ };
+Vue.component("app-content", {
+    template: "#contentTmpl",
+    data:function(){
+        return data;
+    },
+    methods: {
+
+    }
+});
+
+function getList(page_num=1, page_size=50)
+{
+    JSBridge.net.invoke({
+        url: "A01/letter/getList",
+        data: {
+            'page_num': page_num,
+            'page_size': page_size
+        },
+        success: function (result) {
+            var expireAt = 120;
+            result.forEach(function (v, i) {
+            	result[i]['url'] = 'customer/letter_history.htm?id='+ v.request_id;
+            });
+            data.letterList = result;
+            JSBridge.cache.save("letterListData", {
+                data: result,
+                outtime: new Date().getTime() + expireAt*1000
+            }, 1);
+        },
+        error: function (error) {
+        	$.toast.fail(error ? error.message : "页面加载失败");
+        }
+    });
+}
+
+JSBridge.onReady(function () {
+    var _this = data;
+    
+    // 获取数据
+    var d = new Date();
+    var dataCache = JSBridge.cache.get("letterListData");
+    if (dataCache && d.getTime() < dataCache.outtime) {
+        _this.letterList = dataCache.data;
+    } else {
+    	getList();
+    }
+}); 
+})();
+</script>
+

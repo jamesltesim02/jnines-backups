@@ -1,0 +1,47 @@
+server:
+  port: 8080
+
+#MongoDB
+spring:
+  data:
+    mongodb:
+      database: nbm_cash_net
+      host: 52.184.36.152
+      port: 27017
+      username: admin
+      password: haohao123
+  redis:
+    port: 36888
+    password: haohao123
+    database: 8
+    host: 52.184.36.152
+    jedis:
+      pool:
+        min-idle: 5
+        max-idle: 15
+        max-wait: 30000
+        max-active: 60
+    timeout: 60
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: LEGACYHTML5
+    servlet:
+      content-type: text/html
+    encoding: utf-8
+    cache: false
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: false
+          paths: /**
+
+logging:
+  level:
+    org.springframework.data.mongodb.core: DEBUG
+
+
+file:
+  upload:
+    path: /Users/connor/workspaces/projects/nbmm_upload_temp/

@@ -1,0 +1,40 @@
+.nb-match-detail-games {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.nb-match-detail-expand {
+  display: flex;
+  height: .88rem;
+  line-height: .88rem;
+  padding: 0 .2rem;
+}
+.nb-match-game-list {
+  flex: 1;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.nb-match-detail-expand > div {
+  flex: 1;
+}
+
+.nb-match-detail-expand .icon-all-icon,
+.nb-match-detail-expand .icon-plus-icon,
+.nb-match-detail-expand .icon-minus-icon  {
+  height: .88rem;
+  width: .36rem;
+  line-height: .88rem;
+  font-size: .32rem;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.nb-match-detail-expand .icon-all-icon {
+  font-size: .36rem;
+  margin-right: .2rem;
+}
+
+.nb-match-game-list {
+  padding: 0 .2rem;
+}

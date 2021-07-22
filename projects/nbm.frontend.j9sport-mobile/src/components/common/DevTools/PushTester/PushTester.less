@@ -1,0 +1,58 @@
+.push-tester {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 0 10px;
+  width: calc(100% - 30px);
+  transition: all .3s ease-out;
+  transform: translateX(-100%);
+  z-index: 999;
+  &.open {
+    transform: translateX(0);
+  }
+  .btn-open {
+    position: absolute;
+    bottom: 80px;
+    right: -30px;
+    transition: all .3s ease-out;
+    background-color: deepskyblue;
+    color: #fff;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+  }
+  & > div {
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .4);
+  }
+  header {
+    background-color: #121212;
+    color: #fff;
+    line-height: 30px;
+    text-align: center;
+  }
+  .quick-set {
+    padding: 5px 0;
+    button {
+      color: #333;
+      padding: 5px 10px;
+      border: 1px solid #333;
+      margin-left: 5px;
+    }
+  }
+  section textarea {
+    padding: 0;
+    width: 100%;
+  }
+  footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    button {
+      line-height: 40px;
+    }
+  }
+}

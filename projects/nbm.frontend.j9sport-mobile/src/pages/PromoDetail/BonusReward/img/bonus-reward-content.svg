@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="363px" height="482px" viewBox="0 0 363 482" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>矩形备份 11</title>
+    <defs>
+        <linearGradient x1="29.2836232%" y1="21.4731107%" x2="59.6701354%" y2="18.05451%" id="linearGradient-1">
+            <stop stop-color="#ECB30B" offset="0%"></stop>
+            <stop stop-color="#F1BF13" offset="100%"></stop>
+        </linearGradient>
+        <path d="M29.7264434,276 L344.915322,276 C345.253763,276 345.569238,276.171184 345.753712,276.454929 L362.33839,301.964322 C362.443861,302.12655 362.5,302.315893 362.5,302.509392 L362.5,743 C362.5,743.552285 362.052285,744 361.5,744 L13.5,744 C12.9477153,744 12.5,743.552285 12.5,743 L12.5,297.937741 C12.5,297.715962 12.5737254,297.500475 12.7095794,297.325177 L28.9360228,276.387436 C29.1254292,276.143036 29.4172411,276 29.7264434,276 Z" id="path-2"></path>
+        <filter x="-2.9%" y="-2.1%" width="105.7%" height="104.3%" filterUnits="objectBoundingBox" id="filter-3">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="投注就送" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="矩形备份-11" transform="translate(-6.000000, -269.000000)">
+            <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+            <path stroke="url(#linearGradient-1)" stroke-width="1" d="M344.915322,275.5 C345.422983,275.5 345.896196,275.756776 346.172907,276.182394 L346.172907,276.182394 L362.757585,301.691786 C362.915791,301.935128 363,302.219143 363,302.509392 L363,302.509392 L363,743 C363,743.414214 362.832107,743.789214 362.56066,744.06066 C362.289214,744.332107 361.914214,744.5 361.5,744.5 L361.5,744.5 L13.5,744.5 C13.0857864,744.5 12.7107864,744.332107 12.4393398,744.06066 C12.1678932,743.789214 12,743.414214 12,743 L12,743 L12,297.937741 C12,297.605073 12.1105881,297.281842 12.314369,297.018894 L12.314369,297.018894 L28.5408125,276.081153 C28.824922,275.714553 29.2626399,275.5 29.7264434,275.5 L29.7264434,275.5 Z" fill="#2F2B2C" fill-rule="evenodd"></path>
+        </g>
+    </g>
+</svg>

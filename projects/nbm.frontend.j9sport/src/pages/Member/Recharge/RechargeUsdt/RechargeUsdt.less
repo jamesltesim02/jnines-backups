@@ -1,0 +1,85 @@
+.qr-result {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-column-gap: 35px;
+  align-items: center;
+  & > img {
+    width: 200px;
+    height: 200px;
+  }
+  .qr-content {
+    h3 {
+      font-size: 20px;
+      color: #e5e5e5;
+      span {
+        padding-left: 10px;
+        color: #deb682;
+      }
+    }
+    .scan-type {
+      display: flex;
+      margin: 24px 0;
+      label {
+        margin-right: 5px;
+      }
+      span {
+        flex: 1 1;
+        b {
+          color: #f3614b;
+          font-weight: normal;
+        }
+        a {
+          color: #f3b867;
+        }
+      }
+    }
+    .remark {
+      color: #a8a8aa;
+      b {
+        color: #f3614b;
+      }
+    }
+    .tips {
+      padding: 8px 0;
+      color: #71717b;
+      font-size: 12px;
+    }
+    .address {
+      display: grid;
+      grid-template-columns: 1fr 60px;
+      align-items: center;
+      height: 40px;
+      border-radius: 2px;
+      overflow: hidden;
+      background-color: #3e3e44;
+      margin: 8px 0 16px 0;
+      span.input {
+        padding-left: 15px;
+        input {
+          width: 100%;
+          background: transparent;
+          border: none;
+          outline: none;
+        }
+      }
+      button {
+        height: 40px;
+        color: #deb682;
+        background-color: rgba(30, 30, 36, 0.4);
+      }
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 24px;
+      button {
+        border-radius: 2px;
+      }
+      .cancel {
+        height: 48px;
+        color: #f3b867;
+        border: 1px solid #f6d99d;
+      }
+    }
+  }
+}

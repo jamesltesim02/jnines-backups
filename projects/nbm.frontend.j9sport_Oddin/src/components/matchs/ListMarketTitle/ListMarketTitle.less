@@ -1,0 +1,21 @@
+.list-market-title {
+  display: grid;
+  grid-template-columns: 5fr 9fr 50px;
+  text-align: center;
+  line-height: 30px;
+  .befores {
+    display: grid;
+    grid-template-columns: 10fr 14fr;
+    text-align: left;
+    label {
+      padding-left: 20px;
+    }
+  }
+  .markets {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .more {
+    border-left: 1px solid var(--app-background-color);
+  }
+}

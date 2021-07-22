@@ -1,0 +1,50 @@
+html,body,#root{
+    height: 100%;
+    width: 100%;
+}
+*{
+    box-sizing: border-box;
+}
+
+body {
+    font-family: PingFangSC-Regular,Arial,Helvetica,sans-serif;
+    font-size: .26rem;
+    /*background: #2E2F34;*/
+    color: #fff;
+}
+
+/*白色30%透明度*/
+.color_30, .color_30::before {
+    color: rgba(255, 255, 255, .3);
+}
+
+/*白色40%透明度*/
+.color_40 {
+    color: rgba(255, 255, 255, .4);
+}
+
+/*白色50%透明度*/
+.color_50 {
+    color: rgba(255, 255, 255, .5);
+}
+/*白色60%透明度*/
+.color_60 {
+    color: rgba(255, 255, 255, .6)!important;
+}
+
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+.nb-app-container {
+    height: 100%;
+    background:#2E2F34 ;
+}
+
+.nb-app-container > div {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+}

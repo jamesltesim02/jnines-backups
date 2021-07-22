@@ -1,0 +1,44 @@
+/* 全场半场 */
+.nb_Overalltabelbox {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+}
+.nb_Overalltit {
+    width: .7rem;
+    text-align: center;
+    height: .94rem;
+    line-height: .94rem;
+    border-right: 1px solid rgba(46, 47, 52, .5);
+    border-bottom: 1px solid rgba(46, 47, 52, .5);
+    color: rgba(255, 255, 255, .5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nb_OverallItemspagebox {
+    width: 6.4rem;
+    display: flex;
+}
+.nb_OverallItemspage {
+    flex: 1;
+    height: .94rem;
+    text-align: center;
+    border-right: 1px solid rgba(46, 47, 52, .5);
+    border-bottom: 1px solid rgba(46, 47, 52, .5);
+    float: left;
+    color: rgba(255, 255, 255, .3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.nb_OverallItemspage p:nth-of-type(2) {
+    font-size: .26rem;
+    color: #53FFFD;
+    padding-top: 5px;
+}
+.nb_curret, .nb_curret p:nth-of-type(2) {
+    background: #53C0FF;
+    color: #fff;
+}

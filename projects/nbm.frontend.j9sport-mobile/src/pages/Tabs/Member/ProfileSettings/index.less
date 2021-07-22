@@ -1,0 +1,120 @@
+.profile-container {
+  background-color: var(--block-background-color);
+  border-radius: 2px;
+  padding: 20px 25px;
+  margin: 0 12.5px;
+  .acc-custom-input {
+    border-color: #aaaaaa;
+    &-before::before {
+      background-color: #aaaaaa;
+    }
+  }
+  p {
+    margin: 0 0 20px 0;
+    color: var(--);
+    line-height: normal;
+  }
+  &-input {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #aaaaaa;
+    border-radius: 3px;
+    margin-bottom: 30px;
+  }
+  .phone-number {
+
+    &-input {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: var(--rule-color);
+      input {
+        background-color: transparent;
+        border: 0;
+        width: 110px;
+        color: var(--rule-color);
+        text-align: center;
+      }
+      >div:first-child {
+        margin: 0 10px 0 15px;
+      }
+      &.complete {
+        input {
+          width: auto;
+          text-align: left;
+          padding-left: 15px;
+        }
+      }
+    }
+
+    .country-code {
+      width: 70px;
+      text-align: center;
+    }
+  }
+  .phone-verify {
+    .rightline {
+      width: 60px;
+      text-align: center;
+      img {
+        vertical-align: middle;
+        display: inline-block;
+        width: 25px;
+      }
+    }
+    .send-btn {
+      border-radius: 3px;
+      background-image: linear-gradient(to bottom, #f4d699, #e3b574);
+      color: #707070;
+      height: calc(100% + 2px);
+      width: 100px;
+      transform: translateX(1px);
+      &:active {
+        font-size: 13px;
+        box-shadow:inset 0 0 5px 1px rgba(0,0,0,.3);
+      }
+      &.inactive {
+        background-image: linear-gradient(to bottom, #707070, #707070);
+        color: #d4d4d4;
+      }
+    }
+    &-input {
+      flex: 1;
+      input {
+        width: 100%;
+        background-color: transparent;
+        border: 0;
+        padding-left: 15px;
+        color: var(--rule-color);
+      }
+    }
+  }
+  .rightline {
+    position: relative;
+    &::before {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      content: '';
+      width: 1px;
+      height: 20px;
+      background-color: #aaaaaa;
+    }
+  }
+  .next-step {
+    height: 40px;
+    line-height: 40px;
+    background-image: linear-gradient(to left, #f4d699, #e3b574);    border-radius: 3px;
+    text-align: center;
+    color: #181818;
+    margin-bottom: 10px;
+    width: 100%;
+    filter: grayscale(1);
+    transition: all 300ms ease-in-out;
+    &-active {
+      filter: grayscale(0);
+    }
+  }
+}

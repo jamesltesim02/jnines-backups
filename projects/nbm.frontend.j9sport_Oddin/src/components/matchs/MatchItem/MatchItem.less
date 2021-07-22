@@ -1,0 +1,116 @@
+.match-item {
+  position: relative;
+  overflow: hidden;
+  transition: all .3s ease-out;
+  color: var(--first-color);
+  &:hover {
+    z-index: 2;
+    box-shadow: var(--item-hl-box-shadow);
+  }
+
+  &:nth-child(even) {
+    background-color: var(--block-background-color);
+  }
+  &:nth-child(odd) {
+    background-color: var(--match-odd-color);
+  }
+  .collapse-button {
+    position: absolute;
+    bottom: 3px;
+    left: 5px;
+    font-size: 12px;
+    color: var(--first-color);
+    & svg {
+      transition: all .3s ease-out;
+    }
+  }
+  &.collapsed {
+    &:nth-child(even) {
+      background-color: var(--match-list-background-even);
+    }
+    &:nth-child(odd) {
+      background-color: var(--match-list-background-odd);
+    }
+    .collapse-button svg {
+      transform: rotate(-180deg);
+    }
+  }
+}
+.match-row {
+  display: grid;
+  border-bottom: 1px solid var(--match-list-border-color);
+  grid-template-columns: 5fr 9fr 50px;
+  overflow: hidden;
+  height: 90px;
+  .markets {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .market-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid var(--match-list-border-color);
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+.list-match-info {
+  display: grid;
+  grid-template-columns: 10fr 14fr;
+  overflow: hidden;
+  &, & label {
+    cursor: pointer;
+  }
+  & > div {
+    padding: 0 10px 0 20px;
+    border-right: 1px solid var(--match-list-border-color);
+    overflow: hidden;
+  }
+  .tour {
+    display: grid;
+    grid-template-columns: 1fr 18px;
+    overflow: hidden;
+    align-items: flex-start;
+    height: 30px;
+    padding-top: 10px;
+    label {
+      position: relative;
+      line-height: 20px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding-left: 9px;
+      & > i {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        display: block;
+        width: 4px;
+        height: 14px;
+      }
+    }
+  }
+  .time {
+    display: flex;
+    height: 30px;
+    align-items: center;
+    &.live {
+      color: var(--high-light-color);
+    }
+  }
+}
+.list-market {
+  &:not(:last-child) {
+    border-right: 1px solid var(--match-list-border-color);
+  }
+  .option-item,
+  .empty {
+    height: 30px;
+  }
+  .option-item:not(:last-child),
+  .empty:not(:last-child) {
+    border-bottom: 1px solid var(--match-list-border-color);
+  }
+}

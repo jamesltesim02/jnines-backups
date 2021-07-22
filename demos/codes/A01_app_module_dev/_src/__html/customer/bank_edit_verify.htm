@@ -1,0 +1,241 @@
+<template id="contentTmpl">
+<div class="main_content">
+    <section id="newBind" class="modifymobile_content _03" v-show="isPhoneVerifyVisible">
+        <div class="layout_form p-top-rmv">
+            <form id="infoForm" action="" method="post">  
+                <input type="hidden" name="operate" id="operate" value="0"/>
+                <input name="act" type="hidden" value="bindPhone"/>          
+                <div class="form_field_wrap">
+                    <div class="form_field">
+                        <span class="label">已绑定手机号码</span>      
+                        <div class="input_wrap" style="margin:0 0 0 135px;">
+                            <input class="txt_right" type="text" v-bind:readonly="isRead" v-model="mobile" maxlength="11" >
+                        </div>
+                    </div>  
+                    <div class="form_field">
+                        <span class="label">验证码</span>      
+                        <div class="input_wrap sm"><input type="text" v-model="codeInput" name="code" maxlength="6"></div>
+                        <div id="sendCode" v-bind:class="[disabled ? '' : 'active-btn', 'sendCode']" v-on:click.stop.prevent="sendCode">{{send_btn_text}}</div>
+                    </div>  
+                </div>
+                <p class="notif" v-if="code_sended">验证码已发送，15分钟内输入有效，请勿泄漏</p>
+                <div class="form_btn-wrap">
+                    <a id="bindPhone" v-on:click.stop.prevent="checkCode" class="btn btn-lg btn-ylw">确定</a>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section id="modifyOpts" class="modifymobile_content _02" v-show="isMethodVisible">
+       <div class="flt-header">
+           <span class="icon icon62 icon-left"></span>
+           <span>经过安全监测，您可以通过以下方式添加银行卡</span>
+       </div>
+       <div class="layout_form">
+           <div class="form_field_wrap">
+               <a forward="inside" newview="true" href="customer/bank_verify.htm" class="form_field" v-show="isPhoneVisible">
+                   <div class="icon-content"><img src="../../__static/__images/icons/sms_green.png"></div>
+                   <div class="input_wrap">
+                       <h4 class="title">通过短信验证 <span class="icon icon63"></span></h4>
+                       <span class="desc">选择此方式，我们将向您号码为{{mobile}}的手机发送验证码</span>
+                   </div>
+               </a>  
+               <div class="clearfix" v-show="isPhoneVisible"></div>
+
+               <a @click="manualSumbit" class="form_field" v-show="isManualVisible">
+                   <div class="icon-content"><img src="../../__static/__images/icons/icon05.png"></div>
+                   <div class="input_wrap">
+                       <h4 class="title">通过人工服务</h4>
+                       <span class="desc">原绑定手机无法接收验证码？提交申请，等待人工客服协助修改</span>
+                   </div>
+               </a>  
+               <div class="clearfix" v-show="isManualVisible"></div>
+
+           </div>
+       </div>
+   </section>
+</div>
+</template>
+<script>
+;(function() {
+    var contentData = {
+        "loginName": "",
+        "time": 0,
+        "code_sended": false,
+        "telephone": '',
+        "mobile": '',
+        "codeInput": '',
+        "isRead": false,
+        "isPhoneVerifyVisible": false,
+        "isMethodVisible": false,
+        "isPhoneVisible": false,
+        "isManualVisible": false
+    };
+    appState.setData({
+        needLogin: true,
+        title: '修改银行卡'
+    });
+    
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function () {
+            return contentData;
+        },
+        mounted:function (){
+            
+        },
+        methods: {
+            timer: function() {
+                var _this = this;
+                if (this.time > 0) {
+                    this.time--;
+                    setTimeout(_this.timer, 1000);
+                }
+            },
+            sendCode: function() {
+                if (this.disabled) return;
+                if(!this.telephone) {
+                    $.toast.fail("请输入手机号码");
+                    return;
+                }
+                if(!(/[\d]+\*/.test(this.telephone)) &&  !(/^1[34578]\d{9}$/.test(this.telephone))) {
+                    $.toast.fail("请输入正确的手机号码格式");
+                    return;
+                }
+                //发送验证码
+                var _this = this;
+                JSBridge.net.invoke({
+                    url: "verify/send",
+                    data: {
+                        "type": 1,
+                        "v_type": 1,
+                        "send_to": this.telephone,
+                        "timestamp": Date.now()
+                    },
+                    success: function (result) {
+                        _this.time = 60
+                        _this.timer();
+                        _this.code_sended = true;
+                    },
+                    error: function (error) {
+                        $.toast.fail(error.message);
+                    }
+                });
+            },
+            manualSumbit: function(){
+                var bank= getEditCacheData();
+                if (!bank) {
+                    JSBridge.forward.inside({url:'customer/bank_list.htm', newView: true});
+                    return;
+                }
+
+                JSBridge.forward.inside({url:'customer/bank_edit_info.htm', newView: true});
+            },
+            checkCode: function() {
+                var _this = this;
+                if(!_this.codeInput) {
+                    $.toast.fail("请输入验证码");
+                    return;
+                }
+                _this.isPhoneVerifyVisible = true;
+                _this.isMethodVisible =  false;
+                
+                //验证验证码
+                JSBridge.net.invoke({
+                    url: "verify/check",
+                    data: {
+                        "type": 1,
+                        "v_type": 1,
+                        "send_to": _this.telephone,
+                        "code": _this.codeInput
+                    },
+                    success: function (result) {
+                        var bank= getEditCacheData();
+                        if (!bank) {
+                            JSBridge.forward.inside({url:'customer/bank_list.htm', newView: true});
+                            return;
+                        }
+
+                        JSBridge.forward.inside({url:'customer/bank_edit_info.htm', newView: true});
+                    },
+                    error: function (error) {
+                        $.toast.fail(error.message, function(){
+                            showInit(true);
+                        });
+                    }
+                });
+            }
+        },
+        computed: {
+            send_btn_text: function () {
+                if (this.code_sended) {
+                    return this.time > 0 ? '重新发送（'+this.time+'）' : '重新发送';
+                } else {
+                    return '发送验证码'
+                }
+            },
+            disabled: function() {
+                return this.time > 0;
+            }
+        }
+    });
+    
+    function getEditCacheData()
+    {
+        var bank=null, 
+            _this=contentData,
+            cacheKey = _this.loginName +"bankCardEditData";
+
+        var dataCache=JSBridge.cache.get(cacheKey);
+        if (dataCache && new Date().getTime() < dataCache.outtime) {
+            bank = dataCache.data;
+        }
+        return bank;
+    }
+    
+    function bankCardPhoneEditVerifyTimes(isWrite=false){
+        var times = 0,
+            _this=contentData,
+            expireAt = 120*60*1000,
+            cacheKey = _this.loginName +"bankCardPhoneEditVerifyTimesData";
+
+        var dataCache = JSBridge.cache.get(cacheKey);
+        if (dataCache && new Date().getTime() < dataCache.outtime) {
+            times = !dataCache.data.times ? 0 : parseInt(dataCache.data.times);
+        }
+        
+        if (isWrite) {
+            times = times+1;
+            JSBridge.cache.save(cacheKey, {
+                data: {"times": times},
+                outtime: new Date().getTime() + expireAt
+            }, 1);
+        }
+        return times;
+    }
+    
+    function showInit(isWrite=false)
+    {
+        var _this=contentData, 
+            times=bankCardPhoneEditVerifyTimes(isWrite);
+        if (times>3) {
+            _this.isManualVisible =  _this.isMethodVisible = true;
+            _this.isPhoneVisible = _this.isPhoneVerifyVisible = false;
+        } else {
+            _this.isManualVisible = _this.isMethodVisible =  false;
+            _this.isPhoneVerifyVisible = _this.isPhoneVisible = true;
+        }
+    }
+    
+    JSBridge.onReady(function(){
+        var _this=contentData;
+        Request.userInfo(function(customer){
+            _this.telephone = customer.phone;
+            _this.mobile = customer.phone ? customer.phone.substring(0,3) + "****" + customer.phone.substr(-4) : "";
+            _this.loginName = customer.login_name;
+            if (customer.phone) _this.isRead = true;
+
+            showInit();
+        });
+    });
+})();
+</script>

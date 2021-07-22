@@ -1,0 +1,151 @@
+.detail-content {
+  position: relative;
+  height: 100%;
+  margin-right: -10px;
+  padding-right: 10px;
+  overflow: hidden;
+  .scroll-container {
+    display: grid;
+    height: calc(100vh - 150px);
+    margin-right: -2px;
+    padding-right: 2px;
+    overflow: hidden auto;
+  }
+  .bet-panel {
+    flex: 1 1;
+    margin-top: 10px;
+    background-color: var(--block-background-color);
+    border-radius: 4px;
+    & > .market-tabs {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background-color: var(--block-background-color);
+      border-bottom: 1px solid var(--app-background-color);
+    }
+    & > section {
+      position: relative;
+      z-index: 1;
+    }
+    .ticket-table table tr td:first-child,
+    .ticket-table table tr th:first-child {
+      width: unset;
+      overflow: hidden;
+      & > span {
+        width: 100%;
+        display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+  }
+  .btn-collapse-all {
+    position: absolute;
+    z-index: 8;
+    top: calc(100vh - 250px);
+    right: 80px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+.detail-content.fullscreen {
+  .media-container {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 5!important;
+  }
+  & .cover {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0);
+    transition: all .3s ease-out;
+  }
+  .bet-panel {
+    position: absolute;
+    top: 0;
+    right: -500px;
+    margin-top: 0;
+    width: 500px;
+    height: 100vh;
+    z-index: 8 !important;
+    transition: all .3s ease-out;
+    overflow: hidden auto;
+    .market-tabs .tabs.fixed {
+      top: 0;
+    }
+  }
+  .btn-toggle-fix {
+    display: none;
+  }
+  .btn-collapse-all {
+    transform: translateX(500px);
+  }
+  .btn-toggle-panel {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    z-index: 8;
+    transform: translateY(-50%);
+    height: 60px;
+    width: 30px;
+    background-color: rgba(0, 0, 0, .5);
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    color: #fff;
+    justify-content: flex-end;
+    font-size: 16px;
+    padding-right: 4px;
+    transition: all .3s ease-out;
+  }
+}
+.detail-content.panel-active {
+  .bet-panel {
+    right: 0;
+    .ant-collapse {
+      background: transparent;
+    }
+    .ant-collapse-content {
+      background: transparent;
+    }
+
+    .ticket-table table tr td:nth-child(1),
+    .ticket-table table tr th:nth-child(1),
+    .ticket-table table tr td:nth-child(2),
+    .ticket-table table tr th:nth-child(2) {
+      display: none;
+    }
+  }
+  .cover {
+    z-index: 7;
+    background-color: rgba(0, 0, 0, .3);
+  }
+  .btn-collapse-all {
+    transform: translateX(0);
+  }
+  .btn-toggle-panel {
+    right: 500px;
+    .anticon-left {
+      transform: rotate(-180deg);
+    }
+  }
+  .bet-alert-toast {
+    position: absolute;
+    z-index: 9;
+    top: 1px;
+    right: 1px;
+    width: 160px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: var(--deep-light-color);
+    background-color: var(--bet-background-color);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .15);
+    border-radius: 2px;
+  }
+}

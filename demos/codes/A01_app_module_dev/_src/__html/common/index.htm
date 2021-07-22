@@ -1,0 +1,426 @@
+<component src="_template/component/Header.htm"></component>
+<component src="_template/component/Banner.htm"></component>
+<component src="_template/component/Annoument.htm"></component>
+<component src="_template/component/Nav.htm"></component>
+<component src="_template/component/PromoSlider.htm"></component>
+<component src="_template/component/PromoHot.htm"></component>
+<component src="_template/component/BetProfit.htm"></component>
+
+<style>
+.app-container {
+    padding-bottom: 5px;
+}
+</style>
+<template id="contentTmpl">
+    <div>
+        <app-header loginbar="true"></app-header>
+        <!-- header ends -->
+        <div v-if="adShow" class="promotion_top">
+            <i class="icon icon_logo_index"></i>
+            <i @click="toPromotion('bayer.htm')" class="icon icon_bayer_logosm"></i>
+            <i @click="toPromotion('bayer.htm')" class="icon icon_promohtxt"></i>
+            <i @click="adShow=false" class="icon icon_closeg"></i>
+        </div>
+        <section class="index">
+            <banner></banner>
+            <!-- box marquee -->
+            <div class="boxes" style="padding-left: 90px;">
+                <div class="speaker">
+                    <i class="icon icon04"></i>
+                    <b>公告：</b>
+                </div>
+                <marquee scrollamount="3">
+                    <annoument></annoument>
+                </marquee>
+            </div>
+            <!-- boxes end -->
+            <div class="main_content">
+                <div :class="{'game_list list_sec': true, 'trial': isNotLoged}">
+                    <h2>无需下载 点击即玩</h2>
+                    <div class="ul_auto_wrap">
+                        <ul class="list01 auto_width" style="width: 830px;">
+                            <!--AG旗舰厅  -->
+                            <li class="trial" @click="loginAppGame('A01003')" data-step="2" data-highlightclass="girl">
+                                <a-img src="../../__static/__images/games/game_ag2.png" width="100%" alt=""></a-img>
+                            </li>
+                            <!--AG国际厅  -->
+                            <li class="trial" @click="loginToGame('A01026')">
+                                <a-img src="../../__static/__images/games/game_ag.png" width="100%" alt=""></a-img>
+                            </li>
+                            <!--捕鱼王  -->
+                            <li class="trial" @click="loginToGame('A01026', '6')">
+                                <a-img src="../../__static/__images/games/game_fish.png" width="100%" alt=""></a-img>
+                            </li>
+                            <!--电子游戏  -->
+                            <li class="trial"><a forward="forward" newview="true" href="common/gamehall.htm">
+                                    <a-img src="../../__static/__images/games/game_fire.png" width="100%" alt=""></a-img>
+                            </a></li>
+                            <!-- 沙巴体育 -->
+                            <li @click="loginToGame('A01031')">
+                                <a-img src="../../__static/__images/games/game_lebron.png" width="100%" alt=""></a-img>
+                            </li>
+                            <!-- 棋牌游戏 -->
+                            <li @click="loginToGame('A01044', 'hall_h5')">
+                                <a-img src="../../__static/__images/games/game_qp.png" width="100%" alt=""></a-img>
+                            </li>
+                            <!-- AS -->
+                            <li class="trial" @click="loginToGame('A01064')">
+                                <a-img src="../../__static/__images/games/game_as.png" width="100%" alt=""></a-img>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="app_list list_sec" id="app_list">
+                    <h2>客户端下载</h2>
+                    <div class="ul_auto_wrap">
+                        <ul class="auto_width" style="width: 685px;">
+                            <li>
+                                <a forward="forward" method="outside" newview="true" href="https://www.aggameapp.com/home.jsp?pd=Z0EwMWg">
+                                    <a-img src="../../__static/__images/games/img_ag.png" alt="AG旗舰厅"></a-img>
+                                    <span>AG旗舰厅</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a @click="toGameDownloads('AGIN', 'https://v1.agmbet.com')">
+                                    <a-img src="../../__static/__images/games/img_ag2.png" alt="AG国际厅"></a-img>
+                                    <span>AG国际厅</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a forward="forward" method="outside" newview="true" href="http://hunter2.agmjs.com/?pid=A01">
+                                    <a-img src="../../__static/__images/games/img_game1.png" alt="捕鱼王"></a-img>
+                                    <span>捕鱼王</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a @click="toGameDownloads('PT', 'http://cdn.vbet.club/918/setupglx.apk')">
+                                    <a-img src="../../__static/__images/games/game_pt.png" alt="PT电游"></a-img>
+                                    <span>PT电游</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a @click="toGameDownloads('MG', 'http://mobile-resigner.valueactive.eu/mobilecasino/download?btag1=73338412')">
+                                    <a-img src="../../__static/__images/games/img_game3.png" alt="MG电游"></a-img>
+                                    <span>MG电游</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a forward="forward" method="outside" newview="true" href="https://www.aggameapp.com/lottery.jsp?pd=Z0EwMWg=">
+                                    <a-img src="../../__static/__images/games/img_aglc.png" alt="AG快乐彩"></a-img>
+                                    <span>AG快乐彩</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a forward="forward" method="outside" newview="true" href="http://m.qpyxs.com/dzpk_agent.html">
+                                    <a-img src="../../__static/__images/games/img_game4.png" alt="德州扑克"></a-img>
+                                    <span>德州扑克</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="divider"></div>
+                    <promo-hot></promo-hot>
+                    <div class="divider"></div>
+                    <promo-slider></promo-slider>
+                    <div class="divider"></div>
+                    <bet-profit></<bet-profit>
+                </div>
+                <div class="promotion_top footer" @click="toPromotion('bayer.htm')">
+                    <!-- <i class="icon icon_logo_index"></i>
+                    <i class="icon icon_bayer_logosm"></i>
+                    <i class="icon icon_promohtxt"></i> -->
+                    <img alt="" src="../../__static/__images/index/btm1_logo.png" />
+                </div>
+            </div>
+        </section>
+        <app-nav index="0"></app-nav>
+    </div>
+</template>
+<script>
+;(function() {
+    var contentData = {
+        isNotLoged: true,
+        adShow: true,
+        callShow: false,
+        messageUnReadCount: 0,
+        trial: {
+            "A01026": true,
+            "A01003": true,
+            'A01064': true,
+            "A01031": false,
+            "A01044": false
+        },
+        gameState: {},
+        gameTypes: {
+            "A01026": "AGIN",
+            "A010266": "FISH",
+            "A01003": "AGQJ",
+            "A01064": "AGSTAR",
+            "A01031": "SHABA",
+            "A01044": "AP"
+        },
+        logClickCount: 0,
+        logTimer: null,
+        isIOS: $.appVersion().isIOS
+    };
+
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function() {
+            return contentData;
+        },
+        mounted: function() {
+            this.init();
+        },
+        methods: {
+            toPromotion: function(url) {
+                JSBridge.forward.outside({ url: OtherUtils.getDomain() + url, newView: 'true' });
+            },
+            toGameDownloads: function(gameCode, gameUrl) {
+                if (this.isIOS && (gameCode=='AGIN' || gameCode=='PT' || gameCode=='MG')) {
+                    $.toast.fail("抱歉，该游戏暂时不支持苹果手机，请使用安卓系统手机下载");
+                    return ;
+                }
+
+                JSBridge.forward.outside({url:gameUrl, newView:'true'});
+            },
+            init: function() {
+                $('.ul_auto_wrap .auto_width').each(function(index, ele) {
+                    var items = $(ele).find('li');
+                    var itemWidth = 0;
+                    items.each(function(index, ele2) {
+                        itemWidth = itemWidth + $(ele2).outerWidth(true);
+                    });
+                    $(ele).width(itemWidth + 5);
+                });
+            },
+            loginAppGame: function(gameCode, gameType) {
+                var lastloginGameTime,
+                    _this = this;
+
+                if (_this.gameState[gameCode] == "2") {
+                    return $.toast.fail("游戏厅维护中...");
+                }
+
+                lastloginGameTime = JSBridge.cache.get('lastLoginGameTime');
+
+                if (lastloginGameTime) {
+                    var t = 15 - parseInt((Date.now() - lastloginGameTime) / 1000);
+                    //如果用户向后修改时间，并且大于15秒。可以玩游戏
+                    //如果用户向前修改时间，并且大于15秒。则提示
+                    if (t >= 15) {
+                        t = 15;
+                        JSBridge.cache.save('lastLoginGameTime', Date.now(), 15000);
+                    }
+                    if (t > 0) {
+                        return $.toast.fail('请等' + t + '秒再试');
+                    }
+                }
+
+                if (this.isNotLoged) {
+                    /*试玩游戏，AG旗舰*/
+                    if (this.trial[gameCode]) {
+                        $.pop.msg(
+                            true,
+                            "立即进入试玩", [{
+                                    text: "确认",
+                                    event: function() {
+                                        JSBridge.cache.save('lastLoginGameTime', Date.now(), 15000);
+                                        JSBridge.driver.game(gameCode, { isTry: true });
+                                    }
+                                },
+                                {
+                                    text: "真钱登录",
+                                    event: function() {
+                                        JSBridge.forward.inside({
+                                            url: "common/login.htm?from=" + OtherUtils.getPath(),
+                                            newView: true
+                                        });
+                                    }
+                                }
+                            ]
+                        );
+                    }
+                    return;
+                }
+                JSBridge.cache.save('lastLoginGameTime', Date.now(), 15000);
+                JSBridge.driver.game(gameCode, { isTry: false });
+            },
+            toGameShaBa: function(gameUrl, gameCode, istry) {
+                var _this = this,
+                    toGamePage = "common/toGame.htm";
+
+                toGamePage += "?gameUrl=" + encodeURIComponent(gameUrl) +
+                    "&gameType=" + _this.gameTypes[gameCode] +
+                    "&gameTypeKey=" + gameCode;
+
+                JSBridge.forward.inside({
+                    url: toGamePage,
+                    newView: true
+                });
+            },
+            toGameAp: function(gameUrl, gameCode, istry) {
+                var _this = this,
+                    toGamePage = "common/toGame.htm";
+
+                toGamePage += "?gameUrl=" + encodeURIComponent(gameUrl) +
+                    "&gameType=" + _this.gameTypes[gameCode] +
+                    "&gameTypeKey=" + gameCode;
+
+                JSBridge.forward.inside({
+                    url: toGamePage,
+                    newView: true
+                });
+            },
+            toGamePage: function(gameCode, gameTypeKey, game_type, istry) {
+                var _this = this,
+                    toGamePage = "common/toGame.htm",
+                    istry = istry || false;
+
+                toGamePage += "?gameCode=" + gameCode +
+                    "&gameTypeKey=" + _this.gameTypes[gameTypeKey] +
+                    "&game_type=" + game_type +
+                    "&istry=" + istry;
+
+                JSBridge.forward.inside({
+                    url: toGamePage,
+                    newView: true
+                });
+            },
+            loginToGame: function(gameCode, gameType) {
+                var loginUrl, gameUrl,
+                    _this = this,
+                    lastloginGameTime,
+                    game_type = gameType || '',
+                    gameTypeKey = gameCode + (gameType || '');
+
+                if (_this.gameState[gameCode] == "2") {
+                    return $.toast.fail("游戏厅维护中...");
+                }
+
+                if (_this.gameState[gameCode] == "0") {
+                    return $.toast.fail("游戏已关闭...");
+                }
+
+                /*
+                if(_this.gameState[gameCode] != "1") {
+                    return $.toast.fail("未知游戏厅状态");
+                }
+                */
+
+                lastloginGameTime = JSBridge.cache.get('lastLoginGameTime');
+
+                if (lastloginGameTime) {
+                    var t = 15 - parseInt((Date.now() - lastloginGameTime) / 1000);
+                    //如果用户向后修改时间，并且大于15秒。可以玩游戏
+                    //如果用户向前修改时间，并且大于15秒。则提示
+                    if (t >= 15) {
+                        t = 15;
+                        JSBridge.cache.save('lastLoginGameTime', Date.now(), 15000);
+                    }
+                    if (t > 0) {
+                        return $.toast.fail('请等' + t + '秒再试');
+                    }
+                }
+
+
+                if (this.isNotLoged) {
+                    /*试玩游戏,AG国际，AS，捕鱼*/
+                    if (this.trial[gameCode]) {
+                        $.pop.msg(
+                            true,
+                            "立即进入试玩", [{
+                                    text: "确认",
+                                    event: function() {
+                                        JSBridge.cache.save('lastLoginGameTime', Date.now(), 15000);
+                                        _this.toGamePage(gameCode, gameTypeKey, game_type, true);
+                                    }
+                                },
+                                {
+                                    text: "真钱登录",
+                                    event: function() {
+                                        JSBridge.forward.inside({
+                                            url: "common/login.htm?from=" + OtherUtils.getPath(),
+                                            newView: true
+                                        });
+                                    }
+                                }
+                            ]
+                        );
+                        return;
+                    }
+                    /*沙巴体育，需要登陆才能游戏*/
+                    JSBridge.forward.inside({
+                        url: "common/login.htm?from=" + OtherUtils.getPath(),
+                        newView: true
+                    });
+                    return;
+                }
+                JSBridge.cache.save('lastLoginGameTime', Date.now(), 15000);
+                /*沙巴体育真钱*/
+                if (!this.trial[gameCode] && gameCode=='A01031') {
+                    gameUrl = OtherUtils.getDomain() + "loginToGame.htm?clientType=2&gameCode=" +
+                        gameCode + (gameType ? "&gameType=" + gameType : "");
+
+                    _this.toGameShaBa(gameUrl, gameTypeKey, false);
+                    return
+                }
+
+                /*Ap真钱*/
+                if (!this.trial[gameCode] && gameCode=='A01044') {
+                    gameUrl = OtherUtils.getDomain() + "loginToGame.htm?clientType=2&gameCode=" +
+                        gameCode + (gameType ? "&gameType=" + gameType : "");
+
+                    _this.toGameAp(gameUrl, gameTypeKey, false);
+                    return
+                }
+
+                /*AG国际，AS，捕鱼=真钱*/
+                _this.toGamePage(gameCode, gameTypeKey, game_type, false);
+            }
+        }
+    });
+
+    function setGameState(data) {
+        data.forEach(function(v, i) {
+            contentData.gameState[v.gamecode] = v.flag;
+        });
+    }
+
+    JSBridge.onReady(function() {
+        contentData.isNotLoged = !CustomerUtils.isLoged();
+
+        var gameStateCache = JSBridge.cache.get("gameState");
+        var message = JSBridge.cache.get("forwardMessage");
+        console.log(message)
+        if (message) {
+            $.toast.fail(message);
+            JSBridge.cache.delete("forwardMessage");
+        }
+
+        if (gameStateCache && new Date().getTime() < gameStateCache.outtime) {
+            setGameState(gameStateCache.data);
+            return;
+        }
+
+        JSBridge.net.invoke({
+            loading: false,
+            url: "game/getList",
+            success: function(result) {
+                if (!result) {
+                    return;
+                }
+
+                setGameState(result);
+
+                JSBridge.cache.save("gameState", {
+                    data: result,
+                    outtime: new Date().getTime() + 60000
+                }, 1);
+            }
+        });
+
+    });
+})();
+</script>

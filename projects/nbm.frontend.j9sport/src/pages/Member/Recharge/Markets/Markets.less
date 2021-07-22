@@ -1,0 +1,106 @@
+.markets-page {
+  padding: 40px 32px;
+  header {
+    font-size: 20px;
+    color: var(--member-info-sub--color);
+  }
+  .market-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 15px 25px;
+    padding: 25px 0;
+    button {
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      background-color: var(--coin-market-card-background-color);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      img {
+        width: 100%;
+      }
+      label {
+        width: 100%;
+        font-size: 12px;
+        line-height: 22px;
+        background-color: #32323D;
+      }
+      &.active, &:hover {
+        border-color: #ebba73;
+        label {
+          color: var(--member-highlight-color);
+        }
+      }
+    }
+  }
+  .remark {
+    font-size: 14px;
+    line-height: 22px;
+    font-size: 12px;
+    span {
+      color: var(--table-thead-color);
+      font-size: 16px;
+    }
+  }
+  .guide {
+    padding: 20px 0;
+    img {
+      width: 100%;
+    }
+  }
+  .opr {
+    text-align: center;
+    margin-top: 40px;
+    button {
+      width: 300px;
+    }
+  }
+}
+.usdt-guide-dialog {
+  .icon-notice {
+    display: block;
+    margin: 0 auto;
+  }
+  header {
+    font-size: 26px;
+    font-weight: 500;
+    color: #fff;
+    margin-top: 10px;
+    text-align: center;
+  }
+  p {
+    font-size: 14px;
+    color: #d4d4d4;
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
+    button {
+      width: 150px;
+      &:not(:first-child) {
+        margin-left: 20px;
+      }
+    }
+    .submit:hover {
+      color: var(--colorful-color);
+      background-image: var(--colorful-linear-gradient);
+    }
+  }
+}
+.light {
+  .market-list {
+    button {
+      transition: all ease-in-out 200ms;
+      box-shadow: var(--setting-block-box-shadow);
+      &, &.active {
+        border: 0;
+      }
+      &.active, &:hover {
+        transform: scale(1.02);
+      }
+      label {
+        background-color: #FFFFFF;
+      }
+    }
+  }
+}

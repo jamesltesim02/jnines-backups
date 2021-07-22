@@ -1,0 +1,395 @@
+<style>
+body>div.app-container{
+	height: 100%;
+	background-repeat: no-repeat;
+	background: url(../__static/__images/bg/loginbg.jpg);
+	background-size: 100% 100%;
+}
+
+section.login .form_fields {
+	margin-top: 15px;
+}
+
+div.app-container > div {
+	position: relative;
+	min-height: 100%;
+}
+.register-promo-link {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+}
+</style>
+<template id="contentTmpl">
+	<div>
+		<section v-show="needLogin" class="login init">
+			<img @click="showVersion" class="logo" src="../../__static/__images/icons/logo_dropshadow.png" alt="">
+
+			<div class="login_type">
+				<div class="cols-2">
+					<div class="col col1 txt_center">
+						<a class="active">登录</a>
+					</div>
+					<div class="col col2 txt_center">
+					<a forward="forward" newview="true" href="common/register.htm">开户</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="form_fields relative">
+				<div class="triangle"></div>
+				<div class="form_field username">
+					<span class="icon icon16"></span>
+					<span class="pre">g</span>
+					<input 
+						v-model.trim="username" 
+						class="wpre removable_margin" 
+						type="text" 
+						placeholder="用户名" 
+						maxlength="11" 
+						autocapitalize="off"
+						autocorrect="off">
+				</div>
+				<div class="form_field password form_field_password">
+					<span class="icon icon17"></span>
+					<input 
+						v-show="!passVisible" 
+						v-model.trim="password" 
+						type="password" 
+						placeholder="密码" 
+						maxlength="10"
+						autocapitalize="off"
+						autocorrect="off">
+					<input 
+						v-show="passVisible" 
+						v-model.trim="password" 
+						type="text" 
+						placeholder="密码" 
+						maxlength="10"
+						autocapitalize="off"
+						autocorrect="off">
+					<span @click="togglePass" :class="{icon_e:true,icon_ceye:true,icon_eye: passVisible}" ></span>
+				</div>
+				<div v-if="incorrectCount >= 2" class="form_field password form_field_password">
+					<span class="icon icon19"></span>
+					<input type="text" v-model.trim="captcha" value="" maxlength="4" placeholder="请输入验证码">
+					<span class="icon_c icon_captcha" v-bind:style='{backgroundImage:urlImg}' @click='verify_img'></span>
+				</div>
+			</div>
+			<!-- forgot -->
+			<div class="forgot">
+				<div class="cols-2">
+					<div class="col col1 txt_left">
+						<a  class="forgot_pass mid_gray" @click="findPass">忘记密码？</a>
+					</div>
+					<!-- <div class="remember_username">
+						<span class="rem_desc mid_gray">记住账号</span>&nbsp;&nbsp;
+						<label class="switch">
+							<input type="checkbox" v-model="remember" value="1">
+							<div class="slider round"></div>
+						</label>
+					</div> -->
+				</div>
+			</div>
+			<a @click="login" class="btn btn-lg login">立即登录</a>
+			
+			<div class="login_locked" v-show="lockedVisible">
+			<div class="dialog_main">
+				<div class="dialog_content">
+				<h4>会员账号已被锁住</h4>
+				<p>输入任一信息，验证无误即可解锁</p>
+				<div class="form-group">
+					<div class="form-field">
+						<div class="label"><span>真实姓名</span></div>
+						<div class="input"><input type="text" v-model.trim="lockedRealname" maxlength="15" placeholder="用户的真实姓名" /><br/><em id="lockedRealnameErr"></em></div>
+					</div>
+					<div class="form-field">
+							<div class="label"><span>绑定电话</span></div>
+							<div class="input"><input type="text" v-model.trim="lockedBingPhone" maxlength="11" placeholder="绑定的有效电话" /><br/><em id="lockedBingPhoneErr"></em></div>
+					</div>
+					<div class="form-field">
+						<div class="label"><span>预留信息</span></div>
+						<div class="input"><input type="text" v-model.trim="lockedReserved" maxlength="15" placeholder="设定的预留信息" /><br/><em id="lockedReservedErr"></em></div>
+					</div>
+				</div>
+				<a class="btn lockedbtn" @click="lockedSumit">提 交</a>
+				<span class="icon_close" @click="lockedClosed">
+					<svg width="15" height="15">
+						<line x1="0" y1="15" x2="15" y2="0" style="stroke:rgb(99,99,99);stroke-width:1.5" />
+						<line x1="0" y1="0" x2="15" y2="15" style="stroke:rgb(99,99,99);stroke-width:1.5" />
+					</svg>
+				</span>
+			</div>
+			</div>
+		</section>
+		<!--
+		<div :style="{'height': promoPlageHolderHeight + 'px'}"></div>
+		<img 
+			@click="toPromo('promo_account_gift.htm')" 
+			class="register-promo-link" 
+			src="../../__static/__images/sign/register-promo-39.jpg">
+		-->
+	</div>
+</template>
+
+<!-- 获取版本号js配置文件 -->
+<script src="../../__js/common/version-info-h5.js"></script>
+
+<script>
+;(function () {
+	var contentData = {
+		passVisible: false,
+		incorrectCount: 0,
+		needLogin: false,
+		from: "",
+		username: "",
+		password: "",
+		captcha: "",
+		uuid: '',
+		urlImg: '',
+		remember: true,
+		lockedVisible: false,
+		lockedRealname: "",
+		lockedBingPhone: "",
+		lockedReserved: ""/*,
+		promoPlageHolderHeight: 50*/
+	};
+	appState.setData({
+        title: '登录'
+    });
+	Vue.component("app-content", {
+		template: "#contentTmpl",
+		data: function () {
+			return contentData;
+		},
+		mounted: function () {
+			// this.lockedLoginShow();
+			/*
+			$(window).on("resize", this.resetPromoPlaceHoderHeight.bind(this));
+			this.resetPromoPlaceHoderHeight()
+			*/
+        },
+		methods: {
+			/**
+			 *  设置底部占位高度，用于正常显示底部banner
+			
+			resetPromoPlaceHoderHeight: function () {
+				this.promoPlageHolderHeight = (window.document.body.offsetWidth/750)*168 - 60;
+			}, */
+			togglePass: function () {
+				this.passVisible = !this.passVisible;
+			},
+			findPass: function() {
+				JSBridge.forward.outside({url: OtherUtils.getDomain() + "forgetPassword.htm", newView: true});
+			},
+			login: function () {
+				var _this = this;
+				if(!this.username) {
+					$.toast.fail("请输入账号");
+					return;
+				} else if(!_this.username.match(/^[a-zA-Z0-9]{4,11}$/)){
+                    $.toast.fail('用户名为4-9位的数字或字母');
+                    return false;
+                }
+				
+				if(!this.password) {
+					$.toast.fail("请输入密码");
+					return;
+				}
+
+				var captchaPromise = new Promise(function (resolve, reject) {
+					if(_this.incorrectCount < 2) {
+						return resolve();
+					}
+
+					if(!_this.captcha || _this.captcha.length != 4) {
+						$.toast.fail("验证码填写不正确");
+						return reject();
+					}
+
+					JSBridge.net.invoke({//检查验证码是否正确
+						url: "otherVerify/validateCaptcha",
+						data: {
+							"code": _this.captcha,
+							'uuid':_this.uuid
+						},
+						success: function (result) {
+							return resolve();
+						},
+						error: function (error) {
+							$.toast.fail("验证码填写不正确");
+							_this.verify_img();
+							return reject();
+						}
+					});
+				});
+
+				captchaPromise.then(function () {
+					var deviceInfo = JSBridge.driver.deviceInfo() || {};
+					JSBridge.net.invoke({
+						url: "users/login",
+						data: {
+							"login_name":  _this.username,
+							"password": _this.password,
+							"drice_id": deviceInfo.drice_id || "",
+							"drice_type": deviceInfo.drice_type || "",
+							"phone_board": deviceInfo.phone_board || "",
+							"phone_model": deviceInfo.phone_model || "",
+							"phone_version": deviceInfo.phone_version || "",
+							"timestamp": Date.now()
+						},
+						success: function (result) {
+							CustomerUtils.save(result.WSCustomers);
+
+							JSBridge.cache.save("remembered", {username: _this.username}, 1);
+
+							$.toast.success("登录成功", function () {
+								if(_this.form) {
+									JSBridge.forward.inside({url: _this.from, newView: true});
+								} else {
+									JSBridge.forward.inside({url: "common/index.htm"});
+								}
+							});
+						},
+						error: function (error) {
+							if(error.errorCode == '202020') {
+							    _this.lockedLoginShow();
+							    return;
+								// return $.toast.fail("因为您已多次输错密码,账号已经被锁住<br>请五分钟后再试或联系客服.");
+							}
+
+							_this.incorrectCount ++;
+							if(_this.incorrectCount >= 2) {
+								_this.verify_img();
+							}
+							$.toast.fail(error.message);
+						}
+					});
+				});
+			},
+			verify_img:function(){//图形验证
+				var _this=this;
+				JSBridge.net.invoke({
+					loading: false,
+					url: "otherVerify/captcha",
+					data:{},
+					success: function (result) {
+						 _this.urlImg='url(data:image/png;base64,'+result.src+')';
+						 _this.uuid=result.uuid;
+					},
+					error: function (error) {
+						$.toast.fail(error.message);
+					}
+				});
+			},
+            lockedLoginShow: function() {
+            	var _this = contentData;
+            	$.pop.msg("很抱歉!", "多次密码输入错误，已被锁住!", 
+                        [
+                            {
+                                text: "五分钟再试", 
+                                event: function () {}
+                            },
+                            {
+                                text: "立即解锁",
+                                event: function () {
+                                	_this.lockedVisible = true;
+                                }
+                            }
+                        ]);
+            },
+            lockedClosed: function() {
+                this.lockedVisible = false;
+            },
+            lockedSumit: function() {
+            	var realname = this.lockedRealname,
+            	bingPhone = this.lockedBingPhone,
+            	reserved = this.lockedReserved,
+            	username = this.username,
+            	realnamePattern = /^[^\,\#\@\(\)\[\]\:\?\d]{2,15}$/,
+            	bingPhonePattern = /^1[34578]\d{9}$/,
+            	reservedPattern = /^[^\,\#\@\(\)\[\]\:\?]{1,15}$/;
+            	
+            	if (!realname && !bingPhone && !reserved) {
+            		$("#lockedRealnameErr").html("请输入正确的真实姓名").show();
+                    return false;
+            	}
+            	
+            	if (realname&&!realname.match(realnamePattern)) {
+            		$("#lockedRealnameErr").html("请输入正确的真实姓名").show();
+            		return false;
+            	} else {
+            		$("#lockedRealnameErr").hide();
+            	}
+            	
+            	if (bingPhone&&!bingPhone.match(bingPhonePattern)) {
+                    $("#lockedBingPhoneErr").html("请输入正确的绑定电话").show();
+                    return false;
+                } else {
+                    $("#lockedBingPhoneErr").hide();
+                }
+            	
+            	if (reserved&&!reserved.match(reservedPattern)) {
+                    $("#lockedReservedErr").html("请输入正确的预留信息").show();
+                    return false;
+                } else {
+                    $("#lockedReservedErr").hide();
+                }
+            	
+            	var _this = contentData;
+            	JSBridge.net.invoke({
+                    url: "A01/users/unlockAccount",
+                    data: {
+                    	"loginname": username,
+                        "realname": realname,
+                        "reserved": reserved,
+                        "bingphone": bingPhone
+                    },
+                    success: function (result) {
+                    	$.pop.msg("已解锁，请重新登录！", [{text:"返回"}]);
+                    	_this.lockedVisible = false;
+                    },
+                    error: function (error) {
+                    	$.pop.msg("验证失败，请重试！", [{text:"返回"}] );
+                    	_this.lockedVisible = false;
+                    }
+                });
+            },
+            showVersion: (function () {
+                var clickcount = 0;
+
+                if(typeof(window.VERSION_INFO_H5) === "undefined") {
+                    return function (){};
+                }
+
+                return  function () {
+                    clickcount ++;
+                    if(clickcount >= 6) {
+                        clickcount = 0;
+                        $.pop.alert("当前版本号: version: " + VERSION_INFO_H5.version + "<br>build-time:"+VERSION_INFO_H5.buildtime);
+                    }
+                };
+            })()
+		}
+	});
+
+	JSBridge.onReady(function() {
+		var remembered;
+		contentData.from = $.getParam("from");
+		contentData.from = contentData.from ? decodeURIComponent(contentData.from) : "";
+
+		if(CustomerUtils.isLoged()) {
+			JSBridge.forward.inside({url: contentData.from || "common/index.htm"});
+			return;
+		}
+		remembered = JSBridge.cache.get("remembered");
+
+		if(remembered) {
+			contentData.username = remembered.username;
+		}
+
+		contentData.needLogin = true;
+		contentData.from && $.toast.fail("请先登录");
+	});
+})();
+</script>

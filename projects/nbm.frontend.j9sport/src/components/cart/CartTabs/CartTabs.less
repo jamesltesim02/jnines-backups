@@ -1,0 +1,37 @@
+.cart-tab {
+  .tab-control {
+    display: flex;
+    cursor: pointer;
+    position: relative;
+    > div {
+      flex: 1;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      background-color: var(--cart-background-color);
+
+      &.active {
+        background-color: var(--block-background-color);
+      }
+
+      transition: background-color .2s ease-in-out;
+    }
+    .ant-badge-count,
+    .ant-badge-dot,
+    .ant-badge .ant-scroll-number-custom-component {
+      top: -13px;
+      right: -35px;
+    }
+    .ant-badge-count {
+      background-color: #f40c06;
+      padding: 0;
+      min-width: 14px;
+      height: 14px;
+      line-height: 14px;
+    }
+  }
+
+  .tab-content {
+    padding: 10px;
+  }
+}

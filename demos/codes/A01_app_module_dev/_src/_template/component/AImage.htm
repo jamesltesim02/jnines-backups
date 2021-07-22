@@ -1,0 +1,76 @@
+<template id="aImageTmpl">
+<div class="img-loader loading"><img ref="imgComp" :data-src="src"></div>
+</template>
+<script type="text/javascript">
+;(function () {
+
+	function ImageQuee(type) {
+		this.quee = [];
+		this.loaded = false;
+		this.type = type;
+	}
+
+	ImageQuee.prototype = {
+		loadImage: function (img) {
+			var src = img.dataset.src;
+			if(this.type == "remote") {
+				src = OtherUtils.getStaticurl() + src;
+			}
+			img.src = src;
+		},
+		add: function (imgComp) {
+			if(this.loaded) {
+				return this.loadImage(imgComp);
+			}
+
+			this.quee.push(imgComp);
+		},
+		load: function () {
+			while(this.quee && this.quee.length) {
+				this.loadImage(this.quee.shift());
+			}
+			this.loaded = true;
+		}
+	};
+
+	var localQuee = new ImageQuee("local"),
+		remoteQuee = new ImageQuee("remote");
+
+	Vue.component("a-img", {
+		template: "#aImageTmpl",
+		props: ["src","remote"],
+		watch: {
+			src: function (newVal, oldVal) {
+				var img = this.$refs.imgComp;
+
+				if(this.remote) {
+					newVal = OtherUtils.getStaticurl() + newVal;
+				}
+
+				img.src = "";
+				img.src = newVal;
+				img.parentNode.className = "img-loader loading";
+			}
+		},
+		mounted: function () {
+			var imgComp = this.$refs.imgComp;
+
+			imgComp.onload = function (){this.parentNode.className = "img-loader";};
+			imgComp.onerror = function (e) {
+				this.onload();
+				// TODO 加载失败时 从域名下获取图片
+			};
+
+			this.loadImage();
+		},
+		methods: {
+			loadImage: function () {
+				var quee = this.remote ? remoteQuee : localQuee;
+				quee.add(this.$refs.imgComp);
+			}
+		}
+	});
+	window.addEventListener("load", localQuee.load.bind(localQuee));
+	JSBridge.onReady(remoteQuee.load.bind(remoteQuee));
+})();
+</script>

@@ -1,0 +1,104 @@
+.rules-content {
+  height: calc(100vh - 110px);
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 20px 10px 10px;
+  font-size: 12px;
+  color: #888;
+  overflow: hidden auto;
+  .navs {
+    position: sticky;
+    top: 0;
+    background-color: var(--app-background-color);
+  }
+
+  & > section {
+    margin-top: 20px;
+    & > p {
+      font-size: 13px;
+      font-weight: 500;
+    }
+  
+    .children {
+      & div {
+        display: inline-block;
+      }
+  
+      & table {
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse;
+        line-height: 20px;
+  
+        & > tr:first-child td {
+          font-weight: 600
+        }
+  
+        & td {
+          border: 1px solid #fff
+        }
+      }
+    }
+    ol {
+      padding-left: 0;
+    }
+  
+    .ol1 {
+      & > li {
+        margin-top: 26px;
+        list-style: circle inside;
+        font-size: 20px;
+        font-weight: 600
+      }
+    }
+  
+    .ol2 {
+      & > li {
+        margin-top: 20px;
+        list-style: square inside;
+        font-size: 17px;
+        font-weight: 600
+      }
+    }
+  
+    .ol3 {
+      padding-left: 10px;
+  
+      & > li {
+        margin-top: 14px;
+        list-style: decimal inside;
+        font-size: 16px;
+        font-weight: 400
+      }
+    }
+  
+    .ol4 {
+      padding-left: 10px;
+  
+      & > li {
+        margin-top: 10px;
+        list-style: lower-alpha inside;
+        font-size: 15px;
+        font-weight: 400;
+      }
+    }
+  
+    .ol5 {
+      padding-left: 10px;
+  
+      & > li {
+        margin-top: 6px;
+        list-style: none;
+        font-size: 13px;
+        font-weight: 400;
+      }
+    }
+  
+    .ol6 {
+      & > li {
+        margin-top: 4px;
+        font-size: 12px;
+      }
+    }
+  }
+}

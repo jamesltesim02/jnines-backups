@@ -1,0 +1,19 @@
+{
+  "name": "@lerna-demo/common",
+  "version": "0.0.0",
+  "description": "公共子项目",
+  "author": "Elon <elon@tmg66.co>",
+  "homepage": "",
+  "license": "UNLICENCED",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}

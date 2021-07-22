@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.DS_Store
+.settings
+.project
+.idea
+thumbs.db
+/package-lock.json
+/src/.idea
+distConfig.js
+m.nbbet.min.js
+/src/assets/js/m.nbbet.min.js
+/distConfig.js
+/.vscode

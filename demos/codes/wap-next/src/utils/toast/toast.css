@@ -1,0 +1,44 @@
+.nb-toaster-container {
+  display: none;
+  position: fixed;
+  max-width: 90%;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, .7);
+  padding: 0.2rem;
+  box-sizing: content-box;
+  z-index: 99999999999999;
+  border-radius: 4px;
+  overflow: hidden;
+  font-size: .3rem;
+}
+
+.nb-toaster-container.nb-toaster-container-viewing {
+  display: flex;
+  opacity: 0;
+}
+
+.nb-toaster-container.nb-toaster-container-in {
+  display: flex;
+  transition: opacity .3s;
+  opacity: 1;
+}
+
+.nb-toaster-container.nb-toaster-container-leaveing {
+  display: flex;
+  transition: opacity .3s;
+  opacity: 0;
+}
+
+.nb-toaster-icon {
+  width: .32rem;
+  height: .32rem;
+  border: .02rem solid #FF4A4A;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: .1rem;
+  font-style: normal;
+  text-align: center;
+  color: #FF4A4A;
+}

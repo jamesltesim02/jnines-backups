@@ -1,0 +1,170 @@
+.search-container {
+  background-color: var(--app-background-color);
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+
+  &-enter {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  &-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 200ms linear;
+  }
+
+  &-enter-done {
+    transform: translateX(0);
+  }
+
+  &-exit {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  &-exit-active {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 200ms linear;
+  }
+
+  &-exit-done {
+    transform: translateX(-100%);
+  }
+
+  .search-bar {
+    position: sticky;
+    top: 0;
+    padding: 5px 10px;
+    display: flex;
+    background-color: var(--app-background-color);
+    &-input {
+      position: relative;
+      width: 85%;
+
+      input {
+        border-radius: 4px;
+        padding-left: 40px;
+        background-color: var(--tour-background-color);
+        font-size: 13px;
+        color: #666666;
+        height: 35px;
+        border: none;
+        width: 100%;
+      }
+
+      .search-clear {
+        position: absolute;
+        right: 2%;
+        top: 10px;
+        transition: opacity 0.2s ease-in;
+
+        &-hide {
+          opacity: 0;
+        }
+
+        svg {
+          width: 15px;
+          height: 15px;
+          background-color: #666666;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 8px;
+      left: 2%;
+    }
+
+    .search-cancel {
+      flex: 1;
+      color: var(--highlight-color);
+
+      &:active {
+        opacity: .5;
+      }
+    }
+  }
+
+  .search-result {
+    padding: 10px;
+    font-size: 13px;
+
+    .title {
+      background-color: var(--app-background-color);
+      height: 30px;
+      line-height: 30px;
+      color: var(--home-label-color);
+    }
+
+    .team {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      label {
+        margin-top: 10px;
+      }
+    }
+
+    .center {
+      font-size: 12px;
+      color: #999999;
+      div:nth-child(2) {
+        font-size: 15px;
+      }
+      div:last-child {
+        span {
+          color: var(--highlight-color);
+        }
+      }
+    }
+
+    &-league {
+      > a {
+        background-color: var(--tour-background-color);
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 4px;
+        padding: 0 10px;
+        margin-bottom: 10px;
+        span {
+          white-space: nowrap;
+          color: var(--tip-color);
+        }
+        svg {
+          vertical-align: middle;
+        }
+      }
+    }
+
+    &-match {
+      > a {
+        height: 100px;
+        background-color: var(--tour-background-color);
+        display: grid;
+        grid-template-columns: 1fr 100px 1fr;
+        align-items: center;
+        text-align: center;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .highlight-text {
+    b {
+      color: #FF4A4A;
+    }
+  }
+}

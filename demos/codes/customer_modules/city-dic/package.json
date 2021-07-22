@@ -1,0 +1,15 @@
+{
+  "name": "city-dic",
+  "version": "1.0.1",
+  "description": "城市数据模块提供两个函数获取省份和城市CityUtils.getProvinces、CityUtils.getCitys(province)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://10.66.72.20:8081/mobile-front-end/city-dic.git"
+  },
+  "author": "WRD.APP.Mobile",
+  "license": "UNLICENSED"
+}

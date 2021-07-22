@@ -1,0 +1,29 @@
+.nb_two_header{
+    height: .88rem;
+    line-height: .88rem;
+    background: #57595E;
+    box-shadow: 0 0 0 0 rgba(0,0,0,0.25);
+    width: 7.5rem;
+    font-size: .34rem;
+    color: #fff;
+    text-align: center;
+}
+.nb_nav_choose{
+    position: absolute;
+    line-height: 0.88rem;
+    right: 0;
+    top: 0;
+    font-size: .3rem;
+    text-align: right;
+    padding-right: 0.7rem;
+    letter-spacing: -0.36px;
+
+}
+.nb_nav_choose>span {
+    width: .3rem;
+    height: 0.3rem;
+    position: absolute;
+    right: 0.4rem;
+    top: 50%;
+    margin-top: -0.15rem;
+}

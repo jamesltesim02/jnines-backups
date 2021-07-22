@@ -1,0 +1,34 @@
+<template>
+<svg width=".24rem" height=".24rem" viewBox="0 0 24 24">
+  <defs>
+    <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="arena-valor-color-1">
+      <stop stop-color="#BFBFBF" stop-opacity="0.7" offset="0%"></stop>
+      <stop stop-color="#8A8A8A" stop-opacity="0.7" offset="100%"></stop>
+    </linearGradient>
+    <linearGradient x1="24.1422287%" y1="3.88141257%" x2="99.2251648%" y2="99.0182144%" id="arena-valor-color-2">
+      <stop stop-color="#E5EBF1" stop-opacity="0.4" offset="0%"></stop>
+      <stop stop-color="#B8BCBF" stop-opacity="0.24" offset="100%"></stop>
+    </linearGradient>
+  </defs>
+  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" >
+    <g class="main-fill" transform="translate(-321, -230)" :fill="`url(#arena-valor-color-${/blue/i.test(theme) ? 2 : 1})`" >
+      <g transform="translate(10, 219)">
+        <g transform="translate(5, 3)">
+          <g transform="translate(290, 0)">
+            <path d="M28,8 C21.372583,8 16,13.372583 16,20 C16,26.627417 21.372583,32 28,32 C34.627417,32 40,26.627417 40,20 C40,13.372583 34.627417,8 28,8 Z M27.5,30.25 L26.665,28.045 C26.1611238,26.5770592 25.2380834,25.2889746 24.01,24.34 C23.765,24.13 23.51,23.93 23.315,23.71 C22.3278569,22.7258353 21.7659754,21.3938351 21.75,20 C21.802207,17.0869879 24.0867473,14.7044454 26.995,14.53 L27.46,14.49 L27.46,16.2 L27.07,16.235 C25.0775365,16.3628998 23.5196455,18.0035878 23.495,20 C23.5392367,21.9940193 25.095341,23.6259783 27.085,23.765 L27.48,23.8 L27.5,30.25 Z M29.025,25.47 L28.56,25.51 L28.56,23.8 L28.95,23.765 C30.934585,23.6271372 32.48114,21.9892246 32.505,20 C32.4584332,18.0069445 30.9035855,16.3763034 28.915,16.235 L28.52,16.2 L28.52,9.75 L29.355,11.955 C29.8588762,13.4229408 30.7819166,14.7110254 32.01,15.66 C32.255,15.875 32.51,16.07 32.705,16.29 C33.6848088,17.2773991 34.2393452,18.6090044 34.25,20 C34.197793,22.9130121 31.9132527,25.2955546 29.005,25.47 L29.025,25.47 Z"></path>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
+</template>
+<script>
+import { mapState } from 'vuex';
+
+export default {
+  computed: {
+    ...mapState('app', ['theme']),
+  },
+};
+</script>

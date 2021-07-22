@@ -1,0 +1,122 @@
+.nb_rectanglebox {
+    border-radius: 10px;
+    margin-bottom: 20px;
+
+}
+.nb_home_team_gtp{
+    background-image: linear-gradient(90deg, #5B5D63 0%, #44464D 100%);
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+
+
+}
+.nb_home_team_wrap{
+    height: 1.9rem;
+    width: 3.52rem;
+    position: relative;
+    float: left;
+    border-right: 1px solid rgba(46, 47, 52, .5);
+    border-bottom: 1px solid rgba(46, 47, 52, .5);
+    padding: .24rem .2rem;
+}
+.nb_home_team_wrap>a {
+    width: 100%;
+    height: 100%;
+    float: left;
+    position: relative;
+}
+.nb_home_team_wrap>a>div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+
+.nb_homeTeam,.nb_awayTeam{
+    position: absolute;
+}
+
+.nb_homeTeam>span:nth-of-type(1), .nb_time_wrap>span:nth-of-type(1), .nb_awayTeam>span:nth-of-type(1), nb_match_score {
+    margin-right: 0.1rem;
+}
+.nb_homeTeam {
+    top: 0;
+}
+.nb_awayTeam{
+    bottom: 0;
+}
+.nb_time_wrap{
+    width: 100%;
+    height: .28rem;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -.14rem;
+}
+
+.nb_gtp16_gtp18{
+
+    position: relative;
+    width: 3.04rem;
+    height: 100%;
+    display: table;
+    float: left;
+}
+.nb_gtp_16,.nb_gtp_18{
+    display: table-cell;
+    border-right: 1px solid rgba(46, 47, 52, .5);
+    color: rgba(255, 255, 255, 0.5);
+    width: 50%;
+}
+.nb_gtp16_betItem,.nb_gtp16_betItem_attach{
+
+    flex-direction: column;
+    border-bottom:1px solid rgba(46, 47, 52, .5);
+    display: flex;
+    justify-content: center;
+}
+.nb_gtp16_betItem{
+    height:.95rem;
+}
+.nb_gtp16_betItem_attach{
+    height:.76rem;
+}
+
+.nb_home_ovalue{
+    font-size: .24rem;
+    letter-spacing: -0.29px;
+    text-align: center;
+}
+.nb_betItem_odds{
+    font-size: .26rem;
+    color: #53FFFD;
+    letter-spacing: -0.31px;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.nb_match_down{
+    float: left;
+    position: relative;
+    height: 100%;
+    width: .54rem;
+    border-bottom:1px solid rgba(46, 47, 52, .5);
+}
+.nb_strech_match{
+    width: 100%;
+    height: 100%;
+}
+.nb_active {
+    transform: rotate(-180deg)
+}
+
+.nb_main_betItems{
+    width: 100%;
+    height: 1.9rem;
+}
+
+
+

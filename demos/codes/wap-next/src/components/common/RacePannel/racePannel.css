@@ -1,0 +1,49 @@
+.nb_raceTypes{
+    background: #3F4045;
+    font-size: .36rem;
+    color: #fff;
+    padding: .2rem 0;
+    height: 1.58rem;
+}
+.nb_iconbox {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+}
+.nb_iconitembox {
+    float: left;
+    width: 1.25rem;
+    height: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    text-decoration: none;
+    text-align: center;
+}
+.nb_iconitem {
+    width: .8rem;
+    height: .8rem;
+    line-height: .8rem;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    font-size: .4rem;
+    color: #9095A6;
+}
+.nb_iconitembox img {
+    width: .8rem;
+    height: .8rem;
+    margin: 0 auto;
+    display: block;
+}
+.nb_iconitemp {
+    text-align: center;
+    font-size: .24rem;
+    color: #ffffff;
+    margin-top: .06rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+

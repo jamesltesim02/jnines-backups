@@ -1,0 +1,225 @@
+.cny-recharge {
+  .channels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 16px 24px;
+    padding: 10px 0 24px;
+    button {
+      position: relative;
+      height: 48px;
+      color: #aaa;
+      border: solid 1px var(--);
+      border-radius: 2px;
+      background-color: #2a2a32;
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        opacity: 0;
+      }
+      &::before {
+        width: 22px;
+        height: 22px;
+        background: linear-gradient(45deg, rgba(0, 0, 0, 0) 50%, #ebba73 50%, #ebba73)
+      }
+      &::after {
+        top: 3px;
+        right: 1px;
+        height: 6px;
+        width: 10px;
+        border-left: 2px solid var(--border-color);
+        border-bottom: 2px solid var(--border-color);
+        transform: rotate(-45deg)
+      }
+      &.active, &:hover {
+        color: #ebba73;
+        border: solid 1px #ebba73;
+        &::before, &::after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .exchanged-amount {
+    display: flex;
+    align-items: center;
+    padding: 24px 0;
+    var {
+      flex: 1 1;
+      font-size: 14px;
+      font-style: normal;
+      text-align: right;
+      color: #ebba73;
+    }
+  }
+  .bankcard-tips {
+    margin-top: 6px;
+  }
+}
+
+.qr-confirm-dialog .ant-modal-body {
+  text-align: left;
+  header {
+    font-size: 18px;
+    color: #fff;
+    line-height: 18px;
+  }
+  section {
+    margin-top: 25px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 15px;
+    div {
+      display: flex;
+      align-items: center;
+      line-height: 40px;
+    }
+    label {
+      color: #aaa;
+      font-size: 15px;
+      flex: 1 1;
+    }
+    span {
+      font-size: 18px;
+      color: #e0c28d;
+    }
+  }
+  .qr-result-item {
+    label, span {
+      display: block;
+    }
+    span {
+      margin-top: 5px;
+    }
+    & + .qr-result-item {
+      margin-top: 10px;
+    }
+  }
+  footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+    margin-top: 35px;
+    button {
+      height: 40px;
+      border-radius: 3px;
+      &.btn-cancel {
+        border: 1px solid #e3b574;
+        color: #e0c28d;
+      }
+      &.btn-submit {
+        color: #181818;
+        background-image: linear-gradient(to left, #f4d699, #e3b574);
+      }
+    }
+  }
+}
+
+.bankcard-result {
+  .result-item {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    font-size: 16px;
+    color: #b4b4b8;
+    label var {
+      font-size: 12px;
+      color: #71717b;
+      font-style: normal;
+    }
+    span {
+      text-align: right;
+      flex: 1 1;
+      color: #cab181;
+    }
+  }
+  .hr {
+    display: block;
+    height: 1px;
+    width: 100%;
+    background-color: #3d4044;
+    margin: 16px 0;
+  }
+  .card {
+    margin-top: 10px;
+    padding: 25px;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.1);
+    background-image: linear-gradient(113deg, #52baf5, #3175ea 100%);
+    h3 {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 300;
+    }
+    .card-no,
+    .card-owner {
+      display: flex;
+      margin-top: 20px;
+      span {
+        flex: 1 1;
+      }
+      button {
+        height: 24px;
+        width: 66px;
+        font-size: 14px;
+        border-radius: 12px;
+        background-color: rgba(255, 255, 255, 0.1);
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+    .card-no {
+      font-size: 24px;
+    }
+    .card-owner {
+      font-size: 16px;
+    }
+  }
+  p {
+    color: 12px;
+    padding: 16px 0;
+    color: #71717b;
+  }
+  .buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 24px;
+    margin-top: 20px;
+  }
+}
+
+.cny-recharge.unavailable {
+  text-align: center;
+  .image {
+    position: relative;
+    width: 312px;
+    margin: 48px auto;
+    padding-bottom: 4px;
+    img {
+      width: 272px
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 62px;
+      background-image: linear-gradient(to top, #1e1e24, rgba(30, 30, 36, 0));
+    }
+  }
+  p {
+    color: var(--member-info-sub--color);
+    font-size: 16px;
+    line-height: 30px;
+    b {
+      font-weight: normal;
+      color: #f58f3c;
+    }
+  }
+}

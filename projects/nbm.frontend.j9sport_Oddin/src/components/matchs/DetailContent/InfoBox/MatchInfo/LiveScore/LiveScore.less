@@ -1,0 +1,55 @@
+.live-score {
+  width: 100%;
+}
+
+.soccer-score {
+  display: flex;
+  justify-content: space-around;
+  max-width: 550px;
+  margin: 0 auto;
+  li {
+    display: flex;
+    align-items: center;
+    line-height: 12px;
+    .icon-other-score {
+      margin-right: 10px;
+    }
+    label {
+      margin-right: 5px;
+      white-space: nowrap;
+    }
+    span {
+      font-weight: 500;
+    }
+  }
+}
+
+.basketball-score,
+.other-score,
+.tennis-score {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  li {
+    margin-left: 2px;
+    &.score {
+      width: 60px;
+      div {
+        background-color: var(--app-background-color);
+      }
+    }
+    div {
+      margin-top: 2px;
+      line-height: 30px;
+    }
+  }
+}
+.basketball-score .s-1 {
+  margin-left: 10px;
+}
+.tennis-score li:first-child {
+  margin-right: 4px;
+}
+.tennis-score li:last-child {
+  margin-left: 4px;
+}

@@ -1,0 +1,39 @@
+.nb-match-detail {
+  display: flex;
+  flex-direction: column;
+}
+.nb-match-detail > div {
+  width: 100%;
+}
+.nb-match-detail-content {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.nb-match-detail-video {
+  width: 100%;
+  height: 4.74rem;
+  background: #397C92;
+  display: flex;
+}
+.nb-match-tabcontent-container {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.nb-match-tabcontent {
+  display: none;
+  height: 100%;
+  flex: 1;
+  flex-direction: column;
+}
+.nb-match-tabcontent.nb-active {
+  display: flex;
+  flex-direction: column;
+}
+
+.nb-match-detail .nb_two_footer {
+  position: relative;
+} 

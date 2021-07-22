@@ -1,0 +1,65 @@
+.option-view {
+  position: relative;
+  padding: 0;
+  white-space: nowrap;
+  transition: all 0.3s ease-out;
+  & > label {
+    transition: all 0.3s ease-out;
+    color: var(--option-label-color);
+  }
+  & > span {
+    transition: all 0.3s ease-out;
+    color: var(--first-color);
+    font-size: 14px;
+  }
+  .loading-bar {
+    position: absolute;
+    top: 0;
+    justify-content: flex-end;
+    padding-right: 15px;
+  }
+
+  &.checked {
+    background:  #f5d79b;
+    label, >span {
+      color: #242220;
+    }
+  }
+  &.disabled {
+    label, span {
+      color: #444;
+    }
+  }
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    display: none;
+    width: 6px;
+    height: 6px;
+    right: 0;
+    animation: blink 1s linear infinite;
+    z-index: 1;
+  }
+  &.upper {
+    & > span {
+      color: #FF4A4A;
+      animation: blink 1s linear infinite;
+    }
+    &::before {
+      display: block;
+      top: 0;
+      background: linear-gradient(-135deg, #FF4A4A 50%, transparent 55%);
+    }
+  }
+  &.lower {
+    & > span {
+      color: #7CCD5D;
+      animation: blink 1s linear infinite;
+    }
+    &::after {
+      display: block;
+      bottom: 0;
+      background: linear-gradient(-45deg, #7CCD5D 50%, transparent 55%)
+    }
+  }
+}

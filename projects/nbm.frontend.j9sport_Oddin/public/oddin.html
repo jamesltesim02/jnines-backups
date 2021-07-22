@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+    <title>Title</title>
+</head>
+<style>
+    #bifrost {
+        height: 100vh;
+    }
+</style>
+<body>
+<div id="bifrost"></div>
+<script>
+  const CURRENCY_MAP = {
+    1: 'CNY',
+    2: 'USD',
+    101: 'CNY'
+  };
+
+  const query = window.location.search;
+  const token = new URLSearchParams(query).get("token");
+  const language = new URLSearchParams(query).get("language");
+  const currency = new URLSearchParams(query).get("currency")
+
+  const winTop = window.top || window
+
+  window["OddinConfig"] = {
+    token: token,
+    brandToken: "bc58d2f6-86cf-41c0-87c1-fe80ecc5b0e8",
+    baseUrl: "https://bifrost.integration.oddin.gg",
+    language: language,
+    currency: CURRENCY_MAP[currency],
+    contentElement: "#bifrost",
+    customDomain: winTop.location.hostname,
+    eventHandler: (e) => {
+
+    }
+  }
+</script>
+<script src="https://bifrost.integration.oddin.gg/script.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+.tasks-modal {
+  .ant-divider {
+    margin-top: -5px;
+    .ant-divider-inner-text {
+      font-size: 12px;
+    }
+  }
+  .ant-divider-horizontal.ant-divider-with-text::before,
+  .ant-divider-horizontal.ant-divider-with-text::after {
+    border-color: #ddd;
+  }
+  .file-upload {
+    overflow: hidden;
+    flex-wrap: nowrap;
+    .ant-form-item-control,
+    .ant-upload-list-text {
+      overflow: hidden;
+    }
+    .ant-form-item-control-input-content > span {
+      display: flex;
+      align-items: center;
+    }
+    .ant-upload-list-item {
+      margin-top: 0;
+    }
+  }
+  form > .ant-row {
+    margin-bottom: 12px;
+  }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  
+</head>
+<body>
+  <div id="root"><container /></div>
+  <script src='vendors/vue.js'></script>
+
+  <template id="countorTemplate">
+    <div>
+      {{ value }}
+      <button @click="upper">+</button>
+      <button @click="lower">-</button>
+    </div>
+  </template>
+  <script>
+    Vue.component('countor', {
+      template: '#countorTemplate',
+      // 组件中的data必须是函数
+      data() {
+        return {
+          value: 5
+        }
+      },
+      methods: {
+        upper() {
+          this.value = this.value + 1
+        },
+        lower() {
+          this.value = this.value - 1
+        }
+      }
+    })
+  </script>
+
+  <template id="totoTemplate">
+    <div>
+      <div>
+        <input v-model="value" />
+        <button @click="addTodo">添加todo</button>
+      </div>
+      <ul>
+        <li v-for="todo in todos">{{ todo }}</li>
+      </ul>
+    </div>
+  </template>
+  <script>
+    Vue.component('todolist', {
+      template: '#totoTemplate',
+      data() {
+        return {
+          value: '',
+          todos: []
+        }
+      },
+      methods: {
+        addTodo() {
+          this.todos.push(this.value)
+        }
+      }
+    })
+  </script>
+
+
+  <script>
+    Vue.component('container', {
+      template: `
+        <div>
+          <todolist />
+          <countor />
+        </div>
+      `
+    })
+  </script>
+  <script>
+    new Vue({ el: '#root' })
+  </script>
+</body>
+</html>

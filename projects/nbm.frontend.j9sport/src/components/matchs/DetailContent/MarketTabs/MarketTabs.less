@@ -1,0 +1,35 @@
+.market-tabs {
+  height: 50px;
+  .tabs {
+    height: 50px;
+    background-color: var(--block-background-color);
+  }
+  button {
+    position: relative;
+    height: 50px;
+    padding: 0 12px;
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: 1px;
+      left: 50%;
+      display: block;
+      width: 10px;
+      height: 3px;
+      transform: translateX(-50%);
+      background: var(--gold-color);
+      opacity: 0;
+      transition: all .3s ease-out;
+    }
+    &:hover {
+      font-weight: 500;
+    }
+    &.active {
+      font-weight: 500;
+      color: var(--gold-color);
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+}

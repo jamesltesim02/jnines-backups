@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="193px" height="94px" viewBox="0 0 193 94" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>路径</title>
+    <defs>
+        <linearGradient x1="14.2222034%" y1="50%" x2="85.3356772%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#e2b271" offset="0%"></stop>
+            <stop stop-color="#f6d99d" offset="100%"></stop>
+        </linearGradient>
+        <path d="M2.57620084,37.43093 L6.12670814,31.4880808 L6.12670814,31.4880808 C10.7651364,14.0785249 30.0792473,0.990966292 53.2333313,0.990966292 L129.767323,0.990966292 C156.343198,0.990966292 171.427666,14.0785249 177.900557,31.4880808 L181.44367,37.4450636 C183.03343,40.1179032 183.130659,43.4220847 181.700815,46.183779 L177.900557,53.5238474 L177.900557,53.5238474 C171.062283,70.9333737 156.343198,83.9909663 129.767323,83.9909663 L53.2333313,83.9909663 C30.0792473,84.0209322 10.765025,70.9333737 6.12670814,53.5238474 L2.31757431,46.1993771 C0.877104722,43.4295409 0.974984023,40.1110512 2.57620084,37.43093 Z" id="path-2"></path>
+        <filter x="-5.3%" y="-8.4%" width="110.5%" height="126.5%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="欧冠-积分数据-淘汰赛" transform="translate(-314.000000, -553.000000)">
+            <g id="路径" transform="translate(318.648023, 553.510227)">
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+            </g>
+        </g>
+    </g>
+</svg>

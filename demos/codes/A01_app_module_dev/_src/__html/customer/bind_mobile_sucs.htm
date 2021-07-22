@@ -1,0 +1,41 @@
+<template id="contentTmpl">
+<div>
+	<section id="bindMobileSuccess" class="modifymobile_content _06">
+        <div class="success-msg">
+            <div class="icon-content">
+                <img src="../../__static/__images/icons/icon07.png">
+            </div>
+            <div class="text-content">
+                <span class="title">已绑定手机号码：{{phone}}</span>
+            </div>
+            
+            <div class="button-content">
+                <div class="form_btn-wrap"><a forward="forward" href="customer/member_center.htm" class="btn btn-lg btn-ylw">会员中心</a></div>
+            </div>
+            
+        </div>
+    </section>
+</div>
+</template>
+<script>
+appState.setData({
+    needLogin: true,
+    title: '绑定手机'
+});
+Vue.component("app-content", {
+	template: "#contentTmpl",
+    data:function(){
+        return {
+            phone:''
+        };
+    },
+    mounted:function(){
+        var _this = this;
+        JSBridge.onReady(function(){
+            Request.userInfo(function(customer){
+                _this.phone = customer.phone;
+            },function(){});
+        });
+    }
+});
+</script>

@@ -1,0 +1,64 @@
+.verification-dialog {
+  .input-item.phone-number > div {
+    .country-code,
+    .input {
+      border: solid 1px #3b3b43;
+      padding: 0 16px;
+      border-radius: 2px;
+    }  
+    .country-code {
+      display: inline-block;
+      margin-right: 8px;
+    }
+    .input {
+      display: flex;
+      & > input {
+        border: none;
+      }
+    }
+  }
+  .input-item.captcha > div {
+    & > span {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    & > button {
+      width: 125px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+  .remark {
+    display: flex;
+    text-align: center;
+    margin: 20px 0 35px;
+    font-size: 14px;
+    color: #a8a8aa;
+    i {
+      flex: 1 1;
+    }
+    b {
+      color: #fcb80a;
+      font-weight: normal;
+    }
+  }
+  .google-verify {
+    grid-template-columns: 20px 1fr !important;
+    label {
+      color: #e0c28d;
+    }
+  }
+  .country-code-container {
+    width: 300px;
+    margin-left: -17px;
+  }
+}
+.light {
+  .wallet-item {
+    color: #d4d4d4;
+    background-image: linear-gradient(130deg, #540e38 -4%, #3a376b 68%, #244e7f 112%, #0b1a2b 112%);
+  }
+  .wallet-page .wallet-list section, .wallet-page .wallet-list p {
+    color: #d4d4d4;
+  }
+}

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="ie9 no-focus"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-focus"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+    <title>OneUI - Admin Dashboard Template &amp; UI Framework</title>
+
+    <meta name="description" content="OneUI - Admin Dashboard Template &amp; UI Framework created by pixelcave and published on Themeforest">
+    <meta name="author" content="pixelcave">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" href="/static/img/favicons/favicon.png">
+
+    <link rel="icon" type="image/png" href="/static/img/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/img/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/static/img/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/static/img/favicons/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/static/img/favicons/favicon-192x192.png" sizes="192x192">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/img/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/img/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/img/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/img/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/img/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/img/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/img/favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicons/apple-touch-icon-180x180.png">
+    <!-- END Icons -->
+
+    <!-- Stylesheets -->
+    <!-- Web fonts -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+
+    <!-- Bootstrap and OneUI CSS framework -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" id="css-main" href="/static/css/oneui.css">
+
+    <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+    <!-- <link rel="stylesheet" id="css-theme" href="/css/themes/flat.min.css"> -->
+    <!-- END Stylesheets -->
+</head>
+<body>
+<script src='/static/js/vue.js'></script>
+<div class="block-header">
+    <h3 class="block-title">注单列表</h3>
+</div>
+<div class="block-content" id="root">
+    <div>
+        <div class="form-group">
+            <input type="text" name="startTime" class="form-control date" placeholder="起始时间" v-model="param.startTime"></td>
+        </div>
+        <input
+                placeholder="结束时间"
+                v-model="param.endTime"
+        />
+        <input
+                placeholder="注单Id"
+                v-model="param.ticketId"
+        />
+        <input
+                placeholder="用户Id"
+                v-model="param.userId"
+        />
+        <button @click="query">查询</button>
+    </div>
+    <table class="table table-bordered" id="betTable">
+        <thead>
+        <tr>
+            <th class="text-center" style="width: 100px;">注单号</th>
+            <th class="text-center" style="width: 100px;">用户id</th>
+            <th class="text-center" style="width: 100px;">注单金额</th>
+            <th class="text-center" style="width: 100px;">注单类型</th>
+            <th class="text-center" style="width: 100px;">下注时间</th>
+            <th class="text-center" style="width: 100px;">结算金额</th>
+            <th class="text-center" style="width: 100px;">结算结果</th>
+            <th class="text-center" style="width: 100px;">注单状态</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in list">
+            <td class="text-center">{{item.ticketId}}</td>
+            <td class="text-center">{{item.userId}}</td>
+            <td class="text-center">{{item.betAmount}}</td>
+            <td class="text-center">{{typeMapping[item.betType]}}</td>
+            <td class="text-center">{{item.betTime}}</td>
+            <td class="text-center">{{item.settlement}}</td>
+            <td class="text-center">{{item.settleResult}}</td>
+            <td class="text-center">{{item.betState}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+
+<!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+<script src="/static/js/core/jquery.min.js"></script>
+<script src="/static/js/core/bootstrap.min.js"></script>
+<script src="/static/js/core/bootstrap-datetimepicker.min.js"></script>
+<script src="/static/js/core/jquery.slimscroll.min.js"></script>
+<script src="/static/js/core/jquery.scrollLock.min.js"></script>
+<script src="/static/js/core/jquery.appear.min.js"></script>
+<script src="/static/js/core/jquery.countTo.min.js"></script>
+<script src="/static/js/core/jquery.placeholder.min.js"></script>
+<script src="/static/js/core/js.cookie.min.js"></script>
+<script src="/static/js/app.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    // axios.defaults.baseURL = 'http://api.xxxx.com/'
+    axios.defaults.headers.post['Content-Type'] = 'application/json'
+    // 请求拦截器
+    // axios.interceptors.request.use(
+    //     (config) => {
+    //         console.log('request......')
+    //         return config
+    //     },
+    //     () => {}
+    // )
+
+    // 响应拦截器
+    axios.interceptors.response.use(
+        (response) => {
+            const result = response.data
+            if(result.code === 403) {
+                // TODO /...
+            }
+
+            return result.data
+        },
+        (error) => {
+            // TODO
+            console.log('出错')
+        }
+    )
+
+</script>
+
+<script>
+    new Vue({
+        el:'#root',
+        data: {
+            message: 'hello',
+            param: {
+                startTime:null,
+                endTime: null,
+                ticketId:'',
+                userId:''
+            },
+            typeMapping: {
+                1: 'aaa',
+                2: 'bbb'
+            },
+            bMapping: {},
+            list: []
+        },
+        mounted() {
+            $("input[name='startTime']").datetimepicker({
+                minView : 2, //  选择时间时，最小可以选择到那层；默认是‘hour’也可用0表示
+                language : 'zh-CN', // 语言
+                autoclose : true, //  true:选择时间后窗口自动关闭
+                format : 'yyyy-mm-dd 00:00:00', // 文本框时间格式，设置为0,最后时间格式为2017-03-23 17:00:00
+                todayBtn : true, // 如果此值为true 或 "linked"，则在日期时间选择器组件的底部显示一个 "Today" 按钮用以选择当前日期。
+                //startDate : new Date()   // 窗口可选时间从今天开始
+                //endDate : new Date()   // 窗口最大时间直至今天
+            })
+        },
+        methods: {
+            add() {
+                console.log(this.form)
+                this.list.remove();
+            },
+            deleteItem(id) {
+                // this.list.
+                console.log(id)
+            },
+            async query(){
+                console.log('query...')
+                const date = new Date(this.param.startTime);
+                console.log('startRime'+date);
+               // date1 = new Date(this.param.startTime.replace(/-/g, '/'));
+                console.log('startRime22'+date.getTime());
+                 axios.post(
+                     'bet/query',
+                     this.param
+                 ).then((data) => {
+                     this.list = data.list
+                 }).catch(() => {})
+                /*try {
+                    this.list = await axios.post(
+                        'bet/query',
+                        this.param
+                    ).list
+                } catch (e) {
+                    console.log('eee')
+                }*/
+            }
+        },
+        created () {
+            this.query()
+            // axios.post('bet/query', {
+            //     firstName: 'Fred',
+            //     lastName: 'Flintstone'
+            // }).then((response) => {
+            //         console.log(response);
+            //         this.list = response.data.data.list;
+            //     })
+            //     .catch(function (error) {
+            //         console.log(error);
+            // });error
+            // 查询接口
+            // map js的语法..
+           /* this.list = tempData.map(function (item) {
+                if (item.num > 0) {
+                    item.show = false
+                }
+                return item
+            })*/
+        },
+    })
+
+</script>
+</body>
+</html>

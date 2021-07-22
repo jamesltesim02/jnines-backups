@@ -1,0 +1,73 @@
+<template id="contentTmpl">
+    <div class="main_content">
+        <section class="withdrawal_content">
+            <div class="success-msg">
+                <div class="icon-content">
+                    <img src="../../__static/__images/withdrawals/icon05.png">
+                </div>
+                <div class="text-content">
+                    <span class="title">本次取款金额（元）</span>
+                    <h2 class="lbue2">{{amount}}</h2>
+                    <div class="divider"></div>
+                    <p>
+                        尊敬的客户<span class="lbue2">{{login_name}}</span>,您的取款已经提交成功!<br>
+                        如您各项资料正确,取款一般2小时内到账,最晚不超过24小时!
+                    </p>
+                </div>
+                <div class="button-content">
+                    <div class="form_btn-wrap">
+                        <a forward="forward" href="customer/member_center.htm" class="btn btn-lg btn-ylw">返回会员中心</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+	</div>
+</template>
+
+<script>
+(function(){
+    var mdata = {
+        amount: 0,
+        reqId: '',
+        avg:'0',
+        pos: '0',
+        login_name: ''
+    };
+
+    appState.setData({
+        needLogin: true,
+        title: '取款',
+    });
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function () {
+            return mdata;
+        }
+    });
+
+    JSBridge.onReady(function() {
+        if(!CustomerUtils.isLoged()) {
+            return null;
+        }
+
+        var _this = mdata;
+        var customer = JSBridge.cache.get("customer");
+
+        _this.login_name = customer.login_name;
+        _this.amount = $.getParam('amount');
+        _this.reqId = $.getParam('reqId');
+        JSBridge.net.invoke({
+            url: "withdraws/status",
+            data: {
+                'request_id':_this.reqId,
+            },
+            success: function (result) {
+                if (result) {
+                   _this.avg = result.avg;
+                   _this.pos = result.pos; 
+                }  
+            }
+        });
+    });
+})();
+</script>

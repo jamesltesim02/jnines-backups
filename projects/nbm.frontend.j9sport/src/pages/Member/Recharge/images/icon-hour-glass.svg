@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="126" height="126" viewBox="0 0 126 126">
+  <defs>
+    <linearGradient id="pok06ru73a" x1="0%" x2="100%" y1="0%" y2="97.824%">
+      <stop offset="0%" stop-color="#19191D"/>
+      <stop offset="100%" stop-color="#38383C"/>
+    </linearGradient>
+    <linearGradient id="japi7xp3qb" x1="0%" x2="100%" y1="50%" y2="50%">
+      <stop offset="0%" stop-color="#F6DDB3"/>
+      <stop offset="100%" stop-color="#E7BC83"/>
+    </linearGradient>
+    <linearGradient id="8f0hiyqktc" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#C9B080"/>
+      <stop offset="100%" stop-color="#4F5D73"/>
+    </linearGradient>
+    <linearGradient id="272sc5q52d" x1="5.525%" x2="96.686%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#F0EADE"/>
+      <stop offset="100%" stop-color="#DCCFBA"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <g fill-rule="nonzero">
+      <g>
+        <g>
+          <g>
+            <path fill="url(#pok06ru73a)" d="M0 63c0 22.508 12.008 43.306 31.5 54.56 19.492 11.253 43.508 11.253 63 0C113.992 106.306 126 85.508 126 63c0-22.508-12.008-43.306-31.5-54.56-19.492-11.253-43.508-11.253-63 0C12.008 19.694 0 40.492 0 63z" transform="translate(-1069 -350) translate(916 240) translate(0 110) translate(153)"/>
+            <path fill="url(#japi7xp3qb)" d="M81.45 73.388l-7.97-6.89c-1.88-1.622 0-3.294 0-3.294l8.56-7.386c5.81-5.013 5.568-12.327 5.568-12.327v-9.482L63 32.156 38.392 34.01v9.482s-.241 7.301 5.568 12.327l8.56 7.386s1.88 1.672 0 3.294l-7.983 6.89s-6.145 5.268-6.145 13.672v9.409h49.203v-9.41c0-8.403-6.146-13.67-6.146-13.67z" transform="translate(-1069 -350) translate(916 240) translate(0 110) translate(153)"/>
+            <path fill="url(#8f0hiyqktc)" d="M60.953 85.75l.068-21.03c.026-3.942-1.96-6.432-2.725-7.145l-8.656-7.719c-2.939-2.615-3.046-6.943-3.046-6.981h32.812s-.053 4.316-3.046 6.981l-8.562 7.632c-.873.8-2.792 3.29-2.765 7.231V85.75h-4.08z" transform="translate(-1069 -350) translate(916 240) translate(0 110) translate(153)"/>
+            <path fill="url(#272sc5q52d)" d="M94.333 94.668c1.105 0 2 .895 2 2v.116c0 1.105-.895 2-2 2H32.708c-1.104 0-2-.895-2-2v-.116c0-1.105.896-2 2-2h61.625zm0-63.798c1.105 0 2 .895 2 2v.116c0 1.105-.895 2-2 2H32.708c-1.104 0-2-.895-2-2v-.116c0-1.105.896-2 2-2h61.625z" transform="translate(-1069 -350) translate(916 240) translate(0 110) translate(153)"/>
+            <path fill="#646B75" d="M80.839 93.789L45.292 93.789 63.072 77.711z" transform="translate(-1069 -350) translate(916 240) translate(0 110) translate(153)"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

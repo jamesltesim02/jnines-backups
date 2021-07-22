@@ -1,0 +1,101 @@
+<template id="betProfitTmpl">
+    <div class="discount relative cycle_wrap" style="padding-right:15px;">
+        <h2>{{title}}</h2>
+        <table class="hdr">
+            <tbody>
+                <tr>
+                    <td>游戏账号</td>
+                    <td>下注金额</td>
+                    <td>派彩金额</td>
+                    <td>游戏名称</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="scroll" id="cycle">
+            <div v-if="!isGet" class="scroll_row no-result center img-loader loading" style="min-height: 100px"></div>
+            <div v-if="isGet && !betList.length" class="scroll_row no-result center">
+                <span>暂无数据</span>
+            </div>
+            <marquee v-if="isGet && betList.length" direction="up" height="200" scrollamount="1" behavior="scroll">
+                <div v-for="b in betList" class="scroll_row result ">
+                    <div class="col">{{b.loginName}}</div>
+                    <div class="col">{{b.betAmount}}</div>
+                    <div class="col">{{b.cjAmount}}</div>
+                    <div class="col">{{b.gameName}}</div>
+                    <div class="clear"></div>
+                </div>
+            </marquee>
+        </div>
+        <p class="subtitle"></p>
+    </div>
+</template>
+<script>
+;
+(function() {
+    var betMaxData = {
+        title: '',
+        isGet: false,
+        betList: []
+    };
+
+    Vue.component("bet-profit", {
+        template: "#betProfitTmpl",
+        data: function() {
+            return betMaxData;
+        },
+        mounted: function() {
+            var _this = this;
+            function getBetList(date_start, min_bet_amount, page_size) {
+                var expireAt = 600,
+                    cacheKey = 'betDataMax',
+                    betDataCache = JSBridge.cache.get(cacheKey);
+                if (betDataCache && new Date().getTime() < betDataCache.outtime) {
+                    _this.betList = betDataCache.data;
+                    _this.isGet = true;
+                } else {
+                    JSBridge.net.invoke({
+                        loading: false,
+                        url: "A01/bet/getRecordMax",
+                        data: {
+                            'date_start': date_start,
+                            'min_bet_amount': min_bet_amount,
+                            'page_size': page_size
+                        },
+                        success: function(result) {
+                            _this.isGet = true;
+                            if(Array.isArray(result)){
+                                _this.betList = result || [];
+                                JSBridge.cache.save(cacheKey, {
+                                    data: result,
+                                    outtime: (new Date()).getTime() + expireAt * 1000
+                                }, 1);
+                            }
+                        },
+                        error: function() {
+                            _this.isGet = true;
+                        }
+                    });
+                }
+            }
+            JSBridge.onReady(function() {
+                var d = new Date(),
+                    month = d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1,
+                    day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate();
+
+                var today = Date.format(new Date(), 'yyyy-MM-dd 00:00:00');
+                if (!today.match(/^[\d]{4}\-[\d]{2}\-[\d]{2}\s[\d]{2}\:[\d]{2}\:[\d]{2}$/)) {
+                    return;
+                }
+                // 获取数据
+                _this.title = d.getFullYear() + '年' + month + '月' + day + '日高额及高倍盈利';
+                setTimeout(function() {
+                    getBetList(today, 50000, 100);
+                }, 4000);
+            });
+        },
+        methods: {
+
+        }
+    });
+})();
+</script>

@@ -1,0 +1,39 @@
+.tour-header {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 12px;
+  & > div {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    flex: 1 1;
+    overflow: hidden;
+    label {
+      flex-shrink: 1;
+      min-width: calc(42.857142857142855% - 15px);
+      color: var(--home-label-color);
+    }
+    button {
+      flex-shrink: 0;
+      i {
+        position: relative !important;
+        background: none !important;
+        transform: none !important;
+        top: 0 !important;
+        left: 0 !important;
+      }
+    }
+  }
+  .am-icon {
+    flex-shrink: 0;
+    transition: all 0.3s ease-out;
+    transform: rotate(0deg);
+    color: var(--arrow-color);
+  }
+  &.active {
+    .am-icon {
+      transform: rotate(-180deg);
+    }
+  }
+}

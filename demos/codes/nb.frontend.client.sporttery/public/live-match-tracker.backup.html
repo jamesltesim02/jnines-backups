@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="format-detection" content="telephone=no, email=no">
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="full-screen" content="yes"/>
+  <meta name="x5-fullscreen" content="true"/>
+  <meta name="google" value="notranslate"/>
+  <link rel="stylesheet" href="sirs/lmt.css" />
+</head>
+<body>
+  <div id="sr-widget">
+    <div class="loading"></div>
+  </div>
+  <div id="live-video-container">
+    <div class="video-wrapper"></div>
+  </div>
+  <div class="switcher">
+    <button class="to-live-button"><i class="icon-tv">TV</i>直播</button>
+    <button class="to-graphic-button">图文直播</button>
+  </div>
+  <script>
+    var params = {};
+
+    location.search.replace(/^\?/, '').split('&').forEach(function (p) {
+      var kv = p.split('=');
+      params[kv[0]] = kv[1];
+    });
+
+    ;(function(a,b,c,d,e,f,g,h,i){a[e]||(i=a[e]=function(){(a[e].q=a[e].q||[]).push(arguments)},i.l=1*new Date,i.o=f,
+    g=b.createElement(c),h=b.getElementsByTagName(c)[0],g.async=1,g.src=d,g.setAttribute("n",e),h.parentNode.insertBefore(g,h)
+    )})(window,document,"script","https://widgets.sir.sportradar.com/713ad42ed654599df32c28e1f95b871b/widgetloader","SIR", {
+      language: params.lang || 'zh'
+    });
+    SIR(
+      'addWidget',
+      '#sr-widget',
+      'match.lmt',
+      {
+        adsFrequency:false,
+        matchId: params.matchId
+      }
+    );
+  </script>
+  <link rel="stylesheet" href="videojs/video-js.min.css" />
+  <script src="videojs/video.min.js"></script>
+  <script>
+    ;(function () {
+      if (!params.liveUrl) {
+        return;
+      }
+
+      document.querySelector('#live-video-container').innerHTML = ''
+        + '<video'
+        +     ' id="video-player"'
+        +     ' class="video-js"'
+        +     ' controls'
+        +     ' preload="auto"'
+        +     ' webkit-playsinline="true"'
+        +     ' playsinline="true"'
+        + '>'
+        +   '<source src="' + decodeURIComponent(params.liveUrl) + '" type="application/x-mpegURL" />'
+        + '</video>';
+
+      var liveVideo = videojs(
+        "video-player",
+        {},
+        function () {
+          videojs.log('Your player is ready!');
+          this.on('ended', function() {
+            videojs.log('Awww...over so soon?!');
+          });
+        },
+      );
+
+      function toVideoView(e) {
+        // 如果是手动触发事件则开始播放,如果是页面加载完成后自动切换到直播则不播放
+        if (e) {
+          liveVideo.play();
+        }
+        document.body.className = "living";
+      }
+
+      document.querySelector('.switcher').style.display = 'block';
+      document.querySelector('.to-live-button').addEventListener('click', toVideoView);
+
+      document.querySelector('.to-graphic-button').addEventListener('click', function () {
+        liveVideo.pause();
+        document.body.className = "";
+      });
+
+      toVideoView();
+    })();
+  </script>
+</body>
+</html>

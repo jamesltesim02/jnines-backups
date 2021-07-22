@@ -1,0 +1,19 @@
+{
+  "name": "simple-date-format",
+  "version": "1.0.1",
+  "description": "simple date format",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://10.66.72.20:8081/mobile-front-end/simple-date-format.git"
+  },
+  "keywords": [
+    "date",
+    "format"
+  ],
+  "author": "WRD.APP.Mobile",
+  "license": "UNLICENSED"
+}

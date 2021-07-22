@@ -1,0 +1,322 @@
+.account {
+  &-mask, &-wrap {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+  }
+
+  &-mask {
+    height: 100%;
+    background-color: rgba(0, 0, 0, .45);
+  }
+
+  &-wrap {
+    overflow: auto;
+    outline: 0;
+    z-index: 1000;
+  }
+
+  &-content {
+    position: relative;
+    top: 200px;
+    margin: 0 auto;
+    width: 746px;
+    background-color: #2a2a32;
+    border-radius: 4px;
+    padding-bottom: 30px;
+
+    &-close {
+      cursor: pointer;
+      width: 35px;
+      line-height: 35px;
+      position: absolute;
+      right: 0;
+      color: #a8a8aa;
+      font-size: 18px;
+    }
+  }
+
+  &-content {
+    background-image: url("../img/colorful-bg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding-left: 300px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      background: url("../img/BATISTUTA.png") 0 0 no-repeat;
+      background-size: 100%;
+      width: 330px;
+      top: calc(100% - 520px);
+      bottom: 0;
+      left: 0;
+    }
+
+    .account-footer {
+      margin-left: 40px;
+      width: 340px;
+      display: flex;
+      justify-content: space-between;
+      color: #a8a8aa;
+
+      span {
+        color: #e3b575;
+        cursor: pointer;
+      }
+    }
+
+    .send-code {
+      display: flex;
+
+      button {
+        width: 112px;
+        line-height: 40px;
+        height: 40px;
+        text-align: center;
+        background-color: #32323c;
+        margin-left: 20px;
+        color: #a8a8aa;
+        border-radius: 4px;
+
+        &.active, &:hover {
+          border: 1px solid #0b9cfe;
+          color: #0b9cfe;
+        }
+      }
+    }
+  }
+
+  &-header {
+    display: flex;
+    padding: 40px 68px 30px 40px;
+    font-size: 20px;
+
+    > div:not(:last-child) {
+      margin-right: 48px;
+    }
+
+    &.register {
+      padding: 40px 68px 15px 40px;
+    }
+
+    &, &-xs {
+      > div {
+        position: relative;
+        color: #a8a8aa;
+        cursor: pointer;
+
+        &:not(:last-child):after {
+          content: "";
+          position: absolute;
+          display: block;
+          width: 1px;
+          height: 32px;
+          border-radius: 32px;
+          top: 0;
+          right: -24px;
+          background: linear-gradient(180deg, hsla(240, 1%, 64%, 0) 2%, hsla(240, 1%, 64%, .5) 50%, hsla(240, 1%, 64%, 0) 98%);
+        }
+      }
+    }
+
+    &-xs {
+      padding-left: 40px;
+      display: flex;
+      font-size: 14px;
+
+      > div {
+        margin-right: 30px;
+
+        &.active {
+          color: #f3b867;
+        }
+
+        &:not(:last-child):after {
+          height: 16px;
+          right: -15px;
+          top: 3px;
+        }
+      }
+    }
+
+    > div {
+      &.active {
+        font-weight: 600;
+        color: #e1e1e1;
+
+        span {
+          color: #f3b867;
+        }
+
+        &:before {
+          content: "";
+          position: absolute;
+          bottom: -10px;
+          width: 40px;
+          height: 4px;
+          border-radius: 2px;
+          background-color: #f3b867;
+        }
+      }
+    }
+  }
+
+  .ant-form.account-form {
+    padding: 5px 66px 5px 40px;
+
+    .form-input {
+      box-sizing: border-box;
+      height: 40px;
+      border: 1px solid #3b3b42;
+      outline: 0;
+      color: #e1e1e1;
+      font-size: 16px;
+      background-color: #2a2a32;
+
+      &:focus {
+        box-shadow: 0 0 3px rgb(150, 150, 150);
+      }
+      .ant-input::placeholder {
+        font-size: 14px;
+        color: #6f6f71;
+      }
+    }
+
+    label {
+      margin: 10px 0 5px 0;
+      display: block;
+      color: #a8a8aa;
+    }
+  }
+
+  .phone-number {
+    width: 340px;
+
+    .ant-input-affix-wrapper {
+      background-color: transparent;
+      border: 0 !important;
+      width: 100%;
+    }
+  }
+
+  .country-code {
+    position: relative;
+    text-align: center;
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+  }
+
+  .btn-submit {
+    width: 340px;
+    font-size: 16px;
+    color: var(--colorful-color);
+    height: 48px;
+    line-height: 48px;
+    background-image: var(--colorful-linear-gradient);
+    border-radius: 2px;
+    margin-top: 10px;
+
+    &:hover {
+      background-image: var(--colorful-linear-gradient);
+    }
+  }
+
+  .contact-customer {
+    display: block;
+    font-size: 14px;
+    color: #6f6f71;
+    margin-top: 20px;
+    padding-left: 40px;
+    b {
+      font-size: normal;
+      color: #f3b867;
+      cursor: pointer;
+    }
+    svg {
+      font-size: 18px;
+      margin-right: 5px;
+      color: #6f6f71;
+    }
+  }
+
+  .ant-input-group-wrapper .ant-input-affix-wrapper {
+    border: 0 !important;
+    height: 38px !important;
+    background: transparent !important;
+  }
+
+  .ant-input-affix-wrapper {
+    &-focused {
+      box-shadow: 0 0 3px rgb(150, 150, 150);
+    }
+
+    svg {
+      color: #e1e1e1;
+      opacity: .5;
+    }
+  }
+
+  .ant-input-group-addon {
+    padding: 0;
+    img {
+      vertical-align: sub;
+      height: 20px;
+      margin: 0 10px;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 1px;
+      height: 80%;
+      border-radius: 32px;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
+      background: linear-gradient(180deg, hsla(240, 1%, 64%, 0) 2%, hsla(240, 1%, 64%, 0.5) 50%, hsla(240, 1%, 64%, 0) 98%);
+    }
+  }
+
+  .ant-input-group-addon, .ant-input {
+    background-color: transparent;
+    border: 0;
+    color: #e1e1e1;
+    font-size: 16px;
+  }
+
+  .ant-form-item-has-error .ant-input, .ant-form-item-has-error .ant-input-affix-wrapper, .ant-form-item-has-error .ant-input:hover, .ant-form-item-has-error .ant-input-affix-wrapper:hover {
+    background-color: transparent !important;
+  }
+
+  .ant-form-item-explain {
+    div {
+      font-size: 12px;
+      color: #f3614b;
+    }
+  }
+
+  .loading-bar {
+    color: #bf6500;
+  }
+
+  .ant-form-item-label > label {
+    margin: 0 !important;
+  }
+  .ant-form-item .ant-select, .ant-form-item .ant-cascader-picker {
+    width: 115px;
+    text-align: center;
+  }
+  .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: transparent!important;
+    color: #e1e1e1;
+    border: 1px solid #3b3b42;
+  }
+  .ant-select-arrow {
+    color: #3b3b42!important;
+  }
+}

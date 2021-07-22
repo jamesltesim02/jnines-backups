@@ -1,0 +1,25 @@
+.filter-drawer {
+  .drawer-content {
+    display: grid;
+    grid-template-rows: 45px 1fr 50px;
+    color: var(--first-color);
+    & > header {
+      line-height: 45px;
+      box-shadow: var(--header-box-shadow);
+      padding-left: 15px;
+    }
+    & > section {
+      padding: 10px 15px;
+      overflow: hidden auto;
+    }
+    footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      box-shadow: var(--header-box-shadow);
+      button:last-child {
+        background-image: linear-gradient(to top, #e2b372, #f5d79b, #f5d79b);
+        color: #242220;
+      }
+    }
+  }
+}

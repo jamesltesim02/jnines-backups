@@ -1,0 +1,86 @@
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--cart-item-bgc);
+  > div:first-child {
+
+    >div:nth-child(-n+2) {
+      font-size: 12px;
+      color: #888888;
+    }
+
+    > div {
+      margin: 3px 0;
+      word-break: break-all;
+    }
+  }
+  .right-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    min-width: 50px;
+    color: var(--option-label-color);
+    .switch {
+      margin-bottom: 5px;
+    }
+  }
+  .bet-odds-change {
+
+    &.upper, &.lower {
+      position: relative;
+      animation: blink 1s linear;
+      animation-iteration-count: 2;
+    }
+
+    &.upper {
+      span {
+        color: #FF4A4A;
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          width: 0;
+          height: 0;
+          border-width: 6px;
+          border-style: solid;
+          border-color: transparent transparent #FF4A4A transparent;
+        }
+      }
+    }
+    &.lower {
+      span {
+        color: #7CCD5D;
+        &::after {
+          content: '';
+          position: absolute;
+          top: 8px;
+          width: 0;
+          height: 0;
+          border-width: 6px;
+          border-style: solid;
+          border-color:#7CCD5D transparent transparent transparent;
+        }
+      }
+    }
+  }
+
+  .bet-quote-msg {
+    font-size: 12px;
+    color: #FF4A4A;
+  }
+
+  @keyframes blink {
+    from,
+    50%,
+    to {
+      opacity: 1;
+    }
+    25%,
+    75% {
+      opacity: 0;
+    }
+  }
+}

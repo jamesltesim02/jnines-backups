@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'myfontfamily';
+    src: url('../fontIcon/nb.eot') format('eot'),
+    url('../fontIcon/nb.ttf') format('ttf'),
+    url('../fontIcon/nb.woff') format('woff');
+    /* Add other formats as you see fit */
+}
+.headerAndPannel{
+    height: 5.31rem;
+}
+

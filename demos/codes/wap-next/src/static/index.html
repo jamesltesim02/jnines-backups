@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="viewport-fit=cover, width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta name="format-detection" content="telephone=no, email=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="screen-orientation" content="portrait">
+        <meta name="x5-orientation" content="portrait">
+        <meta name="full-screen" content="yes">
+        <meta name="x5-fullscreen" content="true">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="google" value="notranslate">
+        <meta name="apple-mobile-web-app-title" content="悦博体育">
+        <title data-lan_flag="tit1001" class="nb_lang_insert"></title>
+        <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- 全场半场 -->
+    <div class="nb_Overalltabelbox">
+        <div class="nb_Overalltit">
+          全场
+        </div>
+        <div class="nb_OverallItemspagebox">
+            <div class="nb_OverallItemspage">
+                <p>2.5</p>
+                <p>1.890</p>
+            </div>
+            <div class="nb_OverallItemspage">
+                <p>2.5</p>
+                <p>1.890</p>
+            </div>
+            <div class="nb_OverallItemspage">
+                <p>2.5</p>
+                <p>1.890</p>
+            </div>
+        </div>
+
+    </div>
+    <!-- 胜负 -->
+    <div class="nb_Victorytabeltitbox">
+        <div class="nb_Victorytabeltit">
+          胜负
+        </div>
+        <div class="nb_VictorytabelItemsbox">
+            <div class="nb_VictorytabelItems">
+                <p>2.5</p>
+                <p>1.890</p>
+            </div>
+            <div class="nb_VictorytabelItems">
+                <p>2.5</p>
+                <p>1.890</p>
+            </div>
+        </div>   
+    </div>
+    <!-- 详情页 -->
+    <div class="nb_Detailspagebox">
+        <div class="nb_Detailspage">
+            
+        </div>
+    </div>
+    
+    <!-- table -->
+    <div class="nb_titletab">
+        <a class="nb_titletabitem nb_underline">全部</a>
+        <a class="nb_titletabitem">滚球</a>
+        <a class="nb_titletabitem">今日</a>
+        <a class="nb_titletabitem">早盘</a>
+    </div>
+
+
+</body>
+<script>
+    function fontSize(designWidth,diyFontSize){
+  // let dpr=window.devicePixelRatio;
+  // let scale=1/dpr;
+  // let metaEle=document.createElement('meta');
+  // metaEle.name="viewport";
+  // metaEle.content="width=device-width,initial-scale="+scale+",maximum-scale="+scale+",user-scalable=no";
+  let head=document.getElementsByTagName('head')[0];
+  // head.appendChild(metaEle);
+  let html=document.getElementsByTagName('html')[0];
+  html.style.fontSize=diyFontSize*document.documentElement.clientWidth/designWidth+'px'
+}
+fontSize(750,100);
+</script>
+</html>

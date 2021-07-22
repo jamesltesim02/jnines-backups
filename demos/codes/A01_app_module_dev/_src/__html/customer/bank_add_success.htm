@@ -1,0 +1,61 @@
+<template id="contentTmpl">
+<section class="add_bank_card_content _02">
+    <div class="success-msg">
+        <div class="icon-content" v-if="isSuccess"><img src="../../__static/__images/add_bank_card/ok.png"></div>
+        <div class="icon-content" v-else><img src="../../__static/__images/add_bank_card/warn.png"></div>
+        <p class="p1">{{title}}</p>
+        <p class="p2">{{content}}</p>
+        <div class="button-content">
+            <div class="form_btn-wrap">                
+                <a forward="inside" newview="true" href="customer/member_center.htm" class="btn btn-lg btn-blu3" style="height:41px;">会员中心</a>
+                <a forward="inside" newview="true" href="customer/bank_list.htm" class="btn btn-lg btn-ylw" style="height:41px;">银行卡资料</a>
+            </div>
+        </div>
+    </div>
+</section>
+</template>
+
+<script>
+;(function() {
+   var contentData = {
+        'title': '添加成功',
+        'content': '添加银行资料成功',
+        'isSuccess': true
+    };
+    appState.setData({
+        title: '添加银行卡',
+        needLogin: true
+    });
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function () {
+            return contentData;
+        },
+        methods: {
+        }
+    });
+    
+    JSBridge.onReady(function() {
+        var _this = contentData;
+        
+        JSBridge.cache.delete("bankCardVerifyMothodData");
+        JSBridge.cache.delete("bindingBankCardCountData");
+        JSBridge.cache.delete("bankCardPhoneVerifyTimesData");
+        var dataCache = JSBridge.cache.get("bankCardAddSuccessData");
+        if (dataCache && new Date().getTime() < dataCache.outtime) {
+            var obj = dataCache.data;
+            _this.isSuccess = obj.isOk;
+            if (obj.method == 'phone') {
+            	_this.title = '添加成功';
+            	_this.content = obj.save_default ? '此卡已保存为默认取款卡' : '添加银行资料成功';
+            } else {
+            	_this.title = obj.save_default ? '申请已提交,此卡已保存为默认取款卡' : '申请已提交';
+                _this.content = '相关人员将在24小时内审核并添加,请耐心等待';
+            }
+            JSBridge.cache.delete("bankCardAddSuccessData");
+        } else {
+        	JSBridge.forward.inside({url:"customer/bank_list.htm", newView: true});
+        }
+    });
+})();
+</script>

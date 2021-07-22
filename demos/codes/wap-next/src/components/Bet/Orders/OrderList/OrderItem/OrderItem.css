@@ -1,0 +1,38 @@
+.nb-order-delete-button {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  top: 0;
+  padding: .2rem;
+  background: transparent;
+  border-radius: 50%;
+  font-size: 0;
+  line-height: 0;
+}
+.nb-order-item-content {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: .3rem;
+}
+.nb-dis-series .nb-order-item-content{
+  border-left: .1rem solid #DD4646;
+}
+.nb-order-item-title {
+  font-size: .34rem;
+  letter-spacing: 0;
+  color: #333333;
+  font-weight: bold;
+}
+
+.nb-order-item-detail {
+  margin-top: .17rem;
+  font-size: 0.26rem;
+  letter-spacing: .0062rem;
+  color: #666666;
+  line-height: .5rem;
+}
+
+.nb-order-item-detail .nb-order-item-score {
+  color: #53C0FF;
+}

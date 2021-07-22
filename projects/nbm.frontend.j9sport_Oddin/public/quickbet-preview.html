@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+    <link rel="icon" href="/assets/icons/favicon.ico" />
+    <title>Quickbet page preview</title>
+    <style>
+      html, body {
+        height: 100%;
+      }
+      body {
+        padding: 0 30px 10px 10px;
+        background-color: #16161a;
+      }
+      #form, #profile {
+        line-height: 50px;
+        color: #fff;
+      }
+      #profile {
+        display: none
+      }
+      iframe {
+        display: block;
+        border: 0;
+        width: 1176px;
+        height: 790px;
+        min-width: 1215px;
+        max-width: 1280px;
+        margin-top: 10px;
+        margin-left: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="form">
+      账号: <input type="text" value="ag021" />
+      &nbsp;
+      &nbsp;
+      &nbsp;
+      密码: <input type="password" value="111111" />
+      &nbsp;
+      &nbsp;
+      &nbsp;
+      <button> 提交 </button>&nbsp;
+      &nbsp;
+      &nbsp;
+      <span>
+        账号: ag021 ~ ag030
+        &nbsp;
+        &nbsp;
+        密码: 111111
+      </span>
+    </div>
+    <div id="profile">&nbsp;</div>
+    <iframe></iframe>
+
+    <script>
+      const params = new URLSearchParams([
+        ['clientType', 2],
+        ['frontId', '10077100werw564wesfx'],
+        ['token', '1E5E3C8CAAEC5DF5EB2C65D5EE842DD7738047962EA17F7B6CAB746BFA16833712E51840FFA95C66BAAE5E5EA27BACEF'],
+        // ['token', ''],
+        ['locale', 'zh'],
+        ['origin', `${location.protocol}//${location.host}/`]
+      ])
+
+      const profileEl = document.querySelector('#profile')
+      const formEl = document.querySelector('#form')
+      let balance = 0
+      let username = ''
+
+      const setSrc = () => {
+        document.querySelector('iframe').src = `/quickbet?${params.toString()}`
+      }
+
+      const loadBalance = () => {
+        fetch(
+          `https://ag-bet.nbmm.co/bet/getBalance?${params.toString()}`
+        ).then(
+          response => response.json()
+        ).then(
+          ({
+            code,
+            data
+          }) => {
+            if (code === 200 && data && data.customerId) {
+              balance = data.balance
+              username = data.customerId
+              profileEl.innerHTML = `User: ${username} &nbsp;&nbsp; Balance: ${balance}`
+              profileEl.style.display = 'block'
+              formEl.style.display = 'none'
+            }
+          }
+        )   
+      }
+
+      const login = () => {
+        const username = document.querySelector('#form > input[type="text"]').value
+        const password = document.querySelector('#form > input[type="password"]').value
+
+        if (
+          !/^ag0\d{2}$/.test(username)
+          ||
+          password !== '111111'
+        ) {
+          alert('账号或密码不正确')
+          return
+        }
+
+        fetch(
+          'https://ag-seamless.nbmm.co/sport/login',
+          {
+            method: 'POST',
+            body: JSON.stringify({
+              clientType: params.get('clientType'),
+              frontId: params.get('frontId'),
+              language: params.get('language'),
+              account: username,
+              password: password,
+            }),
+            headers: new Headers({
+              'Content-Type': 'application/json'
+            })
+          }
+        ).then(
+          response => response.json()
+        ).then(
+          ({
+            code,
+            data,
+            msg,
+          }) => {
+            if (code === 200 && data.token) {
+              console.log('token:',data.token)
+              params.set('token', data.token)
+              setSrc()
+              loadBalance()
+
+            } else {
+              alert(msg)
+            }
+          }
+        )
+      }
+
+      window.addEventListener(
+        'message',
+        ({ origin, data}) => {
+          if (!params.get('token') || `${origin}/` !== params.get('origin')) {
+            return
+          }
+
+          balance -= data
+          profileEl.innerHTML = `User: ${username} &nbsp;&nbsp; Balance: ${balance}`
+        }
+      )
+
+      document.querySelector('#form > button').addEventListener('click', login)
+
+      setSrc()
+    </script>
+  </body>
+</html>

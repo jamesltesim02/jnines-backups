@@ -1,0 +1,23 @@
+{
+  "name": "svn-helper",
+  "version": "1.0.7",
+  "description": "svn helper",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://10.66.72.20:8081/mfe/svn-helper.git"
+  },
+  "keywords": [
+    "svn",
+    "helper"
+  ],
+  "author": "WRD.APP.Mobile",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "iconv-lite": "^0.4.19",
+    "xml2js": "^0.4.19"
+  }
+}

@@ -1,0 +1,63 @@
+.nb-bet {
+  display: flex;
+  position: relative;
+  height: 100%;
+  flex-direction: column;
+}
+
+.nb-bet .nb_fixed_tabbar {
+  position: relative;
+}
+
+.nb-bet .nb-close-button {
+  display: none;
+  position: absolute;
+  box-sizing: border-box;
+  right: 0;
+  top: 0;
+  height: .96rem;
+  line-height: .96rem;
+  width: .78rem;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+.nb-bet.nb-independent .nb-close-button {
+  display: flex;
+}
+
+.nb-bet-tab-conatiner {
+  background: #57595E;
+}
+
+.nb-bet-tab {
+  text-align: center;
+  height: .96rem;
+  box-shadow: 0 0 0 0 rgba(0,0,0,0.25);
+}
+
+.nb-independent .nb-bet-tab {
+  background: #2E2F34;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.nb-bet-tab .nb-bet-tab-item {
+  font-size: .34rem;
+  display: inline-block;
+  height: .96rem;
+  line-height: .96rem;
+  width: 2.16rem;
+  text-align: center;
+  color: rgba(255, 255, 255, .3)
+}
+
+.nb-bet-tab .nb-bet-tab-item.nb-active {
+  color: #fff;
+}
+
+.nb-bet-content {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+}

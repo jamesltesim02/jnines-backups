@@ -1,0 +1,73 @@
+.j9-dialog .ant-modal-content {
+  background-color: var(--google-block-background-color);
+  color: var(--member-info-sub--color);
+  border-radius: 6px;
+  .ant-modal-close svg {
+    transition: all .2s linear;
+  }
+  .ant-modal-close:hover svg {
+    transform: rotate(180deg) scale(1.5);
+  }
+  .ant-modal-body {
+    padding: 40px;
+    header {
+      font-size: 20px;
+      padding-bottom: 40px;
+    }
+    p {
+      font-size: 14px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+  }
+  .ant-modal-close-icon {
+    color: #909399;
+  }
+
+  .input-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    align-items: center;
+    padding: 0 40px 0 20px;
+    margin-bottom: 10px;
+    height: 50px;
+    line-height: 48px;
+    label {
+      text-align: right;
+      padding-right: 10px;
+    }
+    & > div {
+      display: flex;
+      .input {
+        flex: 1 1;
+      }
+      input {
+        background: transparent;
+        width: 100%;
+        border: none;
+        padding: 0 16px;
+        outline: none;
+        border: solid 1px #3b3b43;
+        border-radius: 2px;
+      }
+    }
+  }
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .dcbox-qrcode img {
+    width: 100%;
+    margin-top: 32px;
+    border-radius: 6px;
+  }
+}
+.j9-dialog.img-bg .ant-modal-content {
+  background: ~'url(./images/dialog-bg@2x.png) no-repeat 100% 0%/424px 218px, var(--google-block-background-color)';
+}
+.light {
+  .j9-dialog.img-bg .ant-modal-content {
+    background: #FFFFFF;
+  }
+}

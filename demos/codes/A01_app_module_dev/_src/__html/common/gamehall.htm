@@ -1,0 +1,596 @@
+<component src="_template/component/Banner.htm"></component>
+<component src="_template/component/Footer.htm"></component>
+
+<script src="@module/wms-games/dist/wms-games.min.js"></script>
+<style>
+	.icon26,.icon25{
+		/* height: 18px;
+    	width: 20px; */
+    	margin-bottom: 3px;
+	}
+</style>
+<template id="contentTmpl">
+	<div class="main_content">
+		<section class="gamehall">
+			<banner></banner>
+
+			<div class="content">
+				<div class="display_flex_h nav_wrap relative">
+					<div class="tab tab1">
+						<div class="inner">
+							<select @change="search" v-model="type" class="without_style with_arrow">
+								<option v-for="t in types" :value="t.key">{{t.text}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="tab tab2">
+						<div class="inner">
+							<select @change="search" v-model="provider" :value="provider" class="without_style with_arrow">
+								<option v-for="p in providers" :value="p.key">{{p.text}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="tab tab3">
+						<div class="inner">
+							<select @change="search" v-model="line" class="without_style with_arrow">
+								<option v-for="l in lines" :value="l.key">{{l.text}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="tab tab4">
+						<div @click="toggleFavoriteSearch" class="inner">
+							<i :class="['icon', favoriteOn ? 'icon26' : 'icon24']"></i>
+							<div class="label_text without_style">我的收藏</div>
+						</div>
+					</div>
+				</div>
+				<div class="normal_padding cols-2">
+					<div class="col col1">
+						<div class="col_inner">
+							<p class="total lblue">共有（{{pageInfo.totalRecord}}）款游戏</p>
+						</div>
+					</div>
+					<div class="col col2">
+						<div class="col_inner txt_right">
+							<p class="total lblue">
+								<a @click="toggleSearch(true)"><i class="icon icon27"></i>搜索</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			    <div class="games">
+		        	<div class="slot_game_item_list">
+		        	    <div v-if="!games || games.length==0" style="padding:10px;text-align:center;">
+		        	         <p>暂无内容</p>
+		        	    </div>
+		        	    <div v-else>
+							<div v-for="g in games" class="slot_game_item">
+								<div @click="toGame(g.provider, g.gameId)" class="slot_game_img_wrap">
+									<h-img class="banner_image" :src="gameImgSrc(g.icon)"></h-img>
+									<!-- <div class="type_container relative">
+			                  			<span v-if="g.line" class="type">{{g.line}}线</span>
+					                  	<span class="type">{{g.provider}}</span>
+					                  	<span v-if="g.isPool" class="type">彩金</span>
+			                  			<i @click.stop="toggleFavorite(g.provider, g.gameId)" 
+			                  				:class="['icon',isFavorited(g.provider, g.gameId) ? 'icon26' : 'icon25']"></i>
+			                  		</div> -->
+								</div>
+								<div class="game_details">
+									<div class="cols-2">
+								        <div @click="toGame(g.provider, g.gameId)" class="col white col1 txt_left">
+								        	<div class="type_container">
+								        		<span v-if="g.line" class="type">{{g.line}}线</span>
+					                  			<span class="type">{{g.provider}}</span>
+					                  			<span v-if="g.isPool" class="type">彩金</span>
+								        	</div>
+								        	<div style="margin-top: 4px;">
+								        		{{g.cnName.length>4 ? g.cnName.substr(0,4)+ '...' : g.cnName}}
+								        	</div>
+								        </div>
+								        <div class="col col2 lblue txt_right" @click.stop="toggleFavorite(g.provider, g.gameId)" >
+								        	<div class="type_container" >
+					                  			<i :class="['icon',isFavorited(g.provider, g.gameId) ? 'icon26' : 'icon25']"></i>
+					                  		</div>
+								        	<div>点击收藏</div>
+								    	</div>
+								    </div>
+								</div>
+							</div>
+                        </div>
+		    		</div>
+		    	</div>
+		    	<div v-show="hasMore" class="load-more"> 
+			        <a @click="loadMore" class="btn" href="javascript: void(0);">展开更多游戏</a>
+			    </div>
+			    <div v-show="searchKey">
+					<div class="slot_game_search_wrap display_flex_h">
+						<div class="search_input_wrap flex_1 relative">
+							<i class="icon icon27"></i>
+							<input ref="keywordText" v-model="keyword" type="text" placeholder="请输入游戏名称">
+						</div>
+						<div @click="keySearch" class="cancel_text">搜索</div>
+					</div>
+					<div @click="toggleSearch(false)" class="cover" style="display: block;"></div>
+				</div>
+			</div>
+		</section>
+		<app-footer></app-footer>
+	</div>
+</template>
+<script type="text/javascript">
+;(function () {
+	var gameData = {
+		isLoged: false,
+		gameFolder: "static/A01M/_default/__static/_wms/_l/electronicgames/",
+		searchKey: false,
+		games: [],
+		providers: WG.CONSTANT.provider,
+		lines: WG.CONSTANT.line,
+		types: [
+			{key: "All", text: "所有类别"},
+			{key: "orderPraise", text: "热门游戏"},
+			{key: "isPool", text: "彩金池游戏"},
+			{key: "isNew", text: "最新游戏"}
+		],
+		favorites: [],
+		provider: "All",
+		line: "All",
+		type: "orderPraise",
+		favoriteOn: false,
+		keyword: "",
+		pageInfo: {
+			totalRecord: 0,
+			page: 0,
+			totalPage: 0
+		},
+		// 默认查询条件
+		defaultParam: {
+			pageItems: 12,
+			orderPopularity: "desc",
+			provider: "All"
+		},
+		provider2Code: {
+			"PT": "A01039",
+			"MG": "A01035",
+			"MG_VIP": "A01054",
+			"TTG": "A01027",
+			"TTG_VIP": "A01053",
+			// "OPUS": "A01043",
+			// "BSG": "A01051",
+			// "BS": "A01051",
+			"AG": "A01026"
+		},
+		gameState: {}
+	};
+	appState.setData({
+	    title: "电子游戏"
+	});
+	Vue.component("app-content", {
+		template: "#contentTmpl",
+		data: function() {
+			return gameData;
+		},
+		computed: {
+			hasMore: function () {
+				return this.pageInfo.page < this.pageInfo.totalPage;
+			}
+		},
+		mounted: function () {
+			var _this = this;
+			$(".load-more").upIn(function () {
+				if (_this.pageInfo.page%5 == 0) {
+					return;
+				}
+				_this.loadMore();
+			});
+		},
+		updated: function () {
+			if(this.searchKey) {
+				this.$refs.keywordText.focus();
+			}
+		},
+		methods: {
+			isFavorited: function (provider, gameId) {
+				return this.favorites.includes(provider + gameId);
+			},
+			toggleFavorite: function(provider, id) {
+				if(!CustomerUtils.isLoged()) {
+                    JSBridge.forward.inside({url: "common/login.htm", newView: "true"});
+                    return;
+                }
+				
+				var _this = this,
+					favorited = this.isFavorited(provider,id),
+					gameId = provider + id,
+					game = WG.getGame(provider, id),
+					url = favorited ? "game/cancelFavorites" : "game/addFavorites";
+
+				JSBridge.net.invoke({
+					url: url,
+					data: {
+						"game_id": gameId,
+						"remarks": JSON.stringify(game)
+					},
+					success: function (result) {
+						if(favorited) {
+							_this.favorites.splice(_this.favorites.indexOf(gameId), 1);
+						} else {
+							_this.favorites.push(gameId);
+						}
+					}
+				});
+			},
+			toggleSearch: function(state) {
+				this.keyword = "";
+				this.searchKey = state;
+			},
+			gameImgSrc(src) {
+				return this.gameFolder + src;
+			},
+			search: function () {
+				searchGame();
+			},
+			toggleFavoriteSearch: function () {
+				if(!CustomerUtils.isLoged()) {
+                    JSBridge.forward.inside({url: "common/login.htm", newView: "true"});
+                    return;
+                }
+
+				this.favoriteOn = !this.favoriteOn;
+				this.search();
+			},
+			loadMore: function () {
+				var pi = this.pageInfo;
+
+				if(!this.hasMore) {
+					return;
+				}
+
+				pi.condition.page ++;
+
+				this.pageInfo = WG.search(pi.condition);
+				this.games = this.games.concat(this.pageInfo.data);
+			},
+			keySearch: function () {
+				if(!this.keyword) {
+					return ;
+				}
+				this.type = "All";
+				this.provider = "All";
+				this.line = "All";
+				this.favoriteOn = false;
+
+				this.pageInfo = WG.search(Object.assign({}, this.defaultParam, {keyword: this.keyword}));
+				this.games = this.pageInfo.data;
+				this.toggleSearch(false);
+			},
+			toGame: (function() {
+				// 登录对象,包含各种游戏登录函数
+				var gameLogin,
+				currProvider,
+				_this = this,
+				// 电子游戏对应的登录地址
+				slotLoginController = {
+					"PT": "loginToPTGame.htm",
+					"MG": "loginToSlotGame.htm",
+					"TTG": "loginToSlotGame.htm",
+					// "BSG": "loginToSlotGame1.htm",
+					"AG": "loginToGame.htm"
+				},
+				slotVisitController= {
+					"PT": "loginToPTGame.htm",
+					"MG": "visitToSlotGame.htm",
+					"TTG": "loginToSlotGame.htm",
+					// "BSG": "loginToSlotGame1.htm",
+					"AG": "createVisitorToAccount.htm"
+				},
+				_;
+				
+				/**
+				 * 打开游戏窗口
+				 * 
+				 * @param url 游戏地址
+				 * 
+				 */
+				function openGameWindow(url) {
+					JSBridge.cache.save('lastLoginGameTime', Date.now(), 15000);
+					// JSBridge.forward.outside({url: url, newView: true, gameType: currProvider});
+					
+					// "&gameType=" + currProvider +
+					var toGamePage = "common/toGame.htm?gameUrl=" + encodeURIComponent(url) + "&gameTypeKey=" + currProvider;
+					JSBridge.forward.inside({
+						url: toGamePage,
+						newView: true
+					});
+				}
+				
+				/**
+				 * 登录各种游戏的函数
+				 */
+				gameLogin = (function () {
+					/**
+					 * 转到游戏,提供对试玩功能判断
+					 * 
+					 * @param canTry 是否支持试玩
+					 * @param getTryUrl 获取试玩url
+					 * @param getGameUrl 获取真钱游戏url
+					 */
+					function gotoGame(canTry, getTryUrl, getGameUrl) {
+						if(CustomerUtils.isLoged()) {
+							// 进入真钱游戏
+							openGameWindow(getGameUrl());
+							return;
+						}
+						
+						// 如果不支持试玩
+						if(!canTry) {
+							$.toast.fail("该游戏不支持试玩,请先登录");
+							return;
+						}
+						// 确认用户是否准备进入试玩
+						$.pop.msg(
+							true, 
+							"立即进入试玩", 
+							[
+								{
+									text: "确认", 
+									event: function () {
+										JSBridge.cache.save('lastLoginGameTime', Date.now(), 15000);
+										// JSBridge.driver.game(gameCode, {isTry:true});
+										openGameWindow(getTryUrl());
+									}
+								},
+								{
+									text: "真钱登录", 
+									event: function () {
+										JSBridge.forward.inside({url: "common/login.htm?from=" + OtherUtils.getPath(), newView: true});
+									}
+								}
+							]
+						);
+					}
+					
+					/**
+					 * 登录OPUS游戏
+					 */
+					// function loginToOpus(gameInfo) {
+					// 	gotoGame(
+					// 		gameInfo.canTry, 
+					// 		function () {
+					// 			var tokens = OtherUtils.getDomain().replace(/\//gi,"").split('.').slice(1);
+					// 			return "http://opus."+tokens.join('.') +"/GameloaderCTXMMobile.aspx?gameID="+ gameInfo.gameId +"&gamePlay=0"
+					// 		}, 
+					// 		function () {
+					// 			var gameUrl;
+								
+					// 			gameUrl = "loginToGame.htm";
+					// 			gameUrl += "?gameCode=" + gameInfo.gameCode;
+					// 			gameUrl += "&gameId=" + gameInfo.gameId;
+					// 			gameUrl += "&clientType=2";
+								
+					// 			return OtherUtils.getDomain() + gameUrl;
+					// 		}
+					// 	);
+					// }
+				
+					// AG进入游戏code转换
+					function codeToId_AG(code) {
+						var array = {
+								'FRU':'101', 'PKBJ':'102', 'SLM1':'103', 'SLM2':'104', 'SLM3':'105', 'SC01':'106',  
+								'SB01':'108', 'SB02':'109', 'SB03':'110', 'SB04':'111', 'SB05':'112', 'SB06':'113', 'SB07':'114', 'SB08':'115', 'SB09':'116', 'SB10':'117', 'SB11':'118', 'SB12':'119', 'SB13':'120', 'SB14':'121', 'SB15':'122',
+								'SB16':'123', 'SB17':'124', 'SB18':'125', 'SB19':'126', 'SB20':'127', 'SB21':'128', 'SB22':'129', 'SB23':'130', 'SB24':'131', 'SB25':'132', 'SB26':'133', 'SB27':'134', 'SB28':'135', 'SB29':'136', 'SB30':'139',
+								'SB31':'142', 'SB32':'143', 'SB33':'144', 'SB34':'145', 
+								'SB35':'147', 'SB36':'148', 'SB37':'149', 'SB38':'150', 'SB39':'151', 'SB40':'152',
+								'AV01':'137', 
+								'TGLW':'107', 'TGCW':'138', 
+								'TG01':'XINHTG01', 'TG02':'XINHTG02', 'TG03':'XINHTG03',
+								'PKBD':'140', 'PKBB':'141', 'FRU2':'146', 
+								'XG01':'200', 'XG02':'201', 'XG03':'202', 'XG04':'203', 'XG05':'204', 'XG06':'205', 'XG07':'206', 'XG08':'207', 'XG09':'208', 'XG10':'209'
+						};
+						return array[code] ? array[code] : code;
+					}
+					/**
+					 * 构造电子游戏登录url
+					 * 
+					 * @param gameInfo 游戏信息
+					 * @param isDemo 是否试玩
+					 * 
+					 * @return 进入游戏的url
+					 */
+					function buildSlotGameUrl(gameInfo, isDemo) {
+						var url = "",
+						param = "";
+						if(currProvider=='AG'){
+							param += "gameId=" + codeToId_AG(gameInfo.loginId);
+						}else{
+							param += "gameId=" + gameInfo.loginId;
+						}
+						param += "&gameCode=" + gameInfo.gameCode;
+						param += "&clientType=2";
+						param += "&gameType=2";
+						param += "&gameName=" + gameInfo.enName;
+						param += "&gameLang=" + gameInfo.language;
+						
+						if(isDemo) {
+							url = slotVisitController[gameInfo.provider] + "?" + param + "&isDemo=1";
+						} else {
+							url = slotLoginController[gameInfo.provider] + "?" + param;
+							if(gameInfo.provider == "PT") {
+								url += "&transform=1"
+							}
+						}
+						
+						return OtherUtils.getDomain() + url;
+					}
+					
+					/**
+					 * 登录电子游戏(MG, TTG, BSG, AG)
+					 */
+					function loginSlotGame(gameInfo) {
+						gotoGame(
+							gameInfo.canTry, 
+							function () {
+								return buildSlotGameUrl(gameInfo, true);
+							}, 
+							function () {
+								return buildSlotGameUrl(gameInfo)
+							}
+						);
+					}
+					
+					return {
+						// OPUS: loginToOpus,
+						PT: loginSlotGame,
+						MG: loginSlotGame,
+						TTG: loginSlotGame,
+						MG_VIP: loginSlotGame,
+						TTG_VIP: loginSlotGame,
+						// BSG: loginSlotGame,
+						AG: loginSlotGame
+					};
+				})();
+				
+				return function (provider, gameId) {
+					var _this = this,
+					gameCode = _this.provider2Code[provider],
+					gameInfo,
+					loginFn,
+					lastloginGameTime;
+
+					if(_this.gameState[gameCode] == "2") {
+						return $.toast.fail("游戏厅维护中...");
+					}
+
+					if(_this.gameState[gameCode] == "0") {
+						return $.toast.fail("游戏已关闭...");
+					}
+
+					if(_this.gameState[gameCode] != "1") {
+						// return $.toast.fail("未知游戏厅状态");
+						return $.toast.fail("网络不稳定，请稍后尝试");
+					}
+
+					gameInfo = WG.getGame(provider, gameId);
+
+					if(!gameInfo) {
+						return $.toast.fail("未找到对应游戏");
+					}
+
+					lastloginGameTime = JSBridge.cache.get('lastLoginGameTime');
+
+					if (lastloginGameTime) {
+	                    var t = 15 - parseInt((Date.now() - lastloginGameTime) / 1000);
+	                    //如果用户向后修改时间，并且大于15秒。可以玩游戏
+	                    //如果用户向前修改时间，并且大于15秒。则提示
+	                    if (t >= 15) {
+	                        t = 15;
+	                        JSBridge.cache.save('lastLoginGameTime', Date.now(), 15000);
+	                    }
+	                    if (t > 0) {
+	                        return $.toast.fail('请等' + t + '秒再试');
+	                    }
+	                }
+					
+					loginFn = gameLogin[provider];
+					if(!loginFn) {
+						return $.toast.fail("未找适合该游戏登录的方法");
+					}
+
+					currProvider = provider;
+					gameInfo.gameCode = gameCode;
+					loginFn(gameInfo);
+				};
+			})()
+		}
+	});
+
+	function getCondition() {
+		var con = {
+			provider: gameData.provider,
+			line: gameData.line
+		};
+
+		if( gameData.type &&  gameData.type !== "All") {
+			if(/^is.+/.test( gameData.type)) {
+				con[gameData.type] = true;
+			} else if(/^order.+/.test( gameData.type)) {
+				con[gameData.type] = "desc";
+			}
+		}
+
+		if(gameData.favoriteOn) {
+			con.range = gameData.favorites;
+		}
+
+		return Object.assign({}, gameData.defaultParam, con);
+	}
+	function searchGame() {
+		gameData.pageInfo = WG.search(getCondition());
+		gameData.games = gameData.pageInfo.data;
+	}
+	function emptyGameList() {
+		$.toast.fail("获取游戏列表失败,请联系在线客服", 3000, function() {
+			JSBridge.forward.inside({url: "common/index.htm"});
+		});		
+	}
+
+	JSBridge.onReady(function() {
+		gameData.isLoged = CustomerUtils.isLoged();
+
+		new Promise(function (resolve, reject) {
+			var slotCache = JSBridge.cache.get("slotCache");
+			if(slotCache) {
+				return resolve(slotCache);
+			}
+
+			JSBridge.net.invoke({
+				url: "app/slotGame",
+				success: function (result) {
+					if(!result) {
+						return reject()
+					}
+
+					var data = JSON.parse(result);
+					if(!data || !data.length) {
+						return reject();
+					}
+
+					resolve(data);
+					JSBridge.cache.save("slotCache", data, 300000);
+				},
+				error: reject
+			});
+		}).then(function (data) {
+			window.WG.initGames(data);
+			searchGame();
+		}).catch(emptyGameList);
+		
+		// 如果已经登录,则查询收藏列表
+		if(gameData.isLoged) {
+			JSBridge.net.invoke({
+				url: "game/getFavoriteList",
+				success: function (result) {
+					if(!result) {
+						return ;
+					}
+
+					result.length = Object.keys(result).length;
+					gameData.favorites = Array.prototype.map.call(result, function (v,i) {return v.game_id;});
+				}
+			});
+		}
+
+		JSBridge.net.invoke({
+			url: "game/getList",
+			success: function (result) {
+				if(!result) {
+					return;
+				}
+				result.forEach(function (v, i) {
+					gameData.gameState[v.gamecode] = v.flag;
+				});
+			}
+		});
+	});
+})();
+</script>

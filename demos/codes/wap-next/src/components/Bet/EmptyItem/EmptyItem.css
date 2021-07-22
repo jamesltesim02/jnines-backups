@@ -1,0 +1,17 @@
+.nb-bet-empty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nb-bet-empty-icon {
+  display: inline-block;
+  text-align: center;
+}
+
+.nb-bet-empty-icon > div {
+  font-size: .3rem;
+  color: rgba(255,255,255, .7);
+  margin-top: .4rem;
+}

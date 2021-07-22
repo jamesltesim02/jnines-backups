@@ -1,0 +1,24 @@
+.nb_match_score{
+    font-size: .26rem;
+    color: #FFE822;
+    letter-spacing: -0.31px;
+}
+.nb_match_time,.nb_match_gtpNum{
+    font-size: .24rem;
+    color: #FFFFFF;
+    letter-spacing: -0.29px;
+    opacity: 0.5;
+    float: left;
+}
+.nb_match_gtpNum{
+    float: right;
+}
+.nb_match_team{
+    font-size: .26rem;
+    color: #FFFFFF;
+    letter-spacing: -0.31px;
+}
+.nb_current_click{
+    background: #53C0FF;
+    color: #fff;
+}

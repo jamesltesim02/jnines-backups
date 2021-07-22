@@ -1,0 +1,164 @@
+.red-animation {
+  position: absolute;
+  z-index: 2;
+  width: 50px;
+  height: 70px;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.red-count-down {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translateX(-50%);
+  width: 75vw;
+  height: 26vw;
+  animation: drop-down .3s ease-out;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+  }
+
+  & > .num {
+    color: #f40c06;
+    font-size: 6vw;
+    position: absolute;
+    right: 11%;
+    top: 41%
+  }
+}
+
+.red-open-view {
+  position: absolute;
+  width: 60%;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%);
+  animation: open-show .5s linear;
+  color: #121212;
+
+  & > .content {
+    position: relative;
+    width: 100%;
+    font-size: 14px;
+
+    & > img {
+      width: 100%;
+    }
+
+    & > p,
+    .amount,
+    .btn,
+    .nomore {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    & > .title {
+      color: #ffffff;
+      top: 6%;
+    }
+
+    & > .cash {
+      top: 22%;
+    }
+
+    & > .soon {
+      font-size: 12px;
+      top: 50%
+    }
+
+    & > .btn {
+      bottom: 18%;
+      width: 80%;
+      height: 9vw;
+      line-height: 9vw;
+      text-align: center;
+      border-radius: 50px;
+      background: linear-gradient(#f0f38c,#ffb819);
+
+      &:active {
+        background: linear-gradient(#ffb819,#f0f38c)
+      }
+    }
+
+    & > .amount {
+      color: #f40c06;
+      top: 32%;
+      font-size: 5vw;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+
+      & > span {
+        font-size: 8vw;
+      }
+    }
+
+    & > .nomore {
+      color: #f40c06;
+      font-size: 4vw;
+      top: 28%;
+      text-align: center;
+    }
+  }
+}
+
+.red-top {
+  position: absolute;
+  width: 200px;
+  height: 120px;
+  z-index: 3;
+  left: 50%;
+  transform: translateX(-50%);
+
+  & > img {
+    width: 100%;
+    height: 100%;
+  }
+
+  & > p {
+    position: absolute;
+    font-size: 12px;
+    color: #ffffff;
+    left: 50%;
+    transform: translateX(-50%)
+  }
+
+  & > .close {
+    position: absolute;
+    right: 0;
+    top: 20%;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, .5);
+    text-align: center;
+    line-height: 32px;
+    font-weight: 600;
+  }
+}
+
+@keyframes drop-down {
+  0% {
+    top: -10%
+  }
+  100% {
+    top: 40%
+  }
+}
+
+@keyframes open-show {
+  0% {
+    transform: translateX(-50%) scale(0)
+  }
+  100% {
+    transform: translateX(-50%) scale(1)
+  }
+}

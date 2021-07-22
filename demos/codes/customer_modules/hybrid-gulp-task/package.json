@@ -1,0 +1,35 @@
+{
+  "name": "hybrid-gulp-task",
+  "version": "1.2.1",
+  "description": "基于hybrid的gulp编译打包模块",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://10.66.72.20:8081/mobile-front-end/hybrid-gulp-task.git"
+  },
+  "author": "WRD.APP.Mobile",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "delete": "^1.1.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "4.0.1",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-imagemin": "^4.0.0",
+    "gulp-jshint": "^2.0.4",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "gulp-zip": "^4.0.1",
+    "hybrid-compiler": "^2.0.8",
+    "jshint": "^2.9.5",
+    "mkdirs": "0.0.2",
+    "simple-date-format": "^1.0.1",
+    "svn-helper": "^1.0.5",
+    "gulp-postcss": "^7.0.0",
+    "cssnext": "^1.8.4",
+    "precss": "^2.0.0"
+  }
+}

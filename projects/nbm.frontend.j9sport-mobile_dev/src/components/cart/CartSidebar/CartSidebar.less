@@ -1,0 +1,76 @@
+.cart-sidebar {
+  position: fixed;
+  display: flex;
+  flex-direction: column-reverse;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9;
+  color: var(--first-color);
+  &-enter {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  &-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+
+  &-enter-done {
+    background-color: rgba(0,0,0,.5);
+  }
+
+  &-exit {
+    opacity: 1;
+    background-color: transparent;
+    transform: translateY(0);
+  }
+
+  &-exit-active {
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 300ms, transform 300ms;
+  }
+
+  .cart-bet {
+    position: relative;
+    max-height: 98%;
+    max-width: 960px;
+    background-color: var(--tour-background-color);
+    border-radius: 18px 18px 0 0;
+    overflow: hidden;
+
+    .topRight-close {
+      height: 50px;
+      width: 50px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 2;
+    }
+  }
+  .am-tabs-default-bar {
+    width: 50%;
+    border: none;
+    z-index: auto;
+  }
+  .am-tabs-default-bar-tab {
+    font-size: 14px;
+    height: 55px;
+    transition: all .2s linear;
+    color: var(--option-label-color);
+    &-active {
+      font-size: 15px;
+      color: var(--highlight-color);
+    }
+  }
+  .am-tabs-horizontal .am-tabs-pane-wrap-active {
+    border-top: 1px solid var(--border-color);
+  }
+
+  .am-tabs-default-bar-top .am-tabs-default-bar-tab::after {
+    display: none!important;
+  }
+}

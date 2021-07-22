@@ -1,0 +1,110 @@
+.europe-detail {
+  background: top/contain no-repeat url("./img/detail-bgc.png");
+  background-color: #373737;
+
+  .competitor {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    text-align: center;
+    height: 40vw;
+
+    &-team, &-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &-team {
+      i {
+        border-radius: 50%;
+        margin-bottom: 20px;
+      }
+    }
+
+    &-time {
+      span {
+        font-size: 45px;
+        color: #8e9095;
+        line-height: 60px;
+      }
+    }
+  }
+
+  &-content {
+    padding: 10px 13px;
+  }
+
+  .group-list-header {
+    border-radius: 4px 4px 0 0;
+  }
+
+  .group-list {
+    margin-bottom: 20px;
+    border-radius: 4px;
+    overflow: hidden;
+
+    ul {
+      li {
+        text-align: center;
+        font-size: 13px;
+        color: #f9f9f9;
+        line-height: 42px;
+
+        button {
+          span {
+            color: #e5c6a3;
+            margin-left: 5px;
+          }
+        }
+
+        time {
+          padding-left: 15px;
+        }
+
+        &:nth-child(even) {
+          background-image: linear-gradient(to right, #3f4550 14%, #282b35 85%);
+        }
+
+        &:nth-child(odd) {
+          background-image: linear-gradient(to right, #2b313d 14%, #111520 85%);
+        }
+      }
+    }
+
+    .col-3 li {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .col-2 li {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .col-1 li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+  }
+}
+
+.back-header {
+  display: flex;
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  background-color: #181818;
+
+  div {
+    flex: 1;
+    line-height: 45px;
+    text-align: center;
+    padding-right: 45px;
+    font-size: 18px;
+    color: #fff;
+  }
+}
+

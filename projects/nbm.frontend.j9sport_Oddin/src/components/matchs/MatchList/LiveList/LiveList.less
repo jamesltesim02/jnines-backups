@@ -1,0 +1,143 @@
+.live-list {
+  display: grid;
+  grid-auto-rows: 30px 1fr;
+  overflow: hidden;
+  & > header {
+    line-height: 20px;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  .container {
+    overflow: hidden;
+    &:hover {
+      overflow: hidden overlay;
+    }
+  }
+  ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+  }
+
+  .item {
+    display: block;
+    border-radius: 4px;
+    background-color: var(--block-background-color);
+    color: var(--first-color);
+    transition: all .3s ease-out;
+    &:hover {
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, .15);
+    }
+    & > header,
+    & > footer {
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      div {
+        flex: 1 1;
+      }
+    }
+    header {
+      height: 40px;
+    }
+    section {
+      display: grid;
+      grid-template-columns: 1fr 100px 1fr;
+      align-items: center;
+      height: 150px;
+      text-align: center;
+      border-top: 1px solid var(--app-background-color);
+      border-bottom: 1px solid var(--app-background-color);
+      label {
+        display: block;
+        line-height: 12px;
+      }
+      .team label {
+        margin-top: 8px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      & > div:nth-child(2) {
+        display: grid;
+        grid-template-columns: 1fr 50px 1fr;
+        width: 200px;
+        margin-left: -50px;
+        div label {
+          font-size: 24px;
+          margin-bottom: 14px;
+          line-height: 24px;
+        }
+        span {
+          display: flex;
+          align-items: flex-start;
+          font-size: 24px;
+          line-height: 24px;
+          color: var(--high-light-color);
+        }
+        span:first-child {
+          justify-content: flex-end;
+        }
+        span:last-child {
+          justify-content: flex-start;
+        }
+      }
+    }
+    footer {
+      height: 50px;
+      i {
+        margin-right: 10px;
+      }
+      div {
+        text-align: right;
+        button {
+          width: 90px;
+          height: 30px;
+          border-radius: 4px;
+          i, span {
+            margin-right: 6px;
+          }
+        }
+        .btn-playing {
+          color: var(--block-background-color);
+          background-image: var(--btn-linear-gradient);
+          i {
+            position: relative;
+            display: inline-block;
+            width: 10px;
+            height: 12px;
+            border-right: 2px solid var(--app-background-color);
+            &::before, &::after {
+              content: "";
+              position: absolute;
+              bottom: 0;
+              display: block;
+              width: 2px;
+              background-color: var(--block-background-color);
+            }
+            &::before {
+              height: 6px;
+              left: 0;
+            }
+            &::after {
+              height: 9px;
+              left: 4px;
+            }
+          }
+        }
+        .btn-waiting {
+          color: var(--btn-video-waiting-color);
+          border: var(--btn-video-waiting-border);
+          background-color: var(--btn-video-waiting-background);
+        }
+      }
+    }
+  }
+  .playing {
+    time {
+      color: var(--high-light-color);
+    }
+  }
+}

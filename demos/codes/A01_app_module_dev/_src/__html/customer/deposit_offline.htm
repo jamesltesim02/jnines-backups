@@ -1,0 +1,696 @@
+<script src="@module/city-dic/dist/city-dic.min.js"></script>
+<style>
+.history-depositor {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-top: 15px;
+    padding: 0 10px;
+}
+.history-depositor a{
+    margin-left: 10px;
+    text-decoration: underline;
+}
+</style>
+<template id="contentTmpl">
+	<div class="main_content" v-show="onready">
+        <section v-show="step==-1" class="manualdeposit_content">
+            <div class="banner">
+                <span class="icon icon94"> </span>
+            </div>
+            <div class="layout_form">
+                <div class="form_field_wrap">
+                    <div class="form_field" style="border-bottom: none;">
+                        <span class="label">存款人姓名</span>      
+                        <div class="input_wrap">
+                            <input 
+                                name="deposit_by"
+                                v-model="deposit_by" 
+                                class="txt_right" 
+                                type="text"  
+                                maxlength="10" 
+                                autocomplete="on"
+                                placeholder="请填写实际存款的银行卡姓名" 
+                                style="font-size: 1.2rem;" >
+                        </div>
+                    </div>
+                </div>
+                <div v-show="historyDepositors && historyDepositors.length" class="history-depositor">
+                    常用存款姓名：
+                    <a v-for="hd in historyDepositors" @click="deposit_by=hd">{{hd}}</a>
+                </div>
+                <div class="form_btn-wrap">
+                    <a @click="nextCheck" class="btn btn-lg btn-ylw">下一步</a>
+                </div>
+            </div>
+        </section>
+
+       <section v-show="step==1" class="manualdeposit_content">
+            <div class="banner">
+                <span class="icon icon94"> </span>
+            </div>
+            <div class="layout_form">
+                <form action="" method="post">            
+                    <div class="form_field_wrap">
+                        <div class="form_field" style="border-bottom: none;">
+                            <span class="label">收款银行</span>      
+                            <div class="input_wrap">
+                                <select v-model="bankIndex">
+                                    <option v-for="(b,i) in banklist" :value="i">{{b.bank_name}} - 尾号{{b.bank_account_no.substr(-4)}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+            <div v-if="banklist.length > 0" class="wrapper bank_card_content">
+                <span>收款银行卡信息（长按账号复制）：</span>
+                <div class="bank_card _01">
+                    <p class="bank">
+                        <!-- <i class="icon bank_icon1"></i> -->
+                        <img :src="getLogo(banklist[bankIndex].bank_name)">
+                        {{banklist[bankIndex].bank_name}}
+                    </p>
+                    <p class="account_num">{{banklist[bankIndex].bank_account_no}}</p>
+                    <p class="account_name">{{banklist[bankIndex].bank_account_name}}</p>
+                    <p class="branch_name">{{banklist[bankIndex].province}}{{banklist[bankIndex].bank_city}}{{banklist[bankIndex].branch_name}}</p>
+                </div>  
+                <div class="form_btn-wrap">
+                    <a @click="showCheck" class="btn btn-lg btn-ylw">确认已完成汇款</a>
+                </div>
+            </div>
+
+            <div v-show="confirmCheck" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span @click="confirmCheck=false" id="closebtn" class="icon icon65"></span>
+                    </div>
+                    <div class="modal-body">
+                        <span> 已完成汇款？</span><br/>
+                        <span class="red"> 未汇款时填写信息将被视为无效</span>
+                        <div class="form_btn-wrap m-top-lg">
+                            <a @click="nextStep" class="btn btn-lg btn-blu2">已完成</a>
+                        </div>   
+                         <div class="form_btn-wrap m-top-sm">
+                            <a @click="confirmCheck=false" class="btn btn-lg btn-trans">点错了，还没汇款</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section v-show="step==2" class="manualdeposit_content">
+            <div v-if="depositlist.length > 0" class="info_box">
+                <div class="header">
+                    <span>历史汇款方式信息：</span>
+                    <a @click="deletable = !deletable" class="lbue2">管理</a>
+                </div>
+                <div class="ul_auto_wrap">
+                    <ul class="auto_width">
+                        <li v-for="(d,i) in depositlist" @click.stop="checkCard(i)">
+                            <div class="hdr">
+                                <p class="p1">{{d.bank_name}}</p>
+                                <p class="p2">{{d.deposit_type}}</p>
+                                <a v-show="i == depositIndex && !deletable" class="btn"><span class="icon icon95"></span></a>
+                                <a @click="delHistory(i);" v-show="deletable" class="btn"><span class="icon icon96"></span></a>
+                            </div>
+                            <div class="bdy">
+                                <span class="sp1">{{d.deposit_by}}</span>
+                                <span class="sp2">{{d.deposit_location}}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div v-else class="banner">
+                <span class="icon icon94"> </span>
+            </div>
+            <div class="layout_form">
+                <form action="" method="post">            
+                    <div class="form_field_wrap">
+                        <div v-if="!!verify_code" class="form_field">
+                            <span class="label">预留信息</span>      
+                            <div class="input_wrap txt_right">
+                                <div class="reservedInfo">
+                                    <span class="yellow2">{{verify_code}}</span>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="form_field">
+                            <span class="label">汇款方式</span>      
+                            <div class="input_wrap txt_right">
+                                <select v-model="deposit_type">
+                                    <option value="-1">请选择存款方式</option>
+                                    <option value="ATM机转账">ATM现金存款</option>
+                                    <option value="跨行ATM机转账">跨行ATM现金存款</option>
+                                    <option value="柜台转账">柜台转账</option>
+                                    <option value="网银转账">网银转账</option>
+                                    <option value="跨行网银转账">跨行网银转账</option>
+                                    <option value="电话转账">电话转账</option>
+                                    <option value="手机转账">手机转账</option>
+                                    <option value="跨行手机转账">跨行手机转账</option>
+                                    <option value="支付宝转账">支付宝转账</option>
+                                    <option value="其他方式">其他方式</option>
+                                </select>
+                            </div>
+                        </div>                      
+                        <div class="form_field">
+                            <span class="label">汇款省份</span>      
+                            <div class="input_wrap txt_right">
+                                <select v-model="province">
+                                    <option v-for="p in provinces" :value="p">{{p || "请选择省份"}}</option>
+                                </select>
+                            </div>
+                        </div>  
+                        <div class="form_field">
+                            <span class="label">汇款城市</span>      
+                            <div class="input_wrap txt_right">
+                                <select v-model="city">
+                                        <option v-for="c in citys" :value="c">{{c || "请选择城市"}}</option>
+                                </select>
+                            </div>
+                        </div>  
+                        <div class="form_field">
+                            <span class="label">持卡人姓名</span>      
+                            <div class="input_wrap" v-show="!deposit_by_input" >
+                                <input 
+                                    name="deposit_by"
+                                    v-model="deposit_by" 
+                                    class="txt_right" 
+                                    type="text"  
+                                    maxlength="10" 
+                                    autocomplete="on"
+                                    placeholder="支付银行卡的持卡人姓名">
+                            </div>
+                            <div class="input_wrap txt_right" v-show="deposit_by_input" >
+                                <div class="reservedInfo">
+                                    <span class="yellow2">{{deposit_by}}</span>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="form_field">
+                            <span class="label">汇款时间</span>      
+                            <div class="input_wrap txt_right">
+                                <input v-model="deposit_date"  class="txt_right" type="datetime-local" placeholder="填写汇款时间"><!--ref="dpositDate"-->
+                            </div>
+                        </div>  
+                        <div class="form_field">
+                            <span class="label">金额</span>      
+                            <div class="input_wrap txt_right">
+                                <input type="number" v-model.trim="amount" class="txt_right" maxlength="15" :placeholder="amountPlaceholder">
+                            </div>
+                        </div>
+                        <div class="form_field">
+                            <span class="label">手续费</span>      
+                            <div class="input_wrap txt_right">
+                                <input type="number" v-model.trim="commission" class="txt_right" maxlength="5" placeholder="请输入手续费">
+                            </div>
+                        </div>
+                        <div class="form_field">
+                            <span class="label">备注</span>      
+                            <div class="input_wrap txt_right">
+                                <input type="text" v-model.trim="desc" class="txt_right" maxlength="30" placeholder="请输入备注">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_btn-wrap">
+                        <a @click="submit" class="btn btn-lg btn-ylw">提交</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section v-show="step==3" class="manualdeposit_content">
+            <div class="success-msg">
+                <div class="icon-content">
+                    <img src="../../__static/__images/withdrawals/icon05.png">
+                </div>
+                <div class="text-content">
+                    <span class="title">恭喜您，您的存款申请已提交！</span>
+                    <h2 class="lbue2">存款金额：{{amount}}元</h2>
+                    <div class="divider"></div>
+                    <p>
+                        我们正在为您处理您的存款提案,若信息提交完全正确, <span class="lbue2">5分钟</span>左右即可到账, 请你重新登录账号查看!
+                    </p>
+                </div>
+                <div class="button-content">
+                    <div class="form_btn-wrap">                
+                        <a forward="forward" href="customer/log_payment.htm" newview="true" class="btn btn-lg btn-blu3">存款记录</a>
+                        <a forward="forward" href="common/gamehall.htm" newview="true" class="btn btn-lg btn-ylw">游戏大厅</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section v-show="step==4" class="manualdeposit_content">
+            <div class="success-msg error">
+                <div class="icon-content">
+                    <img src="../../__static/__images/withdrawals/icon06.png">
+                </div>
+                <div class="text-content">
+                    <span class="title">存款失败!</span>
+                    <p>很抱歉,您上一笔存款填已被拒绝</p>
+                </div>
+                <div class="button-content">
+                    <div class="form_btn-wrap">                
+                        <a forward="forward" href="customer/log_payment.htm" newview="true" class="btn btn-lg btn-blu3">存款记录</a>
+                        <a forward="forward" href="common/index.htm" newview="true" class="btn btn-lg btn-ylw">游戏大厅</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</template>
+<script type="text/javascript">
+;(function () {
+    var data = {
+        onready: false,
+        step: -1,
+        enable: false,
+        verify_code: "",
+        loginname: "",
+        banklist: [],
+        depositlist: [],
+        bankIndex: 0,
+        depositIndex: -1,
+        confirmCheck: false,
+        auto: false,
+        deposit_type: "",
+        province: "",
+        autoCity: "",
+        city: "",
+        deposit_by: "",
+        deposit_by_input: "",
+        deposit_date: "",
+        amount: "",
+        commission: "",
+        desc: "",
+        amountMax: 20000,
+        amountMin: 100,
+        deletable: false,
+        autoWidthed: false,
+        bankNames: {},
+        'provinces': CityUtils.getProvinces(),
+        'citys': [""],
+        historyDepositors: []
+    };
+    appState.setData({
+        title: "手工存款",
+        needLogin: true
+    });
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function () {
+            return data;
+        },
+        watch: {
+            province: function (n, o) {
+                this.citys = CityUtils.getCitys(this.province);
+                this.city = "" || this.autoCity;
+                this.autoCity = "";
+            }
+        },
+        computed: {
+            amountPlaceholder: function () {
+                return "最少" + this.amountMin;
+            }
+        },
+        updated: function () {
+            $('.ul_auto_wrap .auto_width').each(function(index, ele) {
+                var items = $(ele).find('li');
+                var itemWidth = 0;
+                items.each(function(index, ele2) {
+                    itemWidth = itemWidth + $(ele2).outerWidth(true);
+                });
+                $(ele).width(itemWidth+5);
+            });
+        },
+        methods: {
+            getLogo: function(name) {
+                return "../../__static/__images/bankinformation/bank_logo" + $.getBankIndex(name) + ".png";
+            },
+            nextCheck: function() {
+                var _this = this;
+                if (getexpire()) {
+                    return true;
+                }
+
+                if (!_this.deposit_by.match(/^[^\d]{2,10}$/)) {
+                    $.toast.fail("请正确输入存款的银行卡姓名");
+                    return;
+                }
+
+                // 保存自动提示
+
+                setexpire();
+                JSBridge.net.invoke({
+                    url: "A01/payment/detail",
+                    data: {
+                        type: "manual",
+                        deposit_by: _this.deposit_by
+                    },
+                    success: function (result) {
+                        if(!result) {
+                            bankDisabled();
+                            return;
+                        }
+                        _this.enable = true;
+                        _this.banklist = result;
+                        _this.deposit_by_input = _this.deposit_by;
+
+                        result.forEach(function (v, i) {
+                            _this.bankNames[v.bank_name] = true;
+                        });
+                        _this.step = 1;
+                    },
+                    error: bankDisabled
+                });
+            },
+            showCheck: function () {
+                if(!this.enable) {
+                    return;
+                }
+                var _this = this;
+                
+                var bankCard = this.banklist[this.bankIndex];
+                if (!bankCard || !bankCard.maxamount || !bankCard.minamount) {
+                	return;
+                }
+                _this.amountMin = bankCard.minamount;
+                _this.amountMax = bankCard.maxamount;
+                
+                JSBridge.net.invoke({
+                    url: "deposit/getManualListPage",
+                    data: {
+                        page_size: 1,
+                        page_num: 1
+                    },
+                    success: function (result) {
+                        if(result 
+                            && result.list 
+                            && result.list.length
+                            && result.list[0].flag == "-3"
+                            && (function () {
+                                return Date.now() - Date.parse(result.list[0].created_date) < 3600000
+                            })()) {
+
+                            _this.step = 4;
+                            return;
+                        }
+
+                       JSBridge.net.invoke({
+                            url: "deposit/getManualListPage",
+                            data: {
+                                flag: 0,
+                                page_num: 1,
+                                page_size: 1
+                            },
+                            success: function (result) {
+                                if(result && result.list && result.list.length) {
+                                    $.toast.fail("您还有未处理的存款提案,请联系客服", function () {
+                                        JSBridge.forward.inside({url: "customer/member_center.htm"});
+                                    });
+                                    return;
+                                }
+
+                                _this.confirmCheck = true;
+                            },
+                            error: function () {
+                                $.toast.fail("查询已有提案有误,请联系客服", function () {
+                                    JSBridge.forward.inside({url: "customer/member_center.htm"});
+                                });
+                            }
+                        });
+                    }
+                });
+            },
+            nextStep: function () {
+                if(!this.enable) {
+                    return;
+                }
+                var _this = this,
+                customer = JSBridge.cache.get("customer");
+                this.confirmCheck = false;
+                this.step=2;
+                this.verify_code = customer.verify_code;
+                this.loginname = customer.login_name;
+                this.enable = true;
+                
+                JSBridge.net.invoke({
+                    url: "deposit/getManualList",
+                    data: {
+                        page_size: 5,
+                        page_num: 1,
+                        'delete_flag': 0
+                    },
+                    success: function (result) {
+                        if(!result  || !result.length) {
+                            return;
+                        }
+                        _this.depositlist = result;
+                    }
+                });
+            },
+            checkCard: function (i) {
+                var _this = this,
+                depositInfo = this.depositlist[i],
+                loc = depositInfo.deposit_location.split(",");
+
+                if(!_this.bankNames[depositInfo.bank_name]) {
+                    this.depositIndex = -1;
+                    this.deposit_type = ""
+                    this.province = "";
+                    this.autoCity = "";
+                    this.deposit_by = "";
+                    this.deposit_by_input = "";
+                    this.deposit_date = "";
+                    this.amount = "";
+                    $.toast.fail("此银行卡已被禁用,请自行填写再继续存款");
+                    return;
+                }
+
+                this.depositIndex=i;
+                this.deposit_type = depositInfo.deposit_type;
+                this.province = loc[1];
+                this.autoCity = loc[0];
+                this.deposit_by_input = "";
+                this.deposit_by = "";
+                // this.deposit_by = depositInfo.deposit_by;
+                this.deposit_date = new Date().Format("yyyy-MM-dd HH:mm:ss");
+                this.amount = depositInfo.amount;
+            },
+            delHistory: function (index) {
+                var _this = this;
+                $.pop.confirm(
+                    "删除存款记录", 
+                    "确定将已选存款记录删除吗?",
+                    function () {
+                        JSBridge.net.invoke({
+                            url: "logs/del",
+                            data: {
+                                'ids': _this.depositlist[index].request_id,
+                                'type':'02'
+                            },
+                            success: function (result) {
+                                if (result) {
+                                    _this.depositlist.splice(index, 1);
+                                    $.toast.success("删除成功");
+                                }
+                            },
+                            error:function(){
+                                $.toast.fail("删除失败");
+                            }
+                        });
+                    }
+                );
+            },
+            submit: function () {
+                if (getexpire()) {
+                    return true;
+                }
+
+            	//this.deposit_date = '2017年10月2日 上午04:12';
+            	//this.deposit_date = '2017年10月2 上午2:2';
+            	//this.deposit_date = '2017/5/4 下午02:02';
+            	//this.deposit_date = '2017/5/4 下午12:26:31.876';
+            	this.deposit_date = dateFormat(this.deposit_date);
+            	//alert(this.deposit_date);
+            	//return;
+                if(!this.enable) {
+                    return;
+                }
+                if(!this.deposit_type || this.deposit_type == "-1") {
+                    $.toast.fail("请选择汇款方式");
+                    return;
+                }
+                if(!this.province || this.province == "-1") {
+                    $.toast.fail("请选择省份");
+                    return;
+                }
+                if(!this.city || this.city == "-1") {
+                    $.toast.fail("请选择城市");
+                    return;
+                }
+                if(!this.deposit_by) {
+                    $.toast.fail("持卡人姓名不可为空");
+                    return;
+                } else if (!this.deposit_by.match(/^[^\d\'\;\"\[\]\{\}\*\&\%\$\#\!\`\?\>\<\,\.\*]{2,10}$/)) {
+                    $.toast.fail("请输入持卡人姓名");
+                    return;
+                }
+
+                if(!this.deposit_date) {
+                    $.toast.fail("请选择汇款时间");
+                    return;
+                }
+                if (!this.amount.match(/^[0-9]+$/)) {
+                    $.toast.fail("请输入汇款金额");
+                    return false;
+                }
+                if(isNaN(this.amount) || this.amount < Number(this.amountMin)) {
+                    $.toast.fail("存款金额最少" + this.amountMin);
+                    return false;
+                }
+                if(!this.amount.match(/^[\d]+[.\d]{0,3}$/)) {
+                	$.toast.fail("存款金额最大允许2位小数");
+                	return false;
+                }
+                if(this.commission && !this.commission.match(/^[\d]+[.\d]{0,3}$/)) {
+                    $.toast.fail("请输入手续费且最大允许2位小数");
+                    return false;
+                }
+                if(this.desc && !this.desc.match(/^[^\`\'\"\%]+$/)) {
+                    $.toast.fail("请输入备注");
+                    return false;
+                }
+                var _this = this,
+                    bankInfo = this.banklist[this.bankIndex],
+                    remarks = this.commission ? (this.desc?('手续费:'+this.commission+'|备注:'+this.desc):'手续费:'+this.commission): '';
+
+                setexpire();
+                JSBridge.net.invoke({
+                    url: "deposit/createManual",
+                    data: {
+                        amount: this.amount,
+                        bank_account_no: bankInfo.bank_account_no,
+                        bank_account_name: bankInfo.bank_account_name,
+                        bank_city: bankInfo.bank_city,
+                        bank_name: bankInfo.bank_name,
+                        branch_name: bankInfo.branch_name,
+                        province: _this.province,
+                        city: _this.city,
+                        deposit_by: _this.deposit_by,
+                        deposit_type: _this.deposit_type,
+                        deposit_date: _this.deposit_date,
+                        remarks : remarks
+                    },
+                    success: function (result) {
+                        if(!result) {
+                            return;
+                        }
+                        _this.amount = result.amount;
+                        setTimeout(function () {
+                            _this.step = 3;
+                        }, 1000);
+                    },
+                    error: function (error) {
+                        if(error && error.message == "300435") {
+                            error.message = "您好，您的上笔存款未收到，请确认转账成功后再次提交";
+                        }
+                        $.toast.fail(error && error.message ? error.message : "提交失败,请稍后重试或联系客服");
+                    }
+                });
+            }
+        }
+    });
+    
+    function dateFormat(date) {
+    	if (!date) {
+    		return null;
+    	}
+    	
+    	var sec = (new Date).getSeconds();
+    	// 日期处理
+        if (date.match(/上午/)) {
+        	var deposit_hours_old = date.match(/上午\d+/)[0].replace('上午', '');
+            var deposit_hours = parseInt(deposit_hours_old);
+            date = date.replace('上午'+ deposit_hours_old, (deposit_hours<10 ? '0'+deposit_hours : deposit_hours));
+        } else if (date.match(/下午/)) {
+        	var deposit_hours_old = date.match(/下午\d+/)[0].replace('下午', '');
+            var deposit_hours = parseInt(deposit_hours_old);
+                deposit_hours = deposit_hours < 12 ? deposit_hours+12 : deposit_hours-12;
+            
+            date = date.replace('下午'+ deposit_hours_old, (deposit_hours<10 ? '0'+deposit_hours : deposit_hours));
+        }
+        //console.log(date, deposit_hours, deposit_hours_old);
+        
+        date = date.replace(/[年月\/]+/g, '-').replace('日', '').replace('T', ' ');
+        if (!date.match(/[\d\-]+[\s\d\:]+/)) {
+        	return null;
+        }
+        date = date.match(/[\d\-]+[\s\d\:]+/)[0];
+        date = date.match(/[\d]+\:[\d]+\:[\d]+$/) ? date : date + ":" + (sec < 10 ? '0'+sec : sec );
+        
+        var dataMatch = date.match(/\-\d+/g);
+        for (i in dataMatch) {
+        	var value = dataMatch[i];
+        	if (value.length<3) {
+        		date = date.replace(value, value.replace('-', '-0'));
+        	}
+        }
+        var dataMatch = date.match(/\:\d+/g);
+        for (i in dataMatch) {
+            var value = dataMatch[i];
+            if (value.length<3) {
+                date = date.replace(value, value.replace(':', ':0'));
+            }
+        }
+        
+        //alert(date);
+        //date = new Date(date).Format("yyyy-MM-ddThh:mm");
+        console.log(date);
+        return date.match(/^[\d]{4}\-[\d]{2}\-[\d]{2}\s[\d]{2}\:[\d]{2}\:[\d]{2}$/) ? date : null;
+    }
+    
+    function bankDisabled () {
+        $.toast.fail("当前支付已关闭,请选用其他支付方式", function () {
+        	JSBridge.cache.delete("paymentStatusByAllData");
+            JSBridge.forward.inside({url: "customer/member_center.htm"});
+        });
+    }
+
+    JSBridge.onReady(function() {
+        var _this = data;
+        JSBridge.net.invoke({
+            url: "A01/payment/detail",
+            data: {
+            	type: "manual"
+            },
+            success: function (result) {
+                if(!result) {
+                    bankDisabled();
+                    return;
+                } else if (result.gotoLink) {
+                    JSBridge.forward.inside({url: result.gotoLink, newView: true});
+                    return;
+                }
+
+                /*_this.enable = true;
+                _this.banklist = result;
+
+                result.forEach(function (v, i) {
+                    _this.bankNames[v.bank_name] = true;
+                });*/
+
+                _this.onready = true;
+            },
+            error: bankDisabled
+        });
+
+        JSBridge.net.invokeSync("deposit/getTop5Manual").then(function (depositors) {
+            if(!depositors || !depositors.length) {
+                return;
+            }
+            _this.historyDepositors = depositors;
+            _this.deposit_by = depositors[0];
+        });
+    });
+})();
+</script>

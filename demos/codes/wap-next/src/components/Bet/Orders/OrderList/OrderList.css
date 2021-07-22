@@ -1,0 +1,13 @@
+.nb-order-list {
+  width: 100%;
+  overflow: hidden
+}
+
+.nb-order-list > div {
+  opacity: 1;
+  transition: all .3s;
+}
+.nb-order-list div.nb-order-list-deleting {
+  opacity: 0;
+  transform: translateX(150%)
+}

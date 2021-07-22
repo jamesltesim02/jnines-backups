@@ -1,0 +1,23 @@
+.col-xs-6 {
+  width: auto;
+}
+@media(max-width:767px) {
+  .col-xs-6 {
+    width: 50%;
+  }
+}
+.conditions .form-control,
+.conditions .form-material {
+  min-width: 180px;
+}
+
+a {
+  cursor: pointer;
+}
+
+.mfp-bg {
+  z-index: 2000;
+}
+.mfp-wrap {
+  z-index: 2001;
+}

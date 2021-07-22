@@ -1,0 +1,92 @@
+.ticket-wrapper {
+  height: 100%;
+  max-width: 1420px;
+  margin: 0 auto;
+  display: flex;
+  padding: 20px 0;
+  .ticket-left,.ticket-content {
+    height: 100%;
+    background-color: var(--block-background-color);
+  }
+  .ticket-total {
+    width: 280px;
+    margin-right: 20px;
+  }
+  .ticket-content {
+    width: 1030px;
+    overflow-y: auto;
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px 10px 20px;
+      line-height: 30px;
+      .settle {
+        span {
+          width: 50px;
+          display: inline-block;
+          text-align: center;
+          cursor: pointer;
+          &.selected {
+            position: relative;
+            color: var(--gold-color);
+            font-weight: 600;
+            &::after {
+              content: '';
+              position: absolute;
+              bottom: 0;
+              left: 50%;
+              transform: translateX(-50%);
+              background-color: var(--gold-color);
+              height: 3px;
+              width: 10px;
+            }
+          }
+        }
+      }
+      .query {
+        display: flex;
+        &-type {
+          margin-right: 10px;
+          button {
+            width: 90px;
+            height: 30px;
+            padding: 0 5px;
+            margin-left: 10px;
+            border: 1px solid #dddddd;
+            justify-content: space-between;
+          }
+        }
+        &-time {
+          .ant-picker {
+            width: 250px;
+            height: 30px;
+            margin: 0 10px;
+          }
+          .ant-picker-input > input {
+            font-size: 12px;
+          }
+        }
+        .search {
+          width: 60px;
+          height: 30px;
+          background-color: var(--high-light-color);
+          color: var(--block-background-color);
+          border-radius: 4px;
+          &:active {
+            background-color: #8d211f;
+          }
+        }
+      }
+    }
+  }
+  .pagination {
+    padding: 15px 0;
+    text-align: center;
+  }
+  .ant-picker-input>input,
+  .ant-empty-description
+  {
+    color: var(--deep-light-color);
+  }
+
+}

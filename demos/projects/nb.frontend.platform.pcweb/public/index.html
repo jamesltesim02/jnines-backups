@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="format-detection" content="telephone=no, email=no">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="yes"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="apple-touch-fullscreen" content="YES" />
+    <meta name="google" value="notranslate"/>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>竞彩</title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but 竞彩 doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <script>
+      ;(function (frontId) {
+        if (frontId) {
+          document.write('<script src="/configs/system.config.' + frontId + '.js?v=' + Date.now() + '"><\/script>');
+        } else {
+          document.write('<script src="/system.config.js?v=' + Date.now() + '"><\/script>');
+        }
+      })((function () {
+        var params = {};
+        var searchStr = '';
+        if (location.search) {
+          searchStr += location.search.replace(/^\?/, '');
+        }
+        if (location.hash.indexOf('?') > -1) {
+          searchStr += '&' + location.hash.split('?').pop();
+        }
+        searchStr.split('&').forEach(function (p) {
+          var kv = p.split('=');
+          params[kv[0]] = kv[1];
+        });
+        let frontId = params['frontId'];
+        const cachedFrontId = JSON.parse(sessionStorage.getItem('nbjc-front-id'));
+        if (!frontId) {
+          frontId = cachedFrontId;
+        } else if (cachedFrontId && frontId !== cachedFrontId) {
+          sessionStorage.clear();
+        }
+        return frontId;
+      })());
+    </script>
+    <% if (process.env.NODE_ENV === 'production') {%>
+      <script>
+        var cdn = window.NBConfig.STATIC_URL;
+        var body = document.body;
+        var head = document.head;
+        if (cdn.charAt(cdn.length - 1) !== '/') {
+          cdn = cdn + '/';
+        }
+        function fillUrl(url) {
+          if (url.charAt(0) === '/') {
+            url = url.substring(1);
+          }
+          return cdn + url;
+        }
+        function addStyle(href) {
+          var el = document.createElement('link');
+          el.rel = 'stylesheet';
+          el.href = fillUrl(href);
+          head.appendChild(el);
+        }
+        function addScript(src) {
+          var el = document.createElement('script');
+          el.src = fillUrl(src);
+          body.appendChild(el);
+        }
+        <% for (var css in htmlWebpackPlugin.files.css) { %>addStyle('<%= htmlWebpackPlugin.files.css[css] %>');<% } %>
+        <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>addScript('<%= htmlWebpackPlugin.files.chunks[chunk].entry %>');<% } %>
+      </script>
+    <% } %>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

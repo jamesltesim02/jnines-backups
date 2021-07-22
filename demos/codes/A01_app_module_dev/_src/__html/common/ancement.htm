@@ -1,0 +1,98 @@
+<component src="_template/component/Header.htm"></component>
+<component src="_template/component/Nav.htm"></component>
+<style>
+section.promotion {
+    padding: 0 15px;
+}
+section.promotion ul.promotions_cont .content{
+	padding: 0;
+	width: 100%
+}
+
+.promotion .nodate{
+	color: #fff;
+	text-align: center;
+}
+.promotion li{
+	color: #818791;
+}
+.promotion li.active{
+	color: #fff;
+}
+
+.promotion .content {
+    margin-bottom: 10px;
+}
+
+.promotion .time {
+    text-align: right;
+}
+section.promotion ul.promotions_cont li:last-child{
+	border-bottom: none;
+}
+</style>
+<template id="contentTmpl">
+    <div class="main_content">
+        <section class="promotion">
+            <ul class="promotions_cont">
+                <li v-if="!annouments || !annouments.length" class="center">
+                    <div class='nodate'>暂无数据</div>
+                </li>
+                <li v-else v-for="item in annouments" @click="change(item.announcement_id)" 
+                	:class="{'active':id==item.announcement_id}">
+                    <div class='content'>{{item.content}}</div>
+                    <div class='time'>公告发布日期：{{item.created_date}}</div>
+                </li>
+            </ul>
+        </section>
+    </div>
+</template>
+<script>
+;
+(function() {
+    appState.setData({
+        title: '公告'
+    });
+    var initData = {
+        isLoged: false,
+        id:'',
+        annouments: []
+    };
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function() {
+            return initData;
+        },
+        mounted: function() {
+            var _this = this;
+            JSBridge.onReady(function() {
+                var annoumentData = JSBridge.cache.get("annoutData");
+                if (annoumentData && new Date().getTime() < annoumentData.outtime) {
+                    _this.annouments = annoumentData.data;
+                    _this.id = _this.annouments[0].announcement_id
+                    return;
+                }
+                JSBridge.net.invoke({
+                    url: "app/getAnnouments",
+                    success: function(result) {
+                        if (!result) {
+                            return;
+                        }
+                        _this.annouments = result;
+                        _this.id = _this.annouments[0].announcement_id
+                        JSBridge.cache.save("annoutData", {
+                            data: result,
+                            outtime: new Date().getTime() + 30000
+                        }, 1);
+                    }
+                });
+            });
+        },
+        methods: {
+        	change:function(id){
+        		this.id = id 
+        	}
+        }
+    });
+})();
+</script>

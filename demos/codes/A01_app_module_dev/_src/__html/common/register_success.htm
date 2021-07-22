@@ -1,0 +1,188 @@
+<style>
+	.promo-39-button a {
+		display: block;
+		color: #181c21;
+		font-size: 1.6rem;
+		line-height: 4rem;
+		background: linear-gradient(90deg,#f2e50f,#f7f551), #f7f551;
+		border-radius: 5px;
+
+	}
+
+	.info-row {
+		overflow: hidden;
+		font-size: 1.3rem;
+		margin-bottom: 10px;
+	}
+	.info-row label,.info-row span {
+		display: block;
+		float: left;
+		text-align: right;
+		width: 50%;
+	}
+	.info-row span {
+		text-align: left;
+		padding-left: 3px;
+		box-sizing: border-box;
+	}
+
+	.info-row span a {
+		margin-left: 10px;
+		color: #499bf7;
+		text-decoration: underline;
+	}
+
+	.info-row span a {
+		margin-left: 10px;
+		color: #499bf7;
+		text-decoration: underline;
+	}
+
+	.info-row span input {
+		width: 80%;
+		border: none;
+		border-radius: 3px;
+		line-height: 2rem;
+		padding: 0 6px;
+		box-sizing: border-box;
+	}
+
+	.login-name-row span {
+		color: #f7f35d;
+	}
+</style>
+<template  id="contentTmpl">
+	<section class="login success" style="position: absolute;">
+		<img class="green-icon" src="../../__static/__images/icons/icon06.png" >
+		<p>恭喜您，开户成功</p>
+
+		<p class="info-row login-name-row">
+			<label>您的账号为：</label>
+			<span>{{login_name}}</span>
+		</p>
+		<p v-if="normal_password" class="info-row">
+			<label>{{passwordText}}：</label>
+			<span v-show="buttonStep <= 2">
+				{{normal_password}}
+				<a v-show="!alreadUpdate" @click="buttonStep = 3">修改密码</a>
+			</span>
+			<span v-show="buttonStep == 3">
+				<input type="text" v-model="new_password" maxlength="10">
+			</span>
+		</p>
+		<div class="btns" style="padding-bottom: 60%;">
+			<div v-show="buttonStep == 1" class="btn_wrap cols-2">
+				<div class="col col1">
+					<div class="col_inner">
+						<a forward="forward" href="common/index.htm" style="height:41px;line-height:41px;">游戏大厅</a>
+					</div>
+				</div>
+				<div class="col col2">
+					<div class="col_inner">
+						<a forward="inside" newview="true" href="customer/deposit_quick.htm" @click="topup">立即充值</a>
+					</div>
+				</div>
+			</div>
+			<div v-show="buttonStep == 2" class="promo-39-button">
+				<a @click="toPromo('promo_account_gift.htm')">领取开户礼金</a>
+			</div>
+			<div v-show="buttonStep == 3" class="promo-39-button">
+				<a @click="updatePassword">确认修改</a>
+			</div>
+		</div>
+		<img class="other-icon" src="../../__static/__images/bg/reg_success1.jpg">
+	</section>
+</template>
+<script type="text/javascript">
+;(function () {
+	var data = {
+		login_name: "",
+		normal_password: "",
+		new_password: "",
+		alreadUpdate: false,
+		buttonStep: 1,
+		defaultStep: 1,
+		passwordText: "原 始 密 码"
+	};
+
+	appState.setData({
+        title: '注册成功'
+    });
+	Vue.component("app-content", {
+		template: "#contentTmpl",
+		data: function () {
+			return data;
+		},
+		methods: {
+			topup: function () {
+				var gotolink = "customer/deposit_quick.htm";
+                JSBridge.net.invoke({
+					url: "A01/payment/detail",
+					data: {"type": "gotolink"},
+					success: function (result) {
+						if (result && result.gotoLink) {
+							JSBridge.forward.inside({url: result.gotoLink, newView: true});
+		                    return;
+						}
+
+						JSBridge.forward.inside({url: gotolink, newView: true});
+					},
+					error: function (error) {
+						JSBridge.forward.inside({url: gotolink, newView: true});
+					}
+				});
+			},
+			toPromo: function (url) {
+				JSBridge.forward.outside({
+					url: OtherUtils.getDomain() + url,
+					newView: true
+				})
+			},
+			updatePassword: function () {
+				var _this = this;
+				if(!/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9a-zA-Z]{8,10}$/.test(_this.new_password)) {
+					$.toast.fail("新密码必须是8-10字母和数字组合");
+					return;
+				}
+
+				JSBridge.net.invoke({
+					url: "users/updatePassword",
+					data: {
+						'oldpwd':_this.normal_password,
+						'pwd':_this.new_password
+					},
+					success: function (result) {
+						$.toast.success("修改成功"); 
+						_this.normal_password = _this.new_password;
+						_this.buttonStep = _this.defaultStep;
+						_this.alreadUpdate = true;
+						_this.passwordText = "新  密  码";
+					},
+					error: function (error) {
+						$.toast.fail("修改失败:" + error.message);
+						_this.buttonStep = _this.defaultStep;
+					}
+				});
+			}
+		}
+	});
+
+	JSBridge.onReady(function() {
+		var customer = JSBridge.cache.get("customer");
+		data.login_name = customer.login_name;
+		data.normal_password = JSBridge.cache.get("normal_password");
+		if(data.normal_password) {
+			JSBridge.cache.delete("normal_password");
+		}
+
+		JSBridge.net.invokeSync(
+			"A01/activity/isAvailable",
+			{activity_name: "ACCOUNTFIGT_2018"}
+		).then(function () {
+			data.defaultStep = data.buttonStep = 2;
+		}).catch(function () {
+			console.log("注册送39元活动还未开始。");
+		});
+	});
+})();
+</script>

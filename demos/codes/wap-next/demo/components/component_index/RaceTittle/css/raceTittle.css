@@ -1,0 +1,57 @@
+.nb_race_wrap{
+    /*height: .78rem;*/
+    position: relative;
+    width: 100%;
+    height: .78rem;
+    border-bottom: 1px solid #ededed;
+}
+.nb_race_name_wrap{
+    width: 3rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+.nb_race_name_wrap a{
+    display: block;
+    width: 100%;
+}
+.nb_race_name_wrap span{
+
+
+
+    float: left;
+}
+
+.nb_betName{
+    width: 4.5rem;
+    position: absolute;
+    top: 0;
+    left: 3rem;
+    height: 0.78rem;
+    line-height: 0.78rem;
+}
+.nb_betName span{
+    float: left;
+    width: 50%;
+    height: .78rem;
+    line-height: .78rem;
+    font-size: .28rem;
+    text-align: center;
+    color: #969696;
+}
+.nb_fa_10:before{
+    font-family: 'myfontfamily';
+    content:"\e942" ;
+    font-size: 0.78rem;
+}
+.nb_race_name{
+    height: 0.78rem;
+    line-height: 0.78rem;
+    width: 2.22rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    font-size: .28rem;
+
+}

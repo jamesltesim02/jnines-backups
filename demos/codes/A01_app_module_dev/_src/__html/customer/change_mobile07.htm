@@ -1,0 +1,32 @@
+<template id="contentTmpl">
+<div class="main_content">
+    <section class="modifymobile_content _05">
+        <div class="success-msg">
+            <div class="icon-content">
+                <img src="../../__static/__images/icons/icon06.png">
+            </div>
+            <div class="text-content">
+                <span class="title">申请已提交</span>
+                <span class="subtitle">相关人员将在24小时内审核并添加，请耐心等待。</span>
+            </div>
+            <div class="button-content">
+                <div class="form_btn-wrap">
+                    <a id="submitButton" href="javascript: void(0);" class="btn btn-lg btn-ylw">会员中心</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</template>
+<script>
+appState.setData({
+    needLogin: true,
+    title: '重新绑定'
+});
+Vue.component("app-content", {
+	template: "#contentTmpl",
+	data: function () {
+		
+	}
+});
+</script>

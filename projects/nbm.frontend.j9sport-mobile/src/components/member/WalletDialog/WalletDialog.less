@@ -1,0 +1,135 @@
+.add-wallet-dialog .am-modal-content {
+  text-align: left;
+  padding-bottom: 50px;
+  .loading-bar.full {
+    height: 100px;
+  }
+  .am-modal-body {
+    color: #fff;
+  }
+  header {
+    font-size: 26px;
+  }
+  .input-field {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 3px;
+    border: solid 1px #aaaaaa;
+    padding: 0 ;
+    color: #ededed;
+    label {
+      height: 20px;
+      padding-left: 15px;
+      border-right: 1px solid #aaa;
+      padding-right: 10px;
+      margin-right: 10px;
+    }
+    span {
+      flex: 1 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: 15px;
+      input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        text-align: right;
+        color: #fff;
+      }
+      .am-icon-down {
+        margin: 0 0 0 5px;
+      }
+    }
+    &.captcha button {
+      height: 40px;
+      width: 100px;
+      border-radius: 3px;
+      background-image: linear-gradient(to bottom, #f4d699, #e3b574);
+      color: #707070;
+      filter: grayscale(1);
+      &.available {
+        filter: grayscale(0);
+      }
+    }
+    &.captcha, &.phone-number {
+      input {
+        text-align: center;
+      }
+    }
+  }
+  .account-name {
+    color: #fff;
+    margin: 10px 0;
+  }
+  .account-name-tips {
+    display: block;
+    font-size: 12px;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, .17);
+    line-height: 40px;
+    text-align: left;
+    padding-left: 10px;
+    color: #aaa;
+    b {
+      color: #e0c28d;
+    }
+  }
+  .number-mode {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+    button {
+      height: 40px;
+      border-radius: 3px;
+      color: #aaa;
+      border: 1px solid #aaa;
+      &.selected {
+        color: #e0c28d;
+        border-color: #e3b574;
+      }
+    }
+  }
+  .remark {
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    color: #aaa;
+    font-size: 12px;
+    a {
+      line-height: 50px;
+      b {
+        font-weight: normal;
+        color: #e0c28d;
+      }
+    }
+  }
+  .dcreg-success {
+    text-align: center;
+    h3 {
+      font-size: 26px;
+    }
+    section b {
+      margin-left: 5px;
+    }
+    .copy {
+      border: 1px solid #e0c28d;
+      color: #e0c28d;
+      padding: 2px 5px;
+      border-radius: 3px;
+      margin-left: 5px;
+    }
+  }
+}
+
+.drawer-slider.dcbox-country-code-drawer {
+  &.drawer-slider-enter-done,
+  &.drawer-slider-enter-active,
+  &.drawer-slider-exit,
+  &.drawer-slider-exit-active  {
+    z-index: 1000;
+  }
+}

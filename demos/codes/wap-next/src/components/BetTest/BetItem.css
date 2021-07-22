@@ -1,0 +1,11 @@
+.test-betting-item {
+  width: 23%;
+  padding: .3rem 0;
+  background: #faa;
+  margin: .04rem;
+  color: #fff;
+}
+
+.test-betting-item.active {
+  background: #ccf;
+}

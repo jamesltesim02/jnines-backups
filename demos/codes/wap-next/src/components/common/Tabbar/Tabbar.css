@@ -1,0 +1,57 @@
+.nb_fixed_tabbar{
+    position: fixed;
+    left: 0;
+    bottom:0;
+    z-index: 2;
+    height: 1.04rem;
+    background: #202126;
+    width: 7.5rem;
+    font-size: .24rem;
+}
+.nb_tabbar_wrap{
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap; 
+    align-content: center;
+}
+.nb_tabbar_wrap li{
+    flex-grow: 1;
+    width: 20%;
+    height: 1.04rem;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap; 
+    align-content: center;
+    position: relative;
+}
+.nb_bar {
+    width: .32rem;
+    height: .32rem;
+    line-height: .32rem;
+    text-align: center;
+    border-radius: 50%;
+    background: #FF4A4A;
+    position: absolute;
+    left: 50%;
+    top: .06rem;
+}
+.nb_icon {
+    font-size: .4rem;
+}
+
+.nb_tabbar_wrap a{
+    flex: 0 1 100%;
+    color: #7D7E81;
+    font-size: .2rem;
+}
+.nb_tabbar_wrap a p {
+    margin-bottom: .12rem; 
+}
+.nb_tabbar_wrap .active, .active .nb_icon:before{
+    color: #02FFFF;
+  }

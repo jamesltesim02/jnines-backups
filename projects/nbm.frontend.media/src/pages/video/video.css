@@ -1,0 +1,116 @@
+html,
+body,
+#root,
+.video,
+.video video
+{
+  width: 100%;
+  height: 100%;
+}
+.video.video-js {
+  position: relative;
+}
+.video video {
+  display: inline-block !important;
+}
+
+.video-js .vjs-big-play-button,.vjs-big-play-button::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.video-js .vjs-big-play-button {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  font-size: 0;
+}
+.video-js .vjs-big-play-button::before {
+  content: '';
+  display: block;
+  border-left: 25px solid #ddd;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-right: none;
+  left: 57%;
+}
+
+.vjs-loading-spinner::after {
+  display: none;
+}
+.vjs-loading-spinner {
+  font-size: 0;
+}
+
+.vjs_video_3-dimensions {
+  width: 100% !important;
+  height: 100% !important;
+}
+.vjs-error .vjs-error-display {
+  display: none;
+}
+
+.vjs-error .vjs-poster,
+.vjs-error video {
+  filter: blur(5px);
+}
+.vjs-error .vjs-loading-spinner {
+  display: none;
+}
+
+.vjs-modal-dialog.error-modal {
+  background: linear-gradient(180deg,rgba(0,0,0,.3),rgba(255,255,255,0))
+}
+.vjs-modal-dialog.error-modal .vjs-modal-dialog-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.vjs-modal-dialog.error-modal .vjs-modal-dialog-content p {
+  font-size: 20px;
+}
+.vjs-modal-dialog.error-modal .vjs-modal-dialog-content button {
+  padding: 5px 25px;
+  font-size: 14px;
+  background: rgba(150, 150, 150, .5);
+  margin-top: 15px;
+  border-radius: 80px;
+}
+.vjs-modal-dialog.error-modal .vjs-close-button {
+  display: none;
+}
+
+.video-js .vjs-control.waiting-retry {
+  position: absolute;
+  width: auto;
+  height: auto;
+  top: 60%;
+  left: 50%;
+  background: rgba(150, 150, 150, .7);
+  margin-top: 15px;
+  border-radius: 80px;
+  transform: translateX(-50%);
+  padding: 8px 25px;
+  display: none;
+}
+.waiting-retry .vjs-control-text {
+  width: auto;
+  height: auto;
+  position: relative;
+  font-size: 14px;
+}
+
+.video-js.vjs-waiting .vjs-control.waiting-retry.active {
+  display: block;
+}
+
+.disablescale .vjs-picture-in-picture-control,
+.disablescale .vjs-fullscreen-control,
+.disablescale .vjs-subs-caps-button {
+  display: none;
+}

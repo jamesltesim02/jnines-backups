@@ -1,0 +1,224 @@
+<template id="contentTmpl">
+	<div class="main_content" v-show="onready">
+        <section v-show="step==1" class="onlinepayment_content">
+            <div class="banner">
+                <span class="icon icon69"> </span>
+                <h3>在线支付</h3>
+            </div>
+            <div class="layout_form">
+                <form action="" method="post">            
+                    <div class="form_field_wrap">
+                        <div v-if="!!verify_code" class="form_field">
+                            <span class="label">预留信息</span>      
+                            <div class="input_wrap txt_right">
+                                <div class="reservedInfo">
+                                    <span>{{verify_code}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form_field">
+                            <span class="label">金额</span>      
+                            <div class="input_wrap">
+                                <input 
+                                    v-model.trim="amount" 
+                                    class="txt_right" 
+                                    type="number"
+                                    :placeholder="amountPlaceholder" maxlength="10">
+                            </div>
+                        </div>
+                        <div v-if="banklist && banklist.length" class="form_field">
+                            <span class="label">支付方式</span>      
+                            <div class="input_wrap txt_right">
+                                <select v-model.trim="bankCode">
+                                    <option v-for="bank in banklist" :value="bank.id">{{bank.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_btn-wrap">
+                        <a @click="nextStep" class="btn btn-lg btn-ylw">下一步</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section v-show="step==2" class="onlinepayment_content _02">
+            <div class="flt-header">
+                <span>确认支付订单：</span>
+            </div>
+            <div class="layout_form">
+                <form ref="payForm" :action="order.des_url" method="post">
+                    <input type="hidden" name="amount" :value="order.amount">
+                    <input type="hidden" name="keycode" :value="order.keycode">
+                    <input type="hidden" name="memo" :value="order.memo">
+                    <input type="hidden" name="paycode" :value="order.paycode">
+                    <input type="hidden" name="billdate" :value="order.billdate">
+                    <input type="hidden" name="billno" :value="order.billno">
+                    <input type="hidden" name="product" :value="order.product">
+                    <input type="hidden" name="currency" :value="order.currency">
+                    <input type="hidden" name="loginname" :value="loginname">
+
+                    <div class="form_field_wrap">
+                        <div class="form_field">
+                            <span>订单号：</span>      
+                            <span class="dark_gray">{{order.billno}}</span>
+                        </div>
+                        <div v-if="bankCode" class="form_field">
+                            <span>支付银行卡：</span>      
+                            <span>{{bankName}}</span>
+                        </div>  
+                        <div class="form_field">
+                            <span>支付金额：</span>      
+                            <span class="lbue2 bold">¥ {{order.amount}}</span>
+                        </div>  
+                    </div>
+                    <div class="form_btn-wrap">
+                        <a @click="pay" class="btn btn-lg btn-ylw">确认支付</a>
+                    </div>
+                   
+                </form>
+            </div>
+        </section>
+    </div>
+</template>
+<script type="text/javascript">
+;(function () {
+    var data = {
+        onready: false,
+        step: 1,
+        verify_code: "",
+        loginname: "",
+        amount: "",
+        amountMax: 20000,
+        amountMin: 100,
+        payid: null,
+        bankCode: null,
+        banklist: [],
+        enable: false,
+        depositType: 1,
+        order: {}
+    };
+    appState.setData({
+        title: "在线支付",
+        needLogin: true
+    });
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function () {
+            return data;
+        },
+		watch: {
+			amount: function (n, o) {
+				this.amount = n.substring(0, 5);
+			}
+		},
+        computed: {
+            amountPlaceholder: function () {
+                return "最少" + this.amountMin + "，最多" + this.amountMax;
+            },
+            bankName: function () {
+                if(!this.bankCode) {
+                    return undefined;
+                }
+
+                if(!this.banklist) {
+                    return undefined;
+                }
+
+                for(var i=0;i<this.banklist.length;i++) {
+                    if(this.banklist[i].id == this.bankCode) {
+                        return this.banklist[i].name;
+                    }
+                }
+
+                return undefined;
+            }
+        },
+        methods: {
+            nextStep: function () {
+                if(!this.enable) {
+                    return;
+                }
+                if (getexpire()) {
+                    return true;
+                }
+
+                if(! (this.amount.match(/^[1-9]+\d+[.\d]{0,3}$/) && this.amount>=this.amountMin && this.amount<=this.amountMax)) { 
+                    $.toast.fail("存款金额必须是"+ this.amountMin +"~"+ this.amountMax +"之间,最大允许2位小数"); 
+                    return false; 
+                }
+                
+                var _this = this;
+                setexpire();
+                JSBridge.net.invoke({
+                    url: "payment/onlinePay",
+                    data: {
+                        type: _this.depositType,
+                        payId: _this.payid,
+                        amount: _this.amount,
+                        extend_field: "bankCode=" + _this.bankCode
+                    },
+                    success: function (result) {
+                        _this.order = result;
+                        setTimeout(function () {
+                            _this.step = 2;
+                        }, 1000);
+                    },
+                    error: function (error) {
+                        $.toast.fail(error ? error.message : "创建订单失败,请稍后重试或咨询客服");
+                    }
+                });
+            },
+            pay: function () {
+                if(this.enable && this.step == 2) {
+                    this.$refs.payForm.submit();
+                }
+            }
+        }
+    });
+
+    function bankDisabled() {
+        $.toast.fail("当前支付已关闭,请选用其他支付方式", function () {
+        	JSBridge.cache.delete("paymentStatusByAllData");
+            JSBridge.forward.inside({url: "customer/member_center.htm"});
+        });
+    }
+
+    JSBridge.onReady(function() {
+        if(!CustomerUtils.isLoged()) {
+            return null;
+        }
+        var _this = data;
+        var customer = JSBridge.cache.get("customer");
+        data.verify_code = customer.verify_code;
+        data.loginname = customer.login_name;
+        
+        JSBridge.net.invoke({
+            url: "A01/payment/detail",
+            data: {"type": "online"},
+            success: function (result) {
+                var key,templist,banklist = [];
+                if(!result) {
+                    bankDisabled();
+                    return;
+                } else if (result.gotoLink) {
+                    JSBridge.forward.inside({url: result.gotoLink, newView: true});
+                    return;
+                }
+                _this.enable = true;
+
+                _this.payid = result.payid;
+                _this.amountMin = result.minamount;
+                _this.amountMax = result.maxamount;
+                if(result.bankList && result.bankList.length) {
+                    _this.bankCode = result.bankList[0].id;
+                    _this.banklist = result.bankList;
+                }
+
+                _this.onready = true;
+            },
+            error: bankDisabled
+        });
+    });
+})();
+</script>
+

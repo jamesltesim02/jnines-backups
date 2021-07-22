@@ -1,0 +1,52 @@
+.europe-group {
+  padding: 10px 13px;
+  background-color: #373737;
+  .group-list {
+    margin-bottom: 10px;
+    .group-list-header {
+      margin-bottom: 2px;
+    }
+
+    ul {
+      border-radius: 4px;
+      overflow: hidden;
+
+      li {
+        display: grid;
+        line-height: 42px;
+        grid-template-columns: repeat(2, 1fr);
+        text-align: center;
+
+        &:not(:first-child) {
+          > div:nth-child(n+2) {
+            color: #f9f9f9;
+          }
+        }
+
+      }
+    }
+    .group-team-name {
+      display: inline-flex;
+      align-items: center;
+      padding-left: 30%;
+      i  {
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+    }
+  }
+  .europe-option-button {
+
+    &.checked {
+      button {
+        padding: 5px 10px;
+        border-radius: 35px;
+        background-image: linear-gradient(to right, #e2b271 0%, #f6d99d);
+
+        &, span {
+          color: #653302!important;
+        }
+      }
+    }
+  }
+}

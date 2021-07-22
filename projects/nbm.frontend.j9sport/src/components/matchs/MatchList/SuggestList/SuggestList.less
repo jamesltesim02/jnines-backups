@@ -1,0 +1,17 @@
+.suggest-list {
+  overflow: hidden auto;
+  .simplebar-content {
+    & > section {
+      background-color: var(--block-background-color);
+      .block-header {
+        border-bottom: 2px solid var(--app-background-color);
+      }
+      .list-market-title {
+        border-bottom: 1px solid var(--app-background-color);
+      }
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

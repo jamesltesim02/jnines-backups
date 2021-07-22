@@ -1,0 +1,68 @@
+.nb_matchItem_wrap{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2.4rem;
+    border-bottom: .2rem solid #ededed;
+}
+.nb_match_team{
+    width: 3rem;
+    height: 2.4rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-right: 1px solid #ededed;
+}
+.nb_bet_wrap{
+    width: 4.5rem;
+    height: 2.4rem;
+    position: absolute;
+    top: 0;
+    left: 3rem;
+}
+.nb_team_score{
+    height: 1rem;
+    font-size: .28rem;
+    padding-left: .2rem;
+    line-height: 1rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.nb_match_time{
+    height: .4rem;
+    line-height:.4rem;
+    padding-left: .2rem;
+    font-size: .28rem;
+    position: relative;
+    color: #969696;
+}
+.bet_item_num{
+    position: absolute;
+    top: 0;
+    right: .4rem;
+}
+.bet_item_num:after{
+    font-family: 'myfontfamily';
+    font-size: .6rem;
+    content:"\e9c6";
+    position: absolute;
+    top: 0;
+    left: .15rem;
+
+
+}
+.nb_bet_wrap{
+    position: absolute;
+    width: 4.5rem;
+    top: 0;
+    left: 3rem;
+}
+/*.teamName{*/
+    /*display: inline-block;*/
+    /*overflow: hidden;*/
+    /*text-overflow:ellipsis;*/
+    /*white-space: nowrap;*/
+    /*width: ;*/
+/*}*/

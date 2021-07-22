@@ -1,0 +1,28 @@
+{
+  "name": "hybrid-compiler",
+  "version": "2.0.9",
+  "description": "用于编译hybrid代码的工具包",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://10.66.72.20:8081/mobile-front-end/hybrid-compiler.git"
+  },
+  "keywords": [
+    "hybrid",
+    "app"
+  ],
+  "author": "WRD.APP.Mobile",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "clean-css": "^4.1.9",
+    "html-minifier": "^3.5.7",
+    "jsdom": "^11.4.0",
+    "mkdirs": "0.0.2",
+    "through2": "^2.0.3",
+    "uglify-js": "^3.2.1"
+  }
+}

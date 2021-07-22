@@ -1,0 +1,743 @@
+<component src="_template/component/Header.htm"></component>
+<component src="_template/component/Annoument.htm"></component>
+<component src="_template/component/Nav.htm"></component>
+
+<style>
+body>div.app-container {
+    background: #212229;
+    /*padding-bottom: 5px;*/
+}
+
+.expand-item_list {
+    height: 0;
+    transition: height .3s ease;
+    overflow: hidden;
+}
+
+.expand-item_list.safe.opened {
+    height: 128px;
+}
+
+.expand-item_list.setting.opened {
+    height: 171px;
+}
+
+.transitionClass {
+    height: auto;
+}
+</style>
+<template id="contentTmpl">
+    <section class="usercenter_content">
+        <app-header title="会员中心" index='true'></app-header>
+        <div class="usercenter_sec usercenter_info" :class="{'nologin':!isLoged}">
+            <div class="boxes">
+                <div class="speaker">
+                    <i class="icon icon04"></i>
+                    <b>公告：</b>
+                </div>
+                <marquee scrollamount="3">
+                    <annoument></annoument>
+                </marquee>
+            </div>
+            <div v-if="isLoged" class="usercenter_account cols-2">
+                <div class="usercenter_account_icon">
+                    <span class="icon icon_profile_loggedin"></span>
+                    <span v-if="customerLevel != 7" class="text">VIP.{{customerLevel}}</span>
+                </div>
+                <div class="usercenter_account_text">
+                    <h4>{{loginName}}</h4>
+                    <span class="subtext">账户总余额(元)</span>
+                    <p>{{localcredit}}</p>
+                </div>
+                <a forward="forward" newview="true" href="customer/account_balance.htm" class="balance_link">查看各厅</a>
+            </div>
+            <div v-else class="no-login">
+                <p>您现在是游客状态，请登录或者注册</p>
+                <div>
+                    <a forward="forward" href="common/login.htm" newview="true" class="a1">登录</a>
+                    <a forward="forward" href="common/register.htm" newview="true" class="a2">注册</a>
+                </div>
+            </div>
+        </div>
+        <div class="exclusiveLink" v-show="exclusive">
+            <p><span>您的专属网址：</span>
+                <a @click="toExclusive">{{exclusive}}</a><i>(速度更快 游戏更流畅)</i>
+            </p>
+        </div>
+        <div class="usercenter_identify usercenter_sec">
+            <ul>
+                <li>
+                    <span v-bind:class="[isCompelete ? 'icon32' : 'icon32_a', 'icon']" @click="toPersonalInfo"></span>
+                    <p>个人资料</p>
+                </li>
+                <li>
+                    <span v-bind:class="[mobileBinded ? 'icon33' : 'icon33_a', 'icon']" v-on:click="bindMobile"></span>
+                    <p>绑定手机</p>
+                </li>
+                <li>
+                    <span v-bind:class="[emailBinded ? 'icon34' : 'icon34_a', 'icon']" v-on:click="bindEmail"></span>
+                    <p>绑定邮箱</p>
+                </li>
+                <li>
+                    <span v-bind:class="[cardBinded ? 'icon35' : 'icon35_a', 'icon']" v-on:click="bankCardHandler"></span>
+                    <p>银行卡资料</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="usercenter_sec usercenter_deposit">
+            <h3>
+                <span style="float: left;"><i class="icon icon36"></i>存款</span>
+                <span class="desc">每次存款前务必核对最新收款账户，入款至停用账户将无法添加额度！</span>
+            </h3>
+            <div class="ul_auto_wrap">
+                <ul class="list01 auto_width" style="width: 360px;">
+                    <li v-for="(p,k) in paymentList" v-show="p.available">
+                        <a @click="toPayment(p, k)">
+                            <i :class="[
+                                    p.available ? p.styleClass.enable : p.styleClass.disabled, 
+                                    'icons_payment_mothod'
+                                ]"></i>
+                            <span>{{p.text}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="usercenter_sec item_list">
+            <div class="item_list_item">
+                <a @click="toWithdrawal">
+                    <span class="icon icon42 icon_left"></span>
+                    <span class="text">取款</span>
+                </a>
+            </div>
+            <div class="item_list_item">
+                <a forward="forward" newview="true" href="customer/xm.htm">
+                    <span class="icon icon43 icon_left"></span>
+                    <span class="text">结算洗码</span>
+                </a>
+            </div>
+            <div class="item_list_item">
+                <a forward="forward" newview="true" href="customer/transferPoker.htm">
+                    <span class="icon icon44 icon_left"></span>
+                    <span class="text">额度转账</span>
+                </a>
+            </div>
+            <div class="item_list_item">
+                <a @click="promotionExpand = !promotionExpand">
+                    <span class="icon icon52 icon_left"></span>
+                    <span class="text">我的优惠<i  class="new">New</i></span>
+                    <span :class="['icon', promotionExpand?'icon61':'icon37','icon_right', 'icon_toggle']"></span>
+                </a>
+            </div>
+            <transition name="slide">
+                <div v-show='promotionExpand' :class='{transitionClass:promotionExpand}' class="expand-item_list">
+                    <div class="item_list_item">
+                        <a @click="toPromotion">
+                            <span class="icon icon_left"></span>
+                            <span class="text lblue">首存优惠</span>
+                        </a>
+                    </div>
+                    <div class="item_list_item">
+                        <a @click="getRegisterPrize">
+                            <span class="icon icon_left"></span>
+                            <span class="text lblue">注册专享39礼金<i class="new">New</i></span>
+                        </a>
+                    </div>
+                </div>
+
+            </transition>
+            <div class="item_list_item item_no_border">
+                <a @click="toRecommend">
+                    <span class="icon icon53 icon_left"></span>
+                    <span class="text">推荐礼金<i class="new">HOT</i></span>
+                </a>
+            </div>
+        </div>
+        <div class="usercenter_sec item_list">
+            <div class="item_list_item">
+                <a forward="forward" newview="true" href="customer/log.htm">
+                    <span class="icon icon45 icon_left"></span>
+                    <span class="text">财务报表</span>
+                </a>
+            </div>
+            <div class="item_list_item with_sub">
+                <!-- <a @click="safeExpand=!safeExpand"> -->
+                <a forward="forward" newview="true" href="customer/member_user.htm">
+                    <span class="icon icon46 icon_left"></span>
+                    <!-- <span class="text_right" v-if="safeFlag">安全等级低</span> -->
+                    <span class="text">账号安全</span>
+                    <!-- <span :class="['icon', safeExpand?'icon61':'icon37','icon_right', 'icon_toggle']"></span> -->
+                    <span :class="['icon','icon37','icon_right', 'icon_toggle']"></span>
+                </a>
+                <!-- <transition name="slide">
+                    <div :class="['item_list', 'expand-item_list', 'safe', safeExpand ? 'opened' : '']">
+                        <div class="item_list_item">
+                            <a forward="forward" newview="true" href="customer/change_password.htm">
+                                <span class="icon icon_left"></span>
+                                <span class="text lblue">修改密码</span>
+                            </a>
+                        </div>
+
+
+                        <div class="item_list_item" @click="bindMobile">
+                            <a>
+                                <span class="icon icon_left"></span>
+                                <span class="text lblue">绑定手机</span>
+                            </a>
+                        </div>
+                        <div class="item_list_item" @click="bindEmail">
+                            <a>
+                                <span class="icon icon_left"></span>
+                                <span class="text lblue">绑定邮箱</span>
+                            </a>
+                        </div>
+                    </div>
+                </transition> -->
+            </div>
+            <div class="item_list_item with_sub">
+                <!-- <a @click="settingExpand=!settingExpand"> -->
+                <a forward="forward" newview="true" href="customer/member_setting.htm">
+                    <span class="icon icon47 icon_left"></span>
+                    <span class="text">设置</span>
+                    <!-- <span :class="['icon', settingExpand?'icon61':'icon37','icon_right', 'icon_toggle']"></span> -->
+                    <span :class="['icon', 'icon37','icon_right', 'icon_toggle']"></span>
+                </a>
+                <!-- <div :class="['item_list', 'expand-item_list', 'setting', settingExpand ? 'opened' : '']">
+                    <div class="item_list_item">
+                        <a forward="forward" newview="true" href="customer/personal_info.htm">
+                            <span class="icon icon_left"></span>
+                            <span class="text lblue">个人资料</span>
+                        </a>
+                    </div>
+                    <div class="item_list_item">
+                        <a forward="forward" newview="true" href="customer/bank_list.htm">
+                            <span class="icon icon_left"></span>
+                            <span class="text lblue">银行卡资料</span>
+                        </a>
+                    </div>
+                    <div class="item_list_item">
+                        <a forward="forward" newview="true" href="customer/red_adjustment.htm">
+                            <span class="icon icon_left"></span>
+                            <span class="text lblue">修改限红</span>
+                        </a>
+                    </div>
+                    <div class="item_list_item">
+                        <a forward="forward" newview="true" href="customer/sms_subscription.htm">
+                            <span class="icon icon_left"></span>
+                            <span class="text lblue">短信订阅</span>
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+            <div class="item_list_item with_sub item_no_border">
+                <!-- <a @click="messageExpand=!messageExpand"> -->
+                <a forward="forward" newview="true" href="customer/member_msg.htm">
+                    <span class="icon icon48 icon_left relative">
+                        <span class="msg_notif" v-if="messageUnReadCount>0">{{messageUnReadCount}}</span>
+                    </span>
+                    <span class="text">站内信<span class="icon"></span></span>
+                    <!-- <span :class="['icon', messageExpand?'icon61':'icon37','icon_right', 'icon_toggle']"></span> -->
+                    <span :class="['icon', 'icon37','icon_right', 'icon_toggle']"></span>
+                </a>
+                <!-- <transition name="slide">
+                    <div v-show='messageExpand' :class='{transitionClass:messageExpand}' class="expand-item_list">
+                        <div class="item_list_item">
+                            <a forward="forward" newview="true" href="customer/letter.htm">
+                                <span class="icon icon_left"></span>
+                                <span class="text lblue">收件箱</span>
+                            </a>
+                        </div>
+                        <div class="item_list_item">
+                            <a forward="forward" newview="true" href="customer/letter_write.htm">
+                                <span class="icon icon_left"></span>
+                                <span class="text lblue">发信</span>
+                            </a>
+                        </div>
+                        <div class="item_list_item">
+                            <a forward="forward" newview="true" href="customer/letter_list.htm">
+                                <span class="icon icon_left"></span>
+                                <span class="text lblue">已发消息</span>
+                            </a>
+                        </div>
+                    </div>
+                </transition> -->
+            </div>
+            <div v-show="isLoged" @click="logout" class="item_list_item item_no_border item_logout">
+                <a>
+                    <span class="icon icon49 icon_left"></span>
+                    <span class="text">注销登录</span>
+                </a>
+            </div>
+        </div>
+        <app-nav index="3"></app-nav>
+    </section>
+</template>
+<script>
+;
+(function() {
+var defaultData = {
+        isLoged: false,
+        loginName: "",
+        customerLevel: "0",
+        localcredit: 0,
+        isCompelete: false,
+        messageUnReadCount: 0,
+        mobileBinded: false,
+        emailBinded: false,
+        cardChecked: false,
+        cardBinded: false,
+        paymentList: {
+            "xunjie": {
+                "text": "迅捷支付",
+                "url": "customer/deposit_quick.htm",
+                "available": true,
+                "styleClass": {
+                    "enable": "ipm_xunjie",
+                    "disabled": "ipm_xunjie_disable"
+                }
+            },
+            "manual": {
+                "text": "手工存款",
+                "url": "customer/deposit_offline.htm",
+                "available": true,
+                "styleClass": {
+                    "enable": "ipm_manual",
+                    "disabled": "ipm_manual_disable"
+                }
+            },
+            "online": {
+                "text": "在线支付",
+                "url": "customer/deposit_online.htm",
+                "available": true,
+                "styleClass": {
+                    "enable": "ipm_online",
+                    "disabled": "ipm_online_disable"
+                }
+            },
+            "QRCode": {
+                "text": "扫码支付",
+                "url": "customer/deposit_wx.htm",
+                "available": true,
+                "styleClass": {
+                    "enable": "ipm_wechat",
+                    "disabled": "ipm_wechat_disable"
+                }
+            },
+            "point": {
+                "text": "点卡支付",
+                "url": "customer/deposit_card.htm",
+                "available": true,
+                "styleClass": {
+                    "enable": "ipm_point",
+                    "disabled": "ipm_point_disable"
+                }
+            }
+        },
+        exclusive: "",
+        exclusiveStep: 1,
+        promotionExpand: false
+        // settingExpand: false,
+        // messageExpand: false,
+        // safeExpand: false
+    },
+    contentData = Object.assign({}, defaultData);
+
+    appState.setData({
+        title: '会员中心'
+    });
+
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function() {
+            return contentData;
+        },
+        mounted: function() {
+            $('.ul_auto_wrap .auto_width').each(function(index, ele) {
+                var items = $(ele).find('li');
+                var itemWidth = 0;
+                items.each(function(index, ele2) {
+                    itemWidth = itemWidth + $(ele2).outerWidth(true);
+                });
+                $(ele).width(itemWidth + 15);
+            });
+        },
+        methods: {
+            /**
+             * 领取注册礼金
+             */
+            getRegisterPrize: function () {
+                // 是否未登录，未登录直接转到活动详情
+                if(!CustomerUtils.isLoged) {
+                    JSBridge.forward.outside({
+                        url: OtherUtils.getDomain() + "promo_account_gift.htm", 
+                        newView: true
+                    });
+                    return ;
+                }
+
+                // 获取注册礼金
+                JSBridge.net.invokeSync(
+                    "A01/apply/getRegisterPrize"
+                ).then(function (result) {
+                    // 根据响应结果判断是否需要提示
+                    return new Promise(function (resolve, reject) {
+                        if(!result) {
+                            reject({message: "系统繁忙，请稍后再试"});
+                            return;
+                        }
+
+                        if(result.message) {
+                            $.pop.alert(result.message, function () {
+                                resolve(result);
+                            })
+                            return;
+                        }
+                        resolve(result);
+                    })
+                }, function (error) {
+                    // 领取接口出错
+                    $.toast.fail(error.message);
+                }).then(function (result) {
+                    // 接口响应成功
+                    var forwardInfo,method, resultProcess;
+
+                    // 如果响应码为空则不做任何处理
+                    if(!result || !result.result_code) {
+                        return ;
+                    }
+
+                    /*
+                    * 获取结果处理映射
+                    *
+                    * 1 领取成功
+                    * 2 未绑定银行卡
+                    * 3 已领取过
+                    * 4 未领取任务一
+                    * 5 任务一未审批
+                    * 6 不是当日注册
+                    * 7 存款不足100
+                    * 8 银行卡绑定账号不唯一
+                    */
+                    resultProcess = {
+                        1: {type: "inside", url: "common/index.htm"},
+                        2: {type: "inside", url: "customer/bank_add.htm", newView: true},
+                        3: {type: "outside", url: OtherUtils.getDomain() + "promo_account_gift.htm", newView: true},
+                        4: {type: "outside", url: OtherUtils.getDomain() + "promo_account_gift.htm", newView: true}
+                    };
+
+                    forwardInfo = resultProcess[result.result_code];
+                    if(!forwardInfo) {
+                        return ;
+                    }
+
+                    method = forwardInfo.type;
+                    delete forwardInfo.type;
+
+                    JSBridge.forward[method](forwardInfo);
+                });
+            },
+            logout: function() {
+                var _this = this;
+                CustomerUtils.clear();
+                $.toast.success("退出成功", function() {
+                    JSBridge.cache.delete("paymentStatusByAllData");
+                    JSBridge.forward.inside({ url: "common/index.htm" });
+                });
+            },
+            toExclusive: function() {
+                JSBridge.forward.outside({url: "http://"+ this.exclusive, newView:"true", browser:"true"});
+            },
+            // toPoker: function() {
+            //     if (!CustomerUtils.isLoged()) {
+            //         JSBridge.forward.inside({ url: "common/login.htm", newView: true });
+            //         return;
+            //     }
+            //     console.log(OtherUtils.getDomain() + "transferPoker.htm")
+            //     JSBridge.forward.outside({ url: OtherUtils.getDomain() + "transferPoker.htm", newView: true });
+            // },
+            toPromotion: function() {
+                if (!CustomerUtils.isLoged()) {
+                    JSBridge.forward.inside({ url: "common/login.htm", newView: true });
+                    return;
+                }
+                JSBridge.forward.outside({ url: OtherUtils.getDomain() + "mypromotion.htm", newView: true });
+            },
+            toRecommend: function() {
+                if (!CustomerUtils.isLoged()) {
+                    JSBridge.forward.inside({ url: "common/login.htm", newView: true });
+                    return;
+                }
+                console.log(OtherUtils.getDomain() + "lucky_pot.htm")
+                JSBridge.forward.outside({ url: OtherUtils.getDomain() + "lucky_pot.htm", newView: true });
+            },
+            bindMobile: function() {
+                if (this.mobileBinded) {
+                    JSBridge.forward.inside({ url: "customer/change_mobile.htm", newView: true });
+                } else {
+                    JSBridge.forward.inside({ url: "customer/bind_mobile.htm", newView: true });
+                }
+            },
+            bindEmail: function() {
+                if (this.emailBinded) {
+                    JSBridge.forward.inside({ url: "customer/change_email.htm", newView: true });
+                } else {
+                    JSBridge.forward.inside({ url: "customer/bind_email.htm", newView: true });
+                }
+            },
+            bankCardHandler: function() {
+                if (this.cardBinded) {
+                    JSBridge.forward.inside({ url: "customer/bank_list.htm", newView: true });
+                } else {
+                    JSBridge.forward.inside({ url: "customer/bank_add.htm", newView: true });
+                }
+            },
+            toWithdrawal: function() {
+                var _this = this;
+                if (!this.isCompelete) {
+                    JSBridge.forward.inside({ url: "customer/personal_info.htm", newView: true });
+                    return;
+                }
+                /*
+                if (!this.mobileBinded) {
+                    JSBridge.forward.inside({url: "customer/bind_mobile.htm", newView: true});
+                    return;
+                }
+                */
+
+                new Promise(function(resolve, reject) {
+                    if (_this.cardChecked) {
+                        return (_this.cardBinded ? resolve : reject)();
+                    }
+
+                    CheckUtil.cardBinded(resolve, reject);
+                }).then(function() {
+                    JSBridge.forward.inside({ url: "customer/withdrawal.htm", newView: true });
+                }).catch(function() {
+                    JSBridge.forward.inside({ url: "customer/bank_list.htm", newView: true });
+                });
+            },
+            toPersonalInfo: function() {
+                JSBridge.forward.inside({ url: "customer/personal_info.htm", newView: true });
+            },
+            toPayment: function (payment, key) {
+                var _this = this;
+                new Promise(function (resolve, reject){
+                    if(!payment.available) {
+                        reject("存款方式不可用")
+                        return 
+                    }
+
+                    var customer = CustomerUtils.getCustomer();
+                    // 如果不需要提示，则直接跳转
+                    if(
+                        // 如果不是是在线支付和扫码支付
+                        !["online", "QRCode"].includes(key)
+                        // 如果迅捷支付和手工存款都未打开
+                        || (
+                                !_this.paymentList.xunjie.available
+                                && !_this.paymentList.manual.available
+                            )
+                        // 如果已绑定手机
+                        || _this.mobileBinded
+                        // 如果是0星级
+                        || customer.customer_level > 0
+                        // 如果信用等级为0
+                        || customer.deposit_level > 0
+                    ) {
+                        resolve(payment.url);
+                        return
+                    }
+
+                    $.pop.msg(
+                        "温馨提示",
+                        "是否进行手机号验证",
+                        [
+                            {
+                                "text": "是",
+                                "event": function () {
+                                    resolve(payment.url)
+                                }
+                            },
+                            {
+                                "text": "否",
+                                "event": function () {
+                                    if(_this.paymentList.xunjie.available) {
+                                        resolve(_this.paymentList.xunjie.url);
+                                        return;
+                                    }
+
+                                    if(_this.paymentList.manual.available) {
+                                        resolve(_this.paymentList.manual.url);
+                                        return;
+                                    }
+
+                                    reject("存款方式不可用");
+                                }
+                            }
+                        ]
+                    );
+                }).then(function (url) {
+                    JSBridge.forward.inside({
+                        url: url,
+                        newView: true
+                    });
+                }).catch(function (msg) {
+                    console.log(msg)
+                })
+            }
+        },
+        computed: {
+            safeFlag: function() {
+                return !this.mobileBinded || !this.emailBinded;
+            }
+        }
+    });
+
+    // 自适应宽度
+    // function depositWidthStyle() {
+    //     var w = $(".usercenter_content .usercenter_info").width();
+    //     if (w > 480) {
+    //         $(".usercenter_deposit h3").attr("style", "margin-bottom:-6px");
+    //         $(".usercenter_deposit h3 .desc").attr("style", "top:-23px");
+    //     }
+    //     $(".usercenter_deposit h3 .desc").width(w - 100);
+    // }
+
+    // 支付状态
+    function checkPaymentStatus() {
+        var _this = contentData,
+            expireAt = 120,
+            cacheKey = 'paymentStatusByAllData',
+            cacheTime = (new Date()).getTime();
+
+        new Promise(function (resolve, reject) {
+            var dataCache = JSBridge.cache.get(cacheKey);
+
+            if(dataCache) {
+                resolve(dataCache);
+                return ;
+            }
+            JSBridge.net.invoke({
+                loading: false,
+                url: "A01/payment/status",
+                success: function(result) {
+                    resolve(result);
+                    JSBridge.cache.save(cacheKey, result, expireAt * 1000);
+                },
+                error: reject
+            });
+        }).then(function (result) {
+            var key;
+            for(key in _this.paymentList) {
+                _this.paymentList[key].available = !! result[key];
+            }
+            
+        }).catch(function (e) {
+            console.log(e);
+        });
+    }
+
+    function letterUnviewed() {
+        function exclusiveTimeout() {
+            setTimeout(function(){
+                contentData.exclusiveStep = 2;
+                $(".exclusiveLink p").fadeOut(4500, function(){
+                    $(".exclusiveLink").html('<marquee scrollamount="2"><span>您的专属网址：</span><a forward="forward" method="outside" browser="true" href="http://'+ contentData.exclusive +'" newview="true">'+ contentData.exclusive +'</a><i>(速度更快 游戏更流畅)</i></marquee>').show();
+                });
+                // <marquee scrollamount="2"><span>您的专属网址：</span><a @click="toExclusive">{{exclusive}}</a><i>(速度更快 游戏更流畅)</i></marquee>
+            }, 5000);
+        }
+
+        var _this = contentData,
+            expireAt = 60,
+            cacheKey = 'letterUnviewedData',
+            cacheTime = (new Date()).getTime(),
+            dataCache = JSBridge.cache.get(cacheKey);
+
+        if (dataCache && cacheTime < dataCache.outtime) {
+            var value = dataCache.data;
+            _this.messageUnReadCount = value.letterNum;
+            _this.exclusive = value.exclusive;
+            /*if (_this.exclusive) {
+                exclusiveTimeout();
+            }*/
+        } else {
+            JSBridge.net.invoke({
+                loading: false,
+                url: "letter/isUnviewed",
+                data: {islink:1},
+                success: function(result) {
+                    _this.messageUnReadCount = result.letterNum;
+                    _this.exclusive = result.exclusiveLink;
+                    /*if (_this.exclusive) {
+                        exclusiveTimeout();
+                    }*/
+                    result.exclusive = _this.exclusive;
+                    JSBridge.cache.save(cacheKey, {
+                        data: result,
+                        outtime: cacheTime + expireAt * 1000
+                    }, 1);
+                }
+            });
+        }
+    }
+
+    JSBridge.onReady(function() {
+        // depositWidthStyle();
+
+        if (!CustomerUtils.isLoged()) {
+            Object.assign(contentData, defaultData);
+            return;
+        }
+
+        contentData.isLoged = true;
+
+        CustomerUtils.loadCustomer(function(customer) {
+            var localcredit = parseFloat(customer.credit) + parseFloat(customer.game_credit) * parseFloat(customer.currency_rate);
+            var localcreditFixed = parseFloat(localcredit).toFixed(2);
+            var isCompelete = customer.real_name && customer.verify_code;
+            var messageUnReadCount = 0;
+
+            contentData.loginName = customer.login_name;
+            contentData.customerLevel = customer.customer_level;
+            contentData.localcredit = localcreditFixed;
+            contentData.isCompelete = isCompelete;
+            contentData.messageUnReadCount = messageUnReadCount;
+        });
+
+        /*JSBridge.net.invoke({
+            loading: false,
+            url: "letter/isUnviewed",
+            data: {islink:1},
+            success: function(result) {
+                contentData.messageUnReadCount = result.letterNum;
+                contentData.exclusiveLink = result.exclusiveLink;
+            }
+        });*/
+
+        letterUnviewed();
+
+        // 支付状态
+        checkPaymentStatus();
+
+        CheckUtil.mobileBinded(function() {
+            contentData.mobileBinded = true;
+        }, function() {
+            contentData.mobileBinded = false;
+        });
+        CheckUtil.emailBinded(function() {
+            contentData.emailBinded = true;
+        }, function() {
+            contentData.emailBinded = false;
+        });
+        CheckUtil.cardBinded(function() {
+            contentData.cardChecked = true;
+            contentData.cardBinded = true;
+        }, function() {
+            contentData.cardChecked = true;
+            contentData.cardBinded = false;
+        });
+    });
+})();
+</script>

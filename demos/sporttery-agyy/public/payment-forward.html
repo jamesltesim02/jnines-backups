@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="yes"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="google" value="notranslate"/>
+  </head>
+  <body>
+    <div>正在转到页面,请稍后...</div>
+    <form id="orderForm" method="POST"></form>
+    <script>
+      var orderForm = document.querySelector('#orderForm');
+      var orderInfoStr = decodeURIComponent(location.search.substring(1));
+      var orderInfo = JSON.parse(orderInfoStr);
+      var formContent = '';
+
+      Object.entries(orderInfo.orderMap).forEach((pair) => {
+        formContent += '<input type="hidden" name="' + pair[0] + '" value="' + pair[1] + '" />';
+      });
+
+      orderForm.innerHTML = formContent;
+      orderForm.action = orderInfo.orderUrl;
+      orderForm.submit();
+    </script>
+  </body>
+</html>

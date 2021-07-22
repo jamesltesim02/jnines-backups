@@ -1,0 +1,63 @@
+.nb-order-bet-submiter {
+  position: relative;
+  height: 0;
+  transition: all .15s;
+}
+
+.nb-order-bet-submiter.nb-active {
+  border-top: 1px solid #ddd;
+  height: 5.46rem;
+}
+
+.nb-order-bet-submiter.nb-unlogin.nb-active {
+  height: 5rem;
+}
+
+.nb-order-item-input {
+  padding: .2rem .3rem;
+}
+.nb-order-bet-stitle {
+  display: flex;
+  font-size: .26rem;
+  color: rgba(255,255,255, .7);
+  margin-top: .2rem;
+}
+.nb-order-bet-stitle > div {
+  width: 50%;
+  color: #666666;
+}
+.nb-order-bet-stitle span {
+  color: #53C0FF;
+}
+.nb-order-bet-betting {
+  text-align: right;
+}
+.nb-order-bet-borad {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.nb-order-bet-borad a {
+  display: block;
+  background: #777;
+  border-radius: .08rem;
+  line-height: .8rem;
+  width: 1.48rem;
+  text-align: center;
+  margin-bottom: .2rem;
+  color: #fff;
+}
+.nb-order-bet-borad a.nb-order-bet-submit {
+  width: 3.24rem;
+  background: #53C0FF;
+}
+.nb-order-bet-borad a.nb-bet-active {
+  background: #505050;
+}
+.nb-order-borads {
+  position: relative;
+}
+
+.nb-order-bet-submiter .nb-keyboard {
+  margin-top: -.2rem;
+}

@@ -1,0 +1,12 @@
+.nb_Button {
+  background: #53C0FF;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+  border-radius: 4px;
+  height: .8rem;
+  line-height: .8rem;
+  width: 100%;
+  color: #fff;
+  box-sizing: border-box;
+  font-size: .34rem;
+  text-align: center;
+}

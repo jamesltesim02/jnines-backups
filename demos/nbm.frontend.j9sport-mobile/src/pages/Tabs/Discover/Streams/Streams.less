@@ -1,0 +1,112 @@
+.stream-list {
+  padding: 0 10px;
+}
+.stream-item {
+  display: grid;
+  grid-template-rows: 15px 1fr;
+  height: 140px;
+  margin-bottom: 10px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border-radius: 5px;
+  padding: 15px;
+  & > header {
+    display: grid;
+    grid-template-columns: 20px 1fr 80px;
+    align-items: center;
+    height: 15px;
+    color: #888;
+    font-size: 12px;
+    time {
+      text-align: right;
+      white-space: nowrap;
+    }
+  }
+  var {
+    color: #bbbbbb;
+  }
+  ul {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    align-items: center;
+    justify-content: center;
+    li {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      img {
+        margin-bottom: 10px;
+      }
+      label {
+        color: #bbbbbb;
+      }
+      button {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, .4);
+        border-radius: 50%;
+        &::after {
+          content: "";
+          display: inline-block;
+          border-left: 16px solid #fff;
+          border-top: 9px solid transparent;
+          border-bottom: 9px solid transparent;
+          transform: translateX(2px);
+        }
+      }
+      div {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 16px;
+      }
+    }
+  }
+  &.match-10-1 { background-image: url(./images/10/1.jpg); }
+  &.match-10-2 { background-image: url(./images/10/2.jpg); }
+  &.match-10-3 { background-image: url(./images/10/3.jpg); }
+  &.match-10-4 { background-image: url(./images/10/4.jpg); }
+  &.match-10-5 { background-image: url(./images/10/5.jpg); }
+  &.match-11-1 { background-image: url(./images/11/1.jpg); }
+  &.match-11-2 { background-image: url(./images/11/2.jpg); }
+  &.match-11-3 { background-image: url(./images/11/3.jpg); }
+  &.match-11-4 { background-image: url(./images/11/4.jpg); }
+  &.match-11-5 { background-image: url(./images/11/5.jpg); }
+  &.match-12-1 { background-image: url(./images/12/1.jpg); }
+  &.match-12-2 { background-image: url(./images/12/2.jpg); }
+  &.match-12-3 { background-image: url(./images/12/3.jpg); }
+  &.match-12-4 { background-image: url(./images/12/4.jpg); }
+  &.match-12-5 { background-image: url(./images/12/5.jpg); }
+  &.match-13-1 { background-image: url(./images/13/1.jpg); }
+  &.match-13-2 { background-image: url(./images/13/2.jpg); }
+  &.match-13-3 { background-image: url(./images/13/3.jpg); }
+  &.match-13-4 { background-image: url(./images/13/4.jpg); }
+  &.match-13-5 { background-image: url(./images/13/5.jpg); }
+  &.match-14-1 { background-image: url(./images/14/1.jpg); }
+  &.match-14-2 { background-image: url(./images/14/2.jpg); }
+  &.match-14-3 { background-image: url(./images/14/3.jpg); }
+  &.match-14-4 { background-image: url(./images/14/4.jpg); }
+  &.match-14-5 { background-image: url(./images/14/5.jpg); }
+  &.match-15-1 { background-image: url(./images/15/1.jpg); }
+  &.match-15-2 { background-image: url(./images/15/2.jpg); }
+  &.match-15-3 { background-image: url(./images/15/3.jpg); }
+  &.match-15-4 { background-image: url(./images/15/4.jpg); }
+  &.match-15-5 { background-image: url(./images/15/5.jpg); }
+  &.match-16-1 { background-image: url(./images/16/1.jpg); }
+  &.match-16-2 { background-image: url(./images/16/2.jpg); }
+  &.match-16-3 { background-image: url(./images/16/3.jpg); }
+  &.match-16-4 { background-image: url(./images/16/4.jpg); }
+  &.match-16-5 { background-image: url(./images/16/5.jpg); }
+  &.match-99-1 { background-image: url(./images/99/1.jpg); }
+  &.match-99-2 { background-image: url(./images/99/2.jpg); }
+  &.match-99-3 { background-image: url(./images/99/3.jpg); }
+  &.match-99-4 { background-image: url(./images/99/4.jpg); }
+  &.match-99-5 { background-image: url(./images/99/5.jpg); }
+}

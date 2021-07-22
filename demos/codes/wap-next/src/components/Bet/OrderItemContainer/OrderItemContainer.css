@@ -1,0 +1,8 @@
+.nb-order-item-container {
+  position: relative;
+  background-image: linear-gradient(90deg, #FFFFFF 0%, #F1F1F1 98%);
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+  border-radius: 10px;
+  margin-bottom: .2rem;
+  overflow: hidden;
+}

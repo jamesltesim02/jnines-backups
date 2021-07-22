@@ -1,0 +1,23 @@
+.tab-menu {
+  position: sticky;
+  top: 47px;
+  z-index: 5;
+  white-space: nowrap;
+  background-color: var(--app-background-color);
+  button {
+    height: 50px;
+    padding: 10px;
+    &:not(:first-child) {
+      margin-left: 20px;
+    }
+    label {
+      transition: all 0.3s ease-out;
+      font-size: 14px;
+      line-height: 18px;
+    }
+    &.active label {
+      color: var(--highlight-color);
+      font-size: 18px;
+    }
+  }
+}

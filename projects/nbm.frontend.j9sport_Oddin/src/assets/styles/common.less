@@ -1,0 +1,55 @@
+@import './theme.dark.less';
+@import './theme.light.less';
+@import './reset';
+
+body.pc {
+  ::-webkit-scrollbar-track
+  {
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar
+  {
+    width: 5px;
+    background-color: rgba(0,0,0,0);
+  }
+
+  ::-webkit-scrollbar-thumb
+  {
+    &:hover {
+      background-color: var(--scrollbar-thumb-hover);
+    }
+    border-radius: 10px;
+    background-color: var(--scrollbar-thumb-color);
+  }
+  .match-list .list {
+    overflow: hidden;
+    // overflow: hidden overlay;
+    &:hover {
+      overflow: hidden overlay;
+    }
+  }
+}
+#root {
+  color: var(--first-color);
+  font-size: 12px;
+}
+
+@keyframes blink {
+  from,
+  50%,
+  to {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+
+* {
+  transition: background-color .3s ease-out,
+              color .3s ease-out,
+              border-color .3s ease-out,
+              box-shadow .3s ease-out;
+}

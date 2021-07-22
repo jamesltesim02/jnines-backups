@@ -1,0 +1,31 @@
+.anno-detail {
+  overflow-y: auto;
+  .header {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: var(--first-color);
+    background-color: var(--header-bgc);
+  }
+  &-container {
+    padding: 10px;
+    .title {
+      font-size: 18px;
+    }
+    .time {
+      height: 40px;
+      line-height: 40px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--option-label-color);
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .content {
+      margin-top: 10px;
+      line-height: 24px;
+      font-size: 14px;
+      color: var(--option-label-color);
+    }
+  }
+}

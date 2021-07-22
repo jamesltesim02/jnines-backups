@@ -1,0 +1,38 @@
+.discover-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  height: 47px;
+  border-bottom: 2px solid #121212;
+  background-color: var(--app-background-color);
+  section {
+    flex: 1 1;
+    height: 45px;
+    div {
+      display: flex;
+    }
+    a {
+      display: block;
+      padding: 0 10px;
+      line-height: 45px;
+      height: 45px;
+      text-align: center;
+      font-size: 16px;
+      color: #888;
+      transition: all 0.3s ease-out;
+      &.active {
+        font-size: 18px;
+        color: #bbb;
+      }
+    }
+  }
+  button.filter-button {
+    width: 0;
+    transition: all 0.3s ease-out;
+    overflow: hidden;
+    &.active {
+      width: 45px;
+    }
+  }
+}

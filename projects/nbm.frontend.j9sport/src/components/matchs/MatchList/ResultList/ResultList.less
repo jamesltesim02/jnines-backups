@@ -1,0 +1,115 @@
+.result-list {
+  display: grid;
+  grid-template-rows: 61px 1fr;
+  overflow: hidden;
+  // height: 100%;
+  background-color: var(--block-background-color);
+  border-radius: 4px;
+  & > header {
+    & > .count {
+      display: block;
+      line-height: 30px;
+      padding-left: 10px;
+      border-bottom: 1px solid var(--app-background-color);
+      b {
+        margin: 0 2px;
+      }
+    }
+    & > .title {
+      display: grid;
+      height: 30px;
+      align-items: center;
+      border-top: 1px solid var(--app-background-color);
+      border-bottom: 1px solid var(--app-background-color);
+      .common {
+        display: grid;
+        grid-template-columns: 10fr 14fr;
+        label {
+          padding-left: 20px;
+        }
+      }
+    }
+  }
+  &-container {
+    height: 100%;
+    overflow: hidden auto;
+    &-item {
+      display: grid;
+      border-bottom: 1px solid var(--app-background-color);
+      .favorite-button {
+        display: none;
+      }
+      &:nth-child(odd) {
+        background-color: var(--match-odd-color);
+      }
+      .list-versus .ops {
+        display: none;
+      }
+    }
+    &-item, &-item label {
+      cursor: default;
+    }
+    &-item > .score-item li {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:first-child {
+          border-bottom: 1px solid var(--app-background-color);
+        }
+      }
+      &:not(:first-child) {
+        border-left: 1px solid var(--app-background-color);
+      }
+      &:last-child {
+        color: var(--high-light-color);
+        font-weight: 600;
+        
+      }
+    }
+  }
+  & > header > .title,
+  .result-list-container-item {
+    grid-template-columns: 3fr 2fr;
+  }
+  .score-title,
+  .score-item {
+    display: grid;
+    text-align: center;
+  }
+}
+
+.result-list.result-10 {
+  & > header > .title,
+  .result-list-container-item {
+    grid-template-columns: 3fr 2fr;
+  }
+  .score-title,
+  .score-item {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.result-list.result-11 {
+  & > header > .title,
+  .result-list-container-item {
+    grid-template-columns: 1fr 1fr;
+  }
+  .score-title,
+  .score-item {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.result-list.result-12 {
+  & > header > .title,
+  .result-list-container-item {
+    grid-template-columns: 2fr 3fr;
+  }
+  .score-title,
+  .score-item {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}

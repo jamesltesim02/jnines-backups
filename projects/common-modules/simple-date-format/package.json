@@ -1,0 +1,15 @@
+{
+  "name": "simple-date-format",
+  "version": "1.0.0",
+  "description": "简易版转换日期到字符串工具",
+  "main": "lib/index.js",
+  "author": "Connor",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.nbmm.co:38888/fe/common-modules/simple-date-format.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

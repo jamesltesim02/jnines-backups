@@ -1,0 +1,36 @@
+.nb_fixed_sport{
+    height: .88rem;
+    line-height: .88rem;
+    background: #3F4045;
+    width: 7.5rem;
+    color: #fff;
+    font-size: .48rem;
+    padding: 0 .2rem;
+}
+.nb_fixed_sport a {
+    height: 100%;
+    float: left;
+    position: relative;
+    width: .88rem;
+    line-height: .88rem;
+
+}
+.nb_curretbd::before {
+    content: '';
+    position: absolute;
+    width: 0.4rem;
+    height: 2px;
+    left: 50%;
+    margin-left: -0.2rem;
+    bottom: 0;
+    background: #53FFFD;
+    border-radius: 100px;
+}
+.nb_fixed_sport span {
+    float: left;
+    width: 100%;
+    height: 100%;
+    line-height: .88rem;
+    text-align: center;
+}
+

@@ -1,0 +1,51 @@
+.inplay-title {
+  b {
+    position: relative;
+    margin-right: 10px;
+    padding: 0 7px 0 18px;
+    border: 1px solid;
+    font-size: 12px;
+    border-radius: 2px;
+    color: var(--live-tag-color);
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 39px;
+      display: block;
+      width: 7px;
+      height: 7px;
+      background-color: var(--live-tag-color);
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.featured-title {
+  label {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+  .icon-nav {
+    height: 17px;
+    width: 17px;
+    margin-right: 5px;
+  }
+}
+.home-tophalf {
+  background-color: var(--app-background-color);
+}
+
+.mgt5 {
+  margin-top: 5px;
+}
+
+.home-banner-loading {
+  height: calc((100vw - 20px) * 0.35211268);
+  max-height: 350px;
+}
+.home-matchs-loading {
+  padding: 80px 0;
+}

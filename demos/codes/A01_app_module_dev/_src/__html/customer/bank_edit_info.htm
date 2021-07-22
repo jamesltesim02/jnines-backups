@@ -1,0 +1,413 @@
+<script src="@module/city-dic/dist/city-dic.min.js"></script>
+<template id="contentTmpl">
+    <div class="display_flex_h bank_info">
+        <div class="main_content">
+            <div class="add_bank_card_content _03" v-show="step==2">
+                <div class="layout_form">
+                    <div class="form_field_wrap">
+                        <div class="form_field">
+                            <span class="label">持卡人姓名</span>      
+                            <div class="input_wrap txt_right">
+                                <div class="reservedInfo">
+                                    <input read-only class="txt_right" type="text" readonly v-bind:value="mixed(bank_account_name)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form_field">
+                            <span class="label">开户行</span>      
+                            <div class="input_wrap txt_right">
+                                <select v-model="bank_name" v-on:change="bankNameSelect">
+                                    <option value="">请选择收款银行类别</option>
+                                    <option value="招商银行">招商银行</option>
+                                    <option value="交通银行">交通银行</option>
+                                    <option value="农业银行">农业银行</option>
+                                    <option value="工商银行">工商银行</option>
+                                    <option value="建设银行">建设银行</option>
+                                    <option value="中国银行">中国银行</option>
+                                    <option value="民生银行">民生银行</option>
+                                    <option value="光大银行">光大银行</option>
+                                    <option value="兴业银行">兴业银行</option>
+                                    <option value="平安银行">平安银行</option>
+                                    <option value="中信银行">中信银行</option>
+                                    <option value="浦发银行">浦发银行</option>
+                                    <option value="广发银行">广发银行</option>
+                                    <option value="华夏银行">华夏银行</option>
+                                    <option value="中国邮政银行">中国邮政银行</option>
+                                    <option value="深圳发展银行">深圳发展银行</option>
+                                    <option value="农村信用合作社">农村信用合作社</option>
+                                </select>
+                            </div>
+                        </div>  
+                        <div class="form_field">
+                            <span class="label">卡片类别</span>      
+                            <div class="input_wrap txt_right">
+                                <select v-model="bank_account_type">
+                                    <option value="借记卡">借记卡</option>
+                                    <option value="信用卡">信用卡</option>
+                                    <option value="存折">存折</option>
+                                </select>
+                            </div>
+                        </div>  
+                        <div class="form_field">
+                            <span class="label">卡号</span>      
+                            <div class="input_wrap txt_right">
+                                <input v-model.trim="bank_account_no" class="txt_right" type="text" placeholder="请输入银行卡号" maxlength="19" />
+                            </div>
+                        </div>  
+                        <div class="form_field">
+                            <span class="label">开户省份</span>      
+                            <div class="input_wrap txt_right">
+                                <select v-model.trim="bank_country" id="prov" name="province" v-on:change="provinceSelect">
+                                    <option v-for="p in provinces" :value="p">{{p || "请选择省份"}}</option>
+                                </select>
+                            </div>
+                        </div>  
+                        <div class="form_field">
+                            <span class="label">开户城市</span>      
+                            <div class="input_wrap txt_right">
+                                <select v-model.trim="bank_city" id="accountcity" name="city">
+                                    <option v-for="c in citys" :value="c">{{c || "请选择城市"}}</option>
+                                </select>
+                            </div>
+                        </div>  
+                        <div class="form_field">
+                            <span class="label">开户网点</span>      
+                            <div class="input_wrap txt_right">
+                                <input v-model.trim="branch_name" class="txt_right" type="text" placeholder="请填写具体开户地点" maxlength="20" />
+                            </div>
+                        </div>
+                    </div>
+                    <p v-show="isSlow" style="text-align:center;padding-top:15px;color:#d19538;">绑定此银行取款较慢，取款24小时内到账</p>
+                    <div class="form_btn-wrap">
+                        <a @click="saveBank" class="btn btn-lg btn-blu3" style="width:40%;float:left;font-size:1.2rem;line-height:40px;height:auto;padding:1px 3px;">保存</a>
+                        <a @click="saveDefaultBank" class="btn btn-lg btn-ylw" style="width:50%;float:right;font-size:1.2rem;line-height:40px;height:auto;padding:1px 3px;">保存并设置为取款卡</a>
+                    </div>
+                </div>  
+            </div>
+
+            <div class="bank_card_edit_info" v-show="step==1">
+                <ul class="verify">
+                    <li v-show="isManual"><p>原绑定电话:</p><i class="icon"></i></li>
+                    <li v-show="isManual"><p>{{phone}}</p></li>
+                    <li v-show="isManual"><p>核对原来绑定电话：</p></li>
+                    <li v-show="isManual">
+                        <input type="text" v-model.trim="newPhone" maxlength="11" placeholder="输入绑定的手机号" v-on:blur="blurVerify" />
+                        <i class="icon" v-bind:class="phoneState" @click="phoneEmptyInput"></i>
+                    </li>
+                    <li><p>原绑定银行卡：</p></li>
+                    <li><p>{{bankcardNo}}</p></li>
+                    <li><p>核对原来绑定银行卡：</p></li>
+                    <li>
+                        <input type="text" v-model.trim="newBankcardNo" maxlength="19" placeholder="输入绑定的银行卡号" v-on:blur="blurVerify" />
+                        <i class="icon" v-bind:class="bankcardNoState" @click="bankcardNoEmptyInput"></i>
+                    </li>
+                </ul>
+                <a @click="checkVerifyInfo" class="yellow">下一步</a>
+            </div>
+
+            <div class="add_bank_card_content _02" v-show="step==3">
+                <div class="success-msg">
+                    <div class="icon-content" v-if="isSuccess"><img src="../../__static/__images/add_bank_card/ok.png"></div>
+                    <div class="icon-content" v-else><img src="../../__static/__images/add_bank_card/warn.png"></div>
+                    <p class="p1">{{sucTitle}}</p>
+                    <p class="p2">{{sucContent}}</p>
+                    <div class="button-content">
+                        <div class="form_btn-wrap">                
+                            <a forward="inside" newview="true" href="customer/member_center.htm" class="btn btn-lg btn-blu3" style="height:41px;">会员中心</a>
+                            <a forward="inside" newview="true" href="customer/bank_list.htm" class="btn btn-lg btn-ylw" style="height:41px;">银行卡资料</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+
+;(function() {
+    var contentData = {
+        "loginName": "",
+        "bankcardId": "",
+        "bankcardNo": "",
+        "phone": "",
+        "newBankcardNo": "",
+        "newPhone": "",
+        "bank_account_name":'',
+        'bank_name':'',
+        'bank_account_type':'借记卡',
+        'bank_account_no':'',
+        'bank_country':'',
+        'bank_city':'',
+        'branch_name':'',
+        'save_default': 0,
+        'provinces': CityUtils.getProvinces(),
+        'citys': [""],
+        "bankcardNoState":"icon_enter",
+        "phoneState":"icon_enter",
+        "step": 1,
+        "isManual": false,
+        "isSlow": false,
+        "sucTitle": "修改成功",
+        "sucContent": "修改银行资料成功",
+        "isSuccess": true
+    };
+    appState.setData({
+        needLogin: true,
+        title: '修改银行卡',
+    });
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function() {
+            return contentData;
+        },
+        watch: {
+            bank_country: function (n, o) {
+                this.citys = CityUtils.getCitys(this.bank_country);
+                this.bank_city = this.bank_city ? this.bank_city : "";
+            }
+        },
+        methods: {
+            provinceSelect: function(){
+                this.citys = CityUtils.getCitys(this.bank_country);
+                this.bank_city = "";
+            },
+            bankNameSelect: function(){
+                this.isSlow = isSlowByBankcard();
+            },
+            phoneEmptyInput: function() {
+                this.newPhone = "";
+            },
+            bankcardNoEmptyInput: function() {
+                this.newBankcardNo = "";
+            },
+            blurVerify: function(){
+                if (this.isManual) {
+                    if (!this.newPhone || !this.newPhone.match(/^1[34578]\d{9}$/)) {
+                        this.phoneState = 'icon_enter';
+                    } else {
+                        // this.phoneState = 'icon_ok';
+                    }
+                } else {
+                    // this.phoneState = 'icon_ok';
+                }
+
+                if (!this.newBankcardNo || !this.newBankcardNo.match(/^\d{16,19}$/)) {
+                    this.bankcardNoState = 'icon_enter';
+                } else {
+                    // this.bankcardNoState = 'icon_ok';
+                }
+            },
+            checkVerifyInfo: function() {
+                var _this = this;
+                if (_this.isManual && (!_this.newPhone || !_this.newPhone.match(/^1[34578]\d{9}$/))) {
+                    $.toast.fail("请输入正确绑定的手机号");
+                    return;
+                }
+
+                if (!_this.newBankcardNo || !_this.newBankcardNo.match(/^\d{16,19}$/)) {
+                    $.toast.fail("请输入正确绑定的银行卡号");
+                    return;
+                }
+
+                JSBridge.net.invoke({
+                    url: "bankcard/editverify",
+                    data: {
+                        'phone':_this.newPhone,
+                        'bankcardId':_this.bankcardId,
+                        'bankcardNo':_this.newBankcardNo
+                    },
+                    success: function (result) {
+                        _this.phoneState = _this.bankcardNoState = 'icon_ok';
+                        _this.isSlow = isSlowByBankcard();
+                        setTimeout(function(){
+                            _this.step = 2;
+                        }, 1000);
+
+                        setTimeout(function(){
+                            _this.bankcardNo = _this.newBankcardNo;
+                        }, 2000);
+                    },
+                    error: function (error) {
+                        $.toast.fail(error.message ? error.message : "原始资料不正确,请核实");
+                    }
+                });
+            },
+            saveDefaultBank: function() {
+                this.save_default = 1;
+                this.saveBank();
+            },
+            saveBank: function () {
+                var _this = this;
+                if (getexpire()) {
+                    return true;
+                }
+
+                if (_this.bank_name == ''){
+                    $.toast.fail("请正确选择银行类型");
+                    return;
+                } else if(_this.bank_account_type == ''){
+                    $.toast.fail('请正确选择卡片类别');
+                    return; 
+                } else if (!(/[\d]+\*/.test(_this.bank_account_no)) &&  !/^\d{16,19}$/.test(_this.bank_account_no)){
+                    $.toast.fail("银行账号一般长度在16至19位");
+                    return;
+                } else if (!_this.bank_country){
+                    $.toast.fail('请正确选择开户省份');
+                    return;
+                } else if (!_this.bank_city){       
+                    $.toast.fail('请正确选择开户城市');
+                    return;     
+                } else if (!_this.branch_name.match(/^[^\s\"\'\`\,]{2,20}$/)){
+                    $.toast.fail('请正确输入开户网点,且长度必须在 2和 20之间');
+                    return;
+                } else if (_this.bankcardNo==_this.bank_account_no) {
+                    $.toast.fail('修改的银行卡号与原卡号相同');
+                    return;
+                }
+
+                setexpire();
+                var oldInfo = getEditCacheData();
+                JSBridge.net.invoke({
+                    url: "bankcard/update",
+                    data: {
+                        'customer_bank_id': _this.bankcardId,
+                        'bank_account_name':_this.bank_account_name,
+                        'bank_name':_this.bank_name,
+                        'bank_account_type':_this.bank_account_type,
+                        'bank_account_no':_this.bank_account_no,
+                        'bank_country':_this.bank_country,
+                        'bank_city':_this.bank_city,
+                        'branch_name':_this.branch_name,
+                        'bank_flag':1,
+                        'save_default':_this.save_default,
+                        'old_bank_account_name': oldInfo.bank_account_name,
+                        'old_bank_account_no': oldInfo.bank_account_no,
+                        'old_bank_account_type': oldInfo.bank_account_type,
+                        'old_bank_country': oldInfo.bank_country,
+                        'old_bank_city': oldInfo.bank_city,
+                        'old_bank_name': oldInfo.bank_name,
+                        'old_branch_name': oldInfo.branch_name,
+                        'old_bank_flag': oldInfo.bank_flag,
+                        'old_priority_order': oldInfo.priority_order,
+                    },
+                    success: function (result) {
+                        if (!_this.isManual) {
+                            JSBridge.net.invoke({
+                                url: "apply/approve",
+                                data: {
+                                    'request_id': result.request_id,
+                                    'request_type': '06'
+                                },
+                                success: function (result) {}
+                            });
+                        }
+
+                        isEditBankCardMsg(true, '');
+                    },
+                    error: function (error) {
+                        isEditBankCardMsg(false, error.message?error.message:'修改银行资料失败');
+                    }
+                });
+            },
+            mixed: function (name) {
+                var len = name.length;
+                name = name && name.slice(0,1)+ '*'.repeat(len-2) + name.slice(len-1, len);
+                return name;
+            }
+        }
+    });
+
+    function isEditBankCardMsg(state, errmsg) {
+        var _this = contentData;
+
+        if (state) {
+            _this.sucTitle = _this.isManual ? ( _this.save_default ? '申请已提交,此卡已修改为默认取款卡':'申请已提交') : '修改成功';
+            _this.sucContent = _this.isManual ? '相关人员将在24小时内审核并添加,请耐心等待' : (_this.save_default ? '此卡已修改为默认取款卡' : '修改银行资料成功');
+            JSBridge.cache.delete(_this.loginName +"bankCardPhoneEditVerifyTimesData");
+        } else {
+            _this.sucTitle = '修改失败';
+            _this.sucContent = errmsg;
+        }
+
+        JSBridge.cache.delete(_this.loginName +"bankCardEditData");
+        _this.isSuccess = state;
+
+        setTimeout(function () {
+            _this.step = 3;
+        }, 1000);
+    }
+
+    function isSlowByBankcard(){
+        var _this = contentData;
+        var value = _this.bank_name;
+        if (!value) {
+            return false;
+        }
+
+        if (value=='工商银行' || value=='农业银行' || value=='建设银行' || value=='招商银行' || value=='交通银行' || value=='中国银行') {
+            return false;
+        }
+        return true;
+    }
+
+    function isFromPhoneVerify()
+    {
+        var _this = contentData,
+            times = 0;
+            cacheKey = _this.loginName +"bankCardPhoneEditVerifyTimesData";
+
+        var dataCache = JSBridge.cache.get(cacheKey);
+        if (dataCache && new Date().getTime() < dataCache.outtime) {
+            times = !dataCache.data.times ? 0 : parseInt(dataCache.data.times);
+        }
+
+        return times>3 ? false : true;
+    }
+
+    function getEditCacheData()
+    {
+        var bank=null, 
+            _this=contentData,
+            cacheKey = _this.loginName +"bankCardEditData";
+
+        var dataCache=JSBridge.cache.get(cacheKey);
+        if (dataCache && new Date().getTime() < dataCache.outtime) {
+            bank = dataCache.data;
+        }
+        return bank;
+    }
+
+    JSBridge.onReady(function() {
+        var _this = contentData;
+        CheckUtil.infoCompleted(function(customer){
+            _this.bank_account_name = customer.real_name;
+            _this.loginName = customer.login_name;
+            _this.phone = customer.phone;
+        },function(){
+            $.toast.fail("请先完善用户信息", function(){
+                JSBridge.forward.inside({url:'customer/personal_info.htm', newView: true});
+            });
+            return;
+        });
+        
+        var bankcardInfo = getEditCacheData();
+        if (!bankcardInfo) {
+            $.toast.fail("当前银行卡数据已过期，请重新进入修改页面", function(){
+                JSBridge.forward.inside({url:'customer/bank_list.htm', newView: true});
+            });
+            return;
+        } else{
+            _this.bankcardId = bankcardInfo.customer_bank_id;
+            _this.bankcardNo = bankcardInfo.bank_account_no;
+ /*           _this.bank_name = bankcardInfo.bank_name;
+            _this.bank_account_type = bankcardInfo.bank_account_type;
+            _this.bank_account_no = _this.bankcardNo = bankcardInfo.bank_account_no;
+            _this.bank_country = bankcardInfo.bank_country;
+            _this.bank_city = bankcardInfo.bank_city;
+            _this.branch_name = bankcardInfo.branch_name;*/
+        }
+        
+        _this.isManual = isFromPhoneVerify() ? false : true;
+    });
+})();
+</script>

@@ -1,0 +1,76 @@
+.singleTab {
+
+  .singleTab-queue {
+    transition: border .5s ease;
+    .bet-bar-change{
+      var {
+        color: var(--first-color);
+        animation: none;
+      }
+    }
+    &.success {
+      border: 1px solid #4ba64b;
+    }
+    &.failed {
+      border: 1px solid #d84b4b;
+    }
+
+  }
+
+  .singleTab-item,.singleTab-queue {
+    position: relative;
+    background-color: var(--bet-background-color);
+    height: auto;
+    width: 330px;
+    border-radius: 4px;
+    padding: 12px 10px;
+    margin-bottom: 10px;
+    div {
+      margin: 3px 0;
+    }
+    .betBtn {
+      border-radius: 2px;
+      height: 30px;
+      width: 60px;
+      background-color: var(--high-light-color);
+      color: var(--favorite-start-color);
+      margin-left: 10px;
+      &:active {
+        background-color: var(--deep-background-color);
+      }
+
+    }
+
+    .add-combo {
+      display: flex;
+      justify-content: space-between;
+      div {
+        vertical-align: sub;
+        margin-right: 10px;
+      }
+      .return-amount {
+        color: var(--high-light-color);
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+    }
+    .remove-bet {
+      position: absolute;
+      right: 15px;
+      cursor: pointer;
+    }
+    .bet-area {
+      display: flex;
+      align-items: center;
+      button[disabled] {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+  .singleQueue {
+    border-top: 1px solid var(--ticket-tr-border-bottom);
+    padding-top: 20px;
+    margin-top: 10px;
+  }
+}

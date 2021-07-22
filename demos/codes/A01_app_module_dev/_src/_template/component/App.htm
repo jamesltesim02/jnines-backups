@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="@module/ui-common/dist/ui-common.min.css">
+<link rel="stylesheet" href="../../__css/main.css">
+
+<script src="../../__js/common/constant.js"></script>
+<script src="@module/es6-shim/es6-shim.min.js"></script>
+<script src="@module/es7-shim/dist/es7-shim.min.js"></script>
+<script src="@module/hybrid-fastclick/dist/hybrid-fastclick.min.js"></script>
+<script src="@module/jquery/dist/jquery.min.js"></script>
+<script src="@module/jsbridge-core/dist/jsbridge-core.min.js"></script>
+<script src="@module/jsbridge-util/dist/jsbridge-util.min.js"></script>
+<script src="@module/vue/dist/vue.min.js"></script>
+<script src="@module/ui-common/dist/ui-common.min.js"></script>
+<script src="@module/business-util/dist/business-util.min.js"></script>
+
+<script src="../../__js/modules/dropload.min.js"></script>
+<script src="@module/iscroll/build/iscroll.js"></script>
+
+<script src="../../__js/common/utils.js"></script>
+
+<component src="_template/component/HImage.htm"></component>
+<component src="_template/component/AImage.htm"></component>
+<template id="appTmpl">
+    <div class="app-container" style="display: none;">
+        <div style="display: none;" id="proTitle">{{title}}</div>
+        <app-content></app-content>
+    </div>
+</template>
+<script>
+window.App = Vue.extend({
+    template: "#appTmpl",
+    data: function() {
+        return {
+            title: ""
+        };
+    }
+});
+FastClick.attach(document.body, { tapDelay: 100 });
+</script>

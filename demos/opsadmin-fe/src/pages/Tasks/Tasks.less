@@ -1,0 +1,108 @@
+.tasks-modal {
+  .ant-divider {
+    margin-top: -5px;
+    .ant-divider-inner-text {
+      font-size: 12px;
+    }
+  }
+  .ant-divider-horizontal.ant-divider-with-text::before,
+  .ant-divider-horizontal.ant-divider-with-text::after {
+    border-color: #ddd;
+  }
+  .file-upload {
+    overflow: hidden;
+    flex-wrap: nowrap;
+    .ant-form-item-control,
+    .ant-upload-list-text {
+      overflow: hidden;
+    }
+    .ant-form-item-control-input-content > span {
+      display: flex;
+      align-items: center;
+    }
+    .ant-upload-list-item {
+      margin-top: 0;
+      .ant-upload-list-item-card-actions-btn {
+        display: none;
+      }
+    }
+  }
+  form > .ant-row {
+    margin-bottom: 12px;
+  }
+  .ant-form-item-label > label.ant-form-item-required::before {
+    display: none !important;
+  }
+  .add-output-table {
+    margin-left: -15px;
+  }
+  .executable-tips {
+    color: #fa541c;
+  }
+  &.unexecutable .ant-btn-primary {
+    filter: grayscale(1);
+  }
+}
+
+.task-detail-modal {
+  .ant-col {
+    line-height: 32px;
+    font-size: 14px;
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    margin-bottom: 24px;
+    label {
+      display: block;
+      margin-right: 5px;
+    }
+  }
+  .ant-col-24 {
+    display: block;
+    margin-bottom: 24px;
+    label {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+    div {
+      overflow-x: auto;
+      width: 100%;
+      pre {
+        overflow: visible;
+      }
+      table {
+        min-width: 100%;
+        text-align: center;
+        border-top: 1px solid #f0f0f0;
+        border-left: 1px solid #f0f0f0;
+        th {
+          text-align: center;
+          padding: 5px 10px;
+        }
+        tr td {
+          border-bottom: 1px solid #f0f0f0;
+          border-right: 1px solid #f0f0f0;
+          min-width: 60px;
+          padding: 5px 10px;
+          white-space: nowrap;
+        }
+      }
+      .ant-pagination-options {
+        display: none;
+      }
+    }
+  }
+  .ant-modal-footer {
+    display: none;
+  }
+  .ant-collapse-content > .ant-collapse-content-box {
+    padding: 5px;
+  }
+}
+
+.detail-log-item {
+  max-height: 300px;
+  overflow: auto auto;
+  .ant-spin {
+    margin: 30px auto;
+  }
+}

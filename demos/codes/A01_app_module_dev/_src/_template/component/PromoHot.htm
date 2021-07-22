@@ -1,0 +1,82 @@
+<template id="promoHotTmpl">
+<div v-if="promoList && promoList.length" class="discount relative" style="padding-right:15px;">
+    <h2>热门优惠</h2>
+    <span class="xplore"><a newview="true" forward="forward" href="common/promotion_list.htm?index=1">探索更多 <i class="icon icon05"></i></a></span>
+    <ul class="discount_list">
+      <li v-for="h in promoList">
+        <div class="btn_wrap cols-2">
+            <div class="col1 col1">
+                <div class="col_inner" @click="toPromotion(h.href)">
+                    <h-img :src="h.imgurl"></h-img>
+                </div>
+            </div>
+            <div class="col2 col2">
+                <div class="col_inner">
+                    <div class="pad_wrap">
+                        <p class="title">{{h.name}}</p>
+                        <p class="subs">{{h.desc}}</p>
+                        <a @click="toPromotion(h.href)" :class="['btn','visit',loggedin]">查看详请</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </li>
+   </ul>
+</div>
+</template>
+<script>
+;(function () {
+    var promoHotData = {
+    	isNotLoged: true,
+    	loggedin: '',
+    	promoList: []
+    };
+    
+    Vue.component("promo-hot", {
+        template: "#promoHotTmpl",
+        data: function() {
+            return promoHotData;
+        },
+        methods: {
+        	toPromotion: function (url){
+                JSBridge.forward.outside({url: OtherUtils.formatOutsideUrl(url), newView:'true'});
+            }
+        }
+    });
+    
+    function getPromoList(){
+        var _this = promoHotData,
+           expireAt = 300,
+           cacheKey = 'promoHotData',
+           promoDataCache = JSBridge.cache.get(cacheKey);
+
+        if (promoDataCache && new Date().getTime() < promoDataCache.outtime) {
+            _this.promoList = promoDataCache.data;
+        } else {
+            JSBridge.net.invoke({
+                loading: false,
+                url: "A01/promotion/hotList",
+                data: {},
+                success: function (result) {
+                    _this.promoList = result;
+                    JSBridge.cache.save(cacheKey, {
+                        data: result,
+                        outtime: new Date().getTime() + expireAt*1000
+                    }, 1);
+                }
+            });
+        }
+    }
+    
+    JSBridge.onReady(function () {
+    	var _this = promoHotData;
+    	
+    	setTimeout(function(){
+	    	_this.isNotLoged = !CustomerUtils.isLoged();
+	    	_this.loggedin = _this.isNotLoged ? '' : 'loggedin';
+	    	
+	    	getPromoList();
+    	}, 800);
+    }); 
+})();
+</script>

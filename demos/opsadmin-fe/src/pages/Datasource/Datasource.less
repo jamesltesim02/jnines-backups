@@ -1,0 +1,107 @@
+.table-detail-form {
+  position: relative;
+  .row-name {
+    margin-bottom: 25px;
+  }
+  .ant-form-item {
+    margin-bottom: 0;
+    input,
+    .ant-select-selector,
+    .ant-input-number {
+      border: none;
+      box-shadow: none !important;
+    }
+  }
+  .ant-form-item-explain {
+    display: none;
+  }
+  table {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    margin-right:20px;
+    font-size: 12px;
+    td, th {
+      border: 1px solid #ddd;
+    }
+    th {
+      font-weight: 400;
+      background-color: #fcfcfc;
+      line-height: 24px;
+      text-align: center;
+      &:nth-child(1) {
+        width: 33%;
+      }
+      &:nth-child(2) {
+        width: 33%;
+      }
+      &:nth-child(3) {
+        width: 10%;
+      }
+      &:nth-child(4) {
+        width: 10%;
+      }
+      &:nth-child(5) {
+        width: 7%;
+        text-align: center;
+      }
+      &:nth-child(6) {
+        width: 7%;
+      }
+    }
+    td:nth-child(5) {
+      text-align: center;
+    }
+    td:nth-child(6) {
+      position: relative;
+      text-align: center;
+      .btn-delete {
+        position: absolute;
+        cursor: pointer;
+        color: #f5222d;
+        top: 50%;
+        right: -25px;
+        transform: translateY(-50%);
+      }
+    }
+    .ant-input-affix-wrapper {
+      border: none;
+    }
+    .ant-form-item-has-error {
+      box-shadow: 0 0 3px 0 #ff4d4f;
+    }
+  }
+  .btn-add {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.detail .table-detail-form {
+  .btn-add,
+  .btn-delete {
+    display: none;
+  }
+  table {
+    margin-right: 0;
+  }
+  .ant-input-affix-wrapper-disabled,
+  .ant-input-affix-wrapper-disabled input,
+  .ant-input-number-disabled,
+  .ant-select-disabled.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: #fff;
+    color: #333;
+  }
+}
+
+.detail .ant-modal-footer {
+  display: none;
+}
+
+.source-colum-select .ant-select-selection-item {
+  .ant-select-selection-item-content {
+    flex: 1 1;
+    text-align: center;
+  }
+  width: 106px;
+}

@@ -1,0 +1,291 @@
+<component src="_template/component/PhoneCallback.htm"></component>
+<style>
+    .header-fixed > section{
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 98;
+    }
+    div.pop_support ul li{
+        text-align: right
+    }
+
+    div.pop_support ul li.call-400{
+        text-align: center;
+        padding: 10px 0 5px;
+        height: auto;
+    }
+
+    div.pop_support ul li.call-400 a{
+        font-size: 1.4rem;
+        line-height: 1.5rem;
+        white-space: nowrap;
+    }
+
+    div.pop_support ul li a span.vip-service {
+        margin-left: 7px;
+    }
+    div.pop_support ul li a span.vip-service em {
+        font-size: 1rem;
+        font-style: normal;
+    }
+</style>
+<template id="headerTmpl">
+<div>
+    <!-- <div v-show="show" ref="header" :class="{'header-fixed': needFixed}" :style="{height: height}"> -->
+    <div v-show="show" ref="header" :class="{'header-fixed': needFixed}" style="height: auto">
+        <section class="header_index">
+            <div class="wrap normal_padding relative">
+                <div class="mid" v-if="!index">
+                    <div class="icon icon_logo_index" @click="showlog"></div>
+                </div>
+                <div class="mid" v-if="index">
+                    <!-- 暂时隐藏该按钮 -->
+                    <div class="icon icon_center" style="background: none;width: 0;"></div>
+                    <span class="icon-title">会员中心</span>
+                </div>
+                <div v-if="isLoged" @click="toLatter" class="contact">
+                    <div class="icon icon_msg"><span class="msg_notif" v-if="messageUnReadCount>0">{{messageUnReadCount}}</span></div>
+                    <div class="contact_text">消息</div>
+                </div>
+                <div @click.stop="toggleService" class="support">
+                    <div class="icon icon_headset"></div>
+                    <div class="support_text">咨询客服</div>
+                </div>
+                <div v-show="menuShow" class="pop_support">
+                    <div class="relative">
+                        <div class="triangle" style="border-bottom:none;">
+                            <img @click="menuShow=false" 
+                                src="../../__static/__images/icons/close_g.png" 
+                                style="width:25px;margin-left:25px;margin-top:-5px;">
+                        </div>
+                        <ul>
+                            <li>
+                                <a @click="openOnlineChat"><i class="icon icon_bubblechat"></i><span>在线客服</span></a>
+                            </li>
+                            <li>
+                                <a @click="openChat">
+                                    <i class="icon icon_microphone"></i>
+                                    <span style="margin-left: 25px;">语音聊天</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a @click="showCallback">
+                                    <i class="icon icon_fone"></i>
+                                    <span v-if="isvip" class="vip-service">VIP<em>经理回拨</em></span>
+                                    <span v-else>电话回拨</span>
+                                </a>
+                            </li>
+                            <li class="call-400">
+                                <a @click="call400(service400)"><span style="margin-left: 0">客服热线<br>{{service400}}</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div v-if="!isLoged && loginbar" class="header_btns btn_wrap cols-2">
+                    <div class="col col1">
+                        <div class="col_inner">
+                            <a forward="forward" newview="true" href="common/login.htm" class="btn btn-lg">用户登录</a>
+                        </div>
+                    </div>
+                    <div class="col col2">
+                        <div class="col_inner">
+                            <a forward="forward" newview="true" href="common/register.htm" class="btn btn-lg">立即开户</a>
+                        </div>
+                    </div>
+                </div>          
+            </div>
+        </section>
+    </div>
+    <phone-callback :show.sync="callShow" :isvip.sync="isvip"></phone-callback>
+</div>
+</template>
+<script type="text/javascript">
+Vue.component("app-header", {
+    template: "#headerTmpl",
+    props: ["loginbar","index"],
+    data: function (){ 
+        return {
+            isLoged: false,
+            callShow: false,
+            menuShow: false,
+            messageUnReadCount: 0,
+            height: "auto",
+            needFixed: false,
+            show: true,
+            service400: '400-088-7703',
+            isvip: false
+        };
+    },
+    mounted: function () {
+        var _this = this,
+        headerHeight = _this.$refs.header.offsetHeight,
+        top = _this.$refs.header.offsetTop;
+
+        // window.onscroll = function() {
+        //     var scrollOver = window.scrollY >= top;
+        //     _this.height = scrollOver ? headerHeight + "px" : "auto";
+        //     _this.needFixed = scrollOver;
+        // };
+
+        
+        $(document.body).on("click", ":not(.support)", function () {
+            _this.menuShow = false;
+        })
+        
+        
+        JSBridge.registerFunction("showCallback", function () {
+            _this.callShow = true;
+        });
+
+        JSBridge.registerFunction("openOnlineServiceChat", function () {
+            _this.openOnlineChat();
+        });
+
+        JSBridge.onReady(function() {
+            _this.isvip = false;
+            _this.isLoged = CustomerUtils.isLoged();
+            
+            if(!_this.isLoged) {
+                return;
+            }
+
+            // 未读站内信
+            new Promise(function (resolve, reject) {
+                var unviewed = JSBridge.cache.get("unviewed");
+                if(unviewed) {
+                    resolve(unviewed);
+                    return;
+                }
+
+                JSBridge.net.invokeSync("letter/isUnviewed", {loading: false})
+                .then(function (result) {
+                    resolve(result);
+                    JSBridge.cache.save("unviewed", result, 120000);
+                })
+            }).then(function (result) {
+                _this.messageUnReadCount = result;
+            });
+            
+            // vip回拨是否开启
+            new Promise(function (resolve, reject) {
+                var username = CustomerUtils.getCustomer().login_name;
+                var isvip = JSBridge.cache.get("isVipPhoneService-" + username);
+                if(typeof(isvip) != "undefined") {
+                    resolve(isvip);
+                    return;
+                }
+                JSBridge.net.invokeSync("A01/phones/isVipAvailable", {loading: false})
+                .then(function (result) {
+                    resolve(result);
+                    JSBridge.cache.save("isVipPhoneService" + username, result, 300000);
+                },
+                reject);
+            }).then(function (isvip) {
+                _this.isvip = isvip.available;
+            }).catch(function (error) {
+                $.toast.fail(error.message)
+            })
+            
+        });
+    },
+    methods: {
+        showlog: function () {
+
+            // 运营环境,不显示日志
+            return false;
+
+            this.logClickCount ++;
+            if(this.logTimer) {
+                clearTimeout(this.logTimer);
+            }
+            this.logTimer = setTimeout(function () {
+                this.logClickCount = 0;
+            }.bind(this), 500);
+
+            if(this.logClickCount > 5) {
+                return;
+            }
+            if(this.logClickCount == 5) {
+                JSBridge.driver.log();
+            }
+            if(this.logClickCount >= 2) {
+                $.toast.success("再点击" + Math.max(5 - this.logClickCount, 0) + "次打开日志");
+            }
+        },
+        toLatter: function () {
+            JSBridge.forward.inside({url: "customer/letter.htm", newView: true});
+        },
+        toggleService: function () {
+            var _this = this;
+            /*
+            var id = $(".header_index .pop_support");
+            if (id.hasClass('hide')) {
+                id.removeClass('hide').attr("is_show", 1);
+                setTimeout(function() {
+                    id.attr("is_show", 0);
+                    
+                    setTimeout(function () {
+                    	id.addClass('hide').attr("is_show", 0);
+                    }, 15000);
+                }, 200);
+            }*/
+            this.menuShow = !this.menuShow;
+            if(this.menuShow) {
+                setTimeout(function () {
+                    _this.menuShow = false;
+                }, 15000)
+            }
+            this.callShow = false;
+        },
+        showCallback: function () {
+            this.callShow = true;
+        },
+        openChat: function() {
+            var customerId = this.isLoged ? JSBridge.cache.get("customer").customer_id : 0;
+            JSBridge.driver.live800(customerId);
+        },
+        openOnlineChat: function() {
+            if($.appVersion().isIOS) {
+                JSBridge.driver.live800ol();
+            } else {
+                JSBridge.forward.outside({
+                    url: "https://www.why918.com/chat/chatClient/chatbox.jsp?companyID=8990&configID=21&k=1&codeType=custom", 
+                    newView: true
+                });  
+            }
+        },
+        /**
+         * 拨打客服热线
+         */
+        call400: function (service400) {
+            var _this = this;
+            /*
+            JSBridge.forward.outside({
+                url: "tel:" + (service400.replace(/\D/, '')),
+                browser: true
+            });
+            */
+            
+            $.pop.msg(
+                "<h3>是否拨号</h3>",
+                [
+                    {
+                        text: "是",
+                        event: function () {
+                            JSBridge.forward.outside({
+                                url: "tel:" + (service400.replace(/\D/, '')),
+                                browser: true
+                            });
+                        }
+                    },
+                    {
+                        text: "取消",
+                        event: _this.toggleService.bind(_this)
+                    }
+                ]
+            );
+        }
+    }
+});
+</script>

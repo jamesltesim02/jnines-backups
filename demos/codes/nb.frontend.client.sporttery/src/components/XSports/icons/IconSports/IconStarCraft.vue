@@ -1,0 +1,34 @@
+<template>
+<svg width=".24rem" height=".24rem" viewBox="0 0 24 24">
+  <defs>
+    <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="star-craft-color-1">
+      <stop stop-color="#BFBFBF" stop-opacity="0.7" offset="0%"></stop>
+      <stop stop-color="#8A8A8A" stop-opacity="0.7" offset="100%"></stop>
+    </linearGradient>
+    <linearGradient x1="24.1422287%" y1="3.88141257%" x2="99.2251648%" y2="99.0182144%" id="star-craft-color-2">
+      <stop stop-color="#E5EBF1" stop-opacity="0.4" offset="0%"></stop>
+      <stop stop-color="#B8BCBF" stop-opacity="0.24" offset="100%"></stop>
+    </linearGradient>
+  </defs>
+  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" >
+    <g class="main-fill" transform="translate(-224, -218)" :fill="`url(#star-craft-color-${/blue/i.test(theme) ? 2 : 1})`" >
+      <g transform="translate(10, 218)">
+        <g transform="translate(5, 0)">
+          <g transform="translate(209, 0)">
+            <path d="M12,0 C5.372583,-1.87739444e-15 7.77156117e-16,5.372583 0,12 C-7.77156117e-16,18.627417 5.372583,24 12,24 C18.627417,24 24,18.627417 24,12 C24,5.372583 18.627417,1.87739444e-15 12,0 Z M11.3835051,20.76 L7.94598563,17.4988923 L7.94598563,8.87938462 C7.94517045,8.29002754 7.73805119,7.72115611 7.3633552,7.27913846 L6,5.65464615 L9.18116213,5 L11.3835051,5.56978462 L11.3835051,20.76 Z M9.23650929,17.3389949 L10.1927177,18.2456615 L10.1927177,6.59751339 L9.18809367,6.34566154 L8.37713214,6.52195783 C8.94897822,7.22448519 9.25457442,8.12007535 9.23650929,9.04047635 L9.23650929,17.3389949 Z M12,20.76 L12,5.56978462 L14.202343,5 L17.3835051,5.65464615 L16.0201499,7.27913846 C15.645454,7.72115611 15.4383347,8.29002754 15.4375195,8.87938462 L15.4375195,17.4988923 L12,20.76 Z M13.2584817,6.59751339 L13.2584817,18.2456615 L14.2146901,17.3389949 L14.2146901,8.97751339 C14.196625,8.05711238 14.5022212,7.16152223 15.0740672,6.45899487 L14.2752096,6.34566154 L13.2584817,6.59751339 Z"></path>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
+</template>
+<script>
+import { mapState } from 'vuex';
+
+export default {
+  computed: {
+    ...mapState('app', ['theme']),
+  },
+};
+</script>

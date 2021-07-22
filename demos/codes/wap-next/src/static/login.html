@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="viewport-fit=cover, width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta name="format-detection" content="telephone=no, email=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="screen-orientation" content="portrait">
+        <meta name="x5-orientation" content="portrait">
+        <meta name="full-screen" content="yes">
+        <meta name="x5-fullscreen" content="true">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="google" value="notranslate">
+        <meta name="apple-mobile-web-app-title" content="悦博体育">
+        <title data-lan_flag="tit1001" class="nb_lang_insert"></title>
+        <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- 登录页 -->
+    <div class="nb_loginbox">
+        <div class="nb_loginlogo">
+            
+        </div>  
+        <div class="nb_loginipt">
+            <input type="text" class="nb_logintext " placeholder="请输入账号" value="" />
+            <input type="password" class="nb_loginpassword" placeholder="请输入密码" value="" />
+            <button class="nb_loginbut ">登录</button>
+        </div>  
+    </div>   
+
+</body>
+<script>
+    function fontSize(designWidth,diyFontSize){
+  // let dpr=window.devicePixelRatio;
+  // let scale=1/dpr;
+  // let metaEle=document.createElement('meta');
+  // metaEle.name="viewport";
+  // metaEle.content="width=device-width,initial-scale="+scale+",maximum-scale="+scale+",user-scalable=no";
+  let head=document.getElementsByTagName('head')[0];
+  // head.appendChild(metaEle);
+  let html=document.getElementsByTagName('html')[0];
+  html.style.fontSize=diyFontSize*document.documentElement.clientWidth/designWidth+'px'
+}
+fontSize(750,100);
+</script>
+</html>

@@ -1,0 +1,114 @@
+.usdt-guide {
+  padding: 0 20px;
+  .tips {
+    color: #aaa;
+  }
+  .market-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 20px;
+    grid-column-gap: 15px;
+    button {
+      border-radius: 4px;
+      background-color: #2d2d2d;
+      overflow: hidden;
+      border: 1px solid #2d2d2d;
+      img {
+        width: 100%;
+      }
+      label {
+        display: block;
+        font-size: 13px;
+        color: #aaa;
+        padding-bottom: 13px;
+      }
+      &.active {
+        border-image-source: linear-gradient(to bottom, #f4d699, #e3b574);
+        border-image-slice: 1;
+        background-image: linear-gradient(to bottom, #2d2d2d, #2d2d2d), linear-gradient(to bottom, #f4d699, #e3b574);
+        background-origin: border-box;
+        background-clip: content-box, border-box;
+      }
+    }
+  }
+  .remark {
+    padding: 15px 0;
+    font-size: 16px;
+    label {
+      margin-right: 5px;;
+    }
+    span {
+      color: #e0c28d;
+    }
+  }
+  .guide {
+    img {
+      width: 100%;
+    }
+  }
+  .opr {
+    position: sticky;
+    bottom: 0;
+    padding: 20px 0;
+    background-color: var(--app-background-color);
+    button {
+      width: 100%;
+      height: 50px;
+      color: #181818;
+      border-radius: 3px;
+      background-image: linear-gradient(to left, #f4d699, #e3b574);
+    }
+  }
+}
+
+.usdt-guide-dialog {
+  header {
+    font-size: 26px;
+    font-weight: 500;
+    color: #fff;
+    margin-top: 10px;
+  }
+  p {
+    font-size: 14px;
+    color: #d4d4d4;
+  }
+  .oprs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+  }
+  button {
+    margin-top: 25px;
+    height: 40px;
+    width: 100%;
+    color: #181818;
+    border-radius: 4px;
+    background-image: linear-gradient(to left, #f4d699, #e3b574);
+    &.btn-cancel {
+      background: transparent;
+      border: 1px solid #e0c28d;
+      color: #e0c28d;
+    }
+  }
+}
+
+.timing-tips-dialog {
+  header {
+    color: #fff;
+    margin-top: 18px;
+    font-size: 18px;
+  }
+  p {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #d4d4d4;
+  }
+  .oprs button {
+    margin-top: 40px;
+    height: 40px;
+    width: 100%;
+    color: #181818;
+    border-radius: 4px;
+    background-image: linear-gradient(to left, #f4d699, #e3b574);
+  }
+}

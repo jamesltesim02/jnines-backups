@@ -1,0 +1,59 @@
+.ticket-total {
+  overflow:hidden overlay;
+  padding-left: 10px;
+  .ant-collapse-content-box {
+    padding: 0;
+  }
+  .ant-collapse-content {
+    color: var(--first-color);
+  }
+  .ant-collapse {
+    font-size: 12px;
+  }
+  .fw7 {
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .win {
+    color: #BD2B27;
+  }
+  .lose {
+    color: #00b95b;
+  }
+  .panel {
+    &-head {
+      height: 40px;
+      line-height: 40px;
+      display: flex;
+      background-color: var(--ticket-tr-border-bottom);
+    }
+    &-item {
+      display: flex;
+      height: 40px;
+      line-height: 40px;
+      cursor: pointer;
+
+      &.current {
+        background-color: #fffde5!important;
+      }
+
+      &:hover {
+        filter: brightness(120%);
+      }
+      &:nth-child(even) {
+        background-color: var(--ticket-total-odd);
+      }
+      &:nth-child(odd) {
+        background-color: var(--ticket-tr-border-bottom);
+      }
+    }
+    .panel-head span,
+    .panel-item span {
+      flex: 1;
+      text-align: center;
+    }
+  }
+  .ant-collapse, .ant-collapse > .ant-collapse-item {
+    border: none;
+  }
+}

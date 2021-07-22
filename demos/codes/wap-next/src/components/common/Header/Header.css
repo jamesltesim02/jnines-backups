@@ -1,0 +1,40 @@
+.nb_fixed_header{
+    position: relative;
+    height: .88rem;
+    line-height: .88rem;
+    background: #57595E;
+    box-shadow: 0 0 0 0 rgba(0,0,0,0.25);
+    width: 100%;
+    font-size: .34rem;
+    color: #fff;
+    text-align: center;
+    z-index: 9;
+}
+.nb_goBack{
+    position: absolute;
+    width: 0.88rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    left: 0;
+    top: 0;
+    font-size: .34rem;
+}
+.nb_goBack::before, .nb_more_entry::before {
+    height: 0.34rem;
+    position: absolute;
+    top: 50%;
+    margin-top: -.17rem;
+    left: .2rem;
+}
+.nb_more_entry::before {
+    right: .2rem;
+}
+
+.nb_more_entry {
+    position: absolute;
+    width: 0.88rem;
+    height: 0.88rem;
+    right: 0;
+    top: 0;
+    font-size: .34rem;
+}

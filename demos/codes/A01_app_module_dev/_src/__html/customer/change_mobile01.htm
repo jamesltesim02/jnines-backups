@@ -1,0 +1,46 @@
+<template id="contentTmpl">
+<div class="main_content">
+    <section class="modifymobile_content _03" style="padding-top:30px;">
+        <div class="layout_form p-top-rmv">
+            <form id="infoForm" action="" method="post">  
+                <input type="hidden" name="operate" id="operate" value="0"/>
+                <input name="act" type="hidden" value="bindPhone"/>          
+                <div class="form_field_wrap">
+                    <div class="form_field">
+                        <span class="label">手机号码</span>      
+                        <div class="input_wrap"><input class="txt_right" type="text" v-model="phone" readonly></div>
+                    </div>
+                </div>
+                <div class="form_btn-wrap">
+                    <a v-on:click.stop.prevent="go_change" class="btn btn-lg btn-ylw">修改</a>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+</template>
+<script>
+appState.setData({
+    needLogin: true,
+    title: '重新绑定'
+});
+Vue.component("app-content", {
+	template: "#contentTmpl",
+	data: function () {
+		return {
+            phone: ""
+        }
+	},
+    methods: {
+        go_change: function() {
+            JSBridge.forward.inside({url: "customer/change_mobile02.htm", newView: true});
+        }
+    },
+    mounted: function () {
+        var _this = this;
+        JSBridge.onReady(function() {
+            _this.phone = JSBridge.cache.get("customer").phone;
+        });
+    }
+});
+</script>

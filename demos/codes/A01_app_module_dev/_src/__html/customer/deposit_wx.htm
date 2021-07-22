@@ -1,0 +1,219 @@
+<template id="contentTmpl">
+	<div class="main_content" v-show="onready">
+        <section v-show="step==1" class="onlinepayment_content">
+            <div class="banner">
+                <span class="icon" :class="paymentIcon"> </span>
+                <h3 class="lblue">{{paymentTitle}}</h3>
+            </div>
+            <div class="layout_form">
+                <div class="form_field_wrap">
+                    <div v-if="!!verify_code" class="form_field">
+                        <span class="label">预留信息</span>      
+                        <div class="input_wrap txt_right">
+                            <div class="reservedInfo">
+                                <span class="yellow2">{{verify_code}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_field">
+                        <span class="label">金额</span>      
+                        <div class="input_wrap">
+                        	<input 
+                                v-model="amount" 
+                                class="txt_right" 
+                                type="number"
+                                :placeholder="'最少' + types[typeIndex].amountMin + '，最多' + types[typeIndex].amountMax">
+                        </div>
+                    </div>  
+                    <div class="form_field">
+                        <span class="label">支付方式</span>
+                        <div class="input_wrap txt_right">
+                            <select v-model="typeIndex" v-on:change="paymentMethod">
+                                <option v-for="(t,i) in types" :value="i">{{t.name}}</option>
+	                    	</select>
+                        </div>
+                    </div>  
+                </div>
+                <div class="form_btn-wrap">
+                    <a @click="nextStep" class="btn btn-lg btn-ylw">保存</a>
+                </div>
+            </div>
+        </section>
+        <section v-show="step==2" class="onlinepayment_content _02">
+            <div class="flt-header">
+                <span>微信确认支付订单：</span>
+            </div>
+            <div class="layout_form">
+                <form ref="payForm" :action="order.des_url" method="post">
+                    <input type="hidden" name="amount" :value="order.amount">
+                    <input type="hidden" name="keycode" :value="order.keycode">
+                    <input type="hidden" name="memo" :value="order.memo">
+                    <input type="hidden" name="paycode" :value="order.paycode">
+                    <input type="hidden" name="billdate" :value="order.billdate">
+                    <input type="hidden" name="billno" :value="order.billno">
+                    <input type="hidden" name="product" :value="order.product">
+                    <input type="hidden" name="currency" :value="order.currency">
+                    <input type="hidden" name="loginname" :value="loginname">
+
+                    <div class="form_field_wrap">
+                        <div class="form_field">
+                            <span>订单号：</span>      
+                            <span class="dark_gray">{{order.billno}}</span>
+                        </div>
+                        <div class="form_field">
+                            <span>支付金额：</span>      
+                            <span class="lbue2 bold">¥ {{order.amount}}</span>
+                        </div>  
+                    </div>
+                    <div class="form_btn-wrap">
+                        <a @click="pay" class="btn btn-lg btn-ylw">确认支付</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</template>
+<script type="text/javascript">
+;(function () {
+    var data = {
+        onready: false,
+    	paymentIcon:  'icons_payment_wechat',
+    	paymentTitle: '扫码支付',
+        step: 1,
+        verify_code: "",
+        loginname: "",
+        amount: "",
+        typeIndex: 0,
+        order: {},
+        types: [
+            {
+				"payid": 0,
+				"code": "wxPay",
+				"key": 6,
+				"name": "微信支付",
+				"amountMin": 100,
+				"amountMax": 1500
+            }
+        ]
+    };
+
+    appState.setData({
+        title: "扫码支付",
+        needLogin: true
+    });
+    Vue.component("app-content", {
+        template: "#contentTmpl",
+        data: function() {
+            var _this = this;
+            return data;
+        },
+        methods: {
+            paymentMethod: function() {
+            	loadPayment();
+            },
+            nextStep: function () {
+                if(!this.types[this.typeIndex]) {
+                	bankDisabled();
+                    return;
+                }
+                var typeObj = this.types[this.typeIndex];
+                if (!typeObj.payid) {
+                	$.toast.fail("支付方式没有开启的状态");
+                	return;
+                }
+
+                if (getexpire()) {
+                    return true;
+                }
+                
+                if(!(this.amount.match(/^[1-9]+\d+[.\d]{0,3}$/) && this.amount>=Number(typeObj.amountMin) && this.amount<=Number(typeObj.amountMax) )) { 
+                    $.toast.fail("存款金额必须是"+ typeObj.amountMin +"~"+ typeObj.amountMax +"之间,最大允许2位小数"); 
+                    return false; 
+                }
+
+                var _this = this;
+                setexpire();
+                JSBridge.net.invoke({
+                    url: "payment/onlinePay",
+                    data: {
+                        type: typeObj.key,
+                        payId: typeObj.payid,
+                        amount: _this.amount
+                    },
+                    success: function (result) {
+                        _this.order = result;
+                        setTimeout(function () {
+                            _this.step = 2;
+                        }, 1000);
+                    },
+                    error: function (error) {
+                        $.toast.fail(error ? error.message : "创建订单失败,请稍后重试或咨询客服");
+                    }
+                });
+            },
+            pay: function () {
+                if(this.types[this.typeIndex] && this.step == 2) {
+                    this.$refs.payForm.submit();
+                }
+            }
+        }
+    });
+    
+    function loadPayment() {
+    	var _this = data;
+    	
+    	if (!_this.types[_this.typeIndex]) {
+    		return;
+    	}
+    	
+    	var typeObj = _this.types[_this.typeIndex];
+    	switch(typeObj.key) {
+	        case 5:  
+	        case 9:  _this.paymentIcon = 'icons_payment_alipay'; break;
+	        // case 6:  _this.paymentIcon = 'icons_payment_qrcode'; break;
+	        case 7:  _this.paymentIcon = 'icons_payment_qq';     break;
+	        case 15: _this.paymentIcon = 'icons_payment_bank'; break;
+	        default: _this.paymentIcon = 'icons_payment_wechat'; break;
+        }
+    	
+        _this.paymentTitle = typeObj.name;
+    }
+
+    function bankDisabled() {
+        $.toast.fail("当前支付已关闭,请选用其他支付方式", function () {
+        	JSBridge.cache.delete("paymentStatusByAllData");
+            JSBridge.forward.inside({url: "customer/member_center.htm"});
+        });
+    }
+
+    JSBridge.onReady(function() {
+        if(!CustomerUtils.isLoged()) {
+            return null;
+        }
+        var _this = data,
+            customer = JSBridge.cache.get("customer");
+        _this.verify_code = customer.verify_code;
+        _this.loginname = customer.login_name;
+
+        JSBridge.net.invoke({
+            url: "A01/payment/detail",
+            data: {"type": "QRCode"},
+            success: function (result) {
+                if(!result) {
+                    bankDisabled();
+                    return;
+                } else if (result.gotoLink) {
+                    JSBridge.forward.inside({url: result.gotoLink, newView: true});
+                    return;
+                }
+
+                _this.types = result;
+                _this.onready = true;
+                
+                loadPayment();
+            },
+            error: bankDisabled
+        });
+    });
+})();
+</script>

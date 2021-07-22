@@ -1,0 +1,30 @@
+.europe-enter {
+  margin-left: 20px;
+  img {
+    width: 100px;
+  }
+  &-content {
+    user-select: none;
+    position: absolute;
+    color: #924111;
+    width: 185px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 18px;
+    background-image: linear-gradient(180deg, #F4D699 0%, #E3B574 100%);
+    &:after {
+      position: absolute;
+      content: "";
+      width: 0;
+      height: 0;
+      top: -20px;
+      left: 20px;
+      border: 5px solid transparent;
+      border-bottom: 15px solid #F4D699;
+    }
+  }
+}
+
+.am-popover-inner,.am-popover-inner-wrapper {
+  background-color: transparent;
+}

@@ -1,0 +1,149 @@
+<template id="contentTmpl">
+<div>
+	<div class="main_content">
+        <section id="newBind" class="modifymobile_content _03">
+            <div class="layout_form p-top-rmv">
+                <form id="infoForm" action="" method="post">  
+                    <input type="hidden" name="operate" id="operate" value="0"/>
+                    <input name="act" type="hidden" value="bindPhone"/>          
+                    <div class="form_field_wrap">
+                        <div class="form_field">
+                            <span class="label">手机号码</span>      
+                            <div class="input_wrap">
+                            	<input class="txt_right" type="text" v-bind:readonly="isRead" v-model.trim="telephone" maxlength="11" >
+                            </div>
+                        </div>  
+                        <div class="form_field">
+                            <span class="label">验证码</span>      
+                            <div class="input_wrap sm"><input type="text" v-model="codeInput" name="code" maxlength="6"></div>
+                            <div id="sendCode" v-bind:class="[disabled ? '' : 'active-btn', 'sendCode']" @click="sendCode">{{send_btn_text}}</div>
+                        </div>  
+                    </div>
+                    <p class="notif" v-if="code_sended">验证码已发送，15分钟内输入有效，请勿泄漏</p>
+                    <div class="form_btn-wrap">
+                        <a id="bindPhone" v-on:click.stop.prevent="checkCode" class="btn btn-lg btn-ylw">确定</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+</template>
+<script>
+appState.setData({
+    needLogin: true,
+    title: '绑定手机'
+});
+Vue.component("app-content", {
+	template: "#contentTmpl",
+	data: function () {
+		return {
+			time: 0,
+			code_sended: false,
+			telephone: '',
+			codeInput: '',
+			isRead: false
+		}
+	},
+	mounted:function (){
+		var _this = this;
+		JSBridge.onReady(function(){
+			Request.userInfo(function(customer){
+				_this.telephone = customer.phone;
+			},function(){});
+		});
+	},
+	methods: {
+		timer: function() {
+			var _this = this;
+			if (this.time > 0) {
+				this.time--;
+				setTimeout(_this.timer, 1000);
+			}
+		},
+		sendCode: function() {
+			if (this.disabled) return;
+			var telephone_num = this.telephone;
+			if(!telephone_num) {
+				$.toast.fail("请输入手机号码");
+				return;
+			}
+			if(!(/[\d]+\*/.test(telephone_num)) && !(/^1[34578]\d{9}$/.test(telephone_num))) {
+				$.toast.fail("请输入正确的手机号码格式");
+				return;
+			}
+			//发送验证码
+			var _this = this;
+			JSBridge.net.invoke({
+				url: "verify/send",
+				data: {
+					"type": 1,
+					"v_type": 1,
+					"send_to": telephone_num,
+					"timestamp": Date.now()
+				},
+				success: function (result) {
+					_this.time = 60
+					_this.timer();
+					_this.code_sended = true;
+				},
+				error: function (error) {
+					$.toast.fail(error.message);
+				}
+			});
+		},
+		checkCode: function() {
+			var _this = this;
+			if(!_this.codeInput) {
+				$.toast.fail("请输入验证码");
+				return;
+			}
+			//验证验证码
+			JSBridge.net.invoke({
+				url: "verify/check",
+				data: {
+					"type": 1,
+					"v_type": 1,
+					"send_to": _this.telephone,
+					"code": _this.codeInput
+				},
+				success: function (result) {
+					JSBridge.net.invoke({
+						url: "verify/bind",
+						data: {
+							"type": 1,
+							"send_to": _this.telephone,
+							"request_id": result
+						},
+						success:function(result){
+							var customer = JSBridge.cache.get("customer");
+							customer.phone = _this.telephone;
+							JSBridge.cache.save("customer", customer);
+							JSBridge.forward.inside({url: "customer/bind_mobile_sucs.htm", newView: true});
+						},
+						error:function(error){
+							$.toast.fail(error.message);
+						}
+					});
+					
+				},
+				error: function (error) {
+					$.toast.fail(error.message);
+				}
+			});
+		}
+	},
+	computed: {
+		send_btn_text: function () {
+			if (this.code_sended) {
+				return this.time > 0 ? '重新发送（'+this.time+'）' : '重新发送';
+			} else {
+				return '发送验证码'
+			}
+		},
+		disabled: function() {
+			return this.time > 0;
+		}
+	}
+});
+</script>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#161616" />
+    <meta name=”apple-mobile-web-app-status-bar-style” content=”#161616″>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="format-detection" content="telephone=no, email=no">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="full-screen" content="yes"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="google" value="notranslate"/>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <link rel="icon" href="<%=htmlWebpackPlugin.files.publicPath %>assets/icons/favicon.ico" />
+    <link rel="apple-touch-icon" size="96x96" href="<%=htmlWebpackPlugin.files.publicPath %>assets/icons/favicon.ico" />
+    <link rel="apple-touch-startup-image" size="96x96" href="<%=htmlWebpackPlugin.files.publicPath %>assets/icons/appicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>九游体育</title>
+    <script>
+      // vconsole 调试器
+      var vconsoleUrl = '<%=htmlWebpackPlugin.files.publicPath %>assets/js/vconsole.min.js'
+      if (location.search.indexOf('openDebugConsole=true') > -1) {
+        document.write('<script src="' +  vconsoleUrl + '"><\/script>')
+        document.write('<script>window.__vconsole__ = new VConsole()<\/script>')
+      }
+      addEventListener('openDebugConsole', function () {
+        if (window.__vconsole__) {
+          return
+        }
+        if (window.VConsole) {
+          window.__vconsole__ = new VConsole()
+          return
+        }
+        var el = document.createElement('script')
+        el.addEventListener('load', function () {
+          window.__vconsole__ = new VConsole()
+        })
+        el.src = vconsoleUrl
+        document.querySelector('head').appendChild(el)
+      })
+
+      // intl polyfill支持
+      if (!Intl) {
+        document.write('<script src="<%=htmlWebpackPlugin.files.publicPath %>assets/js/Intl.min.js"><\/script>')
+        document.write('<script src="<%=htmlWebpackPlugin.files.publicPath %>assets/js/Intl.locale-data.zh.js"><\/script>')
+      }
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+section.promotion{
+    padding: 0 0px 0 15px;
+    background: transparent;
+}
+section.promotion ul.promotions_cont{
+    padding-bottom: 10px;
+}
+
+section.promotion ul.promotions_cont li{
+    padding: 15px 0;
+    border-bottom: 1px solid #393d48;
+    position: relative;
+}
+section.promotion ul.promotions_cont .img_container{
+    width: 35%;
+}
+section.promotion ul.promotions_cont .img_container img{
+    width: 100%;
+    display: block;
+}
+section.promotion ul.promotions_cont .content{
+    padding-left: 13px;
+}
+section.promotion ul.promotions_cont .content p{
+   margin: 0;
+}
+section.promotion ul.promotions_cont .content p.title{
+    font-size: 1.4rem;
+    color: #ffffff;
+    margin-bottom: 3px;
+}
+section.promotion ul.promotions_cont .content p.subs{
+    font-size: 1.3rem;
+    margin-bottom: 2px;
+    color: #999999;
+}
+section.promotion ul.promotions_cont .content p.time,
+section.promotion ul.promotions_cont .content p.ppl{
+    font-size: 1.2rem;
+    margin-bottom: 1px;
+    color: #999999;
+    margin-top: 7px;
+}
+section.promotion ul.promotions_cont .content p.ppl span{
+    font-size: 1.2rem;
+    margin-bottom: 1px;
+    color: #fcd11d !important;
+}
+section.promotion ul.promotions_cont .content p.span{
+    color: #fc8454;
+}
+
+section.promotion ul.promotions_cont .content i.icon_right_chevron{
+    position: absolute;
+    right: 15px;
+    top: 50%;
+}
+
+/*Promotions styles*/
+section.promotion_pages .content{
+    padding: 15px;
+    vertical-align: middle;
+}
+section.promotion_pages .content.promotion_activity table{
+    width: 100%;
+    text-align: center;
+    background: #1b1e25;
+}
+section.promotion_pages .content.promotion_activity table tr:first-child td{
+    background:#004f8f;
+    color: #fefffe;
+}
+section.promotion_pages .content.promotion_activity table tr td:first-child{
+    width: 22%;
+}
+section.promotion_pages .content.promotion_activity table tr td:nth-child(2){
+    width: 60%;
+}
+section.promotion_pages .content.promotion_activity table tr td:last-child{
+    width: 28%;
+}
+section.promotion_pages .content.promotion_activity table tr td{
+    border-right: 1px solid #292d36;
+    border-bottom: 1px solid #292d36;
+    padding: 5px;
+}
+
+section.promotion_pages .content.promotion_activity table.eq tr td{
+    width: 50%;
+}
+section.promotion_pages .content.promotion_activity table.five_col tr td{
+    width: 20%;
+}
+
+section.promotion_pages .content.promotion_activity table.four_col tr td{
+    width: 20%;
+}
+section.promotion_pages .content.promotion_activity table.four_col tr td:last-child{
+    width: 40%;
+}
+section.promotion_pages .content.promotion_activity ul.with_margin_bot li{
+    margin-bottom: 25px;
+}

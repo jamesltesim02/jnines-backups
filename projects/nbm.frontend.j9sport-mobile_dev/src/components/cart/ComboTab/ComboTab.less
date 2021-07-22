@@ -1,0 +1,68 @@
+.combo-list {
+  max-height: calc(100vh - constant(safe-area-inset-bottom) - 460px);
+  max-height: calc(100vh - env(safe-area-inset-bottom) - 460px);
+  overflow-y: auto;
+  .cart-item {
+    border-bottom: 1px solid var(--cart-item-border);
+    padding: 5px 10px;
+  }
+  &-item-enter {
+    opacity: 0;
+  }
+  &-item-enter-active {
+    opacity: 1;
+    transition: opacity 200ms ease-in;
+  }
+  &-item-exit {
+    opacity: 1;
+  }
+  &-item-exit-active {
+    opacity: 0;
+    transition: all 200ms ease-in;
+  }
+}
+.combo-info {
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  color: var(--secondary-color);
+  background-color: var(--app-background-color2);
+}
+.combo-tab {
+  position: sticky;
+  top: 0;
+  display: flex;
+  background-color: var(--app-background-color);
+  align-items: flex-end;
+  &-item {
+    font-size: 12px;
+    position: relative;
+    width: 75px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: #181818;
+    margin: 0 3px;
+    transition: all 200ms ease-in;
+    &-active {
+      background-color: var(--tour-background-color);
+    }
+  }
+  &-cross {
+    position: absolute;
+    right: -7px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    border-radius: 50%;
+    background-color: var(--cross-bgc);
+    transition: transform 200ms ease-in;
+  }
+}
+.combo-bet-area {
+  background-color: var(--app-background-color2);
+}

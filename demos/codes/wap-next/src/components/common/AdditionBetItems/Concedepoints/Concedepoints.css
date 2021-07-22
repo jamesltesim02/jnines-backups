@@ -1,0 +1,14 @@
+.nb_Concedepointsul {
+  width: 100%;
+  padding-left: .7rem;
+  overflow: hidden;
+  position: relative;
+}
+.nb_Concedepointsul li {
+  width: 25%;
+  text-align: center;
+  height: .66rem;
+  line-height: .66rem;
+  font-size: .24rem;
+}
+

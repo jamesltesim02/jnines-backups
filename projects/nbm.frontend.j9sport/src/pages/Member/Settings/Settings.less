@@ -1,0 +1,84 @@
+.settings {
+  color: #e1e1e1;
+  section {
+    h2 {
+      font-weight: 400;
+      font-size: 20px;
+      color: var(--member-info-sub--color);
+      position: relative;
+      &:after {
+        content: '';
+        position: absolute;
+        width: 40px;
+        height: 4px;
+        border-radius: 2px;
+        background-color: var(--high-light-color);
+        bottom: -15px;
+        left: 0;
+      }
+    }
+  }
+  &-container {
+    display: grid;
+    grid-template-columns: 458px 584px;
+    grid-column-gap: 40px;
+    grid-row-gap: 24px;
+    margin: 40px 0 20px 0;
+    > div {
+      box-shadow: var(--setting-block-box-shadow);
+      font-size: 16px;
+      height: 90px;
+      padding: 25px 32px;
+      border-radius: 4px;
+      background-color: var(--setting-block-background);
+      display: grid;
+      grid-template-columns: 40px 1fr max-content;
+      grid-column-gap: 15px;
+      align-items: center;
+      img {
+        height: 40px;
+      }
+      a, button {
+        color: var(--setting-block-color);
+        font-size: 12px;
+        height: 28px;
+        padding: 0 15px;
+        line-height: 28px;
+        border-radius: 14px;
+        background-image: var(--setting-block-linear-gradient);
+        transition: all 200ms ease-in-out;
+        &:hover {
+          transform: translateY(-2px);
+        }
+      }
+      .settings-info-box {
+        color: var(--member-info-sub--color);
+        > span {
+          font-size: 12px;
+          color: var(--setting-block-sub-color);
+        }
+      }
+    }
+    &.login-setttings {
+      > div {
+        grid-template-columns: 1fr max-content;
+        button.ant-switch {
+          background-image: inherit;
+          .ant-switch-handle {
+            width: 24px;
+            height: 24px;
+            &::before {
+              border-radius: 50%;
+            }
+          }
+          &.ant-switch-checked .ant-switch-handle {
+            left: calc(100% - 18px - 8px);
+          }
+          &:hover {
+            transform: none;
+          }
+        }
+      }
+    }
+  }
+}

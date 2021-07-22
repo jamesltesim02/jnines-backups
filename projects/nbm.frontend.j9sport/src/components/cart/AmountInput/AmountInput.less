@@ -1,0 +1,123 @@
+.bet-amount {
+  display: inline-flex;
+  position: relative;
+  &.unbetble {
+    box-shadow: 0 0 1px 1px red ;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  input[type="number"]{
+    -moz-appearance: textfield;
+  }
+  input:disabled{
+    background-color: #FFFFFF;
+    &::placeholder {
+      color: #f40c06;
+    }
+  }
+  input {
+    width: 186px;
+    height: 30px;
+    border: 1px solid #d5d5d5;
+    border-right: none;
+    border-left: none;
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    &:focus {
+      outline: none;
+    }
+    &::placeholder {
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+  >span {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 2px;
+    border: 1px solid #d5d5d5;
+    background-image: linear-gradient(to top, #ededed, #ffffff);
+    cursor: pointer;
+    &:hover {
+      opacity: .8;
+    }
+    &:active {
+      background-image: linear-gradient(to bottom, #ededed, #ffffff);
+    }
+    &.increase::before,
+    &.decrease::before,
+    &.decrease::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 2px;
+      background-color: #666666;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    &.decrease::after {
+      width: 2px;
+      height: 10px;
+    }
+  }
+  .loading-input {
+    position: absolute;
+    width: 310px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 0 !important;
+    z-index: 9;
+    transition: color .5s ease,background-color .5s ease;
+    transform: translate(-2px,-2px);
+    > span {
+      vertical-align: sub;
+      margin-right: 5px;
+      font-size: 16px;
+      color: #FFFFFF;
+    }
+    &.success,
+    &.failed,
+    &.loading
+    {
+      width: 310px;
+      color: #FFFFFF;
+      border-radius: 4px;
+      box-sizing: content-box;
+    }
+    &.success {
+      background-color: rgba(0,130,0,.6);
+      border: 2px solid #006400;
+    }
+
+    &.loading {
+      cursor: wait;
+      background-color: rgba(0,0,0,.4);
+      border: 2px solid #666666;
+    }
+    &.failed {
+      background-color: rgba(201,0,0,.6);
+      border: 2px solid #aa0000;
+    }
+
+    .anticon-spin {
+      margin: 0 auto;
+    }
+    >input{
+      transform: translateY(-3px);
+    }
+  }
+  .maxbet-tips {
+    position: absolute;
+    right: 40px;
+    bottom: 5px;
+    zoom: 90%;
+  }
+}

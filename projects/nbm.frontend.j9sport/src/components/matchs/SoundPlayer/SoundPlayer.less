@@ -1,0 +1,49 @@
+.goal-notification {
+  background-color: var(--block-background-color);
+  color: var(--first-color);
+  cursor: pointer;
+  .ant-notification-notice-message {
+    color: var(--high-light-color);
+  }
+  .tour {
+    display: grid;
+    grid-template-columns: 1fr 90px;
+    align-items: center;
+    font-size: 16px;
+    padding: 10px 0;
+    overflow: hidden;
+    time {
+      text-align: right;
+      color: var(--high-light-color);
+    }
+  }
+  .match-info {
+    display: grid;
+    grid-template-columns: 1fr 20px 1fr;
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    span, label {
+      display: block;
+      text-align: center;
+    }
+    span {
+      font-size: 28px;
+      color: var(--high-light-color);
+    }
+    label {
+      width: 100%;
+      margin-top: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  .ant-notification-close-x {
+    color: var(--high-light-color);
+  }
+}

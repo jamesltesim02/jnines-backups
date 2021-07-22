@@ -1,0 +1,40 @@
+.game-entries {
+  margin: 10px;
+  padding-bottom: 16px;
+  .sport-nav-slide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 8px;
+    & > a {
+      display: grid;
+      grid-template-columns: 1fr 40px;
+      align-items: center;
+      padding: 4px 5px 6px 9px;
+      border-radius: 2px;
+      background-color: var(--block-background-color);
+      div {
+        label, span {
+          display: block;
+        }
+        label {
+          line-height: 20px;
+          font-size: 14px;
+          color: #e0c28d;
+        }
+        span {
+          line-height: 17px;
+          font-size: 12px;
+        }
+      }
+      img {
+        width: 40px;
+      }
+    }
+  }
+  .slider-decorator-0 {
+    bottom: -20px !important;
+  }
+  .comingsoon {
+    filter: grayscale(1);
+  }
+}

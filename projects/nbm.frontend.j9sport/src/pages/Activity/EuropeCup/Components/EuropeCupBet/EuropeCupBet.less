@@ -1,0 +1,220 @@
+.europe-bet {
+  position: relative;
+
+  .europe-nav {
+    position: absolute;
+    z-index: 2;
+    top: -100px;
+    transform: translateX(45px);
+    width: 300px;
+  }
+  .europe-option-name {
+    line-height: 24px;
+    > div {
+      font-size: 16px;
+    }
+    padding: 0;
+    font-size: 20px;
+  }
+
+  &-ticket {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 20px;
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+      padding: 0 30px;
+      font-size: 24px;
+      color: #fff;
+      background-image: linear-gradient(to right, #2b313d 14%, #111520 85%);
+
+      img {
+        cursor: pointer;
+        width: 36px;
+      }
+    }
+
+    &-content {
+      background-image: linear-gradient(to right, #3f4550 14%, #282b35 85%);
+      font-size: 20px;
+      color: #ababac;
+      line-height: 38px;
+      padding: 20px 24px;
+    }
+
+    .europe-bet-return {
+      font-size: 24px;
+      color: #ebba73;
+    }
+
+    .betting-modal {
+      position: absolute;
+      font-size: 20px;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .5);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+  }
+
+  &-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    height: 450px;
+    font-size: 20px;
+    color: #ababac;
+    background-image: linear-gradient(to right, #2b313d 14%, #111520 85%);
+
+    img {
+      width: 240px;
+    }
+  }
+
+  &-amount {
+    display: flex;
+    margin: 15px 0;
+
+    .bet-amount {
+      display: flex;
+      flex: 1;
+      margin-right: 22px;
+
+      .maxbet-tips {
+        display: none;
+      }
+
+      input {
+        height: 60px;
+        flex: 1;
+        font-size: 24px;
+        background-color: #292b30;
+        border: 1px solid #434446;
+        border-right: none;
+        border-left: none;
+
+        &::placeholder {
+          font-size: 18px;
+        }
+      }
+
+      .increase, .decrease {
+        font-size: 24px;
+        border: 1px solid #434446;
+        width: 60px;
+        height: 60px;
+        background-image: linear-gradient(to top, #1a1f2a, #1a1f2a);
+      }
+    }
+
+    button {
+      font-size: 24px;
+      width: 94px;
+      height: 60px;
+      border-radius: 4px;
+      background-color: #41444c;
+      cursor: unset;
+
+      &.betBle {
+        cursor: pointer;
+        color: #653302;
+        background-image: linear-gradient(to right, #e2b271 0%, #f6d99d 100%);
+      }
+    }
+  }
+
+  &-accept {
+    border-radius: 4px;
+    background-image: linear-gradient(to right, #3f4550 14%, #282b35 85%);
+
+    .cart-accept {
+      font-size: 24px;
+
+      .accept-radio {
+        line-height: 50px;
+
+        span {
+          transform: scale(2);
+          margin: 0 15px 5px 10px;
+        }
+      }
+    }
+
+    &-return {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+      background-image: linear-gradient(to right, #2b313d 14%, #111520 85%);
+      height: 65px;
+      font-size: 24px;
+
+      span:last-child {
+        color: #ebba73;
+      }
+    }
+  }
+}
+
+.europe-rule {
+  margin-top: 20px;
+
+  .skew-header {
+    width: 35%;
+  }
+
+  &-content {
+    margin-top: 20px;
+    font-size: 16px;
+    padding: 20px;
+    background-image: linear-gradient(to right, #2b313d 14%, #111520 85%);
+    border-radius: 4px;
+
+    h3　 {
+      color: #e1e1e1;
+    }
+
+    a {
+      color: #0b9cfe;
+      text-decoration: underline;
+    }
+  }
+}
+.unsettle {
+  font-size: 20px;
+  color: #ABABAC;
+  background-image: linear-gradient(to right, #2b313d 14%, #111520 85%);
+  border-radius: 4px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  header {
+    padding: 24px;
+    line-height: 35px;
+    border-bottom: 1px solid #323641;
+  }
+  section {
+    padding: 24px;
+    line-height: 35px;
+  }
+  footer {
+    padding: 15px 20px ;
+    background-image: linear-gradient(to right, #3f4550 14%, #282b35 85%);
+    display: flex;
+    justify-content: space-between;
+    span {
+      color: #EBBA73;
+    }
+  }
+}

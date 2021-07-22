@@ -1,0 +1,31 @@
+
+.nb_ttp_title{
+    height: 1rem;
+    font-size: 0.36rem;
+    line-height: 1rem;
+    padding: 0.2rem;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ededed;
+}
+.nb_ttp_title:before{
+   content: '';
+    width: 0;
+    display: inline-block;
+    height: 0;
+    border-bottom: 0.16rem solid transparent;
+    border-top: 0.16rem solid transparent;
+    border-right:0.16rem solid transparent;
+    border-left: 0.16rem solid #45e0ff;
+
+}
+.nb_ttp_title:after{
+    font-family:'myfontfamily' ;
+    content:"\e9c6";
+    font-size: .8rem;
+    color: #969696;
+    float: right;
+
+}
+.nb_timeType{
+    color: #2d2d2d;
+}

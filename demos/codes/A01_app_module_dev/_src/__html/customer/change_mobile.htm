@@ -1,0 +1,65 @@
+<template id="contentTmpl">
+<div class="main_content">
+    <section class="modifymobile_content _02">
+        <div class="flt-header">
+            <span class="icon icon62 icon-left"></span>
+            <span>经过安全监测，您可以通过以下方式修改手机号码</span>
+        </div>
+        <div class="layout_form">
+            <form action="" method="post">            
+                <div class="form_field_wrap">
+                    <a class="form_field" v-on:click.stop.prevent="verifyByCode">
+                        <div class="icon-content">
+                            <img src="../../__static/__images/icons/sms_green.png">
+                        </div>
+                        <div class="input_wrap">
+                            <h4 class="title">通过短信验证 <span class="icon icon63"></span></h4>
+                            <span class="desc">选择此方式，我们将向您号码为{{mobile}}的手机发送验证码</span>
+                        </div>
+                    </a>  
+                    <div class="clearfix"></div>
+                    <a class="form_field" v-on:click.stop.prevent="verifyByHuman">
+                        <div class="icon-content">
+                            <img src="../../__static/__images/icons/icon05.png">
+                        </div>
+                        <div class="input_wrap">
+                            <h4 class="title">通过人工服务</h4>
+                            <span class="desc">原绑定手机无法接受验证码？提交申请，等待人工客服协助修改</span>
+                        </div>
+                    </a>  
+                    <div class="clearfix"></div>
+                </div>  
+            </form>
+        </div>
+    </section>
+</div>
+</template>
+<script>
+appState.setData({
+    needLogin: true,
+    title: '更换手机号'
+});
+Vue.component("app-content", {
+	template: "#contentTmpl",
+    data: function () {
+        return {
+            mobile: '',
+        };
+    },
+    methods: {
+        verifyByCode: function() {
+            JSBridge.forward.inside({url: "customer/change_mobile01.htm", newView: true});
+        },
+        verifyByHuman: function() {
+            JSBridge.forward.inside({url: "customer/change_mobile05.htm", newView: true});
+        }
+    },
+    mounted: function () {
+        var _this = this;
+        JSBridge.onReady(function() {
+            var phone = JSBridge.cache.get("customer").phone;
+            _this.mobile = phone ? phone.substring(0,3) + "****" + phone.substr(-4) : "";
+        });
+    }
+});
+</script>

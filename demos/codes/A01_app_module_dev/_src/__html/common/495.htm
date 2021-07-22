@@ -1,0 +1,64 @@
+<component src="_template/component/Header.htm"></component>
+<style>
+body>div.app-container {
+    height: 100%;
+    position: relative;
+}
+
+.topText {
+    margin-top: 100px;
+}
+
+.topText h2 {
+    font-size: 2rem;
+    line-height: 26px;
+    color: #fff;
+    display: block;
+    text-align: center;
+    margin-bottom: 11px;
+    font-weight: bold;
+}
+
+.topText p {
+    color: #666;
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    line-height: 15px;
+    text-align: center;
+}
+
+.topText .kf {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    line-height: 15px;
+    text-align: center;
+    color: #666;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+}
+</style>
+<template id="contentTmpl">
+    <div>
+        <app-header></app-header>
+        <div class="topText">
+            <h2>非法的证书，请联系客服</h2>
+            <br>
+            <div class="kf">
+                <span>客服部邮箱：</span>btt88.cs@live.com
+            </div>
+        </div>
+        <div class="footer">
+            <img src="../../__static/__images/index/btm1_logo.png" />
+        </div>
+    </div>
+</template>
+<script type="text/javascript">
+Vue.component("app-content", {template: "#contentTmpl"});
+</script>

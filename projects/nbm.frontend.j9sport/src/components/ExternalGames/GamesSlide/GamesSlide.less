@@ -1,0 +1,32 @@
+.game-entries {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--block-background-color);
+  margin-top: 20px;
+  border-radius: 4px;
+  .external-hot {
+    width: 50px;
+    margin: 20px 0;
+  }
+  .sport-nav-slide {
+    a {
+      width: 100%;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+      transition: all .3s ease-out;
+      &, &:hover {
+        color: var(--first-color);
+      }
+      &:hover {
+        transform: scale(1.06);
+      }
+    }
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}

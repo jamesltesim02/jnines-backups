@@ -1,0 +1,27 @@
+.europe-option-button {
+  button {
+    min-width: 120px;
+  }
+
+  &.noBetting {
+    button {
+      cursor: unset;
+
+      &, span {
+        color: #888888;
+      }
+    }
+  }
+
+  &.checked {
+    button {
+      padding: 5px 10px;
+      border-radius: 35px;
+      background-image: linear-gradient(to right, #e2b271 0%, #f6d99d);
+
+      &, span {
+        color: #653302;
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+.list-versus {
+  & > div {
+    display: flex;
+    height: 30px;
+    overflow: hidden;
+  }
+  .team {
+    align-items: center;
+    .icon-team-logo {
+      margin-right: 10px;
+    }
+    label {
+      flex-grow: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &:first-child {
+      padding-top: 10px;
+    }
+  }
+  .ops {
+    justify-content: flex-end;
+    align-items: flex-start;
+    & > * {
+      margin-left: 8px;
+    }
+    & > .time {
+      flex: 1 1;
+      margin-left: 26px;
+    }
+  }
+  .red-card, .score {
+    display: inline-block;
+    height: 16px;
+    line-height: 16px;
+  }
+  .red-card {
+    margin-right: 10px;
+    width: 14px;
+    background-color: #f00;
+    color: #fff;
+    border-radius: 3px;
+    text-align: center;
+  }
+  .score {
+    width: 24px;
+    font-weight: 600;
+    text-align: right;
+  }
+}

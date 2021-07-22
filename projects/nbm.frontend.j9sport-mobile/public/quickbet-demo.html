@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#161616" />
+    <meta name=”apple-mobile-web-app-status-bar-style” content=”#161616″>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="format-detection" content="telephone=no, email=no">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="full-screen" content="yes"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="google" value="notranslate"/>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <title>J9SPORT QUICK-BET</title>
+    <!-- 快速投注容器样式控制 -->
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background-color: #16161a;
+        color: #bbb;
+      }
+      #root {
+        width: 100%;
+        min-height: 100vh;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .other-content {
+        background: #1e1e24;
+        height: 80px;
+        padding: 15px;
+        margin: 15px 10px;
+        border-radius: 6px;
+      }
+
+      #qbContainer {
+        /* 默认隐藏容器 */
+        display: none;
+        margin: 10px;
+      }
+      #qbContainer.available {
+        display: block;
+      }
+    </style>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+      <div class="other-content">页面上的其他内容</div>
+
+      <!-- 用于容纳快速投注组件的容器 -->
+      <div id="qbContainer"></div>
+
+      <div class="other-content">
+        页面上的其他内容
+        <button id="transferButton">转账</button>
+        <button id="setTokenButton">设置Token</button>
+      </div>
+    </div>
+
+    <!-- 先添加监听到页面 -->
+    <script>
+      window.addEventListener('J9SportReady', () => {
+        // 如果window对象上未发现有J9Sport对象, 代表加载sdk失败, 则不添加快速投注组件到页面
+        if (
+          !Boolean(window.J9Sport)
+          ||
+          !window.J9Sport.available
+        ) {
+          return;
+        }
+
+        // 添加组件到页面
+        J9Sport.addWidget(
+          'QUICK_BET',
+          {
+            // 需要显示到到容器
+            el: '#qbContainer',
+            // 客户端类型
+            // 1: 手机端H5
+            // 2: PC端H5  
+            // 3: android 客户端  
+            // 4: android 内嵌网页  
+            // 5: iOs 客户端   
+            // 6: iOs 内嵌网页  
+            // 7: 快捷投注手机网站  
+            // 8: 快捷投注PC网站  
+            // 9: 游戏终端  
+            clientType: 7,
+            // 商户id
+            frontId: '10077100werw564wesfx',
+            // 主站用户token
+            j9Token: 'eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNpMjsEOgjAQBf9lzzShtEC7Z_9APRkPlC5JCdqmLURj_HdBE8N13kzyXpBmAwijXrrIheCcQwGB4s2l5Pw9AV6gn1P2N4poKfjkMk4LMrF6_2EFLVwLiH6ib3I-Hk57IT8DId-TxYWtoEcA5E0llWqkVgW4Lv9Ay0WzgTG79aDRgx0qWTM7dIrJsiqZVpoYGUkkre2NqeH9AQAA__8.S58cT0oEOSU84iZim_9KB-tE_9BZszH6g7UGPNBKF5s',
+            // 语言类型
+            // zh:中文
+            // en:英文
+            locale: 'zh',
+            // 货币类型
+            // 1: 人民币
+            // 2: USDT
+            currency: 2,
+            // 事件
+            on: {
+              /** 组件添加成功 */
+              widgetReady () {
+                console.log('快速投注组件添加成功');
+                // 显示容器
+                document.querySelector('#qbContainer').classList.add('available');
+              },
+              /** 登录请求事件 */
+              signRequest (setToken) {
+                // TODO 弹出登录框,登录成功后得到新token通过setToken重新设置
+                var newToken = window.prompt('新Token:');
+                if (newToken) {
+                  setToken(newToken);
+                }
+              },
+              /** 充值请求事件 */
+              rechargeRequest () {
+                console.log('需要充值');
+                // TODO 转到充值页面, 或弹出充值框
+              },
+              /** 投注成功事件 */
+              betFinished () {
+                console.log('投注成功');
+                // TODO 更新余额或提示用户
+              },
+              /** 更多比赛 */
+              moreBet () {
+                window.open('https://m.j9sport.com/');
+              }
+            }
+          }
+        );
+
+        // 绑定打开转账弹窗转账事件
+        document.querySelector('#transferButton').addEventListener('click', () => {
+          J9Sport.invoke('QuickbetTransfer');
+        });
+        document.querySelector('#setTokenButton').addEventListener('click', () => {
+          const token = window.prompt('xinToken:');
+          if (token) {
+            J9Sport.invoke('QuickbetSetToken', token);
+          }
+        });
+      });
+    </script>
+
+
+    <!-- 接入时使用这个 -->
+    <!-- <script src="https://m.nbmm.co/widgetloader.js" async></script> -->
+
+
+    <!--  接入是不用这样写, 只是为了开发时更方便调试 -->
+    <script src="/widgetloader.js" async></script>
+  </body>
+</html>

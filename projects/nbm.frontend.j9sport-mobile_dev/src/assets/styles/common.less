@@ -1,0 +1,44 @@
+@import './theme.dark.less';
+@import './theme.light.less';
+@import './reset';
+
+body.j9 {
+  color: var(--first-color);
+  background-color: var(--app-background-color);
+}
+
+#root {
+  width: 100vw;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+button, a {
+  transition: all 0.3s ease-out;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.var-tip-text {
+  position: relative;
+  display: inline-block;
+  color: var(--tab-menu-color);
+  var {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: var(--tip-color);
+    font-size: 9px;
+    transform: translate(100%, -60%);
+  }
+}
+
+.horizontal-scrollable {
+  width: 100%;
+  max-width: 960px;
+  overflow: auto;
+}

@@ -1,0 +1,17 @@
+.amount-list {
+  display: grid;
+  grid-gap: 16px 24px;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 10px 0;
+  button {
+    border-radius: 2px;
+    background-color: var(--amount-list-background-color);
+    height: 48px;
+    color: var(--member-info-sub--color);
+    &.active,
+    &:hover {
+      background-image: var(--colorful-linear-gradient);
+      color: var(--colorful-color);
+    }
+  }
+}

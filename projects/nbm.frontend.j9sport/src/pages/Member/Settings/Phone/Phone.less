@@ -1,0 +1,153 @@
+.phone-container {
+  margin: 0 auto;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--member-info-sub--color);
+  }
+
+  .tit {
+    font-size: 20px;
+    font-weight: 700;
+    width: 500px;
+    margin-bottom: 30px;
+  }
+
+  .info {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .form-input {
+    box-sizing: border-box;
+    height: 40px;
+    border: 1px solid #3b3b42;
+    outline: 0;
+    color: var(--member-info-sub--color);
+    font-size: 16px;
+    background-color: #2a2a32;
+
+    &.add {
+      .ant-input-group-addon {
+        font-weight: 700;
+
+        &:after {
+          display: none;
+        }
+      }
+    }
+
+    &:focus {
+      box-shadow: 0 0 3px rgb(150, 150, 150);
+    }
+
+    .ant-input::placeholder {
+      font-size: 14px;
+      color: #6f6f71;
+    }
+  }
+
+  .ant-input-group-addon, .ant-input {
+    background-color: transparent;
+    border: 0;
+    color: var(--member-info-sub--color);
+    font-size: 16px;
+  }
+
+  .ant-input-group-addon {
+    &:after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 1px;
+      height: 80%;
+      border-radius: 32px;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
+      background: linear-gradient(180deg, hsla(240, 1%, 64%, 0) 2%, hsla(240, 1%, 64%, 0.5) 50%, hsla(240, 1%, 64%, 0) 98%);
+    }
+  }
+
+  .send-code {
+    display: flex;
+
+    button {
+      width: 112px;
+      line-height: 40px;
+      height: 40px;
+      text-align: center;
+      background-color: #32323c;
+      margin-left: 20px;
+      color: #a8a8aa;
+      border-radius: 4px;
+
+      &.active, &:hover {
+        border: 1px solid #0b9cfe;
+        color: #0b9cfe;
+      }
+    }
+  }
+
+  .btn-submit {
+    width: 340px;
+    font-size: 16px;
+    color: var(--colorful-color);
+    height: 48px;
+    line-height: 48px;
+    background-image: var(--colorful-linear-gradient);
+    border-radius: 2px;
+    margin-top: 10px;
+
+    &:hover {
+      background-image: var(--colorful-linear-gradient-left);
+    }
+  }
+
+  .type {
+    font-size: 14px;
+    color: #6f6f71;
+    span {
+      color: #f3b867;
+      cursor: pointer;
+    }
+  }
+  .contact-customer {
+    font-size: 14px;
+    color: #6f6f71;
+    margin-top: 20px;
+    padding-left: 40px;
+
+
+    a, span {
+      color: #f3b867;
+      cursor: pointer;
+    }
+
+    svg {
+      font-size: 18px;
+      margin-right: 5px;
+      color: #6f6f71;
+    }
+  }
+
+  .ant-form-item-has-error .ant-input, .ant-form-item-has-error .ant-input-affix-wrapper, .ant-form-item-has-error .ant-input:hover, .ant-form-item-has-error .ant-input-affix-wrapper:hover {
+    background-color: transparent !important;
+  }
+
+  .ant-input-group-wrapper .ant-input-affix-wrapper {
+    border: 0 !important;
+    height: 38px !important;
+    background-color: transparent;
+  }
+}
+.light {
+  .form-input {
+    background-color: transparent;
+  }
+}

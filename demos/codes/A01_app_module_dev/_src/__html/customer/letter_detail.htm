@@ -1,0 +1,117 @@
+<style type="text/css">
+    .letter-read .letter-closing span#author{
+        top: 0px;
+    }
+    .letter-body p{
+        text-indent:2em;
+        word-break: break-all;
+    }
+    .letter-read{
+        width: 100%;
+    }
+</style>
+<template id="contentTmpl">
+    <div class="display_flex_h bank_info">
+        <div class="letter-read letter-content main-content">
+            <div class="container-wrapper">
+                <div class="letter-header">
+                    <h2 class="letter-title"></h2>
+                    <span class="letter-date"></span>
+                    <input type="hidden" name="type" value="1"/>
+                    <input type="hidden" name="id[]" value="138656"/>
+                    <!-- <a id="deletebtn" class="btnlink" href="javascript:void(0)">删除</a> -->
+                </div>
+                <div class="letter-body">
+                    <i class="hr"></i>
+                    <h2>亲爱的用户{{login_name}}:</h2>
+                    <p>{{property2}}</p>
+                </div>
+                <hr/>
+                <div class="letter-closing">
+                    <span id="date">{{created_date}}</span>
+                    <!-- <span id="author">客服经理: 小曼</span> -->
+                    <span id="author">客服经理</span>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+;(function(){
+var vueData={
+    login_name:'',
+    property2:'',
+    created_date:'',
+    created_by:''
+};
+appState.setData({
+    title: '站内信',
+    needLogin: true
+});
+Vue.component("app-content", {
+    template: "#contentTmpl",
+    data:function(){
+        return vueData;
+    }
+});
+JSBridge.onReady(function() {
+    var _this=vueData;
+    var searchUrl=location.search;
+    var letter_id = $.getParam("id");
+    if(typeof(letter_id)=='undefined'){
+        $.toast.fail("数据传输出错");
+        return false;
+    }
+    JSBridge.net.invoke({ //请求数据，渲染页面
+        url: "letter/getList",
+        data: {
+            id:letter_id
+        },
+        success: function (result) {
+            detail=result.list[0];
+            var timeData=detail.created_date.slice(0,10);
+            _this.login_name=detail.login_name;
+            _this.property2=detail.property2;
+            _this.created_date=timeData.slice(8,11)+'/'+timeData.slice(5,7)+'/'+timeData.slice(0,4);
+            _this.created_by=detail.created_by;
+            appState.setData({
+                title: detail.property1,
+                needLogin: true
+            }); 
+            if(result.list[0]['flag'] == 1){return;}
+            JSBridge.net.invoke({ //修改站内信为已读状态
+                url: "letter/viewed",
+                data: {
+                    id:letter_id
+                },
+                success: function (result) {
+                    console.log('success');
+                    var unviewed = JSBridge.cache.get("unviewed");
+                    JSBridge.cache.save("unviewed", {
+                        count: unviewed.count - 1,
+                        outtime: unviewed.outtime
+                    }, 1);
+                },
+                error: function (error) {
+                    $.toast.fail("页面加载失败");
+                }               
+            });   
+        },
+        error: function (error) {
+            $.toast.fail("页面加载失败");
+        }               
+    });
+
+    JSBridge.net.invoke({
+        url: "letter/isUnviewed",
+        success: function (result) {
+            JSBridge.driver.IPSUnread(result);
+        }
+    });  
+});
+})();
+</script>
+
+
+

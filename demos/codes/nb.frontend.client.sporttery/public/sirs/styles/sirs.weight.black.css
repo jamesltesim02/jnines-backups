@@ -1,0 +1,1576 @@
+@import url("//fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&subset=latin,latin-ext");
+.widget-has-custom-style-home-away .sr-bb {
+  font-family: "Roboto", "Noto", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  background: none;
+}
+
+.widget-has-custom-style-home-away .sr-bb .widget-has-custom-style-home-away .sr-bb {
+  background: none;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1 {
+  background: #28272d;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-2 {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-hoverable:hover {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-primary {
+  background: #28272d;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-home-1 {
+  background: #28272d;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-away-1 {
+  background: #28272d;
+  color: #FF9B00;
+  border-color: #FF9B00;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-home-2 {
+  background: #28272d;
+  color: #fff;
+  border-color: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-away-2 {
+  background: #28272d;
+  color: #FF9B00;
+  border-color: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-home-3 {
+  background: #28272d;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-away-3 {
+  background: #28272d;
+  color: #FF9B00;
+  border-color: #FF9B00;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-home-4 {
+  background: #28272d;
+  color: #c2c2c2;
+  border-color: #c2c2c2;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-away-4 {
+  background: #28272d;
+  color: #9b9b9b;
+  border-color: #9b9b9b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-home-5 {
+  background: #28272d;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-away-5 {
+  background: #28272d;
+  color: #dbdbdb;
+  border-color: #dbdbdb;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-background {
+  background: #28272d;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-2 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-2-is-active {
+  background-color: #e7e7e7;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-2-is-hoverable:hover {
+  background-color: #e7e7e7;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-3 {
+  background-color: #4e4e4e;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-3-is-active {
+  background-color: #686868;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-3-is-hoverable:hover {
+  background-color: #686868;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-3-background {
+  background-color: #4e4e4e;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-4 {
+  background-color: #f5f5f5;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-5-is-active {
+  background-color: #3f3f3f;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-5-is-hoverable:hover {
+  background-color: #3f3f3f;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-1 {
+  background: #28272d;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-1-is-active {
+  background-color: #292929;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-1-is-hoverable:hover {
+  background-color: #292929;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-1-is-disabled {
+  background-color: #3f3f3f;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-2 {
+  background-color: #707070;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-3 {
+  background-color: #242424;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-4 {
+  background-color: #9f9f9f;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-5 {
+  background-color: #707070;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-5-is-hoverable:hover {
+  background: #28272d;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-6 {
+  background-color: #1e1e1e;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-7 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-8 {
+  background-color: #272727;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-8-is-active-1 {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-8-is-active-2 {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-9 {
+  background-color: #707070;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-10 {
+  background-color: #707070;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-11 {
+  background-color: #9f9f9f;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-primary-12 {
+  background-color: #fff;
+  color: #333;
+  border-color: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-primary-1 {
+  background: #28272d;
+  color: #333;
+  border-color: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-primary-2 {
+  background: #28272d;
+  color: #707070;
+  border-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-primary-3 {
+  background: #28272d;
+  color: #242424;
+  border-color: #242424;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-primary-4 {
+  background: #28272d;
+  color: #9f9f9f;
+  border-color: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-primary-5 {
+  background: #28272d;
+  color: #707070;
+  border-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-primary-6 {
+  background: #28272d;
+  color: #1e1e1e;
+  border-color: #1e1e1e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-primary-7 {
+  background: #28272d;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-primary-8 {
+  background: #28272d;
+  color: #272727;
+  border-color: #272727;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-primary-9 {
+  background: #28272d;
+  color: #707070;
+  border-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-primary-10 {
+  background: #28272d;
+  color: #707070;
+  border-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-primary-11 {
+  background: #28272d;
+  color: #9f9f9f;
+  border-color: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-neutral-1 {
+  background: #28272d;
+  color: #d6d6d6;
+  border-color: #d6d6d6;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-neutral-2 {
+  background: #28272d;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-neutral-3 {
+  background: #28272d;
+  color: rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-neutral-4 {
+  background: #28272d;
+  color: #595959;
+  border-color: #595959;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-neutral-5 {
+  background: #28272d;
+  color: #2e2e2e;
+  border-color: #2e2e2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-neutral-6 {
+  background: #28272d;
+  color: #272727;
+  border-color: #272727;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-neutral-7 {
+  background: #28272d;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-neutral-8 {
+  background: #28272d;
+  color: #4e4e4e;
+  border-color: #4e4e4e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-neutral-9 {
+  background: #28272d;
+  color: #3f3f3f;
+  border-color: #3f3f3f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-neutral-10 {
+  background: #28272d;
+  color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-neutral-11 {
+  background: #28272d;
+  color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-neutral-12 {
+  background: #28272d;
+  color: #707070;
+  border-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-neutral-13 {
+  background: #28272d;
+  color: #525252;
+  border-color: #525252;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-primary {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-home-1 {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-away-1 {
+  background-color: #2e2e2e;
+  color: #FF9B00;
+  border-color: #FF9B00;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-home-2 {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-away-2 {
+  background-color: #2e2e2e;
+  color: #FF9B00;
+  border-color: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-home-3 {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-away-3 {
+  background-color: #2e2e2e;
+  color: #FF9B00;
+  border-color: #FF9B00;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-home-4 {
+  background-color: #2e2e2e;
+  color: #c2c2c2;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-away-4 {
+  background-color: #2e2e2e;
+  color: #9b9b9b;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-home-5 {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-away-5 {
+  background-color: #2e2e2e;
+  color: #dbdbdb;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-primary-1 {
+  background-color: #2e2e2e;
+  color: #333;
+  border-color: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-primary-2 {
+  background-color: #2e2e2e;
+  color: #707070;
+  border-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-primary-3 {
+  background-color: #2e2e2e;
+  color: #242424;
+  border-color: #242424;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-primary-4 {
+  background-color: #2e2e2e;
+  color: #9f9f9f;
+  border-color: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-primary-5 {
+  background-color: #2e2e2e;
+  color: #707070;
+  border-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-primary-6 {
+  background-color: #2e2e2e;
+  color: #1e1e1e;
+  border-color: #1e1e1e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-primary-7 {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-primary-8 {
+  background-color: #2e2e2e;
+  color: #272727;
+  border-color: #272727;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-primary-9 {
+  background-color: #2e2e2e;
+  color: #707070;
+  border-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-primary-10 {
+  background-color: #2e2e2e;
+  color: #707070;
+  border-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-primary-11 {
+  background-color: #2e2e2e;
+  color: #9f9f9f;
+  border-color: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-neutral-1 {
+  background-color: #2e2e2e;
+  color: #d6d6d6;
+  border-color: #d6d6d6;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-neutral-2 {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-neutral-3 {
+  background-color: #2e2e2e;
+  color: rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-neutral-4 {
+  background-color: #2e2e2e;
+  color: #595959;
+  border-color: #595959;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-neutral-5 {
+  background-color: #2e2e2e;
+  color: #2e2e2e;
+  border-color: #2e2e2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-neutral-6 {
+  background-color: #2e2e2e;
+  color: #272727;
+  border-color: #272727;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-neutral-7 {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-neutral-8 {
+  background-color: #2e2e2e;
+  color: #4e4e4e;
+  border-color: #4e4e4e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-neutral-9 {
+  background-color: #2e2e2e;
+  color: #3f3f3f;
+  border-color: #3f3f3f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-neutral-10 {
+  background-color: #2e2e2e;
+  color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-neutral-11 {
+  background-color: #2e2e2e;
+  color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-neutral-12 {
+  background-color: #2e2e2e;
+  color: #707070;
+  border-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-base-1-is-active-neutral-13 {
+  background-color: #5c5c5c;
+  color: #525252;
+  border-color: #525252;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-home-1 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-away-1 {
+  background-color: #FF9B00;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: #FF9B00;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-home-2 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-away-2 {
+  background-color: #FF9B00;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-home-3 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-away-3 {
+  background-color: #FF9B00;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-home-4 {
+  background-color: #c2c2c2;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: #c2c2c2;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-away-4 {
+  background-color: #9b9b9b;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: #9b9b9b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-home-5 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-away-5 {
+  background-color: #dbdbdb;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: #dbdbdb;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-neutral-1 {
+  background-color: #d6d6d6;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-neutral-2 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-neutral-3 {
+  background-color: rgba(0, 0, 0, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-neutral-4 {
+  background-color: #595959;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-neutral-5 {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-neutral-6 {
+  background-color: #272727;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-neutral-7 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-neutral-8 {
+  background-color: #4e4e4e;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-neutral-9 {
+  background-color: #3f3f3f;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-neutral-10 {
+  background-color: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-neutral-11 {
+  background-color: rgba(255, 255, 255, 0.16);
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-neutral-12 {
+  background-color: #707070;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-neutral-13 {
+  background-color: #525252;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-win {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-draw {
+  background-color: #7a7a7a;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-lose {
+  background-color: #1e1e1e;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-text-secondary {
+  opacity: .7;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-text-disabled {
+  opacity: .35;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-text-tertiary {
+  opacity: .54;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-icon {
+  opacity: .54;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-elevation-1 {
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-elevation-2 {
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.23), 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-elevation-3 {
+  box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.26), 0px 10px 20px 0px rgba(0, 0, 0, 0.19);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-elevation-center-2 {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.23), 0 1px 5px rgba(0, 0, 0, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-inset-top-1 {
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.23);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-inset-bottom-1 {
+  box-shadow: inset 0 -1px 2px 0 rgba(0, 0, 0, 0.23);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-inset-top-2 {
+  box-shadow: inset 0 3px 6px 0 rgba(0, 0, 0, 0.23);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-inset-bottom-2 {
+  box-shadow: inset 0 -3px 6px 0 rgba(0, 0, 0, 0.23);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-inset-top-3 {
+  box-shadow: inset 0 6px 6px 0 rgba(0, 0, 0, 0.23);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-inset-bottom-3 {
+  box-shadow: inset 0 -6px 6px 0 rgba(0, 0, 0, 0.23);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-yellow-card {
+  fill: #ffd659;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-yellow-card {
+  stroke: #ffd659;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-red-card {
+  fill: #e43b3b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-red-card {
+  stroke: #e43b3b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-substitution-in {
+  stroke: #4fbe30;
+  fill: transparent;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-substitution-in {
+  fill: #4fbe30;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-substitution-out {
+  stroke: #e43b3b;
+  fill: transparent;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-substitution-out {
+  fill: #e43b3b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-own-goal {
+  stroke: #e43b3b;
+  fill: transparent;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-own-goal {
+  fill: #e43b3b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-relegation-1 {
+  fill: #c62a2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-relegation-1 {
+  stroke: #c62a2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-relegation-2 {
+  fill: #e53a3b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-relegation-2 {
+  stroke: #e53a3b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-relegation-3 {
+  fill: #ee6d23;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-relegation-3 {
+  stroke: #ee6d23;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-relegation-4 {
+  fill: #fb8d2c;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-relegation-4 {
+  stroke: #fb8d2c;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-relegation-5 {
+  fill: #f9a93f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-relegation-4 {
+  stroke: #f9a93f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-promotion-1 {
+  fill: #c2c2c2;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-promotion-1 {
+  stroke: #c2c2c2;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-promotion-2 {
+  fill: #919191;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-promotion-2 {
+  stroke: #919191;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-promotion-3 {
+  fill: #4e4e4e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-promotion-3 {
+  stroke: #4e4e4e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-promotion-4 {
+  fill: #242424;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-promotion-4 {
+  stroke: #242424;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-soccer-promotion-5 {
+  fill: #0f0f0f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-soccer-promotion-5 {
+  stroke: #0f0f0f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-nfl-timeout-1 {
+  background-color: #f5a623;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-nfl-timeout-2 {
+  background-color: rgba(245, 166, 35, 0.3);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-nfl-penalty {
+  background-color: #f5a623;
+  color: #fff;
+  border-color: #f5a623;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-nfl-negative-yards-1 {
+  background-color: #6e0e1b;
+  color: #fff;
+  border-color: #6e0e1b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-nfl-negative-yards-2 {
+  background-color: #e43b3a;
+  color: #fff;
+  border-color: #e43b3a;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-nfl-first-line {
+  background-color: #4b90de;
+  color: #fff;
+  border-color: #4b90de;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-nfl-ten-line {
+  background-color: #f5a623;
+  color: #fff;
+  border-color: #f5a623;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-nfl-penalty {
+  fill: #f5a623;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-nfl-penalty {
+  stroke: #f5a623;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-nfl-negative-yards-1 {
+  fill: #6e0e1b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-nfl-negative-yards-1 {
+  stroke: #6e0e1b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-nfl-negative-yards-2 {
+  fill: #e43b3a;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-nfl-negative-yards-2 {
+  stroke: #e43b3a;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-nfl-first-line {
+  fill: #4b90de;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-nfl-first-line {
+  stroke: #4b90de;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-nfl-ten-line {
+  fill: #f5a623;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-nfl-ten-line {
+  stroke: #f5a623;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-change-increase {
+  fill: #4fbe30;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-change-increase {
+  stroke: #4fbe30;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-change-decrease {
+  fill: #e43b3b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-change-decrease {
+  stroke: #e43b3b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-text {
+  fill: rgba(0, 0, 0, 0.87);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-text-invert {
+  fill: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-text-secondary {
+  fill-opacity: .7;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-text-disabled {
+  fill-opacity: .35;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-base-1 {
+  fill: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-base-1 {
+  stroke: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-base-1-active {
+  fill: #2e2e2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-base-1-active {
+  stroke: #2e2e2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-base-1-active-2 {
+  fill: #2e2e2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-base-1-active-2 {
+  stroke: #2e2e2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-base-1-primary {
+  fill: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-base-1-primary {
+  stroke: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-base-1-home {
+  fill: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-base-1-home {
+  stroke: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-base-1-away {
+  fill: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-base-1-away {
+  stroke: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-base-2 {
+  fill: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-base-2 {
+  stroke: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-base-2-active {
+  fill: #e7e7e7;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-base-2-active {
+  stroke: #e7e7e7;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-base-2-hover {
+  fill: #e7e7e7;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-base-2-hover {
+  stroke: #e7e7e7;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-base-3 {
+  fill: #4e4e4e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-base-3 {
+  stroke: #4e4e4e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-base-3-active {
+  fill: #686868;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-base-3-active {
+  stroke: #686868;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-base-3-hover {
+  fill: #686868;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-base-3-hover {
+  stroke: #686868;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-1 {
+  fill: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-1 {
+  stroke: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-2 {
+  fill: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-2 {
+  stroke: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-3 {
+  fill: #242424;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-3 {
+  stroke: #242424;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-4 {
+  fill: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-4 {
+  stroke: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-5 {
+  fill: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-5 {
+  stroke: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-6 {
+  fill: #1e1e1e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-6 {
+  stroke: #1e1e1e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-7 {
+  fill: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-7 {
+  stroke: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-8 {
+  fill: #272727;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-8 {
+  stroke: #272727;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-8-is-active-1 {
+  fill: #2e2e2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-8-is-active-1 {
+  stroke: #2e2e2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-8-is-active-2 {
+  fill: #2e2e2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-8-is-active-2 {
+  stroke: #2e2e2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-9 {
+  fill: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-9 {
+  stroke: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-10 {
+  fill: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-10 {
+  stroke: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-11 {
+  fill: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-11 {
+  stroke: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-primary-12 {
+  fill: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-primary-12 {
+  stroke: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-home-1 {
+  fill: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-home-1 {
+  stroke: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-home-2 {
+  fill: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-home-2 {
+  stroke: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-home-3 {
+  fill: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-home-3 {
+  stroke: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-home-4 {
+  fill: #c2c2c2;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-home-4 {
+  stroke: #c2c2c2;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-home-5 {
+  fill: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-home-5 {
+  stroke: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-away-1 {
+  fill: #FF9B00;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-away-1 {
+  stroke: #FF9B00;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-away-2 {
+  fill: #FF9B00;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-away-2 {
+  stroke: #FF9B00;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-away-3 {
+  fill: #FF9B00;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-away-3 {
+  stroke: #FF9B00;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-away-4 {
+  fill: #9b9b9b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-away-4 {
+  stroke: #9b9b9b;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-away-5 {
+  fill: #dbdbdb;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-away-5 {
+  stroke: #dbdbdb;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-1 {
+  fill: #d6d6d6;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-1 {
+  stroke: #d6d6d6;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-2 {
+  fill: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-2 {
+  stroke: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-3 {
+  fill: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-3 {
+  stroke: rgba(0, 0, 0, 0.12);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-4 {
+  fill: #595959;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-4 {
+  stroke: #595959;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-5 {
+  fill: #2e2e2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-5 {
+  stroke: #2e2e2e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-6 {
+  fill: #272727;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-6 {
+  stroke: #272727;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-7 {
+  fill: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-7 {
+  stroke: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-8 {
+  fill: #4e4e4e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-8 {
+  stroke: #4e4e4e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-9 {
+  fill: #3f3f3f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-9 {
+  stroke: #3f3f3f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-10 {
+  fill: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-10 {
+  stroke: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-11 {
+  fill: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-11 {
+  stroke: rgba(255, 255, 255, 0.16);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-12 {
+  fill: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-12 {
+  stroke: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-13 {
+  fill: #525252;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-13 {
+  stroke: #525252;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-win {
+  fill: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-win {
+  stroke: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-draw {
+  fill: #7a7a7a;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-draw {
+  stroke: #7a7a7a;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-lose {
+  fill: #1e1e1e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-lose {
+  stroke: #1e1e1e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-base-1 {
+  stop-color: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-primary-1 {
+  stop-color: #333;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-primary-2 {
+  stop-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-primary-3 {
+  stop-color: #242424;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-primary-4 {
+  stop-color: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-primary-5 {
+  stop-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-primary-6 {
+  stop-color: #1e1e1e;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-primary-7 {
+  stop-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-primary-8 {
+  stop-color: #272727;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-primary-9 {
+  stop-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-primary-10 {
+  stop-color: #707070;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-primary-11 {
+  stop-color: #9f9f9f;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-primary-12 {
+  stop-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-home-1 {
+  stop-color: #fff;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stop-away-1 {
+  stop-color: #FF9B00;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-fill-neutral-14 {
+  fill: rgba(0, 0, 0, 0.54);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-stroke-neutral-14 {
+  stroke: rgba(0, 0, 0, 0.54);
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-logo-powered-by-light {
+  display: none;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srt-logo-powered-by-dark {
+  display: inline-block;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srm-no-background {
+  background: none;
+}
+
+.widget-has-custom-style-home-away .sr-bb .srm-omit-background {
+  background: inherit;
+}

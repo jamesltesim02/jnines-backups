@@ -1,0 +1,91 @@
+<link rel="stylesheet" href="@module/swiper/dist/css/swiper.min.css">
+<script src="@module/swiper/dist/js/swiper.min.js"></script>
+
+<template id="bannerTmpl">
+	<div class="banner banner-component relative">
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div v-for="slide in sliders" class="swiper-slide">
+                    <a :href="slide.href" forward="forward" method="outside" newview="true"><h-img :src="slide.imgurl"></h-img></a>
+                </div>
+			</div>
+		</div>
+		<div class="pagination"></div>
+	</div>
+</template>
+<script type="text/javascript">
+;(function () {
+	var bannerData = {
+		sliders: []
+	};
+	Vue.component("banner", {
+		template: "#bannerTmpl",
+		data: function () {
+			return bannerData;
+		}
+	});
+
+	function showBanners(data) {
+		if(!data || !data.index || !data.index.slider_data || !data.index.slider_data.length) {
+			return;
+		}
+
+		bannerData.sliders.length = 0;
+
+		bannerData.sliders = Array.prototype.map.call(data.index.slider_data, function (v, i) {
+			v.action.detail = v.action.detail.match(/^\//) ?  v.action.detail.substr(1) : v.action.detail;
+			return {
+				imgurl: v.imgurl,
+				href: v.action && v.action.detail ? OtherUtils.formatOutsideUrl(v.action.detail) : "javascript: void(0);"
+			};
+		});
+
+		setTimeout(function () {
+			new Swiper('.banner .swiper-container', {
+		 		lazyLoading:true,
+			    pagination: '.pagination',
+			    paginationClickable: true,
+			    preloadImages:false,
+			    // 自动播放时间间隔 5s 
+			    autoplay: 5000,
+			    // 中断自动播放后继续播放
+			    autoplayDisableOnInteraction: false,
+			});
+		},0);
+	}
+	
+	var bannerOuttime = 0;
+	JSBridge.onReady(function() {
+		var cachedData;
+		if(new Date().getTime() < bannerOuttime) {
+			return;
+		}
+		bannerOuttime = new Date().getTime() + 300000;
+		cachedData = JSBridge.cache.get("bannerData");
+
+		if(cachedData && new Date().getTime() < cachedData.outtime) {
+			showBanners(cachedData.data)
+			return;
+		}
+
+		JSBridge.net.invoke({
+			loading: false,
+			url: "app/indexBanner",
+			success: function (result) {
+				if(!result) {
+					return;
+				}
+
+				var data;
+				data = JSON.parse(result);
+				showBanners(data);
+				
+				JSBridge.cache.save("bannerData", {
+                	data: data,
+                	outtime: new Date().getTime() + 300000
+                }, 1);
+			}
+		});
+	});
+})();
+</script>

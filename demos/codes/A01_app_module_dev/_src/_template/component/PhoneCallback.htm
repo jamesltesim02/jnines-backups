@@ -1,0 +1,127 @@
+
+<style>
+	.callback-tips {
+		color: #000;
+		font-size: 1.3rem;
+		text-align: center;
+		margin-top: 25px;
+	}
+
+	.callback-tips a {
+		color: #1f89e9;
+		text-decoration: underline;
+	}
+</style>
+<template id="phonecallTmpl">
+<div @click.self="hide" v-show="show" class="modal index_phonereg">
+	<div v-show="step==1" class="modal-content">
+		<span class="close icon_close"></span>
+		<p class="callback">
+			<span class="spn1">您的绑定电话为:</span>
+			<span class="spn2">{{customerPhone}}</span>
+		</p>
+		<a @click="call('memberphone')" class="submit submitBtn">确认</a>
+		<a @click="step=2" class="submit submitBtn2">其他电话</a>
+		<p v-if="isvip" class="callback-tips">
+			若vip经理线路忙碌<br>
+			请点击<a @click="isvip=false">免费回拨服务</a>或<a @click="openOnlineServiceChat" >联系在线客服</a>
+		</p>
+	</div>
+	<div v-show="step==2" class="modal-content">
+		<span class="close icon_close"></span>
+		<p class="callback">请输入您当前联系电话号码</p>
+		<input v-model="phonenumber" type="text" class="phone_number" placeholder="输入电话号码" maxlength="12">
+		<div class="captcha-cont" style="display: none;">
+			<input type="text" class="phone_number" placeholder="验证码" maxlength="4">
+			<br><br>
+			<div class="captcha">
+				<img  width="100%" height="100%" alt="">
+			</div>
+		</div>
+		<span id="callbackfxn-num-msg" class="err-msg" style="display:none;"></span>
+		<a @click="call()" class="submit submitBtn">申请回拨</a>
+		<p v-if="isvip" class="callback-tips">
+			若vip经理线路忙碌<br>
+			请点击<a @click="isvip=false">免费回拨服务</a>或<a @click="openOnlineServiceChat" >联系在线客服</a>
+		</p>
+	</div>
+
+	<div v-show="step==3" class="modal-content">
+		<span class="close icon_close"></span>
+		<p class="callback">申请成功，1分钟内给您回电，如客服满线，3分钟未联系您，请重提回拨申请</p>
+		<a @click="hide" class="submit submitBtn enter">确定</a>
+	</div>
+</div>
+</template>
+<script type="text/javascript">
+;(function () {
+	var pcData = {
+		phonenumber: "",
+		customerPhone: null,
+		step: 1
+	};
+	Vue.component("phone-callback", {
+		template: "#phonecallTmpl",
+		props: ["show","isvip"],
+		data: function () {
+			return pcData;
+		},
+		watch: {
+			show: function (n, o) {
+				this.customerPhone = this.getCustomerPhone();
+				this.step = this.customerPhone ? 1 : 2;
+			}
+		},
+		methods: {
+			hide: function () {
+				this.$emit("update:show", false);
+			},
+			getCustomerPhone: function () {
+				if(!CustomerUtils.isLoged()) {
+					return null;
+				}
+
+				var customer = JSBridge.cache.get("customer");
+
+				if(customer && customer.phone) {
+					return OtherUtils.mixPhone(customer.phone);
+				}
+				return null;
+			},
+			call: function (type) {
+				if("memberphone" !== type && !(/[\d]+\*/.test(this.phonenumber)) && !/^1\d{10,11}$/.test(this.phonenumber)) {
+					$.toast.fail("请输入正确的电话号码");
+					return;
+				}
+
+                if (JSBridge.cache.get("phoneCallbackData")) {
+                    $.toast.fail("请勿频繁提交，等待2分钟后再试");
+                    return;
+                }
+                
+				var _this = this;
+				var url = CustomerUtils.isLoged() ? "A01/phones/memberCall" : "A01/phones/customCall"
+				JSBridge.net.invoke({
+					url: url,
+					data: {
+						phone_number: _this.phonenumber,
+						phone_type: type,
+						isvip: _this.isvip
+					},
+					success: function (result) {
+						_this.step = 3;
+						JSBridge.cache.save("phoneCallbackData", true, 120000); // 2分钟 1000 * 60 * 2
+					},
+					error: function (error) {
+						$.toast.fail(error ? error.message : "回拨失败,请联系在线客服");
+					}
+				});
+			},
+			openOnlineServiceChat: function () {
+				JSCallback({method: "openOnlineServiceChat"});
+				this.$emit("update:show", false);
+			}
+		}
+	});
+})();
+</script>

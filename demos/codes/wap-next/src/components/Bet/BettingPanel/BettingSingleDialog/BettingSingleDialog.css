@@ -1,0 +1,12 @@
+.nb-betting-dialog {
+  width: 100%;
+  background: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  overflow: hidden;
+}
+
+.nb-betting-dialog .nb-order-item-container {
+  margin-bottom: 0;
+  border-radius: 0;
+}

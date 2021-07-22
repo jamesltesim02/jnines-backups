@@ -1,0 +1,40 @@
+.europe-sub-nav {
+  header {
+    display: flex;
+    height: 40px;
+    line-height: 40px;
+    background-image: linear-gradient(to right, #2b313d 14%, #111520 85%);
+    border: 1px solid #2c3061;
+    border-left: 0;
+    border-right: 0;
+    > div {
+      position: relative;
+      min-width: 100px;
+      text-align: center;
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-right: 1px solid #373737;
+        transform: skew(-15deg);
+      }
+      &.active {
+        color: #ebba73;
+        &:before {
+          content: "";
+          position: absolute;
+          width: 40%;
+          height: 2px;
+          background-image: linear-gradient(to right, #e2b271 0%, #f6d99d);
+          transform: skew(-15deg) translateX(-50%);
+          top: 30px;
+          left: 50%;
+        }
+      }
+    }
+  }
+
+}

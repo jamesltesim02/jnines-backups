@@ -1,0 +1,292 @@
+<script src="@module/city-dic/dist/city-dic.min.js"></script>
+<template id="contentTmpl">
+	<div class="display_flex_h bank_info">
+		<div class="main_content">
+	        <div class="add_bank_card_content _03" v-show="isBodyVisible">
+	            <div class="layout_form">
+	                <form action="" method="post">            
+	                    <div class="form_field_wrap">
+	                        <div class="form_field">
+	                            <span class="label">持卡人姓名</span>      
+	                            <div class="input_wrap txt_right">
+	                                <div class="reservedInfo">
+	                                    <input read-only class="txt_right" type="text" readonly v-bind:value="mixed(bank_account_name)">
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="form_field">
+	                            <span class="label">开户行</span>      
+	                            <div class="input_wrap txt_right">
+	                                <select v-model="bank_name" v-on:change="bankNameSelect">
+	                                    <option value="">请选择收款银行类别</option>
+										<option value="招商银行">招商银行</option>
+										<option value="交通银行">交通银行</option>
+										<option value="农业银行">农业银行</option>
+										<option value="工商银行">工商银行</option>
+										<option value="建设银行">建设银行</option>
+										<option value="中国银行">中国银行</option>
+										<option value="民生银行">民生银行</option>
+										<option value="光大银行">光大银行</option>
+										<option value="兴业银行">兴业银行</option>
+										<option value="平安银行">平安银行</option>
+										<option value="中信银行">中信银行</option>
+										<option value="浦发银行">浦发银行</option>
+										<option value="广发银行">广发银行</option>
+										<option value="华夏银行">华夏银行</option>
+										<option value="中国邮政银行">中国邮政银行</option>
+										<option value="深圳发展银行">深圳发展银行</option>
+										<option value="农村信用合作社">农村信用合作社</option>
+	                                </select>
+	                            </div>
+	                        </div>  
+	                        <div class="form_field">
+	                            <span class="label">卡片类别</span>      
+	                            <div class="input_wrap txt_right">
+	                                <select v-model="bank_account_type">
+	                                    <option value="借记卡">借记卡</option>
+	                                    <option value="信用卡">信用卡</option>
+	                                    <option value="存折">存折</option>
+	                                </select>
+	                            </div>
+	                        </div>  
+	                        <div class="form_field">
+	                            <span class="label">卡号</span>      
+	                            <div class="input_wrap txt_right">
+	                                <input v-model.trim="bank_account_no" class="txt_right" type="text" placeholder="输入银行卡号" maxlength="19" />
+	                            </div>
+	                        </div>  
+	                        <div class="form_field">
+	                            <span class="label">开户省份</span>      
+	                            <div class="input_wrap txt_right">
+	                                <select v-model.trim="bank_country" id="prov" name="province">
+	                                    <option v-for="p in provinces" :value="p">{{p || "请选择省份"}}</option>
+	                                </select>
+	                            </div>
+	                        </div>  
+	                        <div class="form_field">
+	                            <span class="label">开户城市</span>      
+	                            <div class="input_wrap txt_right">
+	                                <select v-model.trim="bank_city" id="accountcity" name="city">
+	                                    <option v-for="c in citys" :value="c">{{c || "请选择城市"}}</option>
+	                                </select>
+	                            </div>
+	                        </div>  
+	                        <div class="form_field">
+	                            <span class="label">开户网点</span>      
+	                            <div class="input_wrap txt_right">
+	                                <input v-model.trim="branch_name" class="txt_right" type="text" placeholder="输入开户网点" maxlength="19" />
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <p style="text-align:center;padding-top:15px;color:#d19538;" v-show="!isVisible">绑定此银行取款较慢，取款24小时内到账！</p>
+	                    <div class="form_btn-wrap" v-if="bank_card_num>0">
+	                        <a @click="saveBank" class="btn btn-lg btn-blu3" style="width:40%;float:left;font-size:1.2rem;line-height:40px;height:auto;padding:1px 3px;">保存</a>
+	                        <a @click="saveDefaultBank" class="btn btn-lg btn-ylw" style="width:50%;float:right;font-size:1.2rem;line-height:40px;height:auto;padding:1px 3px;">保存并设置为取款卡</a>
+	                    </div>
+	                    <div class="form_btn-wrap" v-else>
+                            <a @click="saveBank" class="btn btn-lg btn-ylw">下一步</a>
+                        </div>
+	                </form>
+	            </div>  
+	        </div>
+	    </div>
+    </div>
+</template>
+<script>
+
+;(function() {
+	var contentData = {
+        "bank_account_name":'',
+		'bank_name':'',
+		'bank_account_type':'借记卡',
+		'bank_account_no':'',
+		'bank_country':'',
+		'bank_city':'',
+		'branch_name':'',
+		'save_default': 0,
+		'provinces': CityUtils.getProvinces(),
+		'citys': [""],
+		'isBodyVisible': false,
+		'isVisible': true,
+		'bank_card_num': 0,
+		'infoCompleted': false
+    };
+	appState.setData({
+	    needLogin: true,
+	    title: '添加银行卡',
+	});
+	Vue.component("app-content", {
+		template: "#contentTmpl",
+		data: function() {
+			return contentData;
+		},
+		watch: {
+			bank_country: function (n, o) {
+				this.citys = CityUtils.getCitys(this.bank_country);
+				this.bank_city = "";
+			}
+		},
+		methods: {
+			bankNameSelect: function(){
+				var value = this.bank_name;
+				if (value=='工商银行' || value=='农业银行' || value=='建设银行' || value=='招商银行' || value=='交通银行' || value=='中国银行') {
+					this.isVisible = true;
+				} else {
+					this.isVisible = false;
+				}
+			},
+			saveDefaultBank: function() {
+				this.save_default = 1;
+				this.saveBank();
+			},
+			saveBank: function () {
+				var _this = this;
+
+				if (getexpire()) {
+                    return true;
+                }
+
+				if (_this.bank_name == ''){
+					$.toast.fail("请正确选择银行类型");
+					return;
+				} else if(_this.bank_account_type == ''){
+					$.toast.fail('请正确选择卡片类别');
+					return;	
+				} else if (!(/[\d]+\*/.test(_this.bank_account_no)) &&  !/^\d{16,19}$/.test(_this.bank_account_no)){
+					$.toast.fail("银行账号一般长度在16至19位");
+					return;
+				} else if (!_this.bank_country){
+					$.toast.fail('请正确选择开户省份');
+					return;
+				} else if (!_this.bank_city){		
+					$.toast.fail('请正确选择开户城市');
+					return;		
+				} else if (!_this.branch_name.match(/^[^\s\"\'\`\,]{2,20}$/)){
+					$.toast.fail('请正确输入开户网点,且长度必须在 2和 20之间');
+					return;
+				}
+                
+                setexpire();
+				JSBridge.net.invoke({
+					url: "bankcard/update",
+					data: {
+						'bank_account_name':_this.bank_account_name,
+						'bank_name':_this.bank_name,
+						'bank_account_type':_this.bank_account_type,
+						'bank_account_no':_this.bank_account_no,
+						'bank_country':_this.bank_country,
+						'bank_city':_this.bank_city,
+						'branch_name':_this.branch_name,
+						'bank_flag':1,
+						'save_default':_this.save_default
+					},
+					success: function (result) {
+						var times = bankCardVerifyTimes();
+		                if (times < 3) {
+		                	JSBridge.net.invoke({
+		                	    url: "apply/approve",
+		                	    data: {
+		                	        'request_id': result.request_id,
+		                	        'request_type': '06'
+		                	    },
+		                	    success: function (result) {}
+		                	});
+		                }
+		                
+		                isAddBankCardSuccess();
+					},
+					error: function (error) {
+						console.log(error);
+						isAddBankCardSuccess();
+					}
+				});
+			},
+			mixed: function (name) {
+				var len = name.length;
+				name = name && name.slice(0,1)+ '*'.repeat(len-2) + name.slice(len-1, len);
+				return name;
+			}
+		}
+	});
+	
+	function isAddBankCardSuccess() {
+		var _this = contentData;
+		var times = bankCardVerifyTimes();
+		JSBridge.cache.save("bankCardAddSuccessData", {
+            data: {
+                "save_default": _this.save_default,
+                "method": times < 3 ? 'phone':'manual',
+                "isOk": true
+            },
+            outtime: new Date().getTime() + 90*1000
+        }, 1);
+        
+        JSBridge.forward.inside({url:'customer/bank_add_success.htm', newView: true});
+	}
+	
+	function bankCardVerifyTimes() {
+		var times = 0;
+        var dataCache = JSBridge.cache.get("bankCardPhoneVerifyTimesData");
+        if (dataCache && new Date().getTime() < dataCache.outtime) {
+            times = !dataCache.data.times ? 0 : parseInt(dataCache.data.times);
+        }
+        
+        return times;
+	}
+	
+	function isAllowAddBankCard() {
+		var dataCache = JSBridge.cache.get("bankCardAddStatusData");
+        if (dataCache && new Date().getTime() < dataCache.outtime) {
+        	JSBridge.cache.delete("bankCardAddStatusData");
+            return true;
+        }
+        return false;
+	}
+	
+	JSBridge.onReady(function() {
+		var _this = contentData;
+		new Promise(function (resolve, reject) {
+			if(_this.infoCompleted) {
+				return resolve();
+			}
+			CheckUtil.infoCompleted(function(customer) {
+				_this.bank_account_name = customer.real_name;
+				resolve();
+			},reject);
+		}).then(function () {
+			var dataCache = JSBridge.cache.get("bindingBankCardCountData");
+			if (dataCache && new Date().getTime() < dataCache.outtime) {
+				_this.bank_card_num = dataCache.data;
+				_this.save_default = _this.bank_card_num>0 ? 0:1;
+			} else {
+				JSBridge.forward.inside({url:"customer/bank_list.htm", newView: true});
+			}
+			
+			if (_this.bank_card_num>0){
+				CheckUtil.mobileBinded(function(){
+					var times = bankCardVerifyTimes();
+					JSBridge.cache.save("bankCardVerifyMothodData", {
+						data: {
+							"phone": times<3 ? true : false, 
+							"manual": times>=3 ? true : false
+						},
+						outtime: new Date().getTime() + 600000
+					}, 1);
+
+					if (isAllowAddBankCard()) {
+						_this.isBodyVisible = true;
+					} else {
+						JSBridge.forward.inside({url:"customer/bank_method.htm", newView: true});
+					}
+				},function(){
+					JSBridge.forward.inside({url:"customer/bind_mobile.htm", newView: true});
+				});
+			} else {
+				_this.isBodyVisible = true;
+			}
+		},function () {
+			JSBridge.forward.inside({url:'customer/personal_info.htm?from='+OtherUtils.getPath(), newView: true});
+		});
+	});
+})();
+</script>

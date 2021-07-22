@@ -1,0 +1,8 @@
+.widget-has-custom-style-home-away .sr-bb .srt-away-1 {
+  background-color: rgb(255, 83, 83);
+  color: rgba(0, 0, 0, 0.87);
+  border-color: rgb(255, 83, 83);
+}
+.sr-general-statistics__matchheader-wrapper {
+  display: none;d
+}

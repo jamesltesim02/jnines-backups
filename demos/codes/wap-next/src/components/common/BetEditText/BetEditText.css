@@ -1,0 +1,15 @@
+.nb-bet-edit-text {
+  border: 0;
+  background: #EEEEEE;
+  border-radius: 4px;
+  height: .8rem;
+  color: #333333;
+  padding: 0 .22rem;
+  font-size: .3rem;
+  width: 100%;
+  caret-color:#53C0FF;
+}
+
+.nb-bet-edit-focus {
+  box-shadow: 0 0 4px 1px #53C0FF;
+}
